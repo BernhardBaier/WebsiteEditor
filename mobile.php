@@ -5,7 +5,7 @@
  * Date: 13.05.14
  * Time: 20:50
  */
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 $id = $_GET['id'];
 if($id == ""){
     $id = 1;
@@ -25,11 +25,11 @@ $erg = mysqli_query($sql,$que);
 while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
-function printMenu($sql,$n_parent=0){
+function printMenu($sql,$n_parent=0,$level=0){
     global $table,$parents,$childs,$lang,$id;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
     $erg = mysqli_query($sql,$que);
-    $rows = array();
+    $rows = [];
     while($help = mysqli_fetch_array($erg)){
         $rows[$help['rank']] = $help;
     }
@@ -42,16 +42,23 @@ function printMenu($sql,$n_parent=0){
         $name = $row['name'];
         $childCount = $row['childCount'];
         $classToAdd = $id==$pid?' active':'';
+        $children = unserialize($row['child']);
         if($extra == "1"){
             if($parent == 0){
                 $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";
             }else{
-                if(findInArray($parents,$pid) > -1 || findInArray($childs,$pid) > -1){
+                $print = false;
+                if($level == sizeof($parents)-1){
+                    if(sizeof($childs) < 5 || $childs == '' || $childs == 'NULL'){
+                        $print = true;
+                    }
+                }
+                if(findInArray($parents,$pid) > -1 || findInArray($childs,$pid) > -1 || $print===true){
                     $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";
                 }
             }
             if($childCount > 0){
-                $output .= '<ul>'.printMenu($sql,$pid) . '</ul>';
+                $output .= '<ul>'.printMenu($sql,$pid,++$level) . '</ul>';
             }
         }
     }
@@ -80,7 +87,7 @@ function findInArray($array,$needle){
     return -1;
 }
 function replaceUml($text){
-    $umlaute = [['Ã¤','Ã¶','Ã¼','Ã„','Ã–','Ãœ','ÃŸ'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
+    $umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
     for($i=0;$i<sizeof($umlaute[0]);$i++){
         $text = str_replace($umlaute[0][$i],$umlaute[1][$i],$text);
     }
@@ -110,6 +117,7 @@ while($row = mysqli_fetch_array($erg)){
     <script src="scriptMobile.js"></script>
     <!-- todo: remove this in final!--><script src="jquery-1.9.1.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="picViewer/picViewer.js"></script>
 </head>
 <body onload="init()">
 <div class="container">
@@ -123,7 +131,7 @@ while($row = mysqli_fetch_array($erg)){
             ?>
         </div>
     </div>
-    <div class="pageOuter">
+    <div class="pageOuter" id="pageOuter">
         <div class="content">
             <div class="contentInner">
                 <?php
@@ -146,7 +154,7 @@ while($row = mysqli_fetch_array($erg)){
         </div>
     </div>
     <div class="footer">
-
+        Footer
     </div>
     <div class="copyright">
         Copyright &copy; 2014 <?php echo($pageTitle)?>

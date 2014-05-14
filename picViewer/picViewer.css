@@ -123,6 +123,7 @@
 }
 .picViewerCloser{
     position:absolute;
+    z-index:5;
     right:-23px;
     top:-23px;
     cursor:pointer;

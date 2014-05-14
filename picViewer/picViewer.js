@@ -2,13 +2,14 @@
  * Created by Bernhard on 13.12.13.
  */
 /*                  Settings                */
-var picViewerClassName = '.picsClickAble';  //class or Id of the element in which the picViewerPics will be searched
-var picViewerThumbnails = 'thumbs/';             //Standard Thumbnail path
-var activatePreloadBar = true;          //set it to show or not to show the progress bar of the preload.
-var autoResizePics = false;             //Set this to true to automatically change the height of all found picViewerPics to the value below
-var autoResizeHeight = 100;             //height after resize
+var picViewerClassName = '.picsClickAble'; //class or Id of the element in which the picViewerPics will be searched
+var picViewerThumbnails = 'thumbs/';       //Standard Thumbnail path
+var activatePreloadBar = true;             //set it to show or not to show the progress bar of the preload.
+var autoResizePics = false;                //Set this to true to automatically change the height of all found picViewerPics to the value below
+var autoResizeHeight = 100;                //height after resize
 var picViewerExcludePics = ['loading.gif','close.png'];      //a list of picViewerPics that should not be clickable
-var showPicNameAsTitle = false;         //automatically show the name of the pic as title
+var showPicNameAsTitle = false;            //automatically show the name of the pic as title
+var picViewerIsMobile = false;                      //is the viewer used by an mobile device???
 
 /*                    code                  */
 var picViewerPics = [];//the source of the picViewerImages will be stored in here
@@ -19,6 +20,8 @@ var picViewerIndex = -1;
 var maxPicId = -1;
 var picViewerPreloadId = -1;
 var picViewerWindowHeight,picViewerWindowWidth;
+var picViewerPicHeight = 25;
+
 if (!document.getElementById('picViewerStyle')){//get the style in
     var head  = document.getElementsByTagName('head')[0];
     var link  = document.createElement('link');
@@ -85,6 +88,11 @@ function picViewerHandlePics(){
     }
     picViewerFinishInit();
 }
+function initPicViewerMobile(){
+    picViewerPicHeight = 55;
+    picViewerIsMobile = true;
+    initPicViewer();
+}
 function initPicViewer(){
     picViewerPics = [];
     picViewerPicFkts = [];
@@ -93,8 +101,9 @@ function initPicViewer(){
     $('.picViewerOvLeft').addClass('picViewerHidden');
     $('.picViewerOvRight').addClass('picViewerHidden');
     if($('.pagePicViewer').width() <= 0){
-        document.body.innerHTML = '<div class="pagePicViewer picViewerOpac0 picViewerHidden" align="center"><div class="picViewerOverlay" onclick="hidePicViewer()"></div><div class="picViewerOuter"><div class="picViewerHidden" id="picViewerPreload"></div><div class="picViewer"><div class="picViewerCloser"><img src="picViewer/picViewerImages/close.png" onclick="hidePicViewer()" title="close" height="25" /></div><div class="picViewerHider"><img width="80" class="picHiderImg" src="picViewer/picViewerImages/loading.gif" /></div><div class="picViewerTitle picViewerHidden"></div><div class="picViewerInner"><div class="picViewerOvLeft picViewerOpac0 picViewerHidden" onclick="picViewerShowPrevPic()" onmouseover="picViewerPicOver(this)" onmouseout="picViewerPicOut(this)"><img height="100" class="picViewerLeftImg" src="picViewer/picViewerImages/left.png" title="voheriges Bild" /></div><img class="picViewerImg" width="200" id="picViewerImg1" src="picViewer/picViewerImages/loading.gif" onload="picViewerPicLoaded()" /><div class="picViewerOvRight picViewerOpac0 picViewerHidden" onclick="picViewerShowNextPic()" onmouseover="picViewerPicOver(this)" onmouseout="picViewerPicOut(this)"><img height="100" class="picViewerRightImg" src="picViewer/picViewerImages/right.png" title="weiteres Bild" /></div></div></div>' +
-        '<div class="picViewerAutoBar picViewerHidden"></div><div class="picViewerAuto"><img class="picViewerAutoImg picViewerHidden" title="play" src="picViewer/picViewerImages/play.png" onclick="picViewerPlay()" height="25"/><img class="picViewerAutoImg" title="info" src="picViewer/picViewerImages/info.png" onclick="picViewerInfo()" height="25"/></div>' +
+        var picViewerInfo = picViewerIsMobile==true?'':'<img class="picViewerAutoImg" title="info" src="picViewer/picViewerImages/info.png" onclick="picViewerInfo()" height="'+picViewerPicHeight+'"/>';
+        document.body.innerHTML = '<div class="pagePicViewer picViewerOpac0 picViewerHidden" align="center"><div class="picViewerOverlay" onclick="hidePicViewer()"></div><div class="picViewerOuter"><div class="picViewerHidden" id="picViewerPreload"></div><div class="picViewer"><div class="picViewerCloser"><img src="picViewer/picViewerImages/close.png" onclick="hidePicViewer()" title="close" height="'+picViewerPicHeight+'" /></div><div class="picViewerHider"><img width="80" class="picHiderImg" src="picViewer/picViewerImages/loading.gif" /></div><div class="picViewerTitle picViewerHidden"></div><div class="picViewerInner"><div class="picViewerOvLeft picViewerOpac0 picViewerHidden" onclick="picViewerShowPrevPic()" onmouseover="picViewerPicOver(this)" onmouseout="picViewerPicOut(this)"><img height="100" class="picViewerLeftImg" src="picViewer/picViewerImages/left.png" title="voheriges Bild" /></div><img class="picViewerImg" width="200" id="picViewerImg1" src="picViewer/picViewerImages/loading.gif" onload="picViewerPicLoaded()" /><div class="picViewerOvRight picViewerOpac0 picViewerHidden" onclick="picViewerShowNextPic()" onmouseover="picViewerPicOver(this)" onmouseout="picViewerPicOut(this)"><img height="100" class="picViewerRightImg" src="picViewer/picViewerImages/right.png" title="weiteres Bild" /></div></div></div>' +
+        '<div class="picViewerAutoBar picViewerHidden"></div><div class="picViewerAuto"><img class="picViewerAutoImg picViewerHidden" title="play" src="picViewer/picViewerImages/play.png" onclick="picViewerPlay()" height="'+picViewerPicHeight+'"/>'+picViewerInfo+'</div>' +
         '<div class="picViewerInfoOuter picViewerHidden">Info</br><span style="color:#555;font-size:12px;">PicViewer Version 2.0</span><div class="picViewerInfo">- Use arrow keys to navigate</br>- press x to close</br>- press p to start auto mode</br>- use +&- keys to set speed in auto mode</br>- press i to toggle information</div></div></div></div>'+document.body.innerHTML;
     }
     picViewerGetSize();
@@ -144,36 +153,38 @@ function hidePicViewer(){
 function showPicViewer(src){
     src = src.replace(location.toString(),'');
     src = src.replace(picViewerThumbnails,'');
-    document.onkeydown = function(e){
-        var ev = window.event ? window.event : e;
-        if(ev.keyCode == 80){
-            if(!picVieweIsAuto){
-                picViewerPlay();
+    if(!picViewerIsMobile){
+        document.onkeydown = function(e){
+            var ev = window.event ? window.event : e;
+            if(ev.keyCode == 80){
+                if(!picVieweIsAuto){
+                    picViewerPlay();
+                }
+            }else if(ev.keyCode == 39){
+                if(picVieweIsAuto){
+                    window.clearTimeout(picViewerTimer);
+                }
+                picViewerShowNextPic();
+            }else if(ev.keyCode == 37){
+                if(picVieweIsAuto){
+                    window.clearTimeout(picViewerTimer);
+                }
+                picViewerShowPrevPic();
+            }else if(ev.keyCode == 171){
+                if(picVieweIsAuto){
+                    picViewerFaster();
+                }
+            }else if(ev.keyCode == 173){
+                if(picVieweIsAuto){
+                    picViewerSlower();
+                }
+            }else if(ev.keyCode == 88){
+                hidePicViewer();
+            }else if(ev.keyCode == 73){
+                picViewerInfo();
             }
-        }else if(ev.keyCode == 39){
-            if(picVieweIsAuto){
-                window.clearTimeout(picViewerTimer);
-            }
-            picViewerShowNextPic();
-        }else if(ev.keyCode == 37){
-            if(picVieweIsAuto){
-                window.clearTimeout(picViewerTimer);
-            }
-            picViewerShowPrevPic();
-        }else if(ev.keyCode == 171){
-            if(picVieweIsAuto){
-                picViewerFaster();
-            }
-        }else if(ev.keyCode == 173){
-            if(picVieweIsAuto){
-                picViewerSlower();
-            }
-        }else if(ev.keyCode == 88){
-            hidePicViewer();
-        }else if(ev.keyCode == 73){
-            picViewerInfo();
-        }
-    };
+        };
+    }
     for(var i=0;i<picViewerPics.length;i++){
         if(picViewerPics[i] == src){
             picViewerIndex = i;
@@ -305,7 +316,7 @@ function picViewerPlay(){
     $('.picViewerOvRight').addClass('picViewerHiddenTot');
 }
 function picViewerSetSize(){
-    $('.picViewerAuto').html('<img class="picViewerAutoImg" title="slower" src="picViewer/picViewerImages/minus.png" onclick="picViewerSlower()" height="25"/><img class="picViewerAutoImg" title="stop" src="picViewer/picViewerImages/stop.png" onclick="picViewerStop()" height="25"/><img class="picViewerAutoImg" title="faster" src="picViewer/picViewerImages/plus.png" onclick="picViewerFaster()" height="25"/>');
+    $('.picViewerAuto').html('<img class="picViewerAutoImg" title="slower" src="picViewer/picViewerImages/minus.png" onclick="picViewerSlower()" height="'+picViewerPicHeight+'"/><img class="picViewerAutoImg" title="stop" src="picViewer/picViewerImages/stop.png" onclick="picViewerStop()" height="'+picViewerPicHeight+'"/><img class="picViewerAutoImg" title="faster" src="picViewer/picViewerImages/plus.png" onclick="picViewerFaster()" height="'+picViewerPicHeight+'"/>');
     $('.picViewerAutoBar').removeClass('picViewerHidden').css('transition','width '+picViewerTime+'ms linear').css('-webkit-transition','width '+picViewerTime+'ms linear').width(picViewerActualWidth);
     picViewerGetSize();
     var $width;
@@ -335,7 +346,8 @@ function picViewerStop(){
     picVieweIsAuto = false;
     $('.picViewerCloser').removeClass('picViewerHidden');
     $('.picViewerOverlay').css('opacity',0.7);
-    $('.picViewerAuto').html('<img class="picViewerAutoImg" title="play" src="picViewer/picViewerImages/play.png" onclick="picViewerPlay()" height="25"/><img class="picViewerAutoImg" title="info" src="picViewer/picViewerImages/info.png" onclick="picViewerInfo()" height="25"/>');
+    var picViewerInfo = picViewerIsMobile==true?'':'<img class="picViewerAutoImg" title="info" src="picViewer/picViewerImages/info.png" onclick="picViewerInfo()" height="'+picViewerPicHeight+'"/>';
+    $('.picViewerAuto').html('<img class="picViewerAutoImg" title="play" src="picViewer/picViewerImages/play.png" onclick="picViewerPlay()" height="'+picViewerPicHeight+'"/>'+picViewerInfo);
     $('.picViewerAutoBar').addClass('picViewerHidden').css('transition','width 0ms').css('-webkit-transition','width 0ms').width(0);
     picViewerGetSize();
     var $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 90)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 175;
