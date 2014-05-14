@@ -1,9 +1,11 @@
 *.crypt
 *.pptx
 *.ppt
-uploads/*
+upload/*
 content/de/*
 content/en/*
 web-content/*
 web-images/*
 web-others/*
+webSockets/*
+.idea/*
