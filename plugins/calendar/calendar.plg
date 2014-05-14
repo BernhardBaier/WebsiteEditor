@@ -1,0 +1,16 @@
+#name#calendar#
+#copy#
+#file#access.crypt#
+#file#access.php#
+#file#auth.php#
+#required#
+#file#images/logo.png#
+#file#images/logo.png#
+#file#access.crypt#
+#file#access.php#
+#file#auth.php#
+#file#include.php#
+#file#calendar.php#
+#includes#
+#file#calendar.php#
+#end#

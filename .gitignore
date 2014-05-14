@@ -1,0 +1,9 @@
+*.crypt
+*.pptx
+*.ppt
+uploads/*
+content/de/*
+content/en/*
+web-content/*
+web-images/*
+web-others/*
