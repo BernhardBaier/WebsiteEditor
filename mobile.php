@@ -149,7 +149,7 @@ while($row = mysqli_fetch_array($erg)){
 
     </div>
     <div class="copyright">
-        Copyright &copy; 2014 Bernhard Baier
+        Copyright &copy; 2014 <?php echo($pageTitle)?>
     </div>
 </div>
 </body>
