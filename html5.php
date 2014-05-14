@@ -76,7 +76,8 @@ function printMenu($sql,$n_parent=0,$level=0){
     return $output;
 }
 function getAllParentsById($id,$sql){
-    $que = "SELECT * FROM pages WHERE id=$id";
+    global $lang;
+    $que = "SELECT * FROM pages_$lang WHERE id=$id";
     $erg = mysqli_query($sql,$que);
     while($row = mysqli_fetch_array($erg)){
         $parent = $row['parent'];
@@ -117,6 +118,12 @@ while($pos > -1){
     <title><?php echo($pageTitle);?></title>
     <script>
         var pageId = <?php echo($id);?>;
+        var correctRightBar = false;
+        <?php
+            if($browser == 'Chrome' || $browser == 'Opera'){
+                echo("correctRightBar = true;");
+            }
+        ?>
     </script>
     <link rel="stylesheet" href="styleHTML5.css" />
     <link rel="stylesheet" href="commonStyle.css"/>

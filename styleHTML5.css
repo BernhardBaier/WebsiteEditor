@@ -59,9 +59,9 @@ body{
     display:inline-block;
     height:100%;
     border-left-width:1px;
-    border:0 solid #A00;
-    box-shadow:inset 0 0 150px #A00;
-    background:#D00;
+    border:0 solid #C00;
+    box-shadow:inset 0 0 150px #C00;
+    background:#F00;
 }
 .rightBarInner{
     display:block;
@@ -157,38 +157,21 @@ body{
     cursor:pointer;
 }
 .menuItem.active{
-    background:#DA8028;
-}
-.subMenu{
-    top:38px;
-    left:-1px;
-    z-index:9;
-    position:absolute;
-    background:#B00;
-    border:1px solid #900
-}
-.subMenu2{
-    transition:visibility 200ms,opacity 200ms;
-    -webkit-transition:visibility 200ms,opacity 200ms;
-    position:absolute;
-    left:175px;
-    top:-1px;
-    background:#A00;
-    border:1px solid #800;
+    background:#739E39;
 }
 .topItem{
     transition:background 250ms;
     -webkit-transition:background 250ms;
     font-size:20px;
     position:relative;
-    background:#B00;
+    background:#666;
     float:left;
     margin:0 1px;
     padding:7px 0;
-    border:1px solid #900;
+    border:1px solid #444;
 }
 .topItem:hover{
-    background:#900;
+    background:#555;
 }
 .subItem{
     transition:background 250ms;
@@ -201,7 +184,24 @@ body{
     box-shadow:inset 0 0 1px #BBB;
 }
 .subItem:hover{
-    background:#A00;
+    background:#666;
+}
+.subMenu{
+    top:38px;
+    left:-1px;
+    z-index:9;
+    position:absolute;
+    background:#888;
+    border:1px solid #666;
+}
+.subMenu2{
+    transition:visibility 200ms,opacity 200ms;
+    -webkit-transition:visibility 200ms,opacity 200ms;
+    position:absolute;
+    left:175px;
+    top:-1px;
+    background:#AAA;
+    border:1px solid #888;
 }
 .subItemLeft{
     left:-175px;

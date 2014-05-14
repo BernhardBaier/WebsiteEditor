@@ -2,6 +2,9 @@
  * Created by Bernhard on 20.01.14.
  */
 function init(){
+    if(correctRightBar){
+        $('.rightBar').height($('.content').height());
+    }
     loadCalendarSide(3);
     window.setTimeout('postInit()',250);
 }

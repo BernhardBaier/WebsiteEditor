@@ -87,7 +87,19 @@ function addMainPage($name,$sql){
     }
     mysqli_free_result($erg);
     $rank++;
-    insertData($sql,$name,0,$rank);
+    if(insertData($sql,$name,0,$rank)){
+        $que = "SELECT * FROM ".$table." WHERE 1";
+        $erg = mysqli_query($sql,$que);
+        $rank = 0;
+        while($row = mysqli_fetch_array($erg)){
+            $rank = $row['id'] > $rank?$row['id']:$rank;
+        }
+
+        mkdir('web-images/'.$rank.'/');
+        mkdir('web-images/'.$rank.'/thumbs/');
+        return $rank;
+    }
+    return 0;
 }
 function addSubPage($name,$parent,$sql){
     global $table;

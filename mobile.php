@@ -49,7 +49,7 @@ function printMenu($sql,$n_parent=0,$level=0){
             }else{
                 $print = false;
                 if($level == sizeof($parents)-1){
-                    if(sizeof($childs) < 5 || $childs == '' || $childs == 'NULL'){
+                    if(sizeof($childs) < 3 || $childs == '' || $childs == 'NULL'){
                         $print = true;
                     }
                 }

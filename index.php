@@ -19,6 +19,7 @@ if(strpos($browser,'Firefox') > -1){
             $mobile = true;
         }
     }
+    $browser = 'Firefox';
 }elseif(strpos($browser,'Chrome') > -1){
     if(substr($browser,strpos($browser,'Chrome')+7,4) >= 21){
         $html5 = true;
@@ -26,6 +27,7 @@ if(strpos($browser,'Firefox') > -1){
             $mobile = true;
         }
     }
+    $browser = 'Chrome';
 }elseif(strpos($browser,'OPR/') > -1){
     if(substr($browser,strpos($browser,'OPR/')+4,4) >= 10.5){
         $html5 = true;
@@ -33,6 +35,7 @@ if(strpos($browser,'Firefox') > -1){
             $mobile = true;
         }
     }
+    $browser = 'Opera';
 }elseif(strpos($browser,'MSIE') > -1){
     if(substr($browser,strpos($browser,'MSIE')+5,2) >= 10){
         $html5 = true;
@@ -40,6 +43,7 @@ if(strpos($browser,'Firefox') > -1){
             $mobile = true;
         }
     }
+    $browser = 'IE';
 }elseif(strpos($browser,'rv:') > -1 && strpos($browser,'like Gecko') > -1){
     if(substr($browser,strpos($browser,'rv:')+3,2) >= 10){
         $html5 = true;
@@ -47,6 +51,7 @@ if(strpos($browser,'Firefox') > -1){
             $mobile = true;
         }
     }
+    $browser = 'IE';
 }elseif(strpos($browser,'Android') > -1){
     $html5 = true;
     $mobile = true;

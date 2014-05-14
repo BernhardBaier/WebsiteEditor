@@ -42,7 +42,9 @@ if($authLevel != '' && $authLevel != '0000'){
             switch($function){
                 case 'addMainPage':
                     if(!empty($options) && sizeof($options)>=1){
-                        addMainPage(replaceUml($options[0]),$sql);
+                        if(addMainPage(replaceUml($options[0]),$sql) >0){
+                            echo('1');
+                        }
                     }else{
                         echo('missing Options for function!');
                     }
