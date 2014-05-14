@@ -1,6 +1,7 @@
 *.crypt
 *.pptx
 *.ppt
+*.rar
 upload/*
 content/de/*
 content/en/*
@@ -10,3 +11,6 @@ web-others/*
 webSockets/*
 .idea/*
 .ides/scopes/*
+einsatz.php
+einsatzFunctions.php
+einsatzNewYear.php
