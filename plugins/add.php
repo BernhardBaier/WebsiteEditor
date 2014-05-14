@@ -23,7 +23,7 @@ $path = substr($path,0,strrpos($path,'/')+1);
 $handler = opendir($path);
 $files = [];
 while($file = readdir($handler)){
-    if(!is_dir($path.$file) && strlen($file) > 3){
+    if(!is_dir($path.$file) && strlen($file) > 3 && $file != '.gitignore'){
         array_push($files,$file);
     }
 }
