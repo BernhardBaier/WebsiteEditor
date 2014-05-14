@@ -16,9 +16,10 @@ body{
 }
 .menuImg{
     position:absolute;
+    z-index:9;
     left:1pc;
-    top:1pc;
-    bottom:1pc;
+    top:2.5pc;
+    bottom:2.5pc;
 }
 .menuLogo{
     position:absolute;
@@ -26,6 +27,7 @@ body{
     top:6px;
     bottom:6px;
     text-align:right;
+    width:100%;
 }
 .pageTitle{
     position:absolute;
