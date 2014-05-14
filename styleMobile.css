@@ -24,7 +24,6 @@ body{
 .menuLogo{
     position:absolute;
     right:6px;
-    right:calc(5% + 6px);
     top:6px;
     bottom:6px;
 }
