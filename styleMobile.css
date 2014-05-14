@@ -39,7 +39,7 @@ body{
     background:#FFF;
     background:rgba(255,255,255,0.6);
     box-shadow:0 0 3px 3px #F66;
-    font-size:4.75pc;
+    font-size:3.25pc;
 }
 .menuOuter{
     transition:left 250ms;

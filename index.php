@@ -47,6 +47,9 @@ if(strpos($browser,'Firefox') > -1){
             $mobile = true;
         }
     }
+}elseif(strpos($browser,'Android') > -1){
+    $html5 = true;
+    $mobile = true;
 }
 if($html5 === true){
     if($mobile === true){
@@ -54,4 +57,6 @@ if($html5 === true){
     }else{
         include('html5.php');
     }
+}else{
+    echo('old browser!');
 }
