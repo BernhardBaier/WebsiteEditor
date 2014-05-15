@@ -52,7 +52,7 @@ $access = '0000';
 $errorString = "";
 if($name != ""){
 	$wrongLetter = false;
-	$umlaute = Array('ä','ö','ü','Ä','Ö','Ü','ß');
+	$umlaute = Array('ä','ö','ü','Ä','Ö','Ü','ß',"'");
 	for($i=0;$i<7;$i++){
 		if(strpos($pw,$umlaute[$i]) > -1){
 			$wrongLetter = true;

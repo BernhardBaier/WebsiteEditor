@@ -186,6 +186,9 @@ if(!isset($_GET['id'])){
 }else{
     echo("<div class='title'>Seifenkistenrennen 2014 - Feuerwehr Hardt</div>");
 }
+if(isset($_POST['passwort'])){
+    echo('<div class="loginBox">Wrong login data!</div>');
+}
 ?>
 <div class="login">
     Login
