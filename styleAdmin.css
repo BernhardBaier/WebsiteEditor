@@ -8,19 +8,6 @@ body{
 img{
     border:0;
 }
-ul{
-    position:relative;
-    margin:0;
-    padding:0 0 0 30px;
-    list-style-image:url(images/leer.png);
-    border:0 dotted #999;
-    border-left-width:1px;
-}
-li{
-    position:relative;
-    padding:0;
-    margin:0;
-}
 .pageLoading{
     transition:opacity 500ms;
     -webkit-transition:opacity 500ms;
@@ -276,6 +263,19 @@ li{
     margin:0 0 0 -30px;
     border-radius:5px;
     background:#EEE;
+}
+.menu ul{
+    position:relative;
+    margin:0;
+    padding:0 0 0 30px;
+    list-style-image:url(images/leer.png);
+    border:0 dotted #999;
+    border-left-width:1px;
+}
+.menu li{
+    position:relative;
+    padding:0;
+    margin:0;
 }
 .menu img{
     cursor:pointer;

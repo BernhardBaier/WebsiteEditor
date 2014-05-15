@@ -11,6 +11,7 @@ $_SESSION['user'] = '';
 $_SESSION['extra'] = '';
 $_SESSION['register'] = '';
 $_SESSION['id'] = '';
+$_SESSION['ip'] = '';
 session_destroy();
 $_SESSION['authlevel'] = '';
 header('Location: login.php');

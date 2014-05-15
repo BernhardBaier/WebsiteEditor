@@ -126,6 +126,13 @@ if(!is_dir("web-images/")){
 if(!is_dir("web-others/")){
     mkdir("web-others/");
 }
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $passwort = $_POST['passwort'];
@@ -144,6 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['authlevel'] = $auth;
                 $_SESSION['user'] = $user;
                 $_SESSION['id'] = $row['id'];
+                $_SESSION['ip'] = $ip;
                 $_SESSION['extra'] = $row['extra'];
                 if ($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1') {
                     if (php_sapi_name() == 'cgi') {
