@@ -1,4 +1,6 @@
 WebsiteEditor
 =============
 
-A basic and easy to use website editor for small webpages (not jet ready!)
+A basic and easy to use website editor for small websites (not jet ready!)
+
+After uploading it to your server you have to execute the setup.php (or simply login) after entering your sql data you can use the editor panel.
