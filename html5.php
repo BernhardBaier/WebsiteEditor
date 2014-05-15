@@ -6,6 +6,9 @@
  * Time: 10:19
  */
 error_reporting(E_ERROR);
+if(basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php'){
+    header('Location: index.php');
+}
 $id = $_GET['id'];
 if($id == ""){
     $id = 1;

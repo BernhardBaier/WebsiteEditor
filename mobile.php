@@ -5,7 +5,10 @@
  * Date: 13.05.14
  * Time: 20:50
  */
-//error_reporting(E_ERROR);
+error_reporting(E_ERROR);
+if(basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php'){
+    header('Location: index.php');
+}
 $id = $_GET['id'];
 if($id == ""){
     $id = 1;

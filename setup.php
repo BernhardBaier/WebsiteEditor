@@ -79,14 +79,17 @@ if(isset($_POST['pw'])){
             echo('<div class="noteBox error">SQL DATA wrong!</div>');
         }else{
             $output = encrypt("#base#$sqlBase#user#$sqlUser#pass#$sqlPass#host#$sqlHost#end#",'2t8yamSQupnBd47s2j4n');
+            $file = file_exists('access.crypt');
             $datei = fopen('access.crypt','w');
             fwrite($datei,$output);
             fclose($datei);
-            if(file_exists('access.crypt')){
+            chmod('access.crypt',600);
+            if($file){
                 echo('<div class="noteBox">SQL DATA successfully changed</div>');
             }else{
                 echo('<div class="noteBox">SQL DATA successfully changed</br>now you have login then you can set all other parameters.<br/>the default login parameters are both admin</br>press leave to login.</div>');
             }
+
         }
     }
 }
