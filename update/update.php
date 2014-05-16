@@ -27,6 +27,8 @@
                         moveOneFile(i+1);
                     }else{
                         $('.progressBar').html('100%').width(1020);
+                        $('.file').html('Update Complete');
+                        $('.data').html('');
                     }
                 }
             });
