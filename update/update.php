@@ -7,7 +7,7 @@
         var max = 0;
         function moveFilesNow(){
             max = files.length;
-            $('.progressBar').removeClass('hidden');
+            $('.progressBars').removeClass('hidden');
             moveOneFile(0);
         }
         function moveOneFile(i){
@@ -26,8 +26,6 @@
                         moveOneFile(i+1);
                     }else{
                         $('.progressBar').html('100%').width(1020);
-                        $('.data').html('');
-                        $('.file').html('Update complete');
                     }
                 }
             });
@@ -51,13 +49,12 @@ if(substr($authLevel,0,1) == '1'){
     $version = substr($version,0,strpos($version,'#'));
     $in = substr($in,strpos($in,'#file#'));
     $count = 0;
-    echo("var remotePath = '$remotePath';
-        ");
+    echo("var remotePath = '$remotePath';");
     while(strpos($in,'#')>-1){
         $in = substr($in,strpos($in,'#file#')+6);
         $path = substr($in,0,strpos($in,'#'));
         echo("files[$count] = '$path';
-        ");$count++;
+");$count++;
         $in = substr($in,strpos($in,'#')+1);
     }
 }
@@ -69,6 +66,8 @@ if(substr($authLevel,0,1) == '1'){
             transition:width 1s ease-out;
             -webkit-transition:width 1s ease-out;
             height:25px;
+            top:2px;
+            left:2px;
             background:#568C0A;
             text-align:center;
             padding:4px 4px 0 4px;
@@ -76,6 +75,14 @@ if(substr($authLevel,0,1) == '1'){
         }
         .progressBar.hidden{
             display:none;
+        }
+        .progressBarUnder{
+            position:absolute;
+            height:27px;
+            width:1024px;
+            border:1px solid #555;
+            padding:4px 4px 0 4px;
+            border-radius:5px;
         }
         .button{
             display:inline-flex;
@@ -99,7 +106,10 @@ if(substr($authLevel,0,1) == '1'){
 <body>
 <div>
     <div class="button" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
-    <div class="progressBar hidden">0%</div>
+    <div style="position:relative">
+        <div class="progressBarUnder"></div>
+        <div class="progressBar hidden">0%</div>
+    </div>
     <div class="spacer"></div>
     <div class="file"></div>
     <div class="data"></div>
