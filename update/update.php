@@ -9,7 +9,18 @@
             max = files.length;
             $('.progressBar').removeClass('hidden');
             $('.progressBarUnder').removeClass('hidden');
-            moveOneFile(0);
+            if(max == 0){
+                $('.progressBar').html('100%').width(1020);
+                $('.file').html('Update Complete');
+                $('.data').html('');
+            }else{
+                moveOneFile(0);
+            }
+        }
+        function init(){
+            if(files.length == 0){
+                $('.button').html('Package up to date.');
+            }
         }
         function moveOneFile(i){
             $('.file').html('Copying file '+files[i]);
@@ -42,10 +53,10 @@ if(substr($authLevel,0,1) == '1'){
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     $file = fopen('fileList.list','r');
-    $in = fread($file,200);
+    $in = fread($file,filesize('fileList.list'));
     fclose($file);
     $oldVersion = substr($in,strpos($in,'#version#')+9);
-    $oldVersion = substr($version,0,strpos($version,'#'));
+    $oldVersion = substr($oldVersion,0,strpos($oldVersion,'#'));
     $in = substr($in,strpos($in,'#path#')+6);
     $remotePath = substr($in,0,strpos($in,'#'));
     $file = fopen($remotePath.'update/fileList.list','r');
@@ -114,7 +125,7 @@ if(substr($authLevel,0,1) == '1'){
         }
     </style>
 </head>
-<body>
+<body onload="init()">
 <div>
     <div class="button" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div style="position:relative">
