@@ -80,9 +80,13 @@ if(substr($authLevel,0,1) == '1'){
             background:#F90;
             border-radius:3px;
             padding:2px;
+            cursor:pointer;
         }
         .button.hidden{
             display:none;
+        }
+        .button:hover{
+            background:#FF8000;
         }
         .spacer{
             height:30px;
