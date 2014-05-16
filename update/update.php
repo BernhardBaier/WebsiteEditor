@@ -47,11 +47,8 @@
         var files = [];
 <?php
 error_reporting(E_ERROR);
-include 'access.php';
+include 'auth.php';
 if(substr($authLevel,0,1) == '1'){
-    $hostname = $_SERVER['HTTP_HOST'];
-    $host = $hostname == 'localhost'?$hostname:$sqlHost;
-    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
     fclose($file);
