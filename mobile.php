@@ -21,7 +21,7 @@ include 'access.php';
 $base = $sqlBase;
 $table = 'pages_'.$lang;
 $hostname = $_SERVER['HTTP_HOST'];
-$host = $hostname == 'localhost'?$hostname:'rdbms.strato.de';
+$host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
 $que = "SELECT * FROM settings WHERE parameter='pageTitle'";
 $erg = mysqli_query($sql,$que);

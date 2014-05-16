@@ -17,7 +17,6 @@
 #file#../plugins/settings/include.php#
 #file#../plugins/settings/settings.plg#
 #file#../plugins/settings/style.css#
-#file#../update/access.php#
 #file#../update/auth.php#
 #file#../update/fileList.list#
 #file#../update/files.list#
