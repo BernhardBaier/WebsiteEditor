@@ -35,10 +35,6 @@ function jsMenu($parent=0){
     return $output;
 }
 if(substr($authLevel,0,1) == "1"){
-    /*$file = fopen('http://github.com/BernhardBaier/WebsiteEditor/raw/master/MySQLHandlerFunctions.php','r');
-    $in = fread($file,99999999);
-    fclose($file);
-    echo($in);//*/
     $pageTitle = 'no title';
     $editorVersion = '4.0';
     $hostname = $_SERVER['HTTP_HOST'];

@@ -163,7 +163,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $que = "UPDATE users SET ondate = '".date('d.m.Y')."' WHERE user='".$aUser."'";
                     $erg = mysqli_query($sql, $que) or die(mysqli_error($sql));
                     mysqli_free_result($erg);
-                    header('Location: admin.php');
+                    $que = "SELECT * FROM settings WHERE parameter='autoUpdate'";
+                    $erg = mysqli_query($sql,$que);
+                    $autoUpdate = false;
+                    while($row = mysqli_fetch_array($erg)){
+                        $autoUpdate = $row['value'];
+                    }
+                    mysqli_free_result($erg);
+                    if($autoUpdate === false){
+                        header('Location: admin.php');
+                    }else{
+                        header('Location: update/update.php');
+                    }
                     exit;
                 }
             }

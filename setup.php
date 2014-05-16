@@ -97,6 +97,8 @@ if(isset($_POST['title'])){
     $pageTitle = $_POST['title'];
     $multiLang = $_POST['multiLang'];
     $multiLang = $multiLang=='on'?'multi':'single';
+    $autoUpdate = $_POST['autoUpdate'];
+    $autoUpdate = $autoUpdate=='on'?'on':'off';
     if(file_exists('access.crypt')){
         if(!$sql){
             include 'access.php';
@@ -128,11 +130,24 @@ if(isset($_POST['title'])){
             $que = "INSERT INTO settings (parameter, value) VALUES ('languageSupport', '$multiLang')";
         }
         $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+        $que = "SELECT * FROM settings WHERE parameter='autoUpdate'";
+        $erg = mysqli_query($sql,$que);
+        $out = false;
+        while($row = mysqli_fetch_array($erg)){
+            $out = $row['value'];
+        }
+        if($out !== false){
+            $que = "UPDATE settings SET value='$autoUpdate' WHERE parameter='autoUpdate'";
+        }else{
+            $que = "INSERT INTO settings (parameter, value) VALUES ('autoUpdate', '$autoUpdate')";
+        }
+        $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
         echo('<div class="noteBox">settings successfully changed</div>');
     }else{
         echo('<div class="noteBox error">Title could not be changed (insert SQL DATA first!)</div>');
     }
     $multiLang=$multiLang=='multi'?'checked':'';
+    $autoUpdate=$autoUpdate=='on'?'checked':'';
 }
 ?>
 <!DOCTYPE html>
@@ -211,6 +226,9 @@ if(isset($_POST['title'])){
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><label title="available languages: de, en">Enable multi language support <input type="checkbox" <?php echo($multiLang);?> name="multiLang" /></label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center"><label title="check for updates after login">Enable auto update <input type="checkbox" <?php echo($autoUpdate);?> name="autoUpdate" /></label></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><input type="submit" value="change"/></td>
