@@ -43,6 +43,8 @@ if(substr($authLevel,0,1) == '1'){
     $file = fopen('fileList.list','r');
     $in = fread($file,200);
     fclose($file);
+    $oldVersion = substr($in,strpos($in,'#version#')+9);
+    $oldVersion = substr($version,0,strpos($version,'#'));
     $in = substr($in,strpos($in,'#path#')+6);
     $remotePath = substr($in,0,strpos($in,'#'));
     $file = fopen($remotePath.'update/fileList.list','r');
@@ -50,15 +52,17 @@ if(substr($authLevel,0,1) == '1'){
     fclose($file);
     $version = substr($in,strpos($in,'#version#')+9);
     $version = substr($version,0,strpos($version,'#'));
-    $in = substr($in,strpos($in,'#file#'));
-    $count = 0;
-    echo("var remotePath = '$remotePath';");
-    while(strpos($in,'#')>-1){
-        $in = substr($in,strpos($in,'#file#')+6);
-        $path = substr($in,0,strpos($in,'#'));
-        echo("files[$count] = '$path';
-");$count++;
-        $in = substr($in,strpos($in,'#')+1);
+    if($oldVersion != $version){
+        $in = substr($in,strpos($in,'#file#'));
+        $count = 0;
+        echo("var remotePath = '$remotePath';");
+        while(strpos($in,'#')>-1){
+            $in = substr($in,strpos($in,'#file#')+6);
+            $path = substr($in,0,strpos($in,'#'));
+            echo("files[$count] = '$path';
+    ");$count++;
+            $in = substr($in,strpos($in,'#')+1);
+        }
     }
 }
 ?>
