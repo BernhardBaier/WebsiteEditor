@@ -35,6 +35,7 @@
         }
         var files = [];
 <?php
+error_reporting(E_ERROR);
 include 'access.php';
 if(substr($authLevel,0,1) == '1'){
     $hostname = $_SERVER['HTTP_HOST'];
