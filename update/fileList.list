@@ -1,4 +1,4 @@
-#version#4.1.3#
+#version#4.1.4#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#
 #file#../plugins/access.php#
@@ -17,7 +17,6 @@
 #file#../plugins/settings/include.php#
 #file#../plugins/settings/settings.plg#
 #file#../plugins/settings/style.css#
-#file#../update/access.php#
 #file#../update/auth.php#
 #file#../update/copy.php#
 #file#../update/fileList.list#
