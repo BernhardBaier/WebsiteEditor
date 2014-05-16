@@ -1,3 +1,23 @@
+<?php
+error_reporting(E_ERROR);
+include 'auth.php';
+if(substr($authLevel,0,1) == '1'){
+    $file = fopen('fileList.list','r');
+    $in = fread($file,filesize('fileList.list'));
+    fclose($file);
+    $oldVersion = substr($in,strpos($in,'#version#')+9);
+    $oldVersion = substr($oldVersion,0,strpos($oldVersion,'#'));
+    $in = substr($in,strpos($in,'#path#')+6);
+    $remotePath = substr($in,0,strpos($in,'#'));
+    $file = fopen($remotePath.'update/fileList.list','r');
+    $in = fread($file,999999);
+    fclose($file);
+    $version = substr($in,strpos($in,'#version#')+9);
+    $version = substr($version,0,strpos($version,'#'));
+    if($version == $oldVersion){
+        header('Location ../admin.php');
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,21 +66,6 @@
         }
         var files = [];
 <?php
-error_reporting(E_ERROR);
-include 'auth.php';
-if(substr($authLevel,0,1) == '1'){
-    $file = fopen('fileList.list','r');
-    $in = fread($file,filesize('fileList.list'));
-    fclose($file);
-    $oldVersion = substr($in,strpos($in,'#version#')+9);
-    $oldVersion = substr($oldVersion,0,strpos($oldVersion,'#'));
-    $in = substr($in,strpos($in,'#path#')+6);
-    $remotePath = substr($in,0,strpos($in,'#'));
-    $file = fopen($remotePath.'update/fileList.list','r');
-    $in = fread($file,999999);
-    fclose($file);
-    $version = substr($in,strpos($in,'#version#')+9);
-    $version = substr($version,0,strpos($version,'#'));
     if($oldVersion != $version){
         $in = substr($in,strpos($in,'#file#'));
         $count = 0;
@@ -73,7 +78,6 @@ if(substr($authLevel,0,1) == '1'){
             $in = substr($in,strpos($in,'#')+1);
         }
     }
-}
 ?>
     </script>
     <style>
@@ -135,3 +139,6 @@ if(substr($authLevel,0,1) == '1'){
 </div>
 </body>
 </html>
+<?php
+}
+?>
