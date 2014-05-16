@@ -7,7 +7,7 @@
         var max = 0;
         function moveFilesNow(){
             max = files.length;
-            $('.progressBars').removeClass('hidden');
+            $('.progressBar').removeClass('hidden');
             moveOneFile(0);
         }
         function moveOneFile(i){
@@ -26,6 +26,8 @@
                         moveOneFile(i+1);
                     }else{
                         $('.progressBar').html('100%').width(1020);
+                        $('.data').html('');
+                        $('.file').html('Update complete');
                     }
                 }
             });
@@ -49,12 +51,13 @@ if(substr($authLevel,0,1) == '1'){
     $version = substr($version,0,strpos($version,'#'));
     $in = substr($in,strpos($in,'#file#'));
     $count = 0;
-    echo("var remotePath = '$remotePath';");
+    echo("var remotePath = '$remotePath';
+        ");
     while(strpos($in,'#')>-1){
         $in = substr($in,strpos($in,'#file#')+6);
         $path = substr($in,0,strpos($in,'#'));
         echo("files[$count] = '$path';
-");$count++;
+        ");$count++;
         $in = substr($in,strpos($in,'#')+1);
     }
 }
