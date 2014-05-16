@@ -11,7 +11,7 @@
             moveOneFile(0);
         }
         function moveOneFile(i){
-            $('.file').html(files[i]);
+            $('.file').html('Copying file '+files[i]);
             $.ajax({
                 type: 'POST',
                 url: 'copy.php',
