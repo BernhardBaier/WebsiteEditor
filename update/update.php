@@ -15,7 +15,7 @@ if(substr($authLevel,0,1) == '1'){
     $version = substr($in,strpos($in,'#version#')+9);
     $version = substr($version,0,strpos($version,'#'));
     if($version == $oldVersion){
-        header('Location ../admin.php');
+        header('Location: ../admin.php');
     }
 ?>
 <!DOCTYPE html>
