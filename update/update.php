@@ -7,7 +7,8 @@
         var max = 0;
         function moveFilesNow(){
             max = files.length;
-            $('.progressBars').removeClass('hidden');
+            $('.progressBar').removeClass('hidden');
+            $('.progressBarUnder').removeClass('hidden');
             moveOneFile(0);
         }
         function moveOneFile(i){
@@ -84,6 +85,9 @@ if(substr($authLevel,0,1) == '1'){
             padding:4px 4px 0 4px;
             border-radius:5px;
         }
+        .progressBarUnder.hidden{
+            display:none;
+        }
         .button{
             display:inline-flex;
             margin:1px;
@@ -107,7 +111,7 @@ if(substr($authLevel,0,1) == '1'){
 <div>
     <div class="button" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div style="position:relative">
-        <div class="progressBarUnder"></div>
+        <div class="progressBarUnder hidden"></div>
         <div class="progressBar hidden">0%</div>
     </div>
     <div class="spacer"></div>
