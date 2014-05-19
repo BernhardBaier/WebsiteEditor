@@ -23,5 +23,5 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 if($ip == $_SESSION['ip']){
     $authLevel = $_SESSION['authlevel'];
 }else{
-    header('logout.php');
+    header('Location: logout.php');
 }

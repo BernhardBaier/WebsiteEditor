@@ -13,4 +13,15 @@ if (!isset($_SESSION['authlevel'])  || !$_SESSION['authlevel'] || $_SESSION['aut
     header('Location: login.php');
     exit;
 }
-$authLevel = $_SESSION['authlevel'];
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
+if($ip == $_SESSION['ip']){
+    $authLevel = $_SESSION['authlevel'];
+}else{
+    header('Location: logout.php');
+}

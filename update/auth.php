@@ -10,7 +10,7 @@ session_start();
 $hostname = $_SERVER['HTTP_HOST'];
 
 if (!isset($_SESSION['authlevel'])  || !$_SESSION['authlevel'] || $_SESSION['authlevel'] == '0000') {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -23,5 +23,5 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 if($ip == $_SESSION['ip']){
     $authLevel = $_SESSION['authlevel'];
 }else{
-    header('logout.php');
+    header('Location: ../logout.php');
 }
