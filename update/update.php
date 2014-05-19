@@ -71,10 +71,14 @@ if(substr($authLevel,0,1) == '1'){
                             url: 'finish.php',
                             data: 'version='+version,
                             success: function(data) {
-                                $('.progressBar').html('100%').width(1020);
-                                $('.file').html('Update Complete');
-                                $('.data').html('');
-                                document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
+                                if(data == '1'){
+                                    $('.progressBar').html('100%').width(1020);
+                                    $('.file').html('Update Complete');
+                                    $('.data').html('');
+                                    document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
+                                }else{
+                                    alert(data);
+                                }
                             }
                         });
                     }

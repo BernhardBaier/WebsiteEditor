@@ -8,10 +8,11 @@
 $version = $_POST['version'];
 include "access.php";
 if(substr($authLevel,0,1) == '1'){
-    echo('finish');
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     $que = "UPDATE settings SET value='$version' WHERE parameter='editorVersion'";
-    echo(mysqli_query($sql,$que));
+    echo($sqlUser);
+    mysqli_query($sql,$que);
+    echo('1');
 }
