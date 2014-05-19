@@ -29,7 +29,7 @@ if(substr($authLevel,0,1) == "1"){
     $base = $sqlBase;
     $table = 'users';
     $hostname = $_SERVER['HTTP_HOST'];
-    $host = $hostname == 'localhost'?$hostname:'rdbms.strato.de';
+    $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
     $name = $_SESSION['user'];
     if(!$sql){

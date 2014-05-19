@@ -139,6 +139,10 @@ img{
     color:#fff;
     cursor:pointer;
 }
+.pageOptionItem a{
+    color:#FFF;
+    text-decoration:none;
+}
 .pageOptionItem.selected{
     background:#62A60A;
 }

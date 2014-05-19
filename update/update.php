@@ -41,6 +41,7 @@ if(substr($authLevel,0,1) == '1'){
         function init(){
             if(files.length == 0){
                 document.getElementsByClassName('button')[0].innerHTML = 'Package up to date.';
+                document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
             }
         }
         function moveOneFile(i){
@@ -58,9 +59,17 @@ if(substr($authLevel,0,1) == '1'){
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(i+1);
                     }else{
-                        $('.progressBar').html('100%').width(1020);
-                        $('.file').html('Update Complete');
-                        $('.data').html('');
+                        $.ajax({
+                            type: 'POST',
+                            url: 'finish.php',
+                            data: 'version='+version,
+                            success: function(data) {
+                                $('.progressBar').html('100%').width(1020);
+                                $('.file').html('Update Complete');
+                                $('.data').html('');
+                                document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
+                            }
+                        });
                     }
                 }
             });
@@ -78,6 +87,7 @@ if(substr($authLevel,0,1) == '1'){
     ");$count++;
             $in = substr($in,strpos($in,'#')+1);
         }
+        echo("var version = '$version';");
     }
 ?>
     </script>
