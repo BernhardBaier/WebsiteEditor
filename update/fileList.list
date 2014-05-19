@@ -1,4 +1,4 @@
-#version#4.1.10#
+#version#4.1.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#
 #file#../plugins/access.php#
@@ -20,7 +20,6 @@
 #file#../update/access.php#
 #file#../update/auth.php#
 #file#../update/copy.php#
-#file#../update/fileList.list#
 #file#../update/finish.php#
 #file#../update/update.php#
 #file#../images/bin.png#
@@ -81,3 +80,4 @@
 #file#../styleMobile.css#
 #file#../tour.php#
 #file#../users.php#
+#file#../update/fileList.list#
