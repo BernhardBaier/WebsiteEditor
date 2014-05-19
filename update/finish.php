@@ -12,7 +12,6 @@ if(substr($authLevel,0,1) == '1'){
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     $que = "UPDATE settings SET value='$version' WHERE parameter='editorVersion'";
-    echo($sqlUser);
     mysqli_query($sql,$que);
     echo('1');
 }

@@ -17,6 +17,10 @@ if(substr($authLevel,0,1) == '1'){
     $force = $_GET['forceUpdate'];
     if($version == $oldVersion && $force != 'true'){
         header('Location: ../admin.php');
+        exit;
+    }
+    if(!file_exists('access.crypt')){
+        copy('../access.crypt','access.crypt');
     }
 ?>
 <!DOCTYPE html>
