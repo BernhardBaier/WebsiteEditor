@@ -115,6 +115,10 @@ if(substr($authLevel,0,1) == '1'){
             padding:2px;
             cursor:pointer;
         }
+        .button a{
+            text-decoration:none;
+            color:#000;
+        }
         .button.hidden{
             display:none;
         }
@@ -129,6 +133,7 @@ if(substr($authLevel,0,1) == '1'){
 <body onload="init()">
 <div>
     <div class="button" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
+    <div class="button"><a href="../admin.php">Skip Update</a></div>
     <div style="position:relative">
         <div class="progressBarUnder hidden"></div>
         <div class="progressBar hidden">0%</div>

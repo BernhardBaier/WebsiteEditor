@@ -141,6 +141,7 @@ if(isset($_POST['title'])){
         }else{
             $que = "INSERT INTO settings (parameter, value) VALUES ('autoUpdate', '$autoUpdate')";
         }
+        $autoUpdate = $out;
         $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
         echo('<div class="noteBox">settings successfully changed</div>');
     }else{
