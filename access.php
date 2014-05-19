@@ -48,7 +48,6 @@ if(!file_exists('access.crypt')){
     $datei = fopen('access.crypt','r');
     $in = fread($datei,filesize('access.php'));
     fclose($datei);
-    $datei = '';
     $in = decrypt($in,'2t8yamSQupnBd47s2j4n');
     $in = substr($in,6);
     $sqlBase = substr($in,0,strpos($in,'#'));

@@ -5,7 +5,7 @@
  * Date: 09.03.14
  * Time: 18:34
  */
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 function encrypt($decrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
     // Build a 256-bit $key which is a SHA256 hash of $salt and $password.
     $key = hash('SHA256', $salt . $password, true);
@@ -42,12 +42,15 @@ if($_GET['action'] == 'moveFile'){
 }
 $pageTitle = 'no title';
 $editorVersion = '4.1';
-$sql = '';
 if(file_exists('access.crypt')){
     include 'access.php';
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+    if(!$sql){
+        echo('sql error');
+        exit;
+    }
     $que = "SELECT * FROM settings WHERE parameter='pageTitle'";
     $erg = mysqli_query($sql,$que);
     while($row = mysqli_fetch_array($erg)){
@@ -66,8 +69,8 @@ if(file_exists('access.crypt')){
     }
     $multiLang = $multiLang == 'multi'?' checked':'';
 }
-if(isset($_POST['pw'])){
-    if($_POST['pw'] != ''){
+if(isset($_POST['sql'])){
+    if($_POST['sql'] != ''){
         $sqlHost = $_POST['host'];
         $sqlUser = $_POST['user'];
         $sqlPass = $_POST['pw'];
@@ -80,16 +83,16 @@ if(isset($_POST['pw'])){
         }else{
             $output = encrypt("#base#$sqlBase#user#$sqlUser#pass#$sqlPass#host#$sqlHost#end#",'2t8yamSQupnBd47s2j4n');
             $file = file_exists('access.crypt');
+            unlink('access.crypt');
             $datei = fopen('access.crypt','w');
             fwrite($datei,$output);
             fclose($datei);
-            chmod('access.crypt',600);
+            chmod('access.crypt',0600);
             if($file){
                 echo('<div class="noteBox">SQL DATA successfully changed</div>');
             }else{
                 echo('<div class="noteBox">SQL DATA successfully changed</br>now you have login then you can set all other parameters.<br/>the default login parameters are both admin</br>press leave to login.</div>');
             }
-
         }
     }
 }
@@ -117,7 +120,7 @@ if(isset($_POST['title'])){
         }else{
             $que = "INSERT INTO settings (parameter, value) VALUES ('pageTitle', '$pageTitle')";
         }
-        $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+        $erg = mysqli_query($sql,$que);
         $que = "SELECT * FROM settings WHERE parameter='languageSupport'";
         $erg = mysqli_query($sql,$que);
         $out = false;
@@ -129,9 +132,11 @@ if(isset($_POST['title'])){
         }else{
             $que = "INSERT INTO settings (parameter, value) VALUES ('languageSupport', '$multiLang')";
         }
-        $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+        $erg = mysqli_query($sql,$que);
+        mysqli_free_result($erg);
         $que = "SELECT * FROM settings WHERE parameter='autoUpdate'";
         $erg = mysqli_query($sql,$que);
+        mysqli_free_result($erg);
         $out = false;
         while($row = mysqli_fetch_array($erg)){
             $out = $row['value'];
@@ -142,7 +147,7 @@ if(isset($_POST['title'])){
             $que = "INSERT INTO settings (parameter, value) VALUES ('autoUpdate', '$autoUpdate')";
         }
         $autoUpdate = $out;
-        $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+        $erg = mysqli_query($sql,$que);
         echo('<div class="noteBox">settings successfully changed</div>');
     }else{
         echo('<div class="noteBox error">Title could not be changed (insert SQL DATA first!)</div>');
@@ -219,11 +224,11 @@ if(isset($_POST['title'])){
                     echo('Logo: <img src="images/logo.png" height="45" /> <input type="button" onclick="location.href=\'setup.php?action=deleteLogo\'" value="change"/>');
                 }
             ?>
-            <form action="setup.php" method="post">
+            <form action="setup.php" name="form1" method="post">
                 <table>
                     <tr>
                         <td>Title</td>
-                        <td><input type="text" required name="title" size="50" placeholder="Title of the webpage" value="<?php echo($pageTitle);?>"/></td>
+                        <td><input type="text" required name="title" size="50" placeholder="Title of the website" value="<?php echo($pageTitle);?>"/></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><label title="available languages: de, en">Enable multi language support <input type="checkbox" <?php echo($multiLang);?> name="multiLang" /></label></td>
@@ -232,14 +237,15 @@ if(isset($_POST['title'])){
                         <td colspan="2" align="center"><label title="check for updates after login">Enable auto update <input type="checkbox" <?php echo($autoUpdate);?> name="autoUpdate" /></label></td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center"><input type="submit" value="change"/></td>
+                        <td colspan="2" align="center"><input type="button" onclick="document.form1.submit()" value="change"/></td>
                     </tr>
+                </table>
             </form>
             <?php
-            }else{
-                echo('<form action="setup.php" method="post"><table>');
             }
             ?>
+            <form action="setup.php" name="form2" method="post">
+                <table>
                     <tr>
                         <td colspan="2" align="center">SQL login data:</td>
                     </tr>
@@ -253,14 +259,14 @@ if(isset($_POST['title'])){
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td><input type="password" name="pw" placeholder="sql password"/></td>
+                        <td><input type="password" name="pw" required placeholder="sql password"/></td>
                     </tr>
                     <tr>
                         <td>Host</td>
                         <td><input type="text" required name="host" placeholder="sql host" value="<?php echo($sqlHost);?>"/></td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center"><input type="submit" value="change"/></td>
+                        <td colspan="2" align="center"><input type="hidden" value="sql" name="sql" ><input type="button" onclick="document.form2.submit()" value="change"/></td>
                     </tr>
                 </table>
             </form>
