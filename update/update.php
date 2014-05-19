@@ -50,7 +50,7 @@ if(substr($authLevel,0,1) == '1'){
             }
         }
         function moveOneFile(i){
-            $('.file').html('Copying file '+files[i]);
+            $('.file').html('Copying file '+files[i].substr(2));
             try{
                 window.clearTimeout(timer);
             }catch (ex){}
