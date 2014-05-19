@@ -22,10 +22,10 @@ if(substr($authLevel,0,1) == '1'){
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- todo: remove this in final!--><script src="../jquery-1.9.1.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var max = 0;
+        var timer;
         function moveFilesNow(){
             max = files.length;
             $('.progressBar').removeClass('hidden');
@@ -35,6 +35,7 @@ if(substr($authLevel,0,1) == '1'){
                 $('.file').html('Update Complete');
                 $('.data').html('');
             }else{
+                timer = window.setTimeout('moveOneFile(1)',15000);
                 moveOneFile(0);
             }
         }
@@ -46,11 +47,16 @@ if(substr($authLevel,0,1) == '1'){
         }
         function moveOneFile(i){
             $('.file').html('Copying file '+files[i]);
+            try{
+                window.clearTimeout(timer);
+            }catch (ex){}
+            timer = window.setTimeout('moveOneFile('+(i+1)+')',15000);
             $.ajax({
                 type: 'POST',
                 url: 'copy.php',
                 data: 'path='+files[i]+'&remotePath='+remotePath,
                 success: function(data) {
+                    window.clearTimeout(timer);
                     if(data!='1'){
                         $('.data').html(data);
                     }
@@ -59,7 +65,7 @@ if(substr($authLevel,0,1) == '1'){
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(i+1);
                     }else{
-                        $.ajax({
+                        /*$.ajax({
                             type: 'POST',
                             url: 'finish.php',
                             data: 'version='+version,
@@ -69,7 +75,7 @@ if(substr($authLevel,0,1) == '1'){
                                 $('.data').html('');
                                 document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
                             }
-                        });
+                        });//*/
                     }
                 }
             });
@@ -88,7 +94,8 @@ if(substr($authLevel,0,1) == '1'){
     ");$count++;
             $in = substr($in,strpos($in,'#')+1);
         }
-        echo("var version = '$version';");
+        echo("var version = '$version';
+");
     }
 ?>
     </script>
