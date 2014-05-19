@@ -68,6 +68,13 @@ if(file_exists('access.crypt')){
         $multiLang = $row['value'];
     }
     $multiLang = $multiLang == 'multi'?' checked':'';
+    $autoUpdate = "";
+    $que = "SELECT * FROM settings WHERE parameter='autoUpdate'";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $autoUpdate = $row['value'];
+    }
+    $autoUpdate = $autoUpdate == 'on'?' checked':'';
 }
 if(isset($_POST['sql'])){
     if($_POST['sql'] != ''){
@@ -136,7 +143,6 @@ if(isset($_POST['title'])){
         mysqli_free_result($erg);
         $que = "SELECT * FROM settings WHERE parameter='autoUpdate'";
         $erg = mysqli_query($sql,$que);
-        mysqli_free_result($erg);
         $out = false;
         while($row = mysqli_fetch_array($erg)){
             $out = $row['value'];
