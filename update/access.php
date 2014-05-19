@@ -42,7 +42,7 @@ if(!function_exists('encrypt')){
     }
 }
 if(!file_exists('access.crypt')){
-    header('Location:setup.php');
+    header('Location: ../setup.php');
     exit;
 }else{
     $datei = fopen('access.crypt','r');
