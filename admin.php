@@ -423,6 +423,7 @@ if(file_exists("content/$id.php")){
                     echo("<div class='pageMenuItem' onclick=\"$('.langChooser').toggleClass('hidden')\" title='actual language'>Lang: $lang</div>");
                 }
                 ?>
+                <div class="pageMenuItem"><a href="update/update.php?forceUpdate=true" title="check editor fpr updates">check updates</a></div>
             </div>Editing mode
         </div>
         <div class="langChooser hidden">
