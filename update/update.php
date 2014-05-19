@@ -65,6 +65,7 @@ if(substr($authLevel,0,1) == '1'){
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(i+1);
                     }else{
+                        $('.file').html('finishing update...');
                         $.ajax({
                             type: 'POST',
                             url: 'finish.php',
