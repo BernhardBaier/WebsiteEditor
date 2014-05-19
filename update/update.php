@@ -143,15 +143,21 @@ if(substr($authLevel,0,1) == '1'){
             padding:2px;
             cursor:pointer;
         }
+        .button:hover{
+            background:#FF8000;
+        }
         .button a{
             text-decoration:none;
             color:#000;
         }
+        .button.green{
+            background:#568C0A;
+        }
+        .button.green:hover{
+            background:#88BE14;
+        }
         .button.hidden{
             display:none;
-        }
-        .button:hover{
-            background:#FF8000;
         }
         .spacer{
             height:30px;
@@ -160,7 +166,8 @@ if(substr($authLevel,0,1) == '1'){
 </head>
 <body onload="init()">
 <div>
-    <div class="button" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
+    <div class="pageTitle">Welcome to the update Panel.</div>
+    <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div class="button"><a href="../admin.php">Skip Update</a></div>
     <div style="position:relative">
         <div class="progressBarUnder hidden"></div>
