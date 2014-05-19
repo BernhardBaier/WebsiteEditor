@@ -1,4 +1,4 @@
-#version#4.1.8#
+#version#4.1.9#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#
 #file#../plugins/access.php#

@@ -60,12 +60,12 @@ if(substr($authLevel,0,1) == '1'){
                     if(data!='1'){
                         $('.data').html(data);
                     }
-                    if(i<max){
+                    if(i<max-1){
                         var prog = Math.round(i*100/max);
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(i+1);
                     }else{
-                        /*$.ajax({
+                        $.ajax({
                             type: 'POST',
                             url: 'finish.php',
                             data: 'version='+version,
@@ -75,7 +75,7 @@ if(substr($authLevel,0,1) == '1'){
                                 $('.data').html('');
                                 document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
                             }
-                        });//*/
+                        });
                     }
                 }
             });
