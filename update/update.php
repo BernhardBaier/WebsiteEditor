@@ -79,7 +79,8 @@ if(substr($authLevel,0,1) == '1'){
     if($oldVersion != $version){
         $in = substr($in,strpos($in,'#file#'));
         $count = 0;
-        echo("var remotePath = '$remotePath';");
+        echo("var remotePath = '$remotePath';
+");
         while(strpos($in,'#')>-1){
             $in = substr($in,strpos($in,'#file#')+6);
             $path = substr($in,0,strpos($in,'#'));
