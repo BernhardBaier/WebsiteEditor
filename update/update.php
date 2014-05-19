@@ -40,7 +40,7 @@ if(substr($authLevel,0,1) == '1'){
         }
         function init(){
             if(files.length == 0){
-                $('.button').html('Package up to date.');
+                document.getElementsByClassName('button')[0].innerHTML = 'Package up to date.';
             }
         }
         function moveOneFile(i){
