@@ -5,7 +5,7 @@
  * Date: 09.03.14
  * Time: 18:34
  */
-//error_reporting(E_ERROR);
+error_reporting(E_ERROR);
 function encrypt($decrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
     // Build a 256-bit $key which is a SHA256 hash of $salt and $password.
     $key = hash('SHA256', $salt . $password, true);
