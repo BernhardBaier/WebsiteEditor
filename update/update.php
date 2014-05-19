@@ -14,7 +14,8 @@ if(substr($authLevel,0,1) == '1'){
     fclose($file);
     $version = substr($in,strpos($in,'#version#')+9);
     $version = substr($version,0,strpos($version,'#'));
-    if($version == $oldVersion){
+    $force = $_GET['forceUpdate'];
+    if($version == $oldVersion && $force != 'true'){
         header('Location: ../admin.php');
     }
 ?>
