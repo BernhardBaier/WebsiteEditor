@@ -67,7 +67,7 @@ if(substr($authLevel,0,1) == '1'){
                         $('.data').html(data);
                     }
                     if(i<max-1){
-                        var prog = Math.round(i*100/max);
+                        var prog = Math.round((i+1)*100/max)-1;
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(i+1);
                     }else{
