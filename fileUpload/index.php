@@ -78,6 +78,7 @@ $path = $path==""?"":"&path=".$path;
         });
     }
 </script>
+<script src="../spin.min.js"></script>
 <style>
     .hidden{
         visibility:hidden;
@@ -86,8 +87,30 @@ $path = $path==""?"":"&path=".$path;
 </head>
 <body>
 <h1 style="position:absolute;top:5px;left:calc(50% - 90px);">File Upload</h1>
-<div style="position:absolute;top:5px;right:5px;padding:5px;background:#f00;border-radius:3px;cursor:pointer;" title="verlassen" onclick="leaveUpload()">Leave</div>
-<img src="../images/loading.gif" height="55" style="position:absolute;top:0;right:0;z-index:3;border-radius:13px;" class="waitIcon hidden" title="pleace wait">
+<div style="position:absolute;top:5px;right:5px;padding:5px;background:#f00;border-radius:3px;cursor:pointer;" title="leave" onclick="leaveUpload()">Leave</div>
+<div class="waitIcon hidden" id="loadingImg1" style="height:55px;width:55px;background:#FFF;position:absolute;top:5px;right:5px;"></div>
+<script>
+    var opts = {
+        lines: 12,
+        length: 8,
+        width: 4,
+        radius: 12,
+        corners: 1,
+        rotate: 0,
+        direction: 1,
+        color: '#555',
+        speed: 1.2,
+        trail: 75,
+        shadow: false,
+        hwaccel: false,
+        className: 'spinner',
+        zIndex: 9,
+        top: '40%',
+        left: '50%'
+    };
+    var target = document.getElementById('loadingImg1');
+    var spinner = new Spinner(opts).spin(target);
+</script>
 <div class="container">
     <br>
     <!-- The file upload form used as target for the file upload widget -->

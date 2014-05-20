@@ -19,8 +19,15 @@ img{
 }
 .loadingImg{
     position:absolute;
-    left:calc(50% - 25px);
-    top:calc(50% - 60px);
+    left:calc(50% - 50px);
+    top:calc(50% - 75px);
+}
+#loadingImg1{
+    width:100px;
+    height:100px;
+}
+.loadingMessage{
+    text-align:center;
 }
 .logout{
     transition:opacity 500ms;

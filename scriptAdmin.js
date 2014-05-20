@@ -118,7 +118,7 @@ function init(){
     $('.pageMenuTitle').html(jsPageNames[pageId]);
     $('.pageName').html(jsPageNames[pageId]);
     $('#menuItemInner'+pageId).addClass('active');
-    $('.loadingMessage').html('&nbsp;&nbsp;Init...');
+    $('.loadingMessage').html('Init');
     if(showPlugIn == true){
         showPlugins();
     }else if(showUsers == true){
@@ -473,7 +473,7 @@ function dragOut(ev){
 
 
 function replaceUml(text){
-    var umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
+    var umlaute = [['ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
     for(var i=0;i<umlaute[0].length;i++){
         while(text.search(umlaute[0][i]) > -1){
             text=text.replace(umlaute[0][i],umlaute[1][i]);

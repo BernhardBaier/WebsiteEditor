@@ -129,6 +129,8 @@ if(substr($authLevel,0,1) == "1"){
     <!-- todo: remove this in final!--><script src="jquery-1.9.1.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
+    <script src="spin.min.js"></script>
+
     <script src="ckeditor/ckeditor.js"></script>
     <script>
         var startHTML = '';
@@ -191,7 +193,29 @@ if(substr($authLevel,0,1) == "1"){
     <script src="scriptPlugin.js"></script>
 </head>
 <body onload="init()">
-<div class="pageLoading"><div class="loadingImg"><img height="50" src="images/loading.gif" /></br><span class="loadingMessage" style="color:#FFF;">Loading</span></div></div>
+<div class="pageLoading"><div class="loadingImg"><div id="loadingImg1"></div><div class="loadingMessage" style="color:#FFF;">Loading</div></div></div>
+<script>
+    var opts = {
+        lines: 14,
+        length: 16,
+        width: 7,
+        radius: 22,
+        corners: 1,
+        rotate: 219,
+        direction: 1,
+        color: '#FFF',
+        speed: 1.2,
+        trail: 75,
+        shadow: false,
+        hwaccel: false,
+        className: 'spinner',
+        zIndex: 9,
+        top: '40%',
+        left: '50%'
+    };
+    var target = document.getElementById('loadingImg1');
+    var spinner = new Spinner(opts).spin(target);
+</script>
 <div class="pageTour opac0 hidden"><div class="tourBox hidden"></div><div class="tourText"></div></div>
 <?php
 include('content/user.php');
