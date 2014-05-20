@@ -122,7 +122,11 @@ if($authLevel == '1111'){
             if(strpos($in,$path) > -1){
                 $ktxt = substr($in,0,strpos($in,$path)-6);
                 $in = substr($in,strpos($in,$path));
-                $in = substr($in,strpos($in,'#file#'));
+                if(strpos($in,'#file#') > -1){
+                    $in = substr($in,strpos($in,'#file#'));
+                }else{
+                    $in = '';
+                }
                 $in = $ktxt.$in;
             }
             if($add){
