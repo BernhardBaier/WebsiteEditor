@@ -45,7 +45,6 @@ function printMenu($sql,$n_parent=0,$level=0){
         $name = $row['name'];
         $childCount = $row['childCount'];
         $classToAdd = $id==$pid?' active':'';
-        $children = unserialize($row['child']);
         if($extra == "1"){
             if($parent == 0){
                 $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";

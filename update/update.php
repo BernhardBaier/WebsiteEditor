@@ -99,7 +99,7 @@ if($authLevel == '1111'){
         $count = 0;
         echo("var remotePath = '$remotePath';
 ");
-        while(strpos($remoteIn,'#')>-1){
+        while(strpos($remoteIn,'#file#')>-1){
             $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#')+6);
             $path = substr($remoteIn,0,strpos($remoteIn,'#'));
             $add = true;

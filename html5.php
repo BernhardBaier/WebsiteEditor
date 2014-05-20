@@ -100,7 +100,7 @@ function findInArray($array,$needle){
     return -1;
 }
 function replaceUml($text){
-    $umlaute = [['Ã¤','Ã¶','Ã¼','Ã„','Ã–','Ãœ','ÃŸ'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
+    $umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
     for($i=0;$i<sizeof($umlaute[0]);$i++){
         $text = str_replace($umlaute[0][$i],$umlaute[1][$i],$text);
     }
