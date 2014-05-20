@@ -26,6 +26,8 @@ if(substr($authLevel,0,1) == '1'){
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Updater</title>
+    <link rel="SHORTCUT ICON" href="../images/editorLogo.png"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var max = 0;
