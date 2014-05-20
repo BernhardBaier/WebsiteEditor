@@ -78,12 +78,8 @@ if(substr($authLevel,2,1) == '1'){
                 $Auser = decrypt($user['user'],'C3zyK5Uu3zdmgE6pCFB8');
                 echo('<tr><td>'.$Auser.'</td><td>'.$accessOut.'</td><td>'.decrypt($user['email'],'C3zyK5Uu3zdmgE6pCFB8').'</td>
                 <td>'.$user['reg'].'</td><td>'.$user['ondate'].'</td>');
-                if($accessOut == 'admin'){
-                    echo('<td> </td>');
-                }else{
-                    echo('<td>&nbsp;<img src="images/key.png" title="set rights" onclick="showSetRights(\''.$Auser.'\',\''.$access.'\')" height="18" />&nbsp;
+                echo('<td>&nbsp;<img src="images/key.png" title="set rights" onclick="showSetRights(\''.$Auser.'\',\''.$access.'\')" height="18" />&nbsp;
 <img title="delete user" src="images/bin.png" onclick="deleteUser(\''.$Auser.'\')" height="18" />&nbsp;</td>');
-                }
                 echo('</tr>');
             }
             echo('</tr></table>');

@@ -1,4 +1,4 @@
-#version#4.1.15#
+#version#4.1.16#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -11,12 +11,16 @@
 #file#../plugins/calendar/calendar.php#date#20140520173539#
 #file#../plugins/calendar/calendar.plg#date#20140520173540#
 #file#../plugins/calendar/include.php#date#20140520173541#
+#file#../plugins/calendar/images/active.png#date#20140514111330#
+#file#../plugins/calendar/images/logo.png#date#20140514111330#
 #file#../plugins/settings/access.php#date#20140520173542#
 #file#../plugins/settings/auth.php#date#20140520173543#
 #file#../plugins/settings/functions.php#date#20140520173544#
 #file#../plugins/settings/include.php#date#20140520173546#
 #file#../plugins/settings/settings.plg#date#20140520173547#
 #file#../plugins/settings/style.css#date#20140520173548#
+#file#../plugins/settings/images/active.png#date#20140514111330#
+#file#../plugins/settings/images/logo.png#date#20140514111330#
 #file#../update/access.php#date#20140520173549#
 #file#../update/auth.php#date#20140520173550#
 #file#../update/copy.php#date#20140520173551#
@@ -81,5 +85,5 @@
 #file#../styleLogin.css#date#20140520173700#
 #file#../styleMobile.css#date#20140520173701#
 #file#../tour.php#date#20140520173702#
-#file#../users.php#date#20140520173703#
+#file#../users.php#date#20140520214832#
 #file#../update/fileList.list#
