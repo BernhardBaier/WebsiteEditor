@@ -119,12 +119,25 @@ if($authLevel == '1111'){
                     }
                 }
             }
+            if(strpos($in,$path) > -1){
+                $ktxt = substr($in,0,strpos($in,$path)-6);
+                $in = substr($in,strpos($in,$path));
+                $in = substr($in,strpos($in,'#file#'));
+                $in = $ktxt.$in;
+            }
             if($add){
                 echo("files[$count] = '$path';
     ");
                 $count++;
             }
             $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
+        }
+        while(strpos($in,'#file#') > -1){
+            $in = substr($in,strpos($in,'#file#')+6);
+            $path = substr($in,0,strpos($in,'#'));
+            if(file_exists($path)){
+                unlink($path);
+            }
         }
         echo("var version = '$version';
 ");
