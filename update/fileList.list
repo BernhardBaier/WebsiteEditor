@@ -1,4 +1,4 @@
-#version#4.1.19#
+#version#4.1.20#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -25,9 +25,11 @@
 #file#../update/auth.php#date#20140520173550#
 #file#../update/copy.php#date#20140520215643#
 #file#../update/finish.php#date#20140520215644#
-#file#../update/update.php#date#20140520222123#
+#file#../update/update.php#date#20140520223953#
+#file#../fileUpload/CONTRIBUTING.md#date#20140514111330#
 #file#../fileUpload/Gruntfile.js#date#20140520173554#
 #file#../fileUpload/index.php#date#20140520173556#
+#file#../fileUpload/README.md#date#20140514111330#
 #file#../images/bin.png#date#20140519163116#
 #file#../images/close.png#date#20140520173559#
 #file#../images/editorLogo.png#date#20140520173600#
@@ -60,7 +62,7 @@
 #file#../deletePic.php#date#20140520173632#
 #file#../functions.php#date#20140520173633#
 #file#../getFiles.php#date#20140520173634#
-#file#../html5.php#date#20140520215838#
+#file#../html5.php#date#20140520232205#
 #file#../index.php#date#20140520173636#
 #file#../jquery-1.9.1.min.js#date#20140520173638#
 #file#../login.php#date#20140520173639#
@@ -69,6 +71,7 @@
 #file#../moveFiles.php#date#20140520173642#
 #file#../MySQLHandler.php#date#20140520173643#
 #file#../MySQLHandlerFunctions.php#date#20140520173644#
+#file#../README.md#date#20140516150136#
 #file#../register.php#date#20140520173645#
 #file#../scriptAdmin.js#date#20140520173646#
 #file#../scriptFileBrowser.js#date#20140520173648#
