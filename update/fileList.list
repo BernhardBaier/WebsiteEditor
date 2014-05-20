@@ -1,4 +1,4 @@
-#version#4.1.18#
+#version#4.1.19#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -25,7 +25,7 @@
 #file#../update/auth.php#date#20140520173550#
 #file#../update/copy.php#date#20140520215643#
 #file#../update/finish.php#date#20140520215644#
-#file#../update/update.php#date#20140520220104#
+#file#../update/update.php#date#20140520222123#
 #file#../fileUpload/Gruntfile.js#date#20140520173554#
 #file#../fileUpload/index.php#date#20140520173556#
 #file#../images/bin.png#date#20140519163116#
@@ -44,7 +44,6 @@
 #file#../images/leer.png#date#20140520173612#
 #file#../images/leftBar.png#date#20140520173613#
 #file#../images/listicon.png#date#20140520173614#
-#file#../images/loading.gif##date#20140520173614#
 #file#../images/logo.png#date#20140520173615#
 #file#../images/menu.png#date#20140520173617#
 #file#../images/menuOptions.png#date#20140520173618#
