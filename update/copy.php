@@ -1,6 +1,6 @@
 <?php
 include "auth.php";
-if(substr($authLevel,0,1) == "1"){
+if($authLevel == '1111'){
     $remotePath = $_POST['remotePath'];
     $path = $_POST['path'];
     if(copy($remotePath.substr($path,3),$path)){

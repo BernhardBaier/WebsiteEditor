@@ -7,7 +7,7 @@
  */
 $version = $_POST['version'];
 include "access.php";
-if(substr($authLevel,0,1) == '1'){
+if($authLevel == '1111'){
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);

@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ERROR);
 include 'auth.php';
-if(substr($authLevel,0,1) == '1'){
+if($authLevel == '1111'){
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
     fclose($file);
@@ -203,5 +203,7 @@ if(substr($authLevel,0,1) == '1'){
 </body>
 </html>
 <?php
+}else{
+    header('Location: ../admin.php');
 }
 ?>
