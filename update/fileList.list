@@ -1,4 +1,4 @@
-#version#4.1.17#
+#version#4.1.18#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -23,9 +23,9 @@
 #file#../plugins/settings/images/logo.png#date#20140514111330#
 #file#../update/access.php#date#20140520173549#
 #file#../update/auth.php#date#20140520173550#
-#file#../update/copy.php#date#20140520215521#
-#file#../update/finish.php#date#20140520215515#
-#file#../update/update.php#date#20140520215500#
+#file#../update/copy.php#date#20140520215643#
+#file#../update/finish.php#date#20140520215644#
+#file#../update/update.php#date#20140520220104#
 #file#../fileUpload/Gruntfile.js#date#20140520173554#
 #file#../fileUpload/index.php#date#20140520173556#
 #file#../images/bin.png#date#20140519163116#
@@ -60,12 +60,12 @@
 #file#../deletePic.php#date#20140520173632#
 #file#../functions.php#date#20140520173633#
 #file#../getFiles.php#date#20140520173634#
-#file#../html5.php#date#20140520173635#
+#file#../html5.php#date#20140520215838#
 #file#../index.php#date#20140520173636#
 #file#../jquery-1.9.1.min.js#date#20140520173638#
 #file#../login.php#date#20140520173639#
 #file#../logout.php#date#20140520173640#
-#file#../mobile.php#date#20140520173641#
+#file#../mobile.php#date#20140520215959#
 #file#../moveFiles.php#date#20140520173642#
 #file#../MySQLHandler.php#date#20140520173643#
 #file#../MySQLHandlerFunctions.php#date#20140520173644#
@@ -85,5 +85,5 @@
 #file#../styleLogin.css#date#20140520173700#
 #file#../styleMobile.css#date#20140520173701#
 #file#../tour.php#date#20140520173702#
-#file#../users.php#date#20140520215255#
+#file#../users.php#date#20140520215647#
 #file#../update/fileList.list#
