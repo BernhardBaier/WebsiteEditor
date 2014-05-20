@@ -108,7 +108,7 @@ if(substr($authLevel,0,1) == '1'){
                         if(strpos($ktxt,'#date#')>-1){
                             $ktxt = substr($ktxt,strpos($ktxt,'#date#')+6);
                             $oldDate = substr($ktxt,0,strpos($ktxt,'#'));
-                            $newDate = substr($remotePath,strpos($remotePath,'#date#')+6);
+                            $newDate = substr($remoteIn,strpos($remoteIn,'#date#')+6);
                             $newDate = substr($newDate,0,strpos($newDate,'#'));
                             if($oldDate == $newDate){
                                 $add = false;
