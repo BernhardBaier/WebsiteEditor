@@ -122,8 +122,8 @@ if(substr($authLevel,0,1) == '1'){
             if($add){
                 echo("files[$count] = '$path';
     ");
+                $count++;
             }
-            $count++;
             $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
         }
         echo("var version = '$version';
