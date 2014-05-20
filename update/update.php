@@ -10,9 +10,9 @@ if(substr($authLevel,0,1) == '1'){
     $in = substr($in,strpos($in,'#path#')+6);
     $remotePath = substr($in,0,strpos($in,'#'));
     $file = fopen($remotePath.'update/fileList.list','r');
-    $in = fread($file,999999);
+    $remoteIn = fread($file,999999);
     fclose($file);
-    $version = substr($in,strpos($in,'#version#')+9);
+    $version = substr($remoteIn,strpos($remoteIn,'#version#')+9);
     $version = substr($version,0,strpos($version,'#'));
     $force = $_GET['forceUpdate'];
     if($version == $oldVersion && $force != 'true'){
@@ -92,16 +92,37 @@ if(substr($authLevel,0,1) == '1'){
         var files = [];
 <?php
     if($oldVersion != $version){
+        $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#'));
         $in = substr($in,strpos($in,'#file#'));
         $count = 0;
         echo("var remotePath = '$remotePath';
 ");
-        while(strpos($in,'#')>-1){
-            $in = substr($in,strpos($in,'#file#')+6);
-            $path = substr($in,0,strpos($in,'#'));
-            echo("files[$count] = '$path';
-    ");$count++;
-            $in = substr($in,strpos($in,'#')+1);
+        while(strpos($remoteIn,'#')>-1){
+            $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#')+6);
+            $path = substr($remoteIn,0,strpos($remoteIn,'#'));
+            $add = true;
+            if(strpos($remoteIn,'#date#') > -1){
+                if(strpos($remoteIn,'#file#') > strpos($remoteIn,'#date#')){
+                    if(strpos($in,$path) > -1){
+                        $ktxt = substr($in,strpos($in,$path));
+                        if(strpos($ktxt,'#date#')>-1){
+                            $ktxt = substr($ktxt,strpos($ktxt,'#date#')+6);
+                            $oldDate = substr($ktxt,0,strpos($ktxt,'#'));
+                            $newDate = substr($remotePath,strpos($remotePath,'#date#')+6);
+                            $newDate = substr($newDate,0,strpos($newDate,'#'));
+                            if($oldDate == $newDate){
+                                $add = false;
+                            }
+                        }
+                    }
+                }
+            }
+            if($add){
+                echo("files[$count] = '$path';
+    ");
+            }
+            $count++;
+            $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
         }
         echo("var version = '$version';
 ");
