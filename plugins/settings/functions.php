@@ -105,6 +105,29 @@ if($authLevel != '' && $authLevel != '0000'){
             if($output!=""){
                 echo("Plugin seams to be incomplete!</br>$output Check it again after fixing the file problem!");
             }else{
+                for($i=0;$i<sizeof($includes);$i++){
+                    if(substr($includes[$i],-4) == '.css'){
+                        $filesWithIncludes = ['../../html5.php','../../mobile.php'];
+                        for($j=0;$j<sizeof($filesWithIncludes);$j++){
+                            $file = fopen($filesWithIncludes[$j],'r');
+                            $txt = fread($file,filesize($filesWithIncludes[$j]));
+                            fclose($file);
+                            if(strpos($txt,'<!--#style for plugins#-->') > -1){
+                                $ktxt = substr($txt,strpos($txt,'<!--#style for plugins#-->')+26);
+                                $ktxt = substr($ktxt,0,strpos($ktxt,'<!--#end#-->'));
+                                if(!(strpos($ktxt,"href='plugins/$path/".$includes[$i]."'") > -1)){
+                                    $ktxt = substr($txt,0,strpos($txt,'<!--#style for plugins#-->')+26);
+                                    $txt = substr($txt,strpos($txt,'<!--#style for plugins#-->')+26);
+                                    $ktxt .= "
+    <link href='".str_replace('../','',$path).substr($includes[$i],strrpos($includes[$i],'/')+1)."' rel='stylesheet' />".$txt;
+                                }
+                                $file = fopen($filesWithIncludes[$j],'w');
+                                fwrite($file,$ktxt);
+                                fclose($file);
+                            }
+                        }
+                    }
+                }
                 $que = "UPDATE $sqlBase.plugins SET name='$name', location='".str_replace('../','',$path)."',includes='".serialize($includes)."' WHERE id=$id;";
                 $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
             }

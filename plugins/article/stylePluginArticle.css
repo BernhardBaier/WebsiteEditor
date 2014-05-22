@@ -1,0 +1,58 @@
+/**
+ * Created by Bernhard on 22.05.14.
+ */
+.pluginArticleOuter{
+    display:block;
+    position:relative;
+    border-radius:4px;
+    border:1px solid #333;
+}
+.pluginArticleTitle{
+    border-radius:3px 3px 0 0;
+    background:#777;
+}
+.pluginArticleDate{
+    float:left;
+    padding:1px;
+    margin:0 4px 0 0;
+    background:#333;
+    color:#FFF;
+    border-radius:3px 0 0 0;
+}
+.pluginArticleTeam{
+    padding:1px;
+}
+.pluginArticleContent{
+    display:table;
+    width:100%;
+}
+.pluginArticleButton{
+    display:inline-flex;
+    border-radius:5px;
+    background:#9E9;
+    padding:3px;
+    cursor:pointer;
+}
+.articlePageChooser{
+    position:absolute;
+    top:55px;
+    left:5px;
+    background:#FFF;
+    padding:4px;
+    border-radius:5px;
+    border:1px solid #555;
+}
+.articlePageChooser ul{
+    padding:0 0 0 25px;
+    margin:0;
+}
+.pluginArticleItem{
+    float:left;
+    width:150px;
+}
+.pluginArticleItem2{
+    cursor:pointer;
+}
+.pluginArticleItem2:hover{
+    color:#555;
+}

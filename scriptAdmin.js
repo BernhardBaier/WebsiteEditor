@@ -473,7 +473,7 @@ function dragOut(ev){
 
 
 function replaceUml(text){
-    var umlaute = [['ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
+    var umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
     for(var i=0;i<umlaute[0].length;i++){
         while(text.search(umlaute[0][i]) > -1){
             text=text.replace(umlaute[0][i],umlaute[1][i]);

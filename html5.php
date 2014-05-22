@@ -21,7 +21,7 @@ include 'access.php';
 $base = $sqlBase;
 $table = 'pages_'.$lang;
 $hostname = $_SERVER['HTTP_HOST'];
-$host = $hostname == 'localhost'?$hostname:'rdbms.strato.de';
+$host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
 $que = "SELECT * FROM settings WHERE parameter='pageTitle'";
 $erg = mysqli_query($sql,$que);
@@ -137,6 +137,34 @@ while($pos > -1){
     <script src="scriptHTML5.js"></script>
 
     <script src="picViewer/picViewer.js"></script>
+    <!--#style for plugins#-->
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <!--#end#-->
 </head>
 <body onload="init()">
 <div class="pageOuter">
