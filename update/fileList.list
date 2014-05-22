@@ -1,4 +1,4 @@
-#version#4.1.21#
+#version#4.1.22#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -35,7 +35,7 @@
 #file#../plugins/article/images/logo.png#date#20140123145812#
 #file#../update/access.php#date#20140520173549#
 #file#../update/auth.php#date#20140520173550#
-#file#../update/copy.php#date#20140520215643#
+#file#../update/copy.php#date#20140522172553#
 #file#../update/finish.php#date#20140520215644#
 #file#../update/update.php#date#20140520223953#
 #file#../fileUpload/CONTRIBUTING.md#date#20140514111330#
