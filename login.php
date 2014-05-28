@@ -33,6 +33,9 @@ function encrypt($decrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
     return $iv_base64 . $encrypted;
 }
 include "access.php";
+if($_SERVER['SERVER_PORT'] != '443'){
+    header('Location: https://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+}
 $editorVersion = '4.0';
 function checkTables(){
     global $sqlBase,$sqlUser,$sqlPass,$sqlHost,$editorVersion;
@@ -115,7 +118,6 @@ function checkTables(){
     }
 }
 checkTables();
-$path = dirname($_SERVER['PHP_SELF']);
 session_start();
 if($_SESSION['authlevel'] != '0000' && $_SESSION['authlevel'] != '') {
     header('Location: admin.php');
@@ -148,11 +150,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($out == 'access' && $user == $username){
                 $aUser = $row['user'];
                 $auth = decrypt($row['access'],'C3zyK5Uu3zdmgE6pCFB8');
-                $_SESSION['authlevel'] = $auth;
-                $_SESSION['user'] = $user;
-                $_SESSION['id'] = $row['id'];
-                $_SESSION['ip'] = $ip;
-                $_SESSION['extra'] = $row['extra'];
+                $_SESSION['redirect'] = 'true';
+                $info[0] = $auth;
+                $info[1] = $user;
+                $info[2] = $row['id'];
+                $info[3] = $row['extra'];
+                $cookie = encrypt(serialize($info),$ip);
+                $cookie = encrypt($cookie,session_id());
+                setcookie('auth',$cookie,time()+5);
                 if ($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1') {
                     if (php_sapi_name() == 'cgi') {
                         header('Status: 303 See Other');
@@ -170,11 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $autoUpdate = $row['value'];
                     }
                     mysqli_free_result($erg);
-                    if($autoUpdate === false){
-                        header('Location: admin.php');
-                    }else{
-                        header('Location: update/update.php');
+                    if($autoUpdate === true){
+                        $_SESSION['update'] = 'true';
+
                     }
+                    header('Location: redirect.php');
                     exit;
                 }
             }
