@@ -10,22 +10,46 @@
 .pluginArticleTitle{
     border-radius:3px 3px 0 0;
     background:#777;
+    cursor:pointer;
+}
+.pluginArticleTitle{
+    background:#888;
 }
 .pluginArticleDate{
     float:left;
     padding:1px;
-    margin:0 4px 0 0;
     background:#333;
     color:#FFF;
     border-radius:3px 0 0 0;
 }
 .pluginArticleTeam{
-    padding:1px;
+    padding:1px 5px 1px 5px;
+    display:inline-flex;
+    background:#999;
 }
 .pluginArticleContent{
+    transition:height 500ms;
+    -webkit-transition:height 500ms;
     display:table;
     width:100%;
+    overflow-x:hidden;
 }
+.pluginArticleContent.out{
+    height:0;
+    display:flex;
+}
+.pluginArticleContentInner{
+    margin:2px;
+    width:99%;
+    width:calc(100% - 4px);
+    display:table;
+}
+.pluginArticleShort{
+    display:inline-flex;
+    margin:0 0 0 3px;
+}
+
+
 .pluginArticleButton{
     display:inline-flex;
     border-radius:5px;

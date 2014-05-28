@@ -22,11 +22,15 @@ if(substr($authLevel,1,1) == "1"){
             $erg2 = mysqli_query($sql,$que2);
             $articleIds = [];
             while($row = mysqli_fetch_array($erg2)){
-                $articleIds = unserialize($row['value']);
+                $in = $row['value'];
+                if($in != 'NULL'){
+                    $articleIds = unserialize($in);
+                }
             }
             mysqli_free_result($erg2);
             $articles = "<ul>";
-            for($i=0;$i<sizeof($articleIds);$i++){
+            $max = sizeof($articleIds);
+            for($i=0;$i<$max;$i++){
                 $callback = str_replace('$pid',$articleIds[$i],$_POST['callback']);
                 if(isset($_POST['callback'])){
                     $articles .= "<li class='pluginArticleItem2' onclick='$callback'>".getValueById($articleIds[$i],'name',$sql)."</li>";
@@ -44,14 +48,16 @@ if(substr($authLevel,1,1) == "1"){
             $erg2 = mysqli_query($sql,$que2);
             $articleIds = [];
             while($row = mysqli_fetch_array($erg2)){
-                $articleIds = unserialize($row['value']);
+                $articleIds = $row['value'];
             }
             mysqli_free_result($erg2);
-            if($articleIds == []){
+            if($articleIds == 'NULL'){
+                $articleIds = [];
                 $articleIds[0] = $id;
                 $que = "INSERT INTO $sqlBase.settings (value,parameter) VALUES ('".serialize($articleIds)."','articleIds')";
                 mysqli_query($sql,$que) or die(mysqli_error($sql));
             }else{
+                $articleIds = unserialize($articleIds);
                 if(findInArray($articleIds,$id) == -1){
                     array_push($articleIds,$id);
                     $que2 = "UPDATE settings set value='".serialize($articleIds)."' WHERE parameter='articleIds'";

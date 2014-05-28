@@ -153,6 +153,14 @@ if(substr($authLevel,1,1) == "1"){
                     url: 'functions.php',
                     data: 'function=getArticles&callback=chooseArticleNow($pid)&lang='+lang,
                     success: function(data) {
+                        data = data=='none'?'This Plugin is not ready for use jet! Your admin has to activate it first!':data;
+                        var count = data.match(/<\/li>/g);
+                        if(count.length == 1){
+                            data = data.substr(data.search('chooseArticleNow')+17);
+                            data = data.substr(0,data.search("'")-1);
+                            chooseArticleNow(data);
+                            data = 'redirecting you now...';
+                        }
                         $('.articlePageChooser2').html(data);
                     }
                 });

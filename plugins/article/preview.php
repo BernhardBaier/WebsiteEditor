@@ -7,5 +7,13 @@
  */
 $id = $_GET['id'];
 $id = $id==''?1:$id;
-echo("<link rel='stylesheet' href='stylePluginArticle.css' />");
-include("content/$id/article.php");
+echo("<body onload='initPicViewer()'><link rel='stylesheet' href='stylePluginArticle.css' /><script src='../../picViewer/picViewer.js'></script>
+<link href='../../picViewer/picViewer.css' rel='stylesheet' />
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>");
+$file = fopen("content/$id/article.php",'r');
+$in  = fread($file,filesize("content/$id/article.php"));
+fclose($file);
+$in = str_replace('src="','src="../../',$in);
+$in = str_replace("src='","src='../../",$in);
+echo($in."<div><a href='article.php?id=$id'>back</a></div>");
+echo('</body>');
