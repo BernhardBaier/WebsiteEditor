@@ -241,10 +241,11 @@ if(isset($_POST['title'])){
             }
             ?>
         }
+        var sslPath = '<?php echo($sslPath);?>';
         function checkSSL(th){
             if(th.checked){
                 document.getElementById('ssl').className = '';
-                window.form2.ssl.value = '<?php echo($sslPath);?>';
+                window.form2.ssl.value = sslPath;
             }else{
                 document.getElementById('ssl').className = 'hidden';
                 window.form2.ssl.value = 'none';
@@ -335,7 +336,7 @@ if(isset($_POST['title'])){
                     </tr>
                 </table>
             </form>
-            <input type="button" value="leave" onclick="location.href='http://'+location.href.substr(0,location.href.lastIndexOf('/')).substr(location.href.search('/'))+'/login.php'"/>
+            <input type="button" value="leave" onclick="location.href='http://'+location.href.substr(0,location.href.lastIndexOf('/')).replace(sslPath,'')+'/login.php'"/>
         </div>
     </div>
 </div>
