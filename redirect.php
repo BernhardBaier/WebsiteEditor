@@ -50,7 +50,7 @@ if($_POST['redirect'] == 'true'){
         $path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
         $path = 'http://'.substr($path,0,strrpos($path,'/'));
         if($_POST['update'] == 'true'){
-            header("Location: $path/plugins/update/update.php");
+            header("Location: $path/update/update.php");
             exit;
         }
         header("Location: $path/admin.php");
