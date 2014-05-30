@@ -19,7 +19,7 @@ function encrypt($decrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
 }
 if($_GET['action'] == 'deleteLogo'){
     unlink('images/logo.png');
-    header('Location:setup.php');
+    header('Location:setup.php?admin=true');
     exit;
 }
 if($_GET['action'] == 'upload'){
@@ -35,7 +35,7 @@ if($_GET['action'] == 'moveFile'){
     if(file_exists('upload/logo.png')){
         if(copy('upload/logo.png','images/logo.png')){
             unlink('upload/logo.png');
-            header('Location: setup.php');
+            header('Location: setup.php?admin=true');
             exit;
         }
     }
@@ -90,7 +90,7 @@ if($_SERVER['SERVER_PORT'] != '443' && $_GET['ssl'] != 'false'){
     if($sslPath == 'none'){
         echo('This is an unprotected connection! I recommend tu use an SSl connection.<br>Please open this site in your protected domain<br><a href="setup.php?ssl=false&admin='.$_GET['admin'].'">use without SSL</a>');
     }else{
-        header("Location: ".$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+        header("Location: ".$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?admin='.$_GET['admin']);
     }
 }else{
 if(isset($_POST['sql'])){
@@ -279,7 +279,7 @@ if(isset($_POST['title'])){
                     echo('Logo: <img src="images/logo.png" height="45" /> <input type="button" onclick="location.href=\'setup.php?action=deleteLogo\'" value="change"/>');
                 }
             ?>
-            <form action="setup.php" name="form1" method="post">
+            <form action="setup.php?admin=true" name="form1" method="post">
                 <table>
                     <tr>
                         <td>Title</td>
@@ -299,7 +299,7 @@ if(isset($_POST['title'])){
             <?php
             }
             ?>
-            <form action="setup.php" name="form2" method="post">
+            <form action="setup.php?admin=<?php echo($_GET['admin']);?>" name="form2" method="post">
                 <table>
                     <tr>
                         <td colspan="2" align="center">SQL login data:</td>
