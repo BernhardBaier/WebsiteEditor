@@ -1,4 +1,4 @@
-#version#4.1.26#
+#version#4.1.27#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -77,14 +77,14 @@
 #file#../html5.php#date#20140522165607#
 #file#../index.php#date#20140520173636#
 #file#../jquery-1.9.1.min.js#date#20140520173638#
-#file#../login.php#date#20140530181720#
+#file#../login.php#date#20140530183500#
 #file#../logout.php#date#20140520173640#
 #file#../mobile.php#date#20140522165607#
 #file#../moveFiles.php#date#20140522143054#
 #file#../MySQLHandler.php#date#20140520173643#
 #file#../MySQLHandlerFunctions.php#date#20140522172021#
 #file#../README.md#date#20140516150136#
-#file#../redirect.php#date#20140530181628#
+#file#../redirect.php#date#20140530183439#
 #file#../register.php#date#20140520173645#
 #file#../scriptAdmin.js#date#20140522154331#
 #file#../scriptFileBrowser.js#date#20140520173648#

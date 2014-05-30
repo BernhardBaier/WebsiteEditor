@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $autoUpdate = $row['value'];
                     }
                     mysqli_free_result($erg);
-                    if($autoUpdate === true){
+                    if($autoUpdate !== false){
                         echo("<input type='hidden' name='update' value='true' />");
                     }
                     echo("<input type='submit' value='redirect' />

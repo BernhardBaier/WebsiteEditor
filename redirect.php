@@ -57,6 +57,6 @@ if($_POST['redirect'] == 'true'){
         exit;
     }
 }else{
-    //include "auth.php";
+    include "auth.php";
 }
-//header('Location: logout.php');
+header('Location: logout.php');
