@@ -173,7 +173,7 @@ if(substr($authLevel,1,1) == "1"){
                 });
             }
             function chooseArticleNow(id){
-                location.href = 'article.php?id='+id;
+                location.href = 'article.php?id='+id+'&lang='+lang;
             }
         </script>
     </head>

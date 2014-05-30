@@ -139,31 +139,6 @@ while($pos > -1){
     <script src="picViewer/picViewer.js"></script>
     <!--#style for plugins#-->
     <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
     <!--#end#-->
 </head>
 <body onload="init()">

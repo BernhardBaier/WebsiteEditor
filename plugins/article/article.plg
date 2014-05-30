@@ -4,11 +4,15 @@
 #file#access.php#
 #file#auth.php#
 #required#
+#file#access.crypt#
+#file#access.php#
+#file#auth.php#
 #file#images/logo.png#
 #file#images/logo.png#
 #file#include.php#
 #file#article.php#
 #file#articleFunctions.php#
+#file#functions.php#
 #file#preview.php#
 #file#style.css#
 #file#stylePluginArticle.css#

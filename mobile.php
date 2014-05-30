@@ -122,31 +122,6 @@ while($row = mysqli_fetch_array($erg)){
     <script src="picViewer/picViewer.js"></script>
     <!--#style for plugins#-->
     <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
     <!--#end#-->
 </head>
 <body onload="init()">

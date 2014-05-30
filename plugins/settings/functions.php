@@ -67,10 +67,8 @@ if($authLevel != '' && $authLevel != '0000'){
             $input = fread($datei,filesize($path));
             fclose($datei);
             $path = substr($path,0,strrpos($path,'/')+1);
-
             $input = substr($input,strpos($input,'#name#')+6);
             $name = substr($input,0,strpos($input,'#'));
-
             $input = substr($input,strpos($input,'#copy#')+6);
             while(strpos($input,'#file#') < strpos($input,'#required#')){
                 $input = substr($input,strpos($input,'#file#')+6);
@@ -105,30 +103,32 @@ if($authLevel != '' && $authLevel != '0000'){
             if($output!=""){
                 echo("Plugin seams to be incomplete!</br>$output Check it again after fixing the file problem!");
             }else{
-                for($i=0;$i<sizeof($includes);$i++){
-                    if(substr($includes[$i],-4) == '.css'){
-                        $filesWithIncludes = ['../../html5.php','../../mobile.php'];
-                        for($j=0;$j<sizeof($filesWithIncludes);$j++){
-                            $file = fopen($filesWithIncludes[$j],'r');
-                            $txt = fread($file,filesize($filesWithIncludes[$j]));
-                            fclose($file);
-                            if(strpos($txt,'<!--#style for plugins#-->') > -1){
-                                $ktxt = substr($txt,strpos($txt,'<!--#style for plugins#-->')+26);
-                                $ktxt = substr($ktxt,0,strpos($ktxt,'<!--#end#-->'));
-                                if(!(strpos($ktxt,"href='plugins/$path/".$includes[$i]."'") > -1)){
-                                    $ktxt = substr($txt,0,strpos($txt,'<!--#style for plugins#-->')+26);
-                                    $txt = substr($txt,strpos($txt,'<!--#style for plugins#-->')+26);
-                                    $ktxt .= "
-    <link href='".str_replace('../','',$path).substr($includes[$i],strrpos($includes[$i],'/')+1)."' rel='stylesheet' />".$txt;
+                $path = str_replace('../plugins/','',$path);
+                $path = str_replace('../','',$path);
+                $filesWithIncludes = ['../../html5.php','../../mobile.php'];
+                for($j=0;$j<sizeof($filesWithIncludes);$j++){
+                    $file = fopen($filesWithIncludes[$j],'r');
+                    $infile = fread($file,filesize($filesWithIncludes[$j]));
+                    fclose($file);
+                    if(strpos($infile,'<!--#style for plugins#-->') > -1){
+                        $start = substr($infile,0,strpos($infile,'<!--#style for plugins#-->')+26);
+                        $end = substr($infile,strpos($infile,'<!--#end#-->'));
+                        $styles = substr($infile,0,strpos($infile,'<!--#end#-->'));
+                        $styles = substr($styles,strpos($infile,'<!--#style for plugins#-->')+26);
+                        for($i=0;$i<sizeof($includes);$i++){
+                            if(substr($includes[$i],-4) == '.css'){
+                                if(!(strpos($styles,"href='".$includes[$i]."'") > -1)){
+                                    $styles .= "
+    <link href='".$includes[$i]."' rel='stylesheet' />".$txt;
                                 }
                                 $file = fopen($filesWithIncludes[$j],'w');
-                                fwrite($file,$ktxt);
+                                fwrite($file,$start.$styles.$end);
                                 fclose($file);
                             }
                         }
                     }
                 }
-                $que = "UPDATE $sqlBase.plugins SET name='$name', location='".str_replace('../','',$path)."',includes='".serialize($includes)."' WHERE id=$id;";
+                $que = "UPDATE $sqlBase.plugins SET name='$name', location='plugins/$path',includes='".serialize($includes)."' WHERE id=$id;";
                 $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
             }
             echo('1');
