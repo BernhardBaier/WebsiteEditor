@@ -31,7 +31,7 @@ function setPluginArticleHTML(){
         url: '$location/functions.php',
         data: 'lang='+lang+'&function=getArticles',
         success: function(data) {
-            $('.pluginInner').html('<div class=\"articlePageChooser hidden\"></div><div class=\"articleTitle\">Article admin</div>Pages with articles:<br>'+data+'<br><div class=\"pluginArticleButton\" onclick=\"showAddArticle()\">Add a page to article list</div><hr/><a target=\"_blank\" href=\"plugins/article/article.php\">open editor now</a>');
+            $('.pluginInner').html('<div class=\"articlePageChooser hidden\"></div><div class=\"articleTitle\">Article admin</div>Pages with articles:<br>'+data+'<br><div class=\"pluginArticleButton\" onclick=\"showAddArticle()\">Add a page to article list</div><hr/><a target=\"_blank\" href=\"plugins/article/article.php?lang='+lang+'\">open editor now</a>');
         }
     });
 }

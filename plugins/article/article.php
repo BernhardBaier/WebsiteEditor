@@ -25,7 +25,14 @@ if(substr($authLevel,1,1) == "1"){
     if($sql){
         $id = 0;
         $lang = $_GET['lang'];
-        if($lang == ''){
+        $langs = ['de'];
+        $que = "SELECT * FROM settings WHERE parameter='languages'";
+        $erg = mysqli_query($sql,$que);
+        while($row = mysqli_fetch_array($erg)){
+            $langs = unserialize($row['value']);
+        }
+        mysqli_free_result($erg);
+        if($lang == '' || !findInArray($langs,$lang)){
             $lang = 'de';
         }
         $que = "SELECT * FROM settings WHERE parameter='articleIds'";
@@ -76,7 +83,7 @@ if(substr($authLevel,1,1) == "1"){
             var lang = '<?php echo($lang);?>';
             var path = 'web-images/<?php echo($id);?>/article/<?php echo($maxId);?>/thumbs/';
             function replaceUml(text){
-                var umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
+                var umlaute = [['ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
                 for(var i=0;i<umlaute[0].length;i++){
                     while(text.search(umlaute[0][i]) > -1){
                         text=text.replace(umlaute[0][i],umlaute[1][i]);
@@ -217,7 +224,7 @@ if(substr($authLevel,1,1) == "1"){
                             CKEDITOR.config.language = 'en';
                         </script>
                         <input type="hidden" name="function" value="createEvent" /><input type="hidden" name="id" value="<?php echo($id);?>" /><input type="hidden" name="maxId" value="<?php echo($maxId);?>" />
-                        <input type="submit" value="Save" />
+                        <input type="hidden" name="lang" value="<?php echo($lang);?>" /><input type="submit" value="Save" />
                     </form>
                     Available pictures: (add per Drag & Drop)
                     <div class="filePreview">none</div>

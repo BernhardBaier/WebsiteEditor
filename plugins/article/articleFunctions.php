@@ -12,6 +12,7 @@ if(substr($authLevel,1,1) == "1"){
     $date = $_POST['date'];
     $team = $_POST['team'];
     $short = $_POST['short'];
+    $lang = $_POST['lang'];
     $text = $_POST['editor1'];
     $text = str_replace('src="../../','src="',$text);
     $text = str_replace("src='../../","src='",$text);
