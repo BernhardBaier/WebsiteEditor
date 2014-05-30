@@ -88,7 +88,7 @@ if(file_exists('access.crypt')){
 }
 if($_SERVER['SERVER_PORT'] != '443' && $_GET['ssl'] != 'false'){
     if($sslPath == 'none'){
-        echo('This is an unprotected connection! I recommend tu use an SSl connection.<br>Pleace open this site in your protected domain<br><a href="setup.php?ssl=false">use without SSL</a>');
+        echo('This is an unprotected connection! I recommend tu use an SSl connection.<br>Please open this site in your protected domain<br><a href="setup.php?ssl=false&admin='.$_GET['admin'].'">use without SSL</a>');
     }else{
         header("Location: ".$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
     }
@@ -267,7 +267,7 @@ if(isset($_POST['title'])){
         <div class="pageTitle">Welcome to Website Editor Version <?php echo($editorVersion);?></div>
         <div class="content" align="center">
             <?php
-            if($_SESSION['authlevel'] != ""){
+            if($_SESSION['authlevel'] != "" || $_GET['admin'] == 'true'){
                 if(!file_exists('images/logo.png')){
                     echo('<form action="setup.php?action=upload" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="MAX_FILE_SIZE" value="30000" />

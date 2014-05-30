@@ -1,4 +1,4 @@
-#version#4.1.24#
+#version#4.1.25#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140520173529#
 #file#../plugins/access.php#date#20140520173530#
@@ -67,7 +67,7 @@
 #file#../images/search.png#date#20140520173623#
 #file#../images/upload.png#date#20140520173624#
 #file#../access.php#date#20140530164423#
-#file#../admin.php#date#20140522160807#
+#file#../admin.php#date#20140530182506#
 #file#../auth.php#date#20140520173628#
 #file#../commonStyle.css#date#20140520173629#
 #file#../compress.php#date#20140520173630#
@@ -92,7 +92,7 @@
 #file#../scriptMobile.js#date#20140520173650#
 #file#../scriptPlugin.js#date#20140520173651#
 #file#../search.php#date#20140520173652#
-#file#../setup.php#date#20140530173900#
+#file#../setup.php#date#20140530182446#
 #file#../spin.min.js#date#20140520173655#
 #file#../styleAdmin.css#date#20140520173656#
 #file#../styleEinsatz.css#date#20140520173657#

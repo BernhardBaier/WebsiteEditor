@@ -461,7 +461,7 @@ if(file_exists("content/$id.php")){
             <div class="pageOptionItem" onclick="showInsertLink()" title="insert a link to another page">insert Link</div>
             <div class="pageOptionItem" onclick="togglePicsClickable(this)" id="pageOptionItemPics" title="Select if pictures shall be viewable on this page">pics clickable</div>
             <div class="pageOptionItem" onclick="showPlugins()" title="show or add plugins">plugins</div>
-            <div class="pageOptionItem" onclick="location.href='setup.php'" title="change the websites title or choose other languages and so on">setup</div>
+            <div class="pageOptionItem" onclick="location.href='setup.php?admin=true'" title="change the websites title or choose other languages and so on">setup</div>
             <div class="pageOptionItem" onclick="$('.ownUserControlOuter').removeClass('hidden')" title="show own user">user</div>
             <div class="pageOptionItem" onclick="showPageTourFunc()" title="show a tour to view the most important functions">tour</div>
             <div class="pageOptionItem"><a href="update/update.php?forceUpdate=true" title="check editor fpr updates">check updates</a></div>
