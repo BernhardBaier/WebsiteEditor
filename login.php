@@ -1,8 +1,6 @@
 <?php
 error_reporting(E_ERROR);
-
 $hostname = $_SERVER['HTTP_HOST'];
-
 function decrypt($encrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
     // Build a 256-bit $key which is a SHA256 hash of $salt and $password.
     $key = hash('SHA256', $salt . $password, true);
@@ -33,8 +31,22 @@ function encrypt($decrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
     return $iv_base64 . $encrypted;
 }
 include "access.php";
+$host = $hostname == 'localhost'?$hostname:$sqlHost;
+$sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+$sslPath = '';
+$que = "SELECT * FROM settings WHERE parameter='sslPath'";
+$erg = mysqli_query($sql,$que);
+while($row = mysqli_fetch_array($erg)){
+    $sslPath = $row['value'];
+}
 if($_SERVER['SERVER_PORT'] != '443'){
-    header('Location: https://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+    if($sslPath != 'none'){
+        header('Location: '.$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+    }
+}else{
+    if($sslPath == 'none'){
+        header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+    }
 }
 $editorVersion = '4.0';
 function checkTables(){
@@ -138,8 +150,6 @@ if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $passwort = $_POST['passwort'];
-    $host = $hostname == 'localhost'?$hostname:'rdbms.strato.de';
-    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     $que = "SELECT * FROM users WHERE 1";
     $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
     if($erg){
@@ -148,16 +158,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $out = decrypt($row['pw'],$passwort);
             $user = decrypt($row['user'],'C3zyK5Uu3zdmgE6pCFB8');
             if($out == 'access' && $user == $username){
+                $path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+                if($sslPath != 'none'){
+                    $path = str_replace($sslPath,'','https://'.$path);
+                }
+                $path = 'http://'.substr($path,0,strrpos($path,'/'));
                 $aUser = $row['user'];
                 $auth = decrypt($row['access'],'C3zyK5Uu3zdmgE6pCFB8');
-                $_SESSION['redirect'] = 'true';
                 $info[0] = $auth;
                 $info[1] = $user;
                 $info[2] = $row['id'];
                 $info[3] = $row['extra'];
                 $cookie = encrypt(serialize($info),$ip);
                 $cookie = encrypt($cookie,session_id());
-                setcookie('auth',$cookie,time()+5);
+                $sessId = session_id();
+                echo('Login succeed. redirecting you now.');
+                echo("<form name='form1' action='$path/redirect.php' method='post'>");
+                echo("<input type='hidden' name='redirect' value='true' />");
+                echo("<input type='hidden' name='auth' value='$cookie' />");
+                echo("<input type='hidden' name='PHPSESSID' value='$sessId' />");
                 if ($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1') {
                     if (php_sapi_name() == 'cgi') {
                         header('Status: 303 See Other');
@@ -176,11 +195,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                     mysqli_free_result($erg);
                     if($autoUpdate === true){
-                        $_SESSION['update'] = 'true';
-
+                        echo("<input type='hidden' name='update' value='true' />");
                     }
-                    header('Location: redirect.php');
-                    exit;
+                    echo("<input type='submit' value='redirect' />
+                    </form>
+                    <script>document.form1.submit();</script>");
                 }
             }
         }

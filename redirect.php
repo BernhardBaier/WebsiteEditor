@@ -25,8 +25,7 @@ function decrypt($encrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
 }
 error_reporting(E_ERROR);
 @session_start();
-if($_SESSION['redirect'] == 'true'){
-    $_SESSION['redirect'] = 'false';
+if($_POST['redirect'] == 'true'){
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         $ip = $_SERVER['HTTP_CLIENT_IP'];
     } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -34,9 +33,10 @@ if($_SESSION['redirect'] == 'true'){
     } else {
         $ip = $_SERVER['REMOTE_ADDR'];
     }
-    $cookie = $_COOKIE['auth'];
-    setcookie('auth','auth',time()+1);
-    $cookie = decrypt($cookie,session_id());
+    $cookie = $_POST['auth'];
+    $sessId = $_POST['PHPSESSID'];
+    setcookie('PHPSESSID',$sessId,time()+3600);
+    $cookie = decrypt($cookie,$sessId);
     $cookie = decrypt($cookie,$ip);
     if($cookie){
         $info = unserialize($cookie);
@@ -49,8 +49,7 @@ if($_SESSION['redirect'] == 'true'){
         $_SESSION['ip'] = $ip;
         $path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
         $path = 'http://'.substr($path,0,strrpos($path,'/'));
-        if($_SESSION['update'] == 'true'){
-            $_SESSION['update'] = 'false';
+        if($_POST['update'] == 'true'){
             header("Location: $path/plugins/update/update.php");
             exit;
         }
@@ -58,6 +57,6 @@ if($_SESSION['redirect'] == 'true'){
         exit;
     }
 }else{
-    include "auth.php";
+    //include "auth.php";
 }
-header('Location: logout.php');
+//header('Location: logout.php');

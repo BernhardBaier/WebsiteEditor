@@ -43,13 +43,12 @@ if($_GET['action'] == 'moveFile'){
 $pageTitle = 'no title';
 $editorVersion = '4.1';
 if(file_exists('access.crypt')){
-    include 'access.php';
+    include('access.php');
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     if(!$sql){
         echo('sql error');
-        exit;
     }
     $que = "SELECT * FROM settings WHERE parameter='pageTitle'";
     $erg = mysqli_query($sql,$que);
@@ -75,7 +74,25 @@ if(file_exists('access.crypt')){
         $autoUpdate = $row['value'];
     }
     $autoUpdate = $autoUpdate == 'on'?' checked':'';
+    $sslPath = false;
+    $que = "SELECT * FROM settings WHERE parameter='sslPath'";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $sslPath = $row['value'];
+    }
+    if($sslPath === false){
+        $sslPath = 'none';
+        $que = "INSERT INTO settings (parameter, value) VALUES ('sslPath', 'none')";
+        mysqli_query($sql,$que);
+    }
 }
+if($_SERVER['SERVER_PORT'] != '443' && $_GET['ssl'] != 'false'){
+    if($sslPath == 'none'){
+        echo('This is an unprotected connection! I recommend tu use an SSl connection.<br>Pleace open this site in your protected domain<br><a href="setup.php?ssl=false">use without SSL</a>');
+    }else{
+        header("Location: ".$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+    }
+}else{
 if(isset($_POST['sql'])){
     if($_POST['sql'] != ''){
         $sqlHost = $_POST['host'];
@@ -95,6 +112,9 @@ if(isset($_POST['sql'])){
             fwrite($datei,$output);
             fclose($datei);
             chmod('access.crypt',0600);
+            $sslPath = $_POST['ssl'];
+            $que = "UPDATE settings SET value='$sslPath' WHERE parameter='sslPath'";
+            mysqli_query($sql,$que);
             if($file){
                 echo('<div class="noteBox">SQL DATA successfully changed</div>');
             }else{
@@ -205,11 +225,39 @@ if(isset($_POST['title'])){
         .opac0{
             opacity:0;
         }
+        .hidden{
+            display:none;
+        }
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         function init(){
             window.setTimeout('$(".noteBox").addClass("opac0")',2500);
+            <?php
+            if(isset($_GET['sslEnable'])){
+                echo('window.form2.sslEnable.checked = true;
+                document.getElementById("ssl").className = "";
+                window.form2.ssl.value = "'.$_GET['path'].'";');
+            }
+            ?>
+        }
+        function checkSSL(th){
+            if(th.checked){
+                document.getElementById('ssl').className = '';
+                window.form2.ssl.value = '<?php echo($sslPath);?>';
+            }else{
+                document.getElementById('ssl').className = 'hidden';
+                window.form2.ssl.value = 'none';
+            }
+        }
+        function goToSSL(){
+            var ssl = window.form2.ssl.value;
+            if(ssl.search('https://') == -1){
+                window.form2.ssl.value = 'https://'+ssl;
+                alert('ssl path seems to be wrong! I changed something:');
+            }else{
+                location.href = ssl+location.href.substr(location.href.search('://')+3)+'?sslEnable=true&path='+ssl;
+            }
         }
     </script>
 </head>
@@ -272,13 +320,26 @@ if(isset($_POST['title'])){
                         <td><input type="text" required name="host" placeholder="sql host" value="<?php echo($sqlHost);?>"/></td>
                     </tr>
                     <tr>
+                        <td colspan="2" align="center"><label><input <?php if($sslPath!='none'){echo('checked');}?> onchange="checkSSL(this)" name="sslEnable" type="checkbox" />enable SSL</label></td>
+                    </tr>
+                    <tr id="ssl" class="<?php if($sslPath=='none'){echo('hidden');}?>">
+                        <td colspan="2" align="center">
+                            <label title="enter ssl prefix here (default is https://). Some pages need an other page to redirect over to get an SSL protection">
+                                <input style="width:45px;" value="<?php echo($sslPath);?>" name="ssl" type="text" placeholder="https://" /> domain & location will come here (I)<br>
+                                <div onclick="goToSSL()">go to the protected page now</div>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2" align="center"><input type="hidden" value="sql" name="sql" ><input type="button" onclick="document.form2.submit()" value="change"/></td>
                     </tr>
                 </table>
             </form>
-            <input type="button" value="leave" onclick="location.href='login.php'"/>
+            <input type="button" value="leave" onclick="location.href='http://'+location.href.substr(0,location.href.lastIndexOf('/')).substr(location.href.search('/'))+'/login.php'"/>
         </div>
     </div>
 </div>
 </body>
 </html>
+<?php
+}
