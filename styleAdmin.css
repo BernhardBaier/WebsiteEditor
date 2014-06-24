@@ -670,6 +670,9 @@ img{
     border:5px solid #666;
     background:#FFF;
 }
+.pluginOuterInner{
+	height: calc(100% - 29px);
+}
 .pluginOuter.out{
     left:-100%;
 }
@@ -685,6 +688,7 @@ img{
 .pluginNav{
     float:left;
     width:45px;
+	height: 100%;
     background:#15719F;
 }
 .pluginNavImg{
@@ -705,6 +709,7 @@ img{
 .pluginInner{
     overflow-y:auto;
     border:3px solid #15719F;
+	height: calc(100% - 5px);
     position:relative;
 }
 
