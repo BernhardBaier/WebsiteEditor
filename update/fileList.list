@@ -1,4 +1,4 @@
-#version#4.1.30#
+#version#4.1.32#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140624210347#
 #file#../plugins/access.php#date#20140624210349#
@@ -33,6 +33,8 @@
 #file#../plugins/article/stylePluginArticle.css#date#20140624210428#
 #file#../plugins/article/images/active.png#date#20140624210429#
 #file#../plugins/article/images/logo.png#date#20140624210430#
+#file#../picViewer/picViewer.css#date#20140514152212#
+#file#../picViewer/picViewer.js#date#20140624212930#
 #file#../update/access.php#date#20140624210432#
 #file#../update/auth.php#date#20140624210433#
 #file#../update/copy.php#date#20140624210434#
