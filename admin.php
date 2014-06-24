@@ -324,14 +324,6 @@ include('content/user.php');
     an error occured while uploading!</br>
     Pleace try angain.</br><input type="button" value="ok" onclick="hideMessages()" />
 </div>
-
-<div class="galeryMakerOuter">
-    <div class="galeryMakerTitle"><img src="images/close.png" style="position:absolute;left:5px;top:5px;cursor:pointer;" title="close" onclick="hideMessages()" height="25" />Gallery Editor
-    <img src="images/galOptions.png" class="galeryMakerImg imgRotate" height="30" onclick="$('.galeryMakerOptions').toggleClass('height0');$(this).toggleClass('imgRotated')" />
-        <div class="galeryMakerOptions height0"><div onclick="galeryMakerSelectAll(1)">Select all</div><div onclick="galeryMakerSelectAll(0)">Deselect all</div></div></div>
-    <div class="galeryMakerInner"></div>
-    <div class="galeryMakerButton" onclick="generateGallery()">generate gallery with selected pictures</div>
-</div>
 <div class="insertLinkOuter hidden">
     <div class="msgBoxImg"><img onclick="hideInsertLink()" height="20" title="close" src="images/close.png"/></div>
     <div class="insertLink"></div>
@@ -429,6 +421,17 @@ if(file_exists("content/$id.php")){
         <div class="menu" onclick="reprintMenu()">&nbsp;&nbsp;&nbsp;&nbsp;reprint menu</div>
     </div>
     <img class="leftBarNav imgRotate" src="images/leftBar.png" title="hide menu" height="20" onclick="toggleLeftBar()" />
+	<div class="itemsGoRightOut">
+		<div class="itemsGoRightOutInner">
+			<div class="galeryMakerOuter">
+				<div class="galeryMakerTitle"><img src="images/close.png" style="position:absolute;left:5px;top:5px;cursor:pointer;" title="close" onclick="hideMessages()" height="25" />Gallery Editor
+					<img src="images/galOptions.png" class="galeryMakerImg imgRotate" height="30" onclick="$('.galeryMakerOptions').toggleClass('height0');$(this).toggleClass('imgRotated')" />
+					<div class="galeryMakerOptions height0"><div onclick="galeryMakerSelectAll(1)">Select all</div><div onclick="galeryMakerSelectAll(0)">Deselect all</div></div></div>
+				<div class="galeryMakerInner"></div>
+				<div class="galeryMakerButton" onclick="generateGallery()">generate gallery with selected pictures</div>
+			</div>
+		</div>
+	</div>
     <div class="pageContainer">
         <div class="pageMenu"><div class="pageMenuInner"><span class="pageMenuTitle" title="the name of the actual page"></span>
             <div class="pageMenuInfo">Website editor Version <?php echo($editorVersion);?>&nbsp;&nbsp;</br>&nbsp;Copyright &copy; 2014 Bernhard Baier&nbsp;&nbsp;</div>&nbsp;

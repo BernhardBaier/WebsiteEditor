@@ -126,6 +126,9 @@
     cursor:pointer;
 }
 
+.picInfoTitle{
+	overflow-x:hidden;
+}
 .picHandler{
     background:#EEE;
     border:1px solid #CCC;
@@ -152,7 +155,6 @@
     transition:right 1s;
     -webkit-transition:right 1s;
     position:absolute;
-    z-index:51;
     right:0;
     width:50%;
     height:100%;

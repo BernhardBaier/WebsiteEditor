@@ -114,6 +114,9 @@ while($pos > -1){
     $ktxt = substr($ktxt,$pos+1);
     $pos = strpos($ktxt,';');
 }
+
+$preview = $_GET['preview'];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -121,6 +124,9 @@ while($pos > -1){
     <title><?php echo($pageTitle);?></title>
     <script>
         var pageId = <?php echo($id);?>;
+        var lang = '<?php echo($lang);?>';
+        var preview = '<?php echo($preview);?>';
+        preview = preview=='true'?'content':'web-content';
         var correctRightBar = false;
         <?php
             if($browser == 'Chrome' || $browser == 'Opera'){
@@ -143,8 +149,20 @@ while($pos > -1){
 </head>
 <body onload="init()">
 <div class="pageOuter">
+    <div class="searchOuter hidden">
+        <div class="searchResults">
+	        <img class="closingImg" src="images/close.png" title="schließen" onclick="$('.searchOuter').addClass('hidden')" />
+	        <div class="searchResultsInner"></div>
+        </div>
+    </div>
     <div class="container" align="center">
         <div class="header">
+            <div class="searchBox">
+                <form name="search" action="javascript:searchNow()">
+                    <input type="search" name="searchInput" placeholder="Suche" />
+                    <input type="submit" value=" go " />
+                </form>
+            </div>
             <img src="images/logo.png" class="pageLogo" />
             <div class="pageTitle"><?php echo($pageTitle);?></div>
             <div class="menu">
@@ -155,9 +173,8 @@ while($pos > -1){
             <div class="content">
                 <div class="contentInner">
                     <?php
-                    $preview = $_GET['preview'];
                     $pagePath = $preview=='true'?'content':'web-content';
-                    if(file_exists("web-content/$lang/$id.php")){
+                    if(file_exists("$pagePath/$lang/$id.php")){
                         $einsatz = $_GET['einsatz'];
                         if($einsatz > 0){
                             if(file_exists("$pagePath/einsatz/$lang/$id/$einsatz.php")){
@@ -174,7 +191,6 @@ while($pos > -1){
                 <div class="rightBar">
                     <div class="rightBarInner">
                         <div class="calendarSide"></div>
-                        <div class="rightItem">Item</div>
                     </div>
                 </div>
             </div>

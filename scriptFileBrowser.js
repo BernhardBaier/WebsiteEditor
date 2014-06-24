@@ -141,7 +141,7 @@ function showBrowser(){
     while($file.search(';') > -1){
         var $akFile = $file.substr(0,$file.search(';'));
         if(in_array($akFile,imgTypes)){
-            $files += '<div class="fileInner"><div class="prevImg" id="prevImg'+$imgCount+'"><img onclick="showPicInfo(this,'+$imgCount+')" height="100" src="' + browserPath + $akFile + '" /><div id="picInfo'+ $imgCount++ +'" class="picInfo height0"></div></div>';
+            $files += '<div class="fileInner"><div class="prevImg" id="prevImg'+$imgCount+'"><img onclick="showPicInfo(this,'+$imgCount+')" height="100" src="' + browserPath + $akFile + '" /><div id="picInfo'+ $imgCount++ +'" class="picInfo height0"></div></div></div>';
         }else if($akFile != 'empty dir'){
             $files += '<div class="fileInnerFile">'+ $akFile +'<div class="fileOptions">' +
                 '&nbsp;<img src="images/plus.png" title="insert" onclick="insertBrowserFile(\''+$akFile+'\')" height="18"/> <img src="images/pencil.png" title="rename" onclick="showPicRename(\''+$akFile+'\')" height="18"/> ' +
@@ -176,7 +176,8 @@ function insertFileNow(){
 function showPicInfo(e,id){
     if($('#picInfo'+id).html() == ""){
         var name = e.src.substr(e.src.lastIndexOf('/')+1);
-        $('#picInfo'+id).html('<div class="msgBoxImg"><img onclick="showPicInfo($(this).parent().parent().parent(),'+id+')" height="18" title="close" src="images/close.png"/></div><div>'+name+'</div><div class="picHandler" onclick="showPicRename(\''+name+'\')">rename</div><div class="picHandler" onclick="showPicDelete(\''+name+'\')">delete</div><div class="picHandler" onclick="showInsertPic(\''+browserPath+name+'\')">insert</div><div class="picHandler" onclick="showMovePics(\''+browserPath+name+'\')">move</div>').removeClass('height0').width(e.width-2);
+	    var title = e.width < name.length * 7?'<marquee>'+name+'</marquee>':name;
+        $('#picInfo'+id).html('<div class="msgBoxImg"><img onclick="showPicInfo($(this).parent().parent().parent(),'+id+')" height="18" title="close" src="images/close.png"/></div><div class="picInfoTitle">'+title+'</div><div class="picHandler" onclick="showPicRename(\''+name+'\')">rename</div><div class="picHandler" onclick="showPicDelete(\''+name+'\')">delete</div><div class="picHandler" onclick="showInsertPic(\''+browserPath+name+'\')">insert</div><div class="picHandler" onclick="showMovePics(\''+browserPath+name+'\')">move</div>').removeClass('height0').width(e.width-2);
         $('#prevImg'+id).addClass('selected');
     }else{
         $('#picInfo'+id).html('').addClass('height0');
@@ -192,8 +193,30 @@ function showPicInfo(e,id){
 
 function showMultipleOptions(count){
     $('.multipleOptionsOuter').removeClass('hidden');
-    var opts = '<div class="multipleOptionsItem" onclick="multipleDelete()">delete</div><div class="multipleOptionsItem" onclick="multipleInsert()">insert</div><div class="multipleOptionsItem" onclick="moveMultiplePics()">move</div><div class="multipleOptionsItem" onclick="multipleDeselect()">deselect</div>';
+    var opts = '<div class="multipleOptionsItem" onclick="multipleDelete()">delete</div><div class="multipleOptionsItem" onclick="multipleInsert()">insert</div><div class="multipleOptionsItem" onclick="moveMultiplePics()">move</div><div class="multipleOptionsItem" onclick="multipleDeselect()">deselect</div><div class="multipleOptionsItem" onclick="multipleSelectAll()">select all</div>';
     $('.multipleOptions').html('options for '+count+' elements:<br/>'+opts);
+}
+function multipleSelectAll(){
+	var elem = $('.prevImg');
+	for(var i=0;i<elem.length;i++){
+		var id = $(elem[i]).attr('id');
+		var e = document.getElementById(id);
+		if(e.className == 'prevImg'){
+			e.className = 'prevImg selected';
+			e = e.children[0];
+			id = id.substr(7);
+			var name = e.src.substr(e.src.lastIndexOf('/')+1);
+			var title = e.width < name.length * 7?'<marquee>'+name+'</marquee>':name;
+			$('#picInfo'+id).removeClass('height0').html('<div class="msgBoxImg"><img onclick="showPicInfo($(this).parent().parent().parent(),'+id+')" height="18" title="close" src="images/close.png"/></div><div class="picInfoTitle">'+title+'</div><div class="picHandler" onclick="showPicRename(\''+name+'\')">rename</div><div class="picHandler" onclick="showPicDelete(\''+name+'\')">delete</div><div class="picHandler" onclick="showInsertPic(\''+browserPath+name+'\')">insert</div><div class="picHandler" onclick="showMovePics(\''+browserPath+name+'\')">move</div>').removeClass('height0').width(e.width-2);
+		}
+	}
+	elem.addClass('selected');
+	var len = $('.prevImg.selected').length;
+	if(len > 1){
+		showMultipleOptions(len);
+	}else{
+		hideMultipleOptions();
+	}
 }
 function hideMultipleOptions(){
     $('.multipleOptionsOuter').addClass('hidden');
