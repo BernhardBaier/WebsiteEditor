@@ -333,7 +333,7 @@ function picViewerSetSize(){
 	try{
 		window.clearTimeout(picViewerTimer);
 	}catch (ex){}
-    picViewerTimer = window.setTimeout('picViewerShowNextPic()',picViewerTime);
+    picViewerTimer = window.setTimeout('picViewerShowNextPic()',picViewerTime + 500);
 }
 function picViewerStop(){
     if (document.exitFullscreen) {
