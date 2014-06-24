@@ -434,7 +434,7 @@ if(file_exists("content/$id.php")){
 	</div>
     <div class="pageContainer">
         <div class="pageMenu"><div class="pageMenuInner"><span class="pageMenuTitle" title="the name of the actual page"></span>
-            <div class="pageMenuInfo">Website editor Version <?php echo($editorVersion);?>&nbsp;&nbsp;</br>&nbsp;Copyright &copy; 2014 Bernhard Baier&nbsp;&nbsp;</div>&nbsp;
+            <div class="pageMenuInfo">Website editor Version <?php echo($editorVersion);?>&nbsp;&nbsp;<br>&nbsp;Copyright &copy; 2014 Bernhard Baier&nbsp;&nbsp;</div>&nbsp;
                 <div class="pageMenuItem rightItem" onclick="$('.logout').removeClass('opac0').removeClass('hidden')" title="close session and log off">Logout</div>
                 <div class="pageMenuItem rightItem" onclick="showPublish()" title="publish this page">Publish</div>
                 <div class="pageMenuItem"><a onclick="saveText('content')" title="save content (ctrl + s)">Save</a></div>
