@@ -271,10 +271,10 @@ function movePicsNow(path,id){
     });
 }
 function multipleDeselect(){
-    var elem = $('.selected');
+    var elem = $('.fileInner').find($('.selected'));
     for(var i=0;i<elem.length;i++){
-        $('#'+$(elem[i]).attr('id')).removeClass('selected');
-        $('#'+$(elem[i]).attr('id').replace('prevImg','picInfo')).addClass('height0').html('');
+	    $('#'+$(elem[i]).attr('id')).removeClass('selected');
+	    $('#'+$(elem[i]).attr('id').replace('prevImg','picInfo')).addClass('height0').html('');
     }
     hideMultipleOptions();
 }
