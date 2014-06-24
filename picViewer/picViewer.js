@@ -330,6 +330,9 @@ function picViewerSetSize(){
     $('.picViewer').height($height).width($width);
     $('.picViewerInner').height($height).width($width);
     $('.picViewerOuter').css('left',$left).css('top',window.pageYOffset);
+	try{
+		window.clearTimeout(picViewerTimer);
+	}catch (ex){}
     picViewerTimer = window.setTimeout('picViewerShowNextPic()',picViewerTime);
 }
 function picViewerStop(){
