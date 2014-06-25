@@ -196,6 +196,7 @@ function showPicViewer(src){
     }
 }
 var picViewerActualWidth = 0;
+var picViewerHiderTimer;
 function showPicViewerId(){
     picViewerGetSize();
     $('.pagePicViewer').removeClass('picViewerOpac0 picViewerHidden');
@@ -245,6 +246,10 @@ function showPicViewerId(){
     }
 }
 function picViewerShowNextPic(){
+	try{
+		window.clearTimeout(picViewerHiderTimer);
+	}catch(ex){}
+	picViewerHiderTimer = window.setTimeout("$('.picViewerHider').addClass('picViewerOpac0 picViewerHidden');",4000);
     $('.picViewerHider').removeClass('picViewerOpac0 picViewerHidden');
     picViewerIndex++;
     if(picViewerIndex > maxPicId - 1){
@@ -253,6 +258,10 @@ function picViewerShowNextPic(){
     window.setTimeout('showPicViewerId()',250);
 }
 function picViewerShowPrevPic(){
+	try{
+		window.clearTimeout(picViewerHiderTimer);
+	}catch(ex){}
+	picViewerHiderTimer = window.setTimeout("$('.picViewerHider').addClass('picViewerOpac0 picViewerHidden');",4000);
     $('.picViewerHider').removeClass('picViewerOpac0 picViewerHidden');
     picViewerIndex-=1;
     if(picViewerIndex < 0){
@@ -270,7 +279,10 @@ function picViewerPicLoaded(){
 function picViewerLoadNext(){
     if(activatePreloadBar){
         if($('.picPreloadStatus').width() <= 0){
-            $(picViewerClassName).html('<div class="picPreloadStatus"><div class="picPreloadText">Lade Bilder vorraus </div><div class="picPreloadBar"></div><div id="barCloser" style="float:right;cursor:pointer;"><img src="picViewer/picViewerImages/close.png" title="hide" height="20" style="margin:2px;" onclick="$(\'.picPreloadStatus\').height(0)" /></div></div>'+$(picViewerClassName).html());
+			var picViewerElems = document.getElementsByClassName(picViewerClassName);
+	        for(var i = 0;i<picViewerElems.count;i++){
+		        picViewerElems[i].innerHTML = '<div class="picPreloadStatus"><div class="picPreloadText">Lade Bilder vorraus </div><div class="picPreloadBar"></div><div id="barCloser" style="float:right;cursor:pointer;"><img src="picViewer/picViewerImages/close.png" title="hide" height="20" style="margin:2px;" onclick="$(\'.picPreloadStatus\').height(0)" /></div></div>' + picViewerElems[i].innerHTML;
+	        }
             $('.picPreloadStatus').height(25);
         }
         var maxWidth = $('.picPreloadStatus').width()-$('.picPreloadText').width()-35-$('#barCloser').width();

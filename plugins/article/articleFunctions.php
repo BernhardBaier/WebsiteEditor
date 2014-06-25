@@ -20,14 +20,14 @@ if(substr($authLevel,1,1) == "1"){
     <div class='pluginArticleDate' title='date'>$date</div><div class='pluginArticleTeam' title='team'>$team</div><div class='pluginArticleShort'>$short</div></div>";
     $output .= "<div id='pluginArticleContent$maxId' class='pluginArticleContent out'><div class='pluginArticleContentInner'>$text</div></div></div>";
     $input = '';
-    if(file_exists("content/$id/article.php")){
-        $file = fopen("content/$id/article.php",'r');
-        $input = fread($file,filesize("content/$id/article.php"));
+    if(file_exists("content/$id/$lang/article.php")){
+        $file = fopen("content/$id/$lang/article.php",'r');
+        $input = fread($file,filesize("content/$id/$lang/article.php"));
         fclose($file);
     }
     $input .= $output;
-    $file = fopen("content/$id/article.php",'w');
+    $file = fopen("content/$id/$lang/article.php",'w');
     fwrite($file,$input);
     fclose($file);
-    header("Location: article.php?success=true&id=$id");
+    header("Location: article.php?success=true&id=$id&lang=$lang");
 }

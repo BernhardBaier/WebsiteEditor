@@ -105,10 +105,12 @@ if($authLevel != '' && $authLevel != '0000'){
         @session_start();
         $path = "fileUpload/server/php/files/".session_id()."/";
         if($pfad!=""){
-            if(!is_dir("web-images/$id/$pfad/")){
-                mkdir("web-images/$id/$pfad/");
-                mkdir("web-images/$id/$pfad/thumbs/");
-            }
+	        if(!is_dir("web-images/$id/$pfad/")){
+		        mkdir("web-images/$id/$pfad/");
+	        }
+	        if(!is_dir("web-images/$id/$pfad/thumbs/")){
+		        mkdir("web-images/$id/$pfad/thumbs/");
+	        }
             $output_dir = "web-images/$id/$pfad/";
         }else{
             $output_dir = "web-images/$id/";

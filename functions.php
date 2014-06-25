@@ -123,6 +123,35 @@ function movePics($path,$id){
         }
     }
 }
+function replaceTextWithPlugin($text){
+	global $sql;
+	$output = $text;
+	$que = "SELECT * FROM toreplace WHERE 1";
+	$erg = mysqli_query($sql,$que);
+	while($row = mysqli_fetch_array($erg)){
+		$textToReplace = $row['replace'];
+		if(strpos($output,$textToReplace) > -1){
+			$sourceOfReplacement = $row['url'];
+			if(file_exists($sourceOfReplacement)){
+				$file = fopen($sourceOfReplacement,'r');
+				$input = fread($file,filesize($sourceOfReplacement));
+				fclose($file);
+				$output = str_replace($textToReplace,$input,$output);
+			}
+		}
+	}
+	return $output;
+}
+function copyAndReplace($source,$dest){
+	$file = fopen($source,'r');
+	$input = fread($file,filesize($source));
+	fclose($file);
+	$input = replaceTextWithPlugin($input);
+	$file = fopen($dest,'w');
+	fwrite($file,$input);
+	fclose($file);
+	return true;
+}
 function handleError($func){
     echo("missing Options for function $func!");
 }
@@ -175,53 +204,46 @@ if(substr($authLevel,0,1) == '1'){
                 handleError($function);
             }
             break;
-        case 'publishText':
-            $id=$_POST['id'];
-            $einsatz = $_POST['einsatz'];
-            if($lang == 'all'){
-                $in = $_POST['langs'];
-                $langs = [];
-                $count = 0;
-                while(strpos($in,',')>-1){
-                    $langs[$count++] = substr($in,0,strpos($in,','));
-                    $in = substr($in,strpos($in,',')+1);
-                }
-                $langs[$count] = $in;
-                for($i=0;$i<sizeof($langs);$i++){
-                    if($einsatz > 0){
-                        if(file_exists("web-content/".$langs[$i]."/$einsatz/$id.php")){
-                            unlink("web-content/".$langs[$i]."/$einsatz/$id.php");
-                        }
-                        if(copy("content/".$langs[$i]."/$einsatz/$id.php","web-content/".$langs[$i]."/$einsatz/$id.php")){
-                            echo('#published#');
-                        }
-                    }else{
-                        if(file_exists("web-content/".$langs[$i]."/$id.php")){
-                            unlink("web-content/".$langs[$i]."/$id.php");
-                        }
-                        if(copy("content/".$langs[$i]."/$id.php","web-content/".$langs[$i]."/$id.php")){
-                            echo('#published#');
-                        }
-                    }
-                }
-            }else{
-                if($einsatz > 0){
-                    if(file_exists("web-content/$lang/$einsatz/$id.php")){
-                        unlink("web-content/$lang/$einsatz/$id.php");
-                    }
-                    if(copy("content/$lang/$einsatz/$id.php","web-content/$lang/$einsatz/$id.php")){
-                        echo('#published#');
-                    }
-                }else{
-                    if(file_exists("web-content/$lang/$id.php")){
-                        unlink("web-content/$lang/$id.php");
-                    }
-                    if(copy("content/$lang/$id.php","web-content/$lang/$id.php")){
-                        echo('#published#');
-                    }
-                }
-            }
-            break;
+	    case 'publishText':
+		    $id=$_POST['id'];
+		    if($lang == 'all'){
+			    $in = $_POST['langs'];
+			    $langs = [];
+			    $count = 0;
+			    while(strpos($in,',')>-1){
+				    $langs[$count++] = substr($in,0,strpos($in,','));
+				    $in = substr($in,strpos($in,',')+1);
+			    }
+			    $langs[$count] = $in;
+			    for($i=0;$i<sizeof($langs);$i++){
+				    if(file_exists("web-content/".$langs[$i]."/$id.php")){
+					    unlink("web-content/".$langs[$i]."/$id.php");
+				    }
+				    if(copyAndReplace("content/".$langs[$i]."/$id.php","web-content/".$langs[$i]."/$id.php")){
+					    echo('#published#');
+				    }
+			    }
+		    }else{
+			    if(file_exists("web-content/$lang/$id.php")){
+				    unlink("web-content/$lang/$id.php");
+			    }
+			    if(copyAndReplace("content/$lang/$id.php","web-content/$lang/$id.php")){
+				    echo('#published#');
+			    }
+		    }
+		    break;
+	    case 'previewPage':
+		    $id=$_POST['id'];
+			if(!is_dir("content/$lang/preview/")){
+				mkdir("content/$lang/preview/");
+			}
+		    if(file_exists("content/$lang/preview/$id.php")){
+			    unlink("web-content/$lang/preview/$id.php");
+		    }
+		    if(copyAndReplace("content/$lang/$id.php","content/$lang/preview/$id.php")){
+			    echo('#preview#');
+		    }
+		    break;
         case 'clickAbleMenu':
             if(!empty($options) && sizeof($options)>=2){
                 $options[0] = substr($options[0],-1) == ')'?$options[0]:$options[0].'()';

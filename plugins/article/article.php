@@ -49,16 +49,19 @@ if(substr($authLevel,1,1) == "1"){
                 header('Location: article.php');
                 exit;
             }
-            if(!is_dir("content/$id/")){
-                mkdir("content/$id/");
-            }
-            if(!is_dir("../../web-images/$id/article/")){
-                mkdir("../../web-images/$id/article/");
-            }
+	        if(!is_dir("content/$id/")){
+		        mkdir("content/$id/");
+	        }
+	        if(!is_dir("content/$id/$lang/")){
+		        mkdir("content/$id/$lang/");
+	        }
+	        if(!is_dir("../../web-images/$id/article/")){
+		        mkdir("../../web-images/$id/article/");
+	        }
             $maxId = 0;
-            if(file_exists("content/$id/article.php")){
-                $file = fopen("content/$id/article.php",'r');
-                $input = fread($file,filesize("content/$id/article.php"));
+            if(file_exists("content/$id/$lang/article.php")){
+                $file = fopen("content/$id/$lang/article.php",'r');
+                $input = fread($file,filesize("content/$id/$lang/article.php"));
                 fclose($file);
                 while(strpos($input,'pluginArticleOuter') >- 1){
                     $maxId++;
@@ -81,9 +84,9 @@ if(substr($authLevel,1,1) == "1"){
         <script src="../../ckeditor/ckeditor.js"></script>
         <script>
             var lang = '<?php echo($lang);?>';
-            var path = 'web-images/<?php echo($id);?>/article/<?php echo($maxId);?>/thumbs/';
+            var path = 'web-images/<?php echo($id);?>/article/thumbs/';
             function replaceUml(text){
-                var umlaute = [['ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
+                var umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
                 for(var i=0;i<umlaute[0].length;i++){
                     while(text.search(umlaute[0][i]) > -1){
                         text=text.replace(umlaute[0][i],umlaute[1][i]);
@@ -186,7 +189,7 @@ if(substr($authLevel,1,1) == "1"){
             if(isset($_GET['maxId'])){
                 $maxId = $_GET['maxId'];
             }
-            echo('<div class="success">Article has been added<br/><a href="preview.php?id='.$id.'&maxId='.$maxId.'">preview</a> | <a href="logout.php">logout</a></div>');
+            echo('<div class="success">Article has been added<br/><a href="preview.php?id='.$id.'&maxId='.$maxId.'&lang='.$lang.'">preview</a> | <a href="logout.php">logout</a></div>');
         }else{
             echo('<div class="success not">article could not be added<br/>(user abort)</br><a href="plugins/article/article.php">repeat</a> | <a href="logout.php">logout</a></div>');
         }
@@ -211,7 +214,7 @@ if(substr($authLevel,1,1) == "1"){
             <div class="content">
                 <div class="timing">
                     <div class="fileUpload hidden">
-                        <iframe src="../../fileUpload/index.php?id=<?php echo($id);?>&path=article/<?php echo($maxId);?>" width="100%" height="100%"></iframe>
+                        <iframe src="../../fileUpload/index.php?id=<?php echo($id);?>&path=article" width="100%" height="100%"></iframe>
                     </div>
                     <form action="articleFunctions.php" method="post">
                         Add article: <input name="date" type="date" placeholder="Datum" value="<?php if(isset($_POST['date'])){echo($_POST['date']);}else{echo(date('d.m.Y'));}?>" required />

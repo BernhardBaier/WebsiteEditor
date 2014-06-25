@@ -51,11 +51,14 @@ if(substr($authLevel,1,1) == "1"){
                 $articleIds = $row['value'];
             }
             mysqli_free_result($erg2);
+			if(sizeof($articleIds) == 0){
+				$articleIds = 'NULL';
+			}
             if($articleIds == 'NULL'){
                 $articleIds = [];
                 $articleIds[0] = $id;
-                $que = "INSERT INTO $sqlBase.settings (value,parameter) VALUES ('".serialize($articleIds)."','articleIds')";
-                mysqli_query($sql,$que) or die(mysqli_error($sql));
+                $que2 = "INSERT INTO $sqlBase.settings (value,parameter) VALUES ('".serialize($articleIds)."','articleIds')";
+	            mysqli_query($sql,$que2) or die(mysqli_error($sql));
             }else{
                 $articleIds = unserialize($articleIds);
                 if(findInArray($articleIds,$id) == -1){
@@ -64,17 +67,23 @@ if(substr($authLevel,1,1) == "1"){
                     mysqli_query($sql,$que2) or die(mysqli_error($sql));
                 }
             }
+	        $que2 = "INSERT INTO $sqlBase.toreplace (`replace`,`url`) VALUES ('{#insertPlugin$id/$lang#}','plugins/article/content/$id/$lang/article.php')";
+	        mysqli_query($sql,$que2) or die(mysqli_error($sql));
             echo('1');
             break;
         case 'removeArticle':
             $id = $_POST['id'];
-            $que2 = "SELECT * FROM settings WHERE parameter='articleIds'";
-            $erg2 = mysqli_query($sql,$que2);
-            $articleIds = [];
-            while($row = mysqli_fetch_array($erg2)){
-                $articleIds = unserialize($row['value']);
-            }
-            mysqli_free_result($erg2);
+	        $que2 = "SELECT * FROM settings WHERE parameter='articleIds'";
+	        $erg2 = mysqli_query($sql,$que2);
+	        $articleIds = [];
+	        while($row = mysqli_fetch_array($erg2)){
+		        $articleIds = unserialize($row['value']);
+	        }
+	        mysqli_free_result($erg2);
+	        $que2 = "DELETE FROM $sqlBase.toreplace WHERE `replace`='{#insertPlugin$id/$lang#}'";
+	        if(!(mysqli_query($sql,$que2))){
+		        echo("couldn't delete: $que2");
+	        }
             for($i=0;$i<sizeof($articleIds);$i++){
                 if($articleIds[$i] == $id){
                     array_splice($articleIds,$i,1);

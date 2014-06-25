@@ -99,8 +99,11 @@ function checkTables(){
     $que = "CREATE TABLE `".$base."`.`settings`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`parameter` VARCHAR( 150 ) NULL ,`value` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
     mysqli_query($sql, $que);
 
-    $que = "CREATE TABLE `".$base."`.`plugins`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 150 ) NULL ,`location` VARCHAR( 150 ) NULL ,`includes` VARCHAR( 150 ) NULL ,`relations` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
-    mysqli_query($sql, $que);
+	$que = "CREATE TABLE `".$base."`.`plugins`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 150 ) NULL ,`location` VARCHAR( 150 ) NULL ,`includes` VARCHAR( 150 ) NULL ,`relations` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
+	mysqli_query($sql, $que);
+
+	$que = "CREATE TABLE `".$base."`.`toreplace`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`replace` VARCHAR( 150 ) NULL ,`url` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
+	mysqli_query($sql, $que);
 
     $que = "SELECT * FROM settings WHERE parameter='editorVersion'";
     $erg = mysqli_query($sql,$que);

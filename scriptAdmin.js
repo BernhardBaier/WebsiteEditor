@@ -855,6 +855,24 @@ function publishPageNow(){
         });
     }
 }
+function previewPage(){
+	$.ajax({
+		type: 'POST',
+		url: 'functions.php',
+		data: 'text=previewPage&lang='+lang+'&id='+pageId,
+		success: function(data) {
+			if(data.search('#preview#') != -1) {
+				hideMessages();
+				showNotification('<a target="_blank" href="index.php?id='+pageId+'&lang='+lang+'&preview=true">Enable PopUps or klick this link.</a>',2000);
+				window.open('index.php?id='+pageId+'&lang='+lang+'&preview=true', '_blank');
+			}else{
+				if(data!='1'){
+					alert(data);
+				}
+			}
+		}
+	});
+}
 
 function getSize() {
     if( typeof( window.innerWidth ) == 'number' ) {

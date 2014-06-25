@@ -142,17 +142,11 @@ while($row = mysqli_fetch_array($erg)){
                 <?php
                 $preview = $_GET['preview'];
                 $pagePath = $preview=='true'?'content':'web-content';
-                if(file_exists("web-content/$lang/$id.php")){
-                    $einsatz = $_GET['einsatz'];
-                    if($einsatz > 0){
-                        if(file_exists("$pagePath/einsatz/$lang/$id/$einsatz.php")){
-                            include("$pagePath/einsatz/$lang/$id/$einsatz.php");
-                        }
-                    }else{
-                        include("$pagePath/$lang/$id.php");
-                    }
+                $preview = $preview=='true'?'preview/':'';
+                if(file_exists("$pagePath/$lang/".$preview."$id.php")){
+	                include("$pagePath/$lang/".$preview."$id.php");
                 }else{
-                    echo('Upps this page is not avaliable!');
+	                echo("Upps this page is not available!");
                 }
                 ?>
             </div>

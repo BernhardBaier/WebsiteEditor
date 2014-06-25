@@ -440,7 +440,7 @@ if(file_exists("content/$id.php")){
                 <div class="pageMenuItem"><a onclick="saveText('content')" title="save content (ctrl + s)">Save</a></div>
                 <div class="pageMenuItem" onclick="showPageOptions(<?php echo($id);?>,this)" title="show the pages options"><a>Options</a></div>
                 <div class="pageMenuItem">
-                    <a href="index.php?id=<?php echo("$id&lang=$lang"); if($einsatz>0){echo('&einsatz='.$einsatz);}?>&preview=true" target="_blank" title="preview this page in a new tab">Preview</a>
+                    <a href="javascript:previewPage()" target="_blank" title="preview this page in a new tab">Preview</a>
                 </div>
                 <?php
                 if(substr($authLevel,2,1) == '1'){
