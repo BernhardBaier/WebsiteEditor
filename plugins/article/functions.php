@@ -67,7 +67,7 @@ if(substr($authLevel,1,1) == "1"){
                     mysqli_query($sql,$que2) or die(mysqli_error($sql));
                 }
             }
-	        $que2 = "INSERT INTO $sqlBase.toreplace (`replace`,`url`) VALUES ('{#insertPlugin$id/$lang#}','plugins/article/content/$id/$lang/article.php')";
+	        $que2 = "INSERT INTO $sqlBase.toreplace (`replace`,`url`) VALUES ('{#insertPluginArticle$id/$lang#}','plugins/article/content/$id/$lang/article.php')";
 	        mysqli_query($sql,$que2) or die(mysqli_error($sql));
             echo('1');
             break;
@@ -80,7 +80,7 @@ if(substr($authLevel,1,1) == "1"){
 		        $articleIds = unserialize($row['value']);
 	        }
 	        mysqli_free_result($erg2);
-	        $que2 = "DELETE FROM $sqlBase.toreplace WHERE `replace`='{#insertPlugin$id/$lang#}'";
+	        $que2 = "DELETE FROM $sqlBase.toreplace WHERE `replace`='{#insertPluginArticle$id/$lang#}'";
 	        if(!(mysqli_query($sql,$que2))){
 		        echo("couldn't delete: $que2");
 	        }

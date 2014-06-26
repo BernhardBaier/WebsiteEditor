@@ -289,9 +289,9 @@ function showGroupe(id){
 }
 function showOptions(id,name,parent,rank){
     if(document.getElementById('menuOptions'+id).className.search('hidden') > -1){
-        $('#menuOptions'+id).html('<div><a href="javascript:showRename('+id+',\''+name+'\')">rename</a></div><div><a href="javascript:showDelete('+id+',\''+name+'\')">delete</a></div><div><a href="javascript:showAddSubPage('+id+',\''+name+'\')">add sub page</a></div>').removeClass('hidden');
+        $('#menuOptions'+id).html('<div class="menuOptionsItem"><a href="javascript:showRename('+id+',\''+name+'\')">rename</a><img src="images/pencil.png" class="menuOptionImg"/></div><div class="menuOptionsItem"><a href="javascript:showDelete('+id+',\''+name+'\')">delete</a><img src="images/bin.png" class="menuOptionImg"/></div><div class="menuOptionsItem"><a href="javascript:showAddSubPage('+id+',\''+name+'\')">add sub page</a></div>').removeClass('hidden');
         if(parent > 0){
-            document.getElementById('menuOptions'+id).innerHTML += '<div><a href="javascript:showAddEqualPage('+parent+','+(rank+1)+',\''+name+'\')">add page</a></div>';
+            document.getElementById('menuOptions'+id).innerHTML += '<div class="menuOptionsItem"><a href="javascript:showAddEqualPage('+parent+','+(rank+1)+',\''+name+'\')">add page</a></div>';
         }
        document.getElementById('menuOptionsImg'+id).src = "images/calendarHide.png";
     }else{
@@ -863,8 +863,7 @@ function previewPage(){
 		success: function(data) {
 			if(data.search('#preview#') != -1) {
 				hideMessages();
-				showNotification('<a target="_blank" href="index.php?id='+pageId+'&lang='+lang+'&preview=true">Enable PopUps or klick this link.</a>',2000);
-				window.open('index.php?id='+pageId+'&lang='+lang+'&preview=true', '_blank');
+				showNotification('<a target="_blank" href="index.php?id='+pageId+'&lang='+lang+'&preview=true">Preview has been created. Klick this link.</a>',2000);
 			}else{
 				if(data!='1'){
 					alert(data);

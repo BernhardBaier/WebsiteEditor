@@ -177,7 +177,7 @@ function showPicInfo(e,id){
     if($('#picInfo'+id).html() == ""){
         var name = e.src.substr(e.src.lastIndexOf('/')+1);
 	    var title = e.width < name.length * 7?'<marquee>'+name+'</marquee>':name;
-        $('#picInfo'+id).html('<div class="msgBoxImg"><img onclick="showPicInfo($(this).parent().parent().parent(),'+id+')" height="18" title="close" src="images/close.png"/></div><div class="picInfoTitle">'+title+'</div><div class="picHandler" onclick="showPicRename(\''+name+'\')">rename</div><div class="picHandler" onclick="showPicDelete(\''+name+'\')">delete</div><div class="picHandler" onclick="showInsertPic(\''+browserPath+name+'\')">insert</div><div class="picHandler" onclick="showMovePics(\''+browserPath+name+'\')">move</div>').removeClass('height0').width(e.width-2);
+        $('#picInfo'+id).html('<div class="msgBoxImg"><img onclick="showPicInfo($(this).parent().parent().parent(),'+id+')" height="18" title="close" src="images/close.png"/></div><div class="picInfoTitle">'+title+'</div><div class="picHandler" onclick="showPicRename(\''+name+'\')">rename<img src="images/pencil.png" class="picHandlerImg"/></div><div class="picHandler" onclick="showPicDelete(\''+name+'\')">delete<img src="images/bin.png" class="picHandlerImg"/></div><div class="picHandler" onclick="showInsertPic(\''+browserPath+name+'\')">insert<img src="images/insert.png" class="picHandlerImg"/></div><div class="picHandler" onclick="showMovePics(\''+browserPath+name+'\')">move<img src="images/move.png" class="picHandlerImg"/></div>').removeClass('height0').width(e.width-2);
         $('#prevImg'+id).addClass('selected');
     }else{
         $('#picInfo'+id).html('').addClass('height0');

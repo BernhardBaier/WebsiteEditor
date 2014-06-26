@@ -3,7 +3,7 @@ html,body{
     padding:0;
     font-family:Arial, Helvetica, sans-serif;
     overflow:hidden;
-    background:#595959;
+    background:#616161;
 	height: 100%;
 	width: 100%;
 }
@@ -43,8 +43,8 @@ img{
 	overflow-y:scroll;
 	padding:8px 5px 7px 5px;
 	left:0;
-	background:#8CAFED;
-	border:0 solid #555;
+	background:#91a7ff;
+	border:0 solid #616161;
 	border-left-width:2px;
 }
 
@@ -53,7 +53,7 @@ img{
 	height:300px;
 	width:100%;
 	bottom: 0;
-	background:#FFA84C;
+	background:#ffa726;
 }
 
 .itemsGoRightOut{
@@ -71,7 +71,7 @@ img{
 .pageMenu{
 	position:relative;
 	height:33px;
-	background:#595959;
+	background:#616161;
 	overflow-y:hidden;
 	color:#CCC;
 }
@@ -155,13 +155,16 @@ img{
     height:25px;
     padding:2px;
     margin:1px 2px;
-    border:1px solid #999;
+    border:1px solid #9e9e9e;
     float:left;
     border-radius:2px;
-    box-shadow:0 0 3px #777,inset 0 0 10px #777;
+    box-shadow:0 0 3px #757575,inset 0 0 10px #757575;
     color:#EEE;
     font-size:20px;
     cursor:pointer;
+}
+.pageMenuItem:hover{
+	background: #424242;
 }
 .pageMenuItem a{
     color:#EEE;
@@ -188,7 +191,7 @@ img{
     z-index:5;
     top:33px;
     background:#000;
-    color:#CCC;
+    color:#bdbdbd;
     padding:2px;
     border-radius:0 0 5px 0;
     text-align:center;
@@ -196,7 +199,7 @@ img{
 .pageOptionItem{
     border:1px solid #ccc;
     border-radius:3px;
-    background:#555;
+    background:#616161;
     padding:2px;
     margin:1px 0;
     color:#fff;
@@ -207,19 +210,19 @@ img{
     text-decoration:none;
 }
 .pageOptionItem.selected{
-    background:#62A60A;
+    background:#8bc34a;
 }
 .pageOptionItem.selected:hover{
-    background:#060;
+    background:#689f38;
 }
 .pageOptionItem:hover{
-    background:#333;
+    background:#424242;
 }
 
 .content h1{
     color:#222;
     margin:0 0 5px 0;
-    border:0 dotted #666;
+    border:0 dotted #616161;
     border-bottom-width:1px;
 }
 .youShallNotUpload{
@@ -231,7 +234,7 @@ img{
 }
 .userMessage{
     display:inline-flex;
-    color:#666;
+    color:#616161;
     border-radius:3px;
     border:1px solid #ccc;
     padding:1px;
@@ -242,11 +245,11 @@ img{
     top:1px;
     padding:1px;
     border-radius:4px;
-    border:1px solid #060;
+    border:1px solid #056f00;
     cursor:pointer;
 }
 .uploadButton:hover{
-    background:#62A60A;
+    background:#0a8f08;
 }
 .fileUpload{
     position:absolute;
@@ -322,19 +325,20 @@ img{
     text-align:center;
 }
 .menuSub input[type=submit]{
-    border:1px solid #666;
+    border:1px solid #616161;
     height:24px;
     border-radius:0 5px 5px 0;
     border-left-width:0;
     margin:0;
     padding:0;
-    background:#bbb;
+    background:#bdbdbd;
+	cursor: pointer;
 }
 .menuSub input[type=submit]:hover{
     background:#55830C;
 }
 .menuSub input[type=text]{
-    border:1px solid #666;
+    border:1px solid #616161;
     height:22px;
     border-right-width:0;
     border-radius:5px 0 0 5px;
@@ -435,7 +439,7 @@ img{
 }
 
 .menuGroupActive{
-    background:#9E9;
+    background:#8bc34a;
 }
 
 .menuOptions{
@@ -450,11 +454,24 @@ img{
     text-align:center;
 }
 .menuOptions a{
-    color:#555;
+    color:#616161;
     text-decoration:none;
 }
 .menuOptions a:hover{
     color:#000;
+}
+.menuOptionsItem{
+	position: relative;
+}
+.menuOptionsItem:hover{
+	background: #f5f5f5;
+}
+.menuOptionImg{
+	position:  absolute;
+	right: 0;
+	top: 3px;
+	height: 13px;
+	float: right;
 }
 
 .overlay{
@@ -473,57 +490,64 @@ img{
     border-radius:7px;
     text-align:center;
     background:#eee;
-    border:1px solid #555;
+    border:1px solid #616161;
 }
 .msgBox input[type=submit]{
     border-radius:3px;
     margin:1px;
-    border:1px solid #030;
-    background:#070;
+    border:1px solid #0d5302;
+    background:#056f00;
     cursor:pointer;
     color:#FFF;
 }
 .msgBox input[type=submit]:hover{
-    border:1px solid #050;
-    background:#5B9909;
+    border:1px solid #056f00;
+    background:#0a7e07;
 }
 .msgBox input[type=button]{
     border-radius:3px;
     margin:1px;
-    border:1px solid #CC6000;
-    background:#FF7E00;
+    border:1px solid #f4511e;
+    background:#ef6c00;
     cursor:pointer;
 }
 .msgBox input[type=button]:hover{
-    border:1px solid #FF7E00;
-    background:#FFA54E;
+    border:1px solid #ef6c00;
+    background:#fb8c00;
 }
 .delete{
-    background:#fcc;
-    border:1px solid #F00;
+	background:#f9bdbb;
+	border:1px solid #e51c23;
 }
 .uploadError{
-    background:#fcc;
-    border:1px solid #F00;
+	background:#f9bdbb;
+	border:1px solid #e51c23;
 }
 .deleteUserMsg{
-    background:#fcc;
-    border:1px solid #F00;
+	background:#f9bdbb;
+	border:1px solid #e51c23;
 }
 .notificationBox{
     transition:opacity 500ms;
     -webkit-transition:opacity 500ms;
-    background:#D5FF9D;
-    border:1px solid #62A60A;
+    background:#a3e9a4;
+    border:1px solid #259b24;
     padding:10px;
 }
+.notificationBox a{
+	color: #000;
+	text-decoration: none;
+}
+.notificationBox a:hover{
+	color: #616161;
+}
 .deleteTermin{
-    background:#fcc;
-    border:1px solid #F00;
+	background:#f9bdbb;
+	border:1px solid #e51c23;
 }
 .deleteMultiplePic{
-    background:#fcc;
-    border:1px solid #F00;
+	background:#f9bdbb;
+	border:1px solid #e51c23;
 }
 .msgBoxImg{
     position:absolute;
@@ -537,13 +561,13 @@ img{
     right:210px;
     top:1px;
     border-radius:5px;
-    border:1px solid #060;
+    border:1px solid #056f00;
     padding:2px;
     color:#333;
     cursor:pointer;
 }
 .galeryMakerCaller:hover{
-    background:#62A60A;
+    background:#0a8f08;
 }
 
 .insertLinkOuter{
@@ -552,7 +576,7 @@ img{
     top:55px;
     padding:5px;
     border-radius:7px;
-    border:1px solid #555;
+    border:1px solid #616161;
     background:#FFF;
     max-height:calc(100% - 60px);
 }
@@ -607,7 +631,7 @@ img{
     background:#FFF;
     right:0;
     top:0;
-    border:5px solid #555;
+    border:5px solid #616161;
     z-index:5;
 }
 .userControlOuter.out{
@@ -622,7 +646,7 @@ img{
     cursor:pointer;
 }
 .setUserRightsStruct{
-    border:1px solid #666;
+    border:1px solid #616161;
     float:left;
     border-radius:2px;
     margin:1px 2px;
@@ -632,13 +656,13 @@ img{
     height:calc(100% - 9px);
     width:calc(100% - 9px);
     background:#FFF;
-    border:5px solid #555;
+    border:5px solid #616161;
     z-index:99;
     overflow:auto;
 }
 .ownUserControlOuter a{
     text-decoration:none;
-    color:#666;
+    color:#616161;
 }
 .ownUserControlOuter :hover{
     color:#000;
@@ -647,14 +671,14 @@ img{
     font-weight:bold;
 }
 .groupedItemGroup div table{
-    border:1px solid #666;
+    border:1px solid #616161;
     background:#EEE;
     border-radius:5px;
     padding:0;
     margin:0;
 }
 .groupedItemGroup div table td{
-    border:1px dotted #666;
+    border:1px dotted #616161;
     padding:0 2px;
     border-radius:2px;
 }
@@ -667,7 +691,7 @@ img{
     width:calc(100% - 10px);
     left:0;
     height:calc(100% - 9px);
-    border:5px solid #666;
+    border:5px solid #616161;
     background:#FFF;
 }
 .pluginOuterInner{
@@ -689,7 +713,7 @@ img{
     float:left;
     width:45px;
 	height: 100%;
-    background:#15719F;
+    background:#01579b;
 }
 .pluginNavImg{
     transition:width 250ms,padding 250ms;
@@ -708,7 +732,7 @@ img{
 }
 .pluginInner{
     overflow-y:auto;
-    border:3px solid #15719F;
+    border:3px solid #01579b;
 	height: calc(100% - 5px);
     position:relative;
 }
@@ -877,7 +901,7 @@ img{
     min-width:200px;
     top:32px;
     height:50%;
-    border:5px solid #555;
+    border:5px solid #616161;
     border-radius:0 0 0 9px;
     background:#FFF;
     right:0;
@@ -918,7 +942,7 @@ img{
     text-decoration:none;
 }
 .einsatzFoundItem a:hover{
-    color:#555;;
+    color:#616161;;
 }
 
 .langChooser{
@@ -926,16 +950,16 @@ img{
     left:277px;
     z-index:5;
     background:#FFF;
-    border:3px solid #555;
+    border:3px solid #616161;
     border-radius:0 0 5px 5px;
     padding:2px;
 }
 .langChooser a{
     text-decoration:none;
-    border:0 dotted #555;
+    border:0 dotted #616161;
     border-bottom-width:1px;
     color:#000;
 }
 .langChooser a:hover{
-    color:#555;
+    color:#616161;
 }
