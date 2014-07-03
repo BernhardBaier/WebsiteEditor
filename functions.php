@@ -137,6 +137,8 @@ function replaceTextWithPlugin($text){
 				$input = fread($file,filesize($sourceOfReplacement));
 				fclose($file);
 				$output = str_replace($textToReplace,$input,$output);
+			}else{
+				$output = str_replace($textToReplace,'',$output);
 			}
 		}
 	}
@@ -147,6 +149,11 @@ function copyAndReplace($source,$dest){
 	$input = fread($file,filesize($source));
 	fclose($file);
 	$input = replaceTextWithPlugin($input);
+	while(strpos($input,'{#insertPlugin') > -1){
+		$ktxt = substr($input,strpos($input,'{#insertPlugin'));
+		$ktxt = substr($ktxt,0,strpos($ktxt,'#}')+2);
+		$input = str_replace($ktxt,'',$input);
+	}
 	$file = fopen($dest,'w');
 	fwrite($file,$input);
 	fclose($file);

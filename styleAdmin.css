@@ -580,6 +580,9 @@ img{
     background:#FFF;
     max-height:calc(100% - 60px);
 }
+.clickAbleMenuList{
+	margin: 0;
+}
 .clickAbleMenuItem{
     margin:0;
 }

@@ -71,32 +71,55 @@ if(substr($authLevel,1,1) == "1"){
 	        mysqli_query($sql,$que2) or die(mysqli_error($sql));
             echo('1');
             break;
-        case 'removeArticle':
-            $id = $_POST['id'];
-	        $que2 = "SELECT * FROM settings WHERE parameter='articleIds'";
-	        $erg2 = mysqli_query($sql,$que2);
-	        $articleIds = [];
-	        while($row = mysqli_fetch_array($erg2)){
-		        $articleIds = unserialize($row['value']);
-	        }
-	        mysqli_free_result($erg2);
-	        $que2 = "DELETE FROM $sqlBase.toreplace WHERE `replace`='{#insertPluginArticle$id/$lang#}'";
-	        if(!(mysqli_query($sql,$que2))){
-		        echo("couldn't delete: $que2");
-	        }
-            for($i=0;$i<sizeof($articleIds);$i++){
-                if($articleIds[$i] == $id){
-                    array_splice($articleIds,$i,1);
-                }
-            }
-            if($articleIds == []){
-                $que = "UPDATE settings set value='NULL' WHERE parameter='articleIds'";
-                mysqli_query($sql,$que) or die(mysqli_error($sql));
-            }else{
-                $que2 = "UPDATE settings set value='".serialize($articleIds)."' WHERE parameter='articleIds'";
-                mysqli_query($sql,$que2) or die(mysqli_error($sql));
-            }
-            echo('1');
-            break;
+	    case 'removeArticle':
+		    $id = $_POST['id'];
+		    $que2 = "SELECT * FROM settings WHERE parameter='articleIds'";
+		    $erg2 = mysqli_query($sql,$que2);
+		    $articleIds = [];
+		    while($row = mysqli_fetch_array($erg2)){
+			    $articleIds = unserialize($row['value']);
+		    }
+		    mysqli_free_result($erg2);
+		    $que2 = "DELETE FROM $sqlBase.toreplace WHERE `replace`='{#insertPluginArticle$id/$lang#}'";
+		    if(!(mysqli_query($sql,$que2))){
+			    echo("couldn't delete: $que2");
+		    }
+		    for($i=0;$i<sizeof($articleIds);$i++){
+			    if($articleIds[$i] == $id){
+				    array_splice($articleIds,$i,1);
+			    }
+		    }
+		    if($articleIds == []){
+			    $que = "UPDATE settings set value='NULL' WHERE parameter='articleIds'";
+			    mysqli_query($sql,$que) or die(mysqli_error($sql));
+		    }else{
+			    $que2 = "UPDATE settings set value='".serialize($articleIds)."' WHERE parameter='articleIds'";
+			    mysqli_query($sql,$que2) or die(mysqli_error($sql));
+		    }
+		    echo('1');
+		    break;
+	    case 'insertHTMLOnPage':
+		    $id = $_POST['id'];
+		    $html = $_POST['html'];
+			$path = "../../content/$lang/$id.php";
+		    $file = fopen($path,'r');
+			$input = fread($file,filesize($path));
+			fclose($file);
+			if(!strpos($input,$html) >= 0){
+				if(strpos($input,'<div class="picsClickAble">') > -1){
+					$input = substr($input,0,strrpos($input,'</div>')).$html.substr($input,strrpos($input,'</div>'));
+				}else{
+					$input = $input.$html;
+				}
+				$file = fopen($path,'w');
+				fwrite($file,$input);
+				fclose($file);
+			}
+		    echo('1');
+		    break;
+
+	    default:
+		    echo('undefined call to function '.$function);
+		    break;
     }
 }

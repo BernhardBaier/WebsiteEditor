@@ -489,7 +489,11 @@ function toggleGalPicSel(id){
 function generateGallery(){
     var goOn = true;
     var id=0;
-    var galHTML = '<div class="picsClickAble">';
+	var html = getCurrentHTML();
+	var galHTML = '';
+	if(!html.search('<div class="picsClickAble">') > -1){
+		togglePicsClickable();
+	}
     try{
         while(goOn){
             if(document.getElementById('galMakerImg'+id).className.search('selected') > -1){
@@ -500,11 +504,10 @@ function generateGallery(){
             id++;
         }
     }catch (ex){}
-    galHTML += '</div>';
-    if(document.getElementById('editable').innerHTML.search('class="gallery') > -1){
-        $('.gallery').html(galHTML);
+    if(html.search('class="gallery') > -1){
+        $('.gallery').html(galHTML);//oh that hurts but is easy :D
     }else{
-        document.getElementById('editable').innerHTML += '<div class="gallery">' + galHTML + '</div>';
+        insertHTMLatTheEnd('<div class="gallery">' + galHTML + '</div>');
     }
     hideMessages();
 }

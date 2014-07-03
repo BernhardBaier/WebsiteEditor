@@ -34,7 +34,7 @@ function initPlugin_$plugId(th){
         data: 'year=2014&function=admin&href='+href+'&id=$plugId&lang='+lang,
         success: function(data) {
             $('.pluginInner').html(data);
-            if(document.getElementById('editable').innerHTML.search('calendar') > -1){
+            if(getCurrentHTML().search('calendar') > -1){
                 $('.calendarOnPage').addClass('selected').html('remove from Page');
             }else{
                 $('.calendarOnPage').removeClass('selected').html('add to page');
@@ -201,7 +201,7 @@ function updateCalendar(){
     }
 }
 function togglePlugin(name){
-    var html = document.getElementById('editable').innerHTML;
+    var html = getCurrentHTML();
     var href = document.getElementById('calendarViewMode');
     if(href){
         href = href.options[href.selectedIndex].value;
@@ -218,16 +218,16 @@ function togglePlugin(name){
                 var rep = $('.calendarPage').html();
                 html = html.substr(html.search('<div class=\"calendarPage\">'));
                 html = html.replace(rep,'');
-                document.getElementById('editable').innerHTML = vor + html.substr(html.search('</div>') + 6);
+                setEditorHTML(vor + html.substr(html.search('</div>') + 6));
                 $('.calendarOnPage').removeClass('selected').html('add to Page');
                 $('.calendarUpdate').addClass('hidden');
             }else{
                 if(html.search('<h1>') < 5 && html.search('<h1>') > -1){
                     var title = html.substr(0,html.search('</h1>') + 5);
                     var text = html.substr(html.search('</h1>') + 5);
-                    document.getElementById('editable').innerHTML = title + '<div class=\"calendarPage\">'+data+'</div>' + text;
+                    setEditorHTML(title + '<div class=\"calendarPage\">'+data+'</div>' + text);
                 }else{
-                    document.getElementById('editable').innerHTML = '<div class=\"calendarPage\">'+data+'</div>' + html;
+                    setEditorHTML('<div class=\"calendarPage\">'+data+'</div>' + html);
                 }
                 $('.calendarOnPage').addClass('selected').html('remove from Page');
                 $('.calendarUpdate').removeClass('hidden');

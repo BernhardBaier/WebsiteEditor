@@ -52,12 +52,19 @@
 
 
 .pluginArticleButton{
-    display:inline-flex;
-    border-radius:5px;
-    background:#9E9;
-    padding:3px;
-    cursor:pointer;
+	display:inline-flex;
+	border-radius:5px;
+	background:#72d572;
+	border: 1px solid #259b24;
+	padding:3px;
+	margin: 0 2px;
+	cursor:pointer;
 }
+.pluginArticleButton:hover{
+	background: #42bd41;
+	border: 1px solid #0a8f08;
+}
+
 .articlePageChooser{
     position:absolute;
     top:55px;

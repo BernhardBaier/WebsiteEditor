@@ -29,6 +29,11 @@
     border:1px solid #CCC;
     cursor:pointer;
 }
+/*.picsClickAble{
+	border:2px solid #000;
+	border-radius: 3px;
+	padding: 2px;
+}*/
 .picsClickAble img{
     margin:1px;
     box-shadow:1px 1px 3px #ccc;

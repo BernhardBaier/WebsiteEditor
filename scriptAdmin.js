@@ -7,6 +7,14 @@ var showPageTour = false;
 function reloadLocation(rel){
     window.location.href = document.location.toString().substr(0,document.location.toString().lastIndexOf('/'))+'/admin.php?id='+pageId+'&action='+rel;
 }
+function confirmExit(){
+	if(startHTML != replaceUml(CKEDITOR.instances.editable.getData()) && replaceUml(CKEDITOR.instances.editable.getData()) != '<p>page not existent jet.<br /><span style="color<dpp>#555;font-size<dpp>12px;">Tipp<dpp> press crtl+s to save changes.</span></p>'){
+		return 'Save Content!';
+	}else{
+		document.getElementsByClassName('pageLoading')[0].className = 'pageLoading';
+		document.getElementsByClassName('loadingMessage')[0].innerHTML = 'Loading';
+	}
+}
 var actCKEPos ='NULL';
 function getCharacterOffsetWithin(range, node) {
     var treeWalker = document.createTreeWalker(
@@ -31,51 +39,77 @@ function getCharacterOffsetWithin(range, node) {
     return charCount;
 }
 function getCKEPosition(){
-    var el = document.getElementById("editable");
-    var range = window.getSelection().getRangeAt(0);
-    actCKEPos = getCharacterOffsetWithin(range, el);
+	try{
+		var el = document.getElementById("editable");
+		var range = window.getSelection().getRangeAt(0);
+		actCKEPos = getCharacterOffsetWithin(range, el);
+	}catch(ex){
+		actCKEPos = 'NULL';
+	}
+}
+function getCurrentHTML(){
+	return document.getElementById('editable').innerHTML;
+}
+function setEditorHTML(html){
+	document.getElementById('editable').innerHTML = html;
 }
 function insertHTMLatCursor(html){
-    var oldAcPos = actCKEPos;
-    if(actCKEPos > document.getElementById('editable').innerHTML.length || actCKEPos == 'NULL'){
-        document.getElementById('editable').innerHTML += html;
-    }else{
-        var txt = CKEDITOR.instances.editable.getData().replace(/\n/,'');
-        var finder = txt;
-        var pos = 0;
-        while(pos<=actCKEPos){
-            var i = finder.search('<');
-            var k = finder.search('&');
-            if(i>0){
-                if(k<i && k>0){
-                    pos += k;
-                    finder = finder.substr(k);
-                }else{
-                    if(k==0){
-                        var j = finder.search(';')+1;
-                        pos += j;
-                        actCKEPos += (j-1);
-                        finder = finder.substr(j);
-                    }else{
-                        pos += i;
-                        finder = finder.substr(i);
-                    }
-                }
-            }else{
-                if(i==0){
-                    var j = finder.search('>')+1;
-                    pos += j;
-                    actCKEPos += j;
-                    finder = finder.substr(j);
-                }else{
-                    pos = actCKEPos;
-                }
-            }
-        }
-        txt = txt.substr(0,actCKEPos)+html+txt.substr(actCKEPos);
-        actCKEPos = oldAcPos;
-        document.getElementById('editable').innerHTML = txt;
-    }
+	try{
+	    var oldAcPos = actCKEPos;
+		var editorHTML = getCurrentHTML();
+	    if(actCKEPos > editorHTML.length || actCKEPos == 'NULL'){
+		    insertHTMLatTheEnd(html);
+	    }else{
+	        var txt = CKEDITOR.instances.editable.getData().replace(/\n/,'');
+	        var finder = txt;
+	        var pos = 0;
+	        while(pos<=actCKEPos){
+	            var i = finder.search('<');
+	            if(i>0){
+		            var k = finder.search('&');
+	                if(k<i && k>0){
+	                    pos += k;
+	                    finder = finder.substr(k);
+	                }else{
+	                    if(k==0){
+	                        var j = finder.search(';')+1;
+	                        pos += j;
+	                        actCKEPos += (j-1);
+	                        finder = finder.substr(j);
+	                    }else{
+	                        pos += i;
+	                        finder = finder.substr(i);
+	                    }
+	                }
+	            }else{
+	                if(i==0){
+	                    var j = finder.search('>')+1;
+	                    pos += j;
+	                    actCKEPos += j;
+	                    finder = finder.substr(j);
+	                }else{
+	                    pos = actCKEPos;
+	                }
+	            }
+	        }
+	        txt = txt.substr(0,actCKEPos)+html+txt.substr(actCKEPos);
+	        actCKEPos = oldAcPos;
+		    setEditorHTML(txt);
+	    }
+	}catch (ex){
+		insertHTMLatTheEnd(html);
+	}
+}
+function insertHTMLatTheEnd(html){
+	var editorHTML = getCurrentHTML();
+	var picsCA = editorHTML.search('<div class="picsClickAble">');
+	if(picsCA > -1){
+		var ktxt = editorHTML.substr(0,editorHTML.lastIndexOf('</div>'));
+		editorHTML = ktxt + html + editorHTML.substr(editorHTML.lastIndexOf('</div>'));
+	}else{
+		editorHTML += html;
+	}
+	setEditorHTML(editorHTML);
 }
 function init(){
     getSize();
@@ -131,14 +165,6 @@ function init(){
 	document.getElementsByClassName('pageContainer')[0].style.left = '24px';
 	window.setTimeout("$('.pageLoading').addClass('hidden')",350);
 }
-function confirmExit(){
-    if(startHTML != replaceUml(CKEDITOR.instances.editable.getData())){
-        return 'Save Content!';
-    }else{
-        document.getElementsByClassName('pageLoading')[0].className = 'pageLoading';
-        document.getElementsByClassName('loadingMessage')[0].innerHTML = 'Loading';
-    }
-}
 function postInit(){
 	$('.pageLoading').css('opacity','0');
     document.body.overflow = 'visible';
@@ -160,7 +186,10 @@ function postInit(){
     if(typeof(initUserOptions) == "function"){
         initUserOptions();
     }
-    startHTML = replaceUml(CKEDITOR.instances.editable.getData());
+    window.setTimeout('setStartHTML()',250);
+}
+function setStartHTML(){
+	startHTML = replaceUml(CKEDITOR.instances.editable.getData());
 }
 function initPageTour(){//is used!
     showPageTour = true;
@@ -642,28 +671,31 @@ function showPageOptions(id,th){
 }
 
 function togglePicsClickable(th){
-    var html = document.getElementById('editable').innerHTML;
-    if(html.search('<div class="picsClickAble">') > -1){
+	if(!th){
+		th = document.getElementById('pageOptionItemPics');
+	}
+    var html = getCurrentHTML();
+	var picsWhereClickAble = false;;
+    while(html.search('<div class="picsClickAble">') > -1){
         var killtxt = html;
         var helpstr = $('.picsClickAble').html();
         var txt = killtxt.replace(helpstr,'');
         killtxt = txt.substr(txt.search('<div class="picsClickAble">') + 27);
         killtxt = killtxt.substr(killtxt.search('</div>') + 6);
         txt = txt.substr(0,txt.search('<div class="picsClickAble">'));
-        document.getElementById('editable').innerHTML = txt + helpstr + killtxt;
-    }else{
-        if(html.search('<h1>') < 5 && html.search('<h1>') > -1){
-            var title = html.substr(0,html.search('</h1>') + 5);
-            var text = html.substr(html.search('</h1>') + 5);
-            document.getElementById('editable').innerHTML = title + '<div class="picsClickAble">' + text + '</div>';
-        }else{
-            document.getElementById('editable').innerHTML = '<div class="picsClickAble">' + html + '</div>';
-        }
+        setEditorHTML(txt + helpstr + killtxt);
+	    picsWhereClickAble = true;
+	    html = getCurrentHTML();
     }
-    $(th).toggleClass('selected');
+	if(!picsWhereClickAble){
+		setEditorHTML('<div class="picsClickAble">' + html + '</div>');
+		$(th).addClass('selected');
+	}else{
+		$(th).removeClass('selected');
+	}
 }
 function initOptions(){
-    if(document.getElementById('editable').innerHTML.search('<div class="picsClickAble">') == -1){
+    if(getCurrentHTML().search('<div class="picsClickAble">') == -1){
         $('#pageOptionItemPics').removeClass('selected');
     }else{
         $('#pageOptionItemPics').addClass('selected');
@@ -675,13 +707,39 @@ function insertPageTitle(){
         url: 'MySQLHandler.php',
         data: 'table=pages_'+lang+'&function=getNameById:'+pageId,
         success: function(data) {
-            var html = document.getElementById('editable').innerHTML;
-            if(html.search('<h1>') < 5 && html.search('<h1>') > -1){
-                var text = html.substr(html.search('</h1>') + 5);
-                document.getElementById('editable').innerHTML = '<h1>'+data+'</h1>' + text;
-            }else{
-                document.getElementById('editable').innerHTML = '<h1>'+data+'</h1>' + html;
-            }
+            var html = getCurrentHTML();
+	        var title = '<h1>'+data+'</h1>'
+	        var titleTagLenOffset = 5;
+	        if(html.search('<div class="picsClickAble">') > -1){
+		        if(html.search('<h1>') > -1){
+			        if(html.search('<h1>') < html.search('<div class="picsClickAble">')){
+				        togglePicsClickable();
+				        togglePicsClickable();
+				        html = getCurrentHTML();
+			        }
+			        titleTagLenOffset += 30;
+			        if(html.search('<h1>') < titleTagLenOffset){
+				        var text = html.substr(html.search('</h1>') + 5);
+				        setEditorHTML('<div class="picsClickAble">' + title + text);
+			        }else{
+				        setEditorHTML(title + html);
+			        }
+		        }else{
+			        if(html.search('<div class="picsClickAble">') < titleTagLenOffset){
+				        html = html.substr(html.search('<div class="picsClickAble">'));
+				        setEditorHTML('<div class="picsClickAble">' + title + html.substr(html.search('>') + 1));
+			        }else{
+				        setEditorHTML(title + html);
+			        }
+		        }
+	        }else{
+		        if(html.search('<h1>') < titleTagLenOffset && html.search('<h1>') > -1){
+			        var text = html.substr(html.search('</h1>') + titleTagLenOffset);
+			        setEditorHTML(title + text);
+		        }else{
+			        setEditorHTML(title + html);
+		        }
+	        }
         }
     });
 }

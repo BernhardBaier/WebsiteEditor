@@ -31,7 +31,7 @@ function setPluginArticleHTML(){
         url: '$location/functions.php',
         data: 'lang='+lang+'&function=getArticles',
         success: function(data) {
-            $('.pluginInner').html('<div class=\"articlePageChooser hidden\"></div><div class=\"articleTitle\">Article admin</div>Pages with articles:<br>'+data+'<br><div class=\"pluginArticleButton\" onclick=\"showAddArticle()\">Add a page to article list</div><hr/><a target=\"_blank\" href=\"plugins/article/article.php?lang='+lang+'\">open editor now</a>');
+            $('.pluginInner').html('<div class=\"articlePageChooser hidden\"></div><div class=\"articleTitle\">Article admin</div>Pages with articles:<br>'+data+'<br><div class=\"pluginArticleButton\" onclick=\"showAddArticle()\">Add a page to article list</div><div class=\"pluginArticleButton\" onclick=\"showAddArticleToPage()\">Add article to page</div><hr/><a target=\"_blank\" href=\"plugins/article/article.php?lang='+lang+'\">open editor now</a>');
         }
     });
 }
@@ -74,7 +74,44 @@ function removeArticle(id){
             }
         }
     });
-}";
+}
+
+function showAddArticleToPage(){
+    $.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=clickAbleMenu:addArticleToPage(\$pid):'+lang,
+        success: function(data) {
+            if(data != '1'){
+                $(\".articlePageChooser\").html(\"<img src='images/close.png' style='position:absolute;right:-15px;top:-15px;cursor:pointer' title='hide' height='22' onclick=\\\"$('.articlePageChooser').addClass('hidden')\\\" /><li class='clickAbleMenuItem'><img src='images/listicon.png' height='15'><span onclick='addArticleToPage(\"+pageId+\")'> active page</span></li>\"+data).removeClass(\"hidden\");
+            }
+        }
+    });
+}
+function addArticleToPage(id){
+	var textToInsert = '{#insertPluginArticle'+id+'/'+lang+'#}';
+	if(id == pageId){
+		var editorContent = getCurrentHTML();
+		if(editorContent.search(textToInsert) == -1){
+			insertHTMLatCursor(textToInsert);
+			saveText('content/'+lang+'/'+id+'.php');
+		}
+	}else{
+		$.ajax({
+        type: 'POST',
+        url: '$location/functions.php',
+        data: 'lang='+lang+'&function=insertHTMLOnPage&id='+id+'&html='+textToInsert,
+        success: function(data) {
+            if(data != '1'){
+                alert(data);
+                return;
+            }
+        }
+    });
+	}
+	showNotification('the Plugin has been added to the page.<br>you now have to publish it again to see the changes.',2500);
+}
+";
     $file = fopen("$location/script.js",'w');
     fwrite($file,$output);
     fclose($file);
