@@ -58,15 +58,8 @@ function enterPath(path){
     var ktxt2 = browserPath.substr(11);
     ktxt2 = ktxt2.substr(0,ktxt2.search('/'));
 
-    if(browserPath.search('einsatz') > -1){
-        var ktxt = browserPath.substr(browserPath.search('einsatz')+8)
-        ktxt = ktxt==''?'':ktxt.substr(0,ktxt.search('/'));
-        if(parseInt(ktxt) > 0){
-            document.getElementById('fileUpload1').src = 'fileUpload/index.php?id='+ktxt2+'&path=einsatz/'+ktxt;
-        }
-    }else{
-        document.getElementById('fileUpload1').src = 'fileUpload/index.php?id='+ktxt2;
-    }
+    document.getElementById('fileUpload1').src = 'fileUpload/index.php?id='+ktxt2;
+
     setRequest(browserPath,'getFiles.php','.out');
     $('.browserPath').html(browserPath);
     if(browserMode == 1){

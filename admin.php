@@ -113,8 +113,6 @@ if(substr($authLevel,0,1) == "1"){
         mkdir('web-others/'.$id.'/thumbs');
     }
     $action = $_GET['action'];
-    $einsatz = $_GET['einsatz'];
-    $einsatz=$einsatz>0?$einsatz:0;
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
@@ -136,7 +134,6 @@ if(substr($authLevel,0,1) == "1"){
         var startHTML = '';
         var pageId = <?php echo($id);?>;
         var lang = '<?php echo($lang);?>';
-        var einsatz = <?php echo($einsatz);?>;
         var showPlugIn = false;
         var showUsers = false;
         <?php
@@ -384,39 +381,6 @@ if(substr($authLevel,2,1) == '1'){
         </div>
     </div>
 </div>
-<?php
-$einsatzOption = ' hidden';
-if(file_exists("content/$id.php")){
-    $file = fopen("content/$id.php",'r');
-    $input = fread($file,filesize("content/$id.php"));
-    fclose($file);
-    if(strpos($input,'einsatzCount')>-1){
-        $einsatzOption = '';
-    }
-}
-?>
-<div class="einsatzFoundOuter <?php echo($einsatzOption);?>">
-    <div class="einsatzFoundInner">
-        <img src="images/einsatzOut.png" height="20" class="einsatzFoundImg" onclick="$('.einsatzFoundOuter').toggleClass('out');$(this).toggleClass('out')" />
-        <div class="einsatzFoundTitle">Eins&auml;tze gefunden</div>
-        <div class="einsatzFoundContainer">zum bearbeiten anklicken.
-            <?php
-            if($einsatzOption != ' hidden'){
-                $maxId = 0;
-                while(strpos($input,'einsatzCount')>-1){
-                    $ct = substr($input,strpos($input,'einsatzCount')+14);
-                    $ct = substr($ct,0,strpos($ct,'<'));
-                    echo("<div class='einsatzFoundItem'><a href='admin.php?id=$id&einsatz=$ct'>Einsatz $ct</a></div>");
-                    $input = substr($input,strpos($input,'einsatzCount')+9);
-                }
-                if($einsatz>0){
-                    echo("<div class='einsatzFoundItem'><a href='admin.php?id=$id'>zur&uuml;ck zur einsatz&uuml;bersicht</a></div>");
-                }
-            }
-            ?>
-        </div>
-    </div>
-</div>
 
 <div class="container">
     <div class="leftBar">
@@ -474,16 +438,10 @@ if(file_exists("content/$id.php")){
         </div>
         <div class="content" contenteditable="true" id="editable">
             <?php
-            if($einsatz > 0){
-                if(file_exists("content/einsatz/$lang/$id/$einsatz.php")){
-                    include("content/einsatz/$lang/$id/$einsatz.php");
-                }
+            if(file_exists("content/$lang/$id.php")){
+                include("content/$lang/$id.php");
             }else{
-                if(file_exists("content/$lang/$id.php")){
-                    include("content/$lang/$id.php");
-                }else{
-                    echo('page not existent jet.</br><span style="color:#555;font-size:12px;">Tipp: press crtl+s to save changes.</span>');
-                }
+                echo('page not existent jet.</br><span style="color:#555;font-size:12px;">Tipp: press crtl+s to save changes.</span>');
             }
             ?>
         </div>
@@ -527,10 +485,6 @@ if(file_exists("content/$id.php")){
 </body>
 </html>
 <?php
-}elseif(substr($authLevel,1,1) == "1"){
-    header('Location: einsatz.php');
-}elseif(substr($authLevel,3,1) == "1"){
-    header('Location: plugins/Seifenkistenrennen/skrAdmin.php');
 }else{
     header('Location: logout.php');
 }

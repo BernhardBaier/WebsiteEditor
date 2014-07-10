@@ -155,10 +155,6 @@ function init(){
     }else if(showUsers == true){
         $('.ownUserControlOuter').removeClass('hidden');
     }
-    if(einsatz>0){
-        $('.einsatzFoundOuter').addClass('out');
-        $('.einsatzFoundImg').addClass('out');
-    }
     window.setTimeout('postInit()',250);
     window.onbeforeunload = confirmExit;
 	document.getElementsByClassName('pageContainer')[0].style.width = 'calc(100% - 22px)';
@@ -652,11 +648,7 @@ function showUploadError(){
 }
 function saveText(path){
     var data = replaceUml(CKEDITOR.instances.editable.getData());
-    if(einsatz>0){
-        setRequest('storeText:'+data+':'+path+'/'+lang+'/einsatz/'+einsatz+'.php','functions.php','.out');
-    }else{
-        setRequest('storeText:'+data+':'+path+'/'+lang+'/'+pageId+'.php','functions.php','.out');
-    }
+    setRequest('storeText:'+data+':'+path+'/'+lang+'/'+pageId+'.php','functions.php','.out');
 }
 var notificationBoxMayHide = false;
 function showNotification(text,time){
@@ -903,7 +895,7 @@ function publishPageNow(){
         $.ajax({
             type: 'POST',
             url: 'functions.php',
-            data: 'text=publishText&lang=all&langs='+jsLanguages+'&id='+pageId+'&einsatz='+einsatz,
+            data: 'text=publishText&lang=all&langs='+jsLanguages+'&id='+pageId,
             success: function(data) {
                 if(data.search('#published#') != -1) {
                     hideMessages();
@@ -920,7 +912,7 @@ function publishPageNow(){
         $.ajax({
             type: 'POST',
             url: 'functions.php',
-            data: 'text=publishText&lang='+lang+'&id='+pageId+'&einsatz='+einsatz,
+            data: 'text=publishText&lang='+lang+'&id='+pageId,
             success: function(data) {
                 if(data.search('#published#') != -1) {
                     hideMessages();

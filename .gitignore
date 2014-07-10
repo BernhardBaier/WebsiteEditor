@@ -13,7 +13,4 @@ webSockets/*
 .idea/*
 .ides/scopes/*
 einsatz/*
-einsatz.php
-einsatzFunctions.php
-einsatzNewYear.php
 moveOldPage.php
