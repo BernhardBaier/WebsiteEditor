@@ -208,7 +208,17 @@ if(substr($authLevel,0,1) == '1'){
         case 'storeText':
             if(!empty($options) && sizeof($options)>=2){
                 if(storeText(replaceUml($options[0]),$options[1])){
-                    echo('#saved#'.replaceUml($options[0]));
+	                $id=$_POST['id'];
+	                if(!is_dir("content/$lang/preview/")){
+		                mkdir("content/$lang/preview/");
+	                }
+	                if(file_exists("content/$lang/preview/$id.php")){
+		                unlink("web-content/$lang/preview/$id.php");
+	                }
+	                if(copyAndReplace("content/$lang/$id.php","content/$lang/preview/$id.php")){
+		                echo('#preview#');
+	                }
+                    echo('#saved#');
                 }
             }else{
                 handleError($function);

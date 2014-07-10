@@ -647,8 +647,39 @@ function showUploadError(){
     $('.uploadError').removeClass('hidden');
 }
 function saveText(path){
-    var data = replaceUml(CKEDITOR.instances.editable.getData());
-    setRequest('storeText:'+data+':'+path+'/'+lang+'/'+pageId+'.php','functions.php','.out');
+    var text = replaceUml(CKEDITOR.instances.editable.getData());
+	$.ajax({
+		type: 'POST',
+		url: 'functions.php',
+		data: 'text=storeText:'+text+':'+path+'/'+lang+'/'+pageId+'.php&lang='+lang+'&id='+pageId,
+		success: function(data) {
+			if(data.search('#saved#') > -1 && data.search('#preview#') > -1) {
+				hideMessages();
+				startHTML = replaceUml(CKEDITOR.instances.editable.getData());
+				showNotification('The changes have been saved',1500);
+			}else{
+				if(data!='1'){
+					alert(data);
+				}
+			}
+		}
+	});
+}
+function createPreviewOfPage(){
+	$.ajax({
+		type: 'POST',
+		url: 'functions.php',
+		data: 'text=previewPage&lang='+lang+'&id='+pageId,
+		success: function(data) {
+			if(data.search('#preview#') != -1) {
+				showNotification('The preview has been created',1500);
+			}else{
+				if(data!='1'){
+					alert(data);
+				}
+			}
+		}
+	});
 }
 var notificationBoxMayHide = false;
 function showNotification(text,time){
@@ -926,23 +957,6 @@ function publishPageNow(){
             }
         });
     }
-}
-function previewPage(){
-	$.ajax({
-		type: 'POST',
-		url: 'functions.php',
-		data: 'text=previewPage&lang='+lang+'&id='+pageId,
-		success: function(data) {
-			if(data.search('#preview#') != -1) {
-				hideMessages();
-				showNotification('<a target="_blank" href="index.php?id='+pageId+'&lang='+lang+'&preview=true">Preview has been created. Klick this link.</a>',2000);
-			}else{
-				if(data!='1'){
-					alert(data);
-				}
-			}
-		}
-	});
 }
 
 function getSize() {

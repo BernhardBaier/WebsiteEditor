@@ -16,10 +16,6 @@ function setRequest(text,url,out) {
                 location.reload();
             }else if(data.search('#reload#') != -1) {
                 enterPath('');
-            }else if(data.search('#saved#') != -1) {
-                hideMessages();
-                startHTML = replaceUml(CKEDITOR.instances.editable.getData());
-                showNotification('The changes have been saved',1500);
             }else if(data.search('#imgs#') != -1) {
                 showGaleryEditor(data.substr(6));
             }else if(data.search('#dirs#') > -1){
