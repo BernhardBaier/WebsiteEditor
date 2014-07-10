@@ -122,8 +122,8 @@ function checkTables(){
         $languages = $row['value'];
     }
     if($languages == false){
-        $languages = ['de','en'];
-        $longLanguages = ['deutsch','english'];
+        $languages = array('de','en');
+        $longLanguages = array('deutsch','english');
         $que = "INSERT INTO settings (parameter, value) VALUES ('languages', '".serialize($languages)."')";
         mysqli_query($sql,$que);
         $que = "INSERT INTO settings (parameter, value) VALUES ('languagesLong', '".serialize($longLanguages)."')";

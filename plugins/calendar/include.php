@@ -242,4 +242,6 @@ function togglePlugin(name){
 }
 echo("
 <script src='$location/script.js'></script>
+<link rel='stylesheet' href='$location/stylePluginCalendar.css' />
+<link rel='stylesheet' href='$location/style.css' />
 ");

@@ -10,6 +10,7 @@ $lang = $_POST['lang'];
 $table = 'pages_'.$lang;
 include('../../MySQLHandlerFunctions.php');
 include('access.php');
+include('../../functionsPlugins.php');
 if(substr($authLevel,1,1) == "1"){
     $function = $_POST['function'];
     $hostname = $_SERVER['HTTP_HOST'];
@@ -67,8 +68,7 @@ if(substr($authLevel,1,1) == "1"){
                     mysqli_query($sql,$que2) or die(mysqli_error($sql));
                 }
             }
-	        $que2 = "INSERT INTO $sqlBase.toreplace (`replace`,`url`) VALUES ('{#insertPluginArticle$id/$lang#}','plugins/article/content/$id/$lang/article.php')";
-	        mysqli_query($sql,$que2) or die(mysqli_error($sql));
+			addHTMLToReplace("{#insertPluginArticle$id/$lang#}","plugins/article/content/$id/$lang/article.php");
             echo('1');
             break;
 	    case 'removeArticle':
@@ -80,10 +80,7 @@ if(substr($authLevel,1,1) == "1"){
 			    $articleIds = unserialize($row['value']);
 		    }
 		    mysqli_free_result($erg2);
-		    $que2 = "DELETE FROM $sqlBase.toreplace WHERE `replace`='{#insertPluginArticle$id/$lang#}'";
-		    if(!(mysqli_query($sql,$que2))){
-			    echo("couldn't delete: $que2");
-		    }
+		    removeHTMLFromReplace("{#insertPluginArticle$id/$lang#}");
 		    for($i=0;$i<sizeof($articleIds);$i++){
 			    if($articleIds[$i] == $id){
 				    array_splice($articleIds,$i,1);
@@ -98,28 +95,9 @@ if(substr($authLevel,1,1) == "1"){
 		    }
 		    echo('1');
 		    break;
-	    case 'insertHTMLOnPage':
-		    $id = $_POST['id'];
-		    $html = $_POST['html'];
-			$path = "../../content/$lang/$id.php";
-		    $file = fopen($path,'r');
-			$input = fread($file,filesize($path));
-			fclose($file);
-			if(!strpos($input,$html) >= 0){
-				if(strpos($input,'<div class="picsClickAble">') > -1){
-					$input = substr($input,0,strrpos($input,'</div>')).$html.substr($input,strrpos($input,'</div>'));
-				}else{
-					$input = $input.$html;
-				}
-				$file = fopen($path,'w');
-				fwrite($file,$input);
-				fclose($file);
-			}
-		    echo('1');
-		    break;
 
 	    default:
-		    echo('undefined call to function '.$function);
+		    echo("undefined call to function $function()");
 		    break;
     }
 }

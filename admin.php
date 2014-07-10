@@ -11,12 +11,12 @@ function jsMenu($parent=0){
     global $sql,$lang;
     $que = "SELECT * FROM pages_$lang WHERE parent=$parent";
     $erg = mysqli_query($sql,$que);
-    $rows = [];
+    $rows = array();
     while($help = mysqli_fetch_array($erg)){
         $rows[$help['rank']] = $help;
     }
     $output = "";
-    if($rows != []){
+    if(sizeof($rows) != 0){
         for($i=1;$i<=sizeof($rows);$i++){
             $row = $rows[$i];
             $pid = $row['id'];
@@ -61,8 +61,8 @@ if(substr($authLevel,0,1) == "1"){
         }
         mysqli_free_result($erg);
         $langSupport = $langSupport=='multi'?true:false;
-        $languages = [];
-        $longLanguages = [];
+        $languages = array();
+        $longLanguages = array();
         if($langSupport){
             $que = "SELECT * FROM settings WHERE parameter='languages'";
             $erg = mysqli_query($sql,$que);
@@ -244,7 +244,10 @@ include('content/user.php');
     <span class="infoBoxTitle"></span></br>
     <span class="infoBoxInfo"></span>
 </div>
-<div class="notificationBox msgBox opac0 hidden"></div>
+<div class="notificationBox msgBox opac0 hidden" onmouseover="notificationBoxHover()" onmouseout="notificationBoxDisHover()">
+	<div class="msgBoxImg"><img onclick="hideNotificationBox()" height="20" title="close" src="images/close.png"/></div>
+	<div class="notificationBoxInner"></div>
+</div>
 
 <div class="renamePic msgBox hidden">
     <div class="msgBoxImg"><img onclick="hideMessages()" height="20" title="close" src="images/close.png"/></div>

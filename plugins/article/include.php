@@ -99,8 +99,8 @@ function addArticleToPage(id){
 	}else{
 		$.ajax({
         type: 'POST',
-        url: '$location/functions.php',
-        data: 'lang='+lang+'&function=insertHTMLOnPage&id='+id+'&html='+textToInsert,
+        url: 'functions.php',
+        data: 'lang='+lang+'&function=insertHTMLatEndOfPage:'+id+':'+textToInsert,
         success: function(data) {
             if(data != '1'){
                 alert(data);

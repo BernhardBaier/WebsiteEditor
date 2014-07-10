@@ -143,6 +143,7 @@ $preview = $_GET['preview'];
     <script src="scriptHTML5.js"></script>
 
     <script src="picViewer/picViewer.js"></script>
+	<!-- DO NOT CHANGE THE LINES BELOW-->
     <!--#style for plugins#-->
     <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
     <!--#end#-->

@@ -278,7 +278,7 @@ function positionMessage(){
     $('.overlay').css('top',window.pageYOffset);
 }
 function positionMessageTop(){
-    $('.notificationBox').css('top',window.pageYOffset + 10).css('right',150).css('left',$('.leftBar').width() + 20);
+    $('.notificationBox').css('top',window.pageYOffset + 15).css('right',150).css('left',$('.leftBar').width() + 20);
 }
 function hideMessages(){
     $('.msgBox').addClass('hidden');
@@ -658,12 +658,34 @@ function saveText(path){
         setRequest('storeText:'+data+':'+path+'/'+lang+'/'+pageId+'.php','functions.php','.out');
     }
 }
-
+var notificationBoxMayHide = false;
 function showNotification(text,time){
     positionMessageTop();
-    $('.notificationBox').html(text).removeClass('hidden').removeClass('opac0');
-    window.setTimeout("$('.notificationBox').addClass('opac0')",time);
-    window.setTimeout("$('.notificationBox').addClass('hidden')",time + 450);
+	$('.notificationBox').removeClass('hidden').removeClass('opac0');
+    $('.notificationBoxInner').html(text);
+	notificationBoxMayHide = true;
+	window.setTimeout("hideNotificationBox()",time);
+}
+function notificationBoxHover(){
+	notificationBoxMayHide = false;
+	$('.notificationBox').removeClass('opac0');
+}
+function notificationBoxDisHover(){
+	notificationBoxMayHide = true;
+	hideNotificationBox();
+}
+function hideNotificationBox(){
+	if(notificationBoxMayHide){
+		$('.notificationBox').addClass('opac0');
+		window.setTimeout("hideNotificationBoxCompletely()",450);
+	}
+}
+function hideNotificationBoxCompletely(){
+	if(notificationBoxMayHide){
+		$('.notificationBox').addClass('hidden')
+	}else{
+		$('.notificationBox').removeClass('opac0');
+	}
 }
 function showPageOptions(id,th){
     $('.pageOptions').toggleClass('height0').toggleClass('hidden');
@@ -851,7 +873,7 @@ function showInsertLink(){
     $.ajax({
         type: 'POST',
         url: 'functions.php',
-        data: 'text=clickAbleMenu:insertHTML($pid,this):'+lang,
+        data: 'text=clickAbleMenu:insertLinkToPage($pid,this):'+lang,
         success: function(data) {
             $('.insertLink').html(' &nbsp; &nbsp; &nbsp;Insert a link to page'+data);
             $('.overlay').removeClass('hidden');
@@ -859,7 +881,7 @@ function showInsertLink(){
         }
     });
 }
-function insertHTML(id,th){
+function insertLinkToPage(id,th){
     insertHTMLatCursor('<a href="index.php?id='+id+'&lang='+lang+'">'+th.innerHTML+'</a>');
     $('.pageOptions').addClass('height0').addClass('hidden');
     $('.pageMenuItem').removeClass('active');

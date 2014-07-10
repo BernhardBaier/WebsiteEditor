@@ -7,6 +7,7 @@
  */
 error_reporting(E_ERROR);
 include('access.php');
+include('../../functionsPlugins.php');
 $lang = $_POST['lang'];
 $lang = $lang==''?'de':$lang;
 $table = "calendar_$lang";

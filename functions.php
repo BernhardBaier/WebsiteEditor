@@ -163,9 +163,12 @@ function handleError($func){
     echo("missing Options for function $func!");
 }
 $function = $_POST['text'];
+if(isset($_POST['function'])){
+	$function = $_POST['function'];
+}
 if(substr($authLevel,0,1) == '1'){
-    $lang = 'de';
     $lang = $_POST['lang'];
+	$lang = $lang == ''?'de':$lang;
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
@@ -268,8 +271,31 @@ if(substr($authLevel,0,1) == '1'){
                 handleError($function);
             }
             break;
+	    case 'insertHTMLatEndOfPage':
+		    if(!empty($options) && sizeof($options)>=2){
+			    $id = $options[0];;
+			    $html = $options[1];
+			    $path = "content/$lang/$id.php";
+			    $file = fopen($path,'r');
+			    $input = fread($file,filesize($path));
+			    fclose($file);
+			    if(!strpos($input,$html) > -1){
+				    if(strpos($input,'<div class="picsClickAble">') > -1){
+					    $input = substr($input,0,strrpos($input,'</div>')).$html.substr($input,strrpos($input,'</div>'));
+				    }else{
+					    $input = $input.$html;
+				    }
+				    $file = fopen($path,'w');
+				    fwrite($file,$input);
+				    fclose($file);
+			    }
+			    echo('1');
+		    }else{
+			    handleError($function);
+		    }
+		    break;
         default:
-            echo('Error');
+            echo("undefined call to function $function(".serialize($options).")");
             break;
     }
 }
