@@ -114,28 +114,32 @@ while($row = mysqli_fetch_array($erg)){
 <html>
 <head>
     <title><?php echo($pageTitle);?></title>
+	<meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
     <link rel="stylesheet" href="styleMobile.css" />
-    <script src="scriptMobile.js"></script>
-    <!-- todo: remove this in final!--><script src="jquery-1.9.1.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="picViewer/picViewer.js"></script>
-	<!-- DO NOT CHANGE THE LINES BELOW-->
-    <!--#style for plugins#-->
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <!--#end#-->
 </head>
 <body onload="init()">
 <div class="container">
     <div class="header">
-        <div class="menuImg"><img src="images/menu.png" height="100%" onclick="toggleMenu()" /></div>
-        <div class="pageTitle"><?php echo($pageTitle);?></div>
-        <div class="menuLogo"><img src="images/logo.png" height="100%" /></div>
-        <div class="menuOuter" id="menu">
-            <?php
-            echo(printMenu($sql));
-            ?>
-        </div>
+	    <div class="headerDivider">
+	        <div class="menuImg"><img src="images/menu.png" height="100%" onclick="toggleMenu()" /></div>
+	        <div class="pageTitle"><?php echo($pageTitle);?></div>
+		    <div class="menuLogo"><img src="images/logo.png" height="100%" /></div>
+		    <img class="searchIcon" onclick="expandMenu()" src="images/search.png" />
+		    <div class="menuOuter" id="menu">
+			    <?php
+			    echo(printMenu($sql));
+			    ?>
+		    </div>
+	    </div>
+	    <div class="searchOuter">
+		    <div class="searchBig">
+			    <form class="searchBox" name="search" action="javascript:searchNow()">
+				    <input name="searchInput" placeholder="Suche" type="search">
+				    <input value=" go " type="submit">
+			    </form>
+		    </div>
+	    </div>
     </div>
     <div class="pageOuter" id="pageOuter">
         <div class="content">
@@ -160,5 +164,12 @@ while($row = mysqli_fetch_array($erg)){
         Copyright &copy; 2014 <?php echo($pageTitle)?>
     </div>
 </div>
+<script src="scriptMobile.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="picViewer/picViewer.js"></script>
+<!-- DO NOT CHANGE THE LINES BELOW-->
+<!--#style for plugins#-->
+<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+<!--#end#-->
 </body>
 </html>

@@ -1,17 +1,38 @@
 /**
  * Created by Bernhard on 13.05.14.
  */
-var windowHeight,windowWidth;
+var addedMenuClass = false;
 function init(){
-    getSize();
-    document.getElementById('pageOuter').style.height = Math.round(windowHeight - $('.header').height() - $('.footer').height() - $('.copyright').height() - 13)+'px';
-    document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+15)+'px';
     window.setTimeout('postInit()',250);
     initPicViewerMobile();
 }
 function postInit(){
-    getSize();
-    document.getElementById('pageOuter').style.height = Math.round(windowHeight - $('.header').height() - $('.footer').height() - $('.copyright').height() - 13)+'px';
+	$(".pageOuter").scroll(function (e) {
+		e.preventDefault();
+		var elem = $(this);
+		if (elem.scrollTop() > 3){
+			if(!addedMenuClass){
+				addedMenuClass = true;
+				$('.header').addClass('small');
+				$('.pageOuter').addClass('small');
+				$('.headerDivider').addClass('small');
+				$('.searchIcon').addClass('small');
+				$('.searchOuter').addClass('small');
+			}
+		}else{
+			if(addedMenuClass){
+				expandMenu();
+			}
+		}
+	});
+}
+function expandMenu(){
+	addedMenuClass = false;
+	$('.header').removeClass('small');
+	$('.pageOuter').removeClass('small');
+	$('.headerDivider').removeClass('small');
+	$('.searchIcon').removeClass('small');
+	$('.searchOuter').removeClass('small');
 }
 function toggleMenu(){
     var left = document.getElementById('menu').style.left;
@@ -19,17 +40,6 @@ function toggleMenu(){
         document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+15)+'px';
     }else{
         document.getElementById('menu').style.left = 0;
-    }
-}
-function getSize() {
-    if( typeof( window.innerWidth ) == 'number' ) {
-        windowWidth = window.innerWidth;
-        windowHeight = window.innerHeight;
-    } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
-        windowWidth = document.documentElement.clientWidth;
-        windowHeight = document.documentElement.clientHeight;
-    } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-        windowWidth = document.body.clientWidth;
-        windowHeight = document.body.clientHeight;
+	    expandMenu();
     }
 }

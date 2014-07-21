@@ -1,46 +1,116 @@
-body{
+body, html{
     margin:0;
     padding:0;
-    font-family:Arial, Helvetica, sans-serif;
-    font-size:2.2pc;
+    font-family:Arial, sans-serif;
+	font-size:16px;
+	height:100%;
+	width:100%;
+	overflow: hidden;
 }
 .container{
     width:100%;
     height:100%;
 }
 .header{
+	transition:height 500ms;
+	-webkit-transition:height 500ms;
     width:100%;
-    height:10pc;
+    height:18%;
+	min-height: 40px;
     background:#A00;
     position:relative;
 }
-.menuImg{
-    position:absolute;
-    z-index:9;
-    left:1pc;
-    top:2.5pc;
-    bottom:2.5pc;
+.header.small{
+	height:9%;
 }
-.menuLogo{
-    position:absolute;
-    right:6px;
-    top:6px;
-    bottom:6px;
-    text-align:right;
-    width:100%;
+.headerDivider{
+	display: block;
+	transition:height 500ms;
+	-webkit-transition:height 500ms;
+	height: 50%;
+	min-height:40px;
+	width: 100%;
+	position: relative;
+}
+.headerDivider.small{
+	height:100%;
+	width: 100%;
+}
+
+.searchOuter{
+	transition:opacity 500ms;
+	-webkit-transition:opacity 500ms;
+	opacity: 1;
+	height: 50%;
+	width: 100%;
+	position: relative;
+}
+.searchOuter.small{
+	opacity: 0;
+}
+.searchBox{
+	height: 100%;
+	width:100%;
+	padding:6px;
+	position: relative;
+}
+.searchBox input[type=search]{
+	height: 55%;
+	padding:2px;
+	margin: 0;
+	border: 2px solid #900;
+	border-right-width: 0;
+	border-radius: 3px 0 0 3px;
+}
+.searchBox input[type=submit]{
+	height: 74%;
+	padding:2px;
+	margin: 0 0 0 -5px;
+	border: 2px solid #900;
+	border-left-width: 0;
+	border-radius: 0 3px 3px 0;
+	background: #f36c60;
+	color:#fff;
+	font-weight:bold;
+}
+.menuImg{
+    float:left;
+    padding:9px 5px 0 5px;
+	height:55%;
 }
 .pageTitle{
-    position:absolute;
-    top:22%;
-    left:19%;
-    padding:5px 6px;
+	float:left;
+    padding:3px 4px;
+	margin: 4px 2px;
     border-radius:4px;
     border:1px solid #D88;
     background:#FFF;
     background:rgba(255,255,255,0.6);
     box-shadow:0 0 3px 3px #F66;
-    font-size:3.25pc;
+    font-size:21px;
+	font-weight: bold;
 }
+.searchIcon{
+	opacity: 0;
+	transition:opacity 500ms;
+	-webkit-transition:opacity 500ms;
+	position: absolute;
+	right: 45px;
+	top:2px;
+	height: 84%;
+	text-align: right;
+}
+.searchIcon.small{
+	opacity: 1;
+}
+.menuLogo{
+	position: absolute;
+	right: 5px;
+	top:5px;
+	bottom: 5px;
+	text-align: right;
+}
+
 .menuOuter{
     transition:left 250ms;
     -webkit-transition:left 250ms;
@@ -48,7 +118,7 @@ body{
     top:100%;
     left:-100%;
     z-index:5;
-    border:4px solid #555;
+    border:2px solid #555;
     border-radius:0 5px 5px 0;
     box-shadow:0 0 2px 2px #555;
     padding:2px;
@@ -63,15 +133,15 @@ body{
     margin:0;
 }
 .menuItem{
-    border:0.5pc solid #999;
-    border-radius:0.5pc;
-    padding:3px 4px;
-    margin:5px 1px;
+    border:3px solid #999;
+    border-radius:5px;
+    padding:2px 3px;
+    margin:4px 1px;
     background:#EEE;
 }
 .menuItem a{
     text-decoration:none;
-    font-size:4.75pc;
+    font-size:25px;
     color:#333;
     font-weight:bold;
 }
@@ -79,38 +149,47 @@ body{
     background:#CCC;
 }
 .pageOuter{
-    border:2px solid #A00;
-    border-top-color:#333;
-    border-bottom-color:#333;
+	transition:height 500ms;
+	-webkit-transition:height 500ms;
+    border:2px solid #565656;
     width:100%;
     width:calc(100% - 12px);
+	height:68%;
     margin:0;
     padding:4px;
     overflow:scroll;
+	background: #eee;
+}
+.pageOuter.small{
+	height:77%;
 }
 .content{
-
+	background: #fff;
 }
 .contentInner h1{
     border:0 dotted #333;
     border-bottom-width:1px;
-    font-size:55px;
+    font-size:30px;
+	padding: 0 ;
+	margin:0;
 }
 .footer{
-    height:12pc;
-    min-height:100px;
+    height:8%;
     background:#A00;
 }
 .copyright{
     text-align:center;
     color:#999;
-    font-size:0.5pc;
+    font-size:13px;
 }
 .galPic{
-    padding:1pc;
-    margin:0.5pc;
+    padding:4px;
+    margin:3px 1px 3px 1px;
     background:#EEE;
-    border-radius:1pc;
-    border:4px solid #CCC;
-    height:12.5pc;
+    border-radius:5px;
+    border:2px solid #CCC;
+}
+.imgTitle{
+	font-size: 13px;
+	text-align: center;
 }

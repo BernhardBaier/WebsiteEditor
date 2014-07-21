@@ -7,6 +7,7 @@ var picViewerThumbnails = 'thumbs/';       //Standard Thumbnail path
 var activatePreloadBar = true;             //set it to show or not to show the progress bar of the preload.
 var autoResizePics = false;                //Set this to true to automatically change the height of all found picViewerPics to the value below
 var autoResizeHeight = 100;                //height after resize
+var autoResizeHeightMobile = 50;
 var picViewerExcludePics = ['loading.gif','close.png'];      //a list of picViewerPics that should not be clickable
 var showPicNameAsTitle = false;            //automatically show the name of the pic as title
 var picViewerIsMobile = false;                      //is the viewer used by an mobile device???
@@ -80,16 +81,22 @@ function picViewerHandlePics(){
             picViewerPicFkts[i] = picViewerPicFkts[i]==0?1.5:picViewerPicFkts[i];
             queElem.addClass('galPic');
             if(autoResizePics){
-                queElem.height(autoResizeHeight).width(autoResizeHeight*picViewerPicFkts[i]);
+	            if(queElem.height()<autoResizeHeight){
+		            queElem.height(autoResizeHeight).width(autoResizeHeight*picViewerPicFkts[i]);
+	            }
             }else{
-                queElem.width(queElem.height()*picViewerPicFkts[i]);
+	            if(picViewerIsMobile == true && queElem.height() == 100){
+		            queElem.height(autoResizeHeightMobile).width(autoResizeHeightMobile*picViewerPicFkts[i]);
+	            }else{
+		            queElem.width(queElem.height()*picViewerPicFkts[i]);
+	            }
             }
         }
     }
     picViewerFinishInit();
 }
 function initPicViewerMobile(){
-    picViewerPicHeight = 55;
+    picViewerPicHeight = 27;
     picViewerIsMobile = true;
     initPicViewer();
 }
@@ -202,15 +209,27 @@ function showPicViewerId(){
     $('.pagePicViewer').removeClass('picViewerOpac0 picViewerHidden');
     document.getElementById('picViewerImg1').src = picViewerPics[picViewerIndex];
     var $width = 0;
-    if(picVieweIsAuto){
-        if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
-            $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 46)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 40;
-        }else{
-            $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
-        }
-    }else{
-        $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 90)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 170;
-    }
+	if(picViewerIsMobile){
+		if(picVieweIsAuto){
+			if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+				$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 24;
+			}else{
+				$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 24;
+			}
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 70)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 60;
+		}
+	} else {
+		if(picVieweIsAuto){
+			if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+				$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 46)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 40;
+			}else{
+				$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
+			}
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 90)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 170;
+		}
+	}
     var $height = $width/picViewerPicFkts[picViewerIndex];
     if(showPicNameAsTitle || picViewerPicTitles[picViewerIndex] != 'NULL'){
         $height += 19;
@@ -315,7 +334,20 @@ function picViewerPlay(){
     }
     picVieweIsAuto = true;
     picViewerGetSize();
-    var $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
+    var $width;
+	if(picViewerIsMobile){
+		if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 24;
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 24;
+		}
+	} else {
+		if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 46)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 40;
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
+		}
+	}
     var $height = $width/picViewerPicFkts[picViewerIndex];
     var $left = (picViewerWindowWidth - $width) / 2 - 10;
     $('.picViewer').height($height).width($width);
@@ -332,11 +364,19 @@ function picViewerSetSize(){
     $('.picViewerAutoBar').removeClass('picViewerHidden').css('transition','width '+picViewerTime+'ms linear').css('-webkit-transition','width '+picViewerTime+'ms linear').width(picViewerActualWidth);
     picViewerGetSize();
     var $width;
-    if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
-        $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 46)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 40;
-    }else{
-        $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
-    }
+	if(picViewerIsMobile){
+		if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 24;
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 24;
+		}
+	} else {
+		if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 46)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 40;
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
+		}
+	}
     var $height = $width/picViewerPicFkts[picViewerIndex];
     var $left = (picViewerWindowWidth - $width) / 2 - 10;
     $('.picViewer').height($height).width($width);
@@ -365,7 +405,20 @@ function picViewerStop(){
     $('.picViewerAuto').html('<img class="picViewerAutoImg" title="play" src="picViewer/picViewerImages/play.png" onclick="picViewerPlay()" height="'+picViewerPicHeight+'"/>'+picViewerInfo);
     $('.picViewerAutoBar').addClass('picViewerHidden').css('transition','width 0ms').css('-webkit-transition','width 0ms').width(0);
     picViewerGetSize();
-    var $width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 90)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 175;
+	var $width;
+	if(picViewerIsMobile){
+		if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 14)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 10;
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 60;
+		}
+	} else {
+		if(picViewerWindowWidth/picViewerWindowHeight > 1.77 && picViewerWindowWidth/picViewerWindowHeight < 1.79){
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 46)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 40;
+		}else{
+			$width = picViewerWindowWidth/picViewerWindowHeight>picViewerPicFkts[picViewerIndex]?(picViewerWindowHeight - 50)*picViewerPicFkts[picViewerIndex]:picViewerWindowWidth - 100;
+		}
+	}
     var $height = $width/picViewerPicFkts[picViewerIndex];
     var $left = (picViewerWindowWidth - $width) / 2 - 10;
     $('.picViewer').height($height).width($width);

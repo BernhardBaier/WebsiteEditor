@@ -137,16 +137,6 @@ $preview = $_GET['preview'];
     <link rel="stylesheet" href="styleHTML5.css" />
     <link rel="stylesheet" href="commonStyle.css"/>
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
-    <!-- todo: remove this in final!--><script src="jquery-1.9.1.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-    <script src="scriptHTML5.js"></script>
-
-    <script src="picViewer/picViewer.js"></script>
-	<!-- DO NOT CHANGE THE LINES BELOW-->
-    <!--#style for plugins#-->
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <!--#end#-->
 </head>
 <body onload="init()">
 <div class="pageOuter">
@@ -195,6 +185,13 @@ $preview = $_GET['preview'];
         </div>
         <span class="copyRight">Copyright &copy; 2012 - <?php echo(date('Y').' '.$pageTitle);?></span>
      </div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="scriptHTML5.js"></script>
+	<script src="picViewer/picViewer.js"></script>
+	<!-- DO NOT CHANGE THE LINES BELOW-->
+	<!--#style for plugins#-->
+	<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+	<!--#end#-->
 </div>
 </body>
 </html>
