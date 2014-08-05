@@ -82,7 +82,7 @@ if(substr($authLevel,2,1) == '1'){
 <img title="delete user" src="images/bin.png" onclick="deleteUser(\''.$Auser.'\')" height="18" />&nbsp;</td>');
                 echo('</tr>');
             }
-            echo('</tr></table>');
+            echo('</tr></table><a href="register.php" target="_blank">register new user</a>');
         }
     }
 }

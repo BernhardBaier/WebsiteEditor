@@ -153,7 +153,7 @@ $preview = $_GET['preview'];
                     <input type="submit" value=" go " />
                 </form>
             </div>
-            <img src="images/logo.png" class="pageLogo" />
+            <a href="index.php"><img src="images/logo.png" class="pageLogo" /></a>
             <div class="pageTitle"><?php echo($pageTitle);?></div>
             <div class="menu">
                 <?php echo(printMenu($sql)); ?>
@@ -192,7 +192,8 @@ $preview = $_GET['preview'];
 	<!--#style for plugins#-->
 	
     <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' /><!--#end#-->
+    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
+    <link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' /><!--#end#-->
 </div>
 </body>
 </html>

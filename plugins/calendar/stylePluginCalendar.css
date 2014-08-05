@@ -90,5 +90,6 @@
 	font-size:13px;
 }
 .calendarSiteFooter{
+    cursor: pointer;
 	text-align:center;
 }

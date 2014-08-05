@@ -130,7 +130,9 @@ function init(){
         document.browser.type.selectedIndex = 1;
         setBrowserType();
     }else{
-        enterPath('web-images/'+pageId+'/');
+        if(pageId>0){
+            enterPath('web-images/'+pageId+'/');
+        }
     }
     if(getCookie('leftBarPos') == "1"){
 	    setCookie('leftBarPos','0',5);
@@ -641,6 +643,32 @@ function toggleFileBrowser(){
 function showUpload(){
     $('.fileUpload').toggleClass('hidden');
     enterPath('');
+    restoreUpload();
+}
+function restoreUpload(){
+    if(document.getElementsByClassName('fileUpload')[0].className == 'fileUpload background'){
+        document.getElementsByClassName('fileUpload')[0].className = 'fileUpload';
+    }
+    document.getElementById('fileUpload1').style.opacity = 1;
+    document.getElementById('loadingImg2').className = "waitIcon hidden";
+    document.getElementsByClassName('fileUploadOnBackground')[0].className = 'fileUploadOnBackground hidden';
+    document.getElementsByClassName('fileUploadBackground')[0].innerHTML = 'Background';
+    try{
+        window.clearInterval(refreshFilesOnBackground);
+    }catch (ex){}
+}
+var refreshFilesOnBackground;
+function toggleUploadBackground(){
+    if(document.getElementsByClassName('fileUpload')[0].className == 'fileUpload'){
+        document.getElementsByClassName('fileUpload')[0].className = 'fileUpload background';
+        document.getElementsByClassName('fileUploadOnBackground')[0].className = 'fileUploadOnBackground';
+        document.getElementsByClassName('fileUploadBackground')[0].innerHTML = 'Foreground';
+        document.getElementById('fileUpload1').style.opacity = 0;
+        document.getElementById('loadingImg2').className = "waitIcon";
+        refreshFilesOnBackground = window.setInterval("enterPath('')",5000);
+    }else{
+        restoreUpload();
+    }
 }
 function showUploadError(){
     $('.overlay').removeClass('hidden');

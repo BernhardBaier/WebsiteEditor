@@ -33,7 +33,7 @@ function setRequest(text,url,out) {
 }
 function enterPath(path){
     if(path == '../'){
-        var killstr = browserPath;
+       var killstr = browserPath;
        for(var i=0;i<10;i++){
             killstr = killstr.replace('../','');
         }
@@ -53,9 +53,9 @@ function enterPath(path){
     }
     var ktxt2 = browserPath.substr(11);
     ktxt2 = ktxt2.substr(0,ktxt2.search('/'));
-
-    document.getElementById('fileUpload1').src = 'fileUpload/index.php?id='+ktxt2;
-
+    if(path != ''){
+        document.getElementById('fileUpload1').src = 'fileUpload/index.php?id='+ktxt2;
+    }
     setRequest(browserPath,'getFiles.php','.out');
     $('.browserPath').html(browserPath);
     if(browserMode == 1){

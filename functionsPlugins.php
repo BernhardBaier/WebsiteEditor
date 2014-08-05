@@ -7,13 +7,11 @@
  */
 function addHTMLToReplace($html,$path){
 	global $sqlBase,$sql;
-	$que2 = "GET * FROM $sqlBase.toreplace WHERE replace='$html'";
+	$que2 = "SELECT * FROM $sqlBase.toreplace WHERE replace='$html'";
 	$erg = mysqli_query($sql,$que2);
-	$found = false;
+    $found = false;
 	while($row = mysqli_fetch_array($erg)){
-		if($row['url'] == $path){
-			$found = true;
-		}
+        $found = $row['url'];
 	}
 	if($found === false){
 		$que2 = "INSERT INTO $sqlBase.toreplace (`replace`,`url`) VALUES ('$html','$path')";

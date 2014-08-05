@@ -7,7 +7,7 @@
  */
 error_reporting(E_ERROR);
 include "access.php";
-if($authLevel != '' && $authLevel != '0000'){
+if($authLevel == '1111'){
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
@@ -179,4 +179,6 @@ if($authLevel != '' && $authLevel != '0000'){
             echo('error');
             break;
     }
+}else{
+    echo('Error: this can only be done by an admin!');
 }

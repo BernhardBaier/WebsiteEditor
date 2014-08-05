@@ -72,7 +72,9 @@ function resizeImage ($filepath_old, $filepath_new,$newHeight) {
 	return true;
 }
 error_reporting(E_ERROR);
+$executingAlone = '';
 if(!isset($authLevel)){
+    $executingAlone = true;
     if(!file_exists("access.crypt")){
         copy("../access.crypt","access.crypt");
     }
@@ -227,6 +229,9 @@ if(isset($_GET['upload'])){
 <div class="buttonSet"><div class="buttonLeft" onclick="showNotification()">Change SQL Data</div><div class="buttonRight" onclick="location.href='admin.php'">go back to admin panel</div></div>
 <?php
 }else{
-	echo('This operation can only be done by an admin!<div class="buttonSet"><div class="buttonRight" onclick="location.href=\'../admin.php\'">go back to admin panel</div></div>');
+    if($executingAlone === true){
+        $executingAlone = '../';
+    }
+	echo('This operation can only be done by an admin!<div class="buttonSet"><div class="buttonRight" onclick="location.href=\''.$executingAlone.'admin.php\'">go back to admin panel</div></div>');
 }
 ?>

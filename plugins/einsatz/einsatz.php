@@ -35,18 +35,18 @@ if(substr($authLevel,1,1) == "1"){
         if($lang == '' || !findInArray($langs,$lang)){
             $lang = 'de';
         }
-        $que = "SELECT * FROM settings WHERE parameter='articleIds'";
+        $que = "SELECT * FROM settings WHERE parameter='einsatzIds'";
         $erg = mysqli_query($sql,$que);
         while($row = mysqli_fetch_array($erg)){
-            $articleIds = unserialize($row['value']);
+            $einsatzIds = unserialize($row['value']);
         }
         mysqli_free_result($erg);
         if(!isset($_GET['id'])){
 
         }else{
             $id = $_GET['id'];
-            if(findInArray($articleIds,$id) == -1){
-                header('Location: article.php');
+            if(findInArray($einsatzIds,$id) == -1){
+                header('Location: einsatz.php');
                 exit;
             }
 	        if(!is_dir("content/$id/")){
@@ -55,17 +55,17 @@ if(substr($authLevel,1,1) == "1"){
 	        if(!is_dir("content/$id/$lang/")){
 		        mkdir("content/$id/$lang/");
 	        }
-	        if(!is_dir("../../web-images/$id/article/")){
-		        mkdir("../../web-images/$id/article/");
+	        if(!is_dir("../../web-images/$id/einsatz/")){
+		        mkdir("../../web-images/$id/einsatz/");
 	        }
             $maxId = 0;
-            if(file_exists("content/$id/$lang/article.php")){
-                $file = fopen("content/$id/$lang/article.php",'r');
-                $input = fread($file,filesize("content/$id/$lang/article.php"));
+            if(file_exists("content/$id/$lang/einsatz.php")){
+                $file = fopen("content/$id/$lang/einsatz.php",'r');
+                $input = fread($file,filesize("content/$id/$lang/einsatz.php"));
                 fclose($file);
-                while(strpos($input,'pluginArticleOuter') >- 1){
+                while(strpos($input,'pluginEinsatzOuter') >- 1){
                     $maxId++;
-                    $input = substr($input,strpos($input,'pluginArticleOuter')+9);
+                    $input = substr($input,strpos($input,'pluginEinsatzOuter')+9);
                 }
             }
             $maxId++;
@@ -75,16 +75,16 @@ if(substr($authLevel,1,1) == "1"){
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Article</title>
+        <title>Einsatz</title>
         <link rel="SHORTCUT ICON" href="../../images/editorLogo.png" />
         <link rel="stylesheet" href="style.css" />
-        <link rel="stylesheet" href="stylePluginArticle.css" />
+        <link rel="stylesheet" href="stylePluginEinsatz.css" />
         <link rel="stylesheet" href="../../commonStyle.css" />
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="../../ckeditor/ckeditor.js"></script>
         <script>
             var lang = '<?php echo($lang);?>';
-            var path = 'web-images/<?php echo($id);?>/article/thumbs/';
+            var path = 'web-images/<?php echo($id);?>/einsatz/thumbs/';
             function replaceUml(text){
                 var umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
                 for(var i=0;i<umlaute[0].length;i++){
@@ -157,28 +157,28 @@ if(substr($authLevel,1,1) == "1"){
                 $('.msgBox').addClass('hidden');
                 $('.overlay').addClass('hidden');
             }
-            function chooseArticle(){
+            function chooseEinsatz(){
                 $.ajax({
                     type: 'POST',
                     url: 'functions.php',
-                    data: 'function=getArticles&callback=chooseArticleNow($pid)&lang='+lang,
+                    data: 'function=getEinsatzs&callback=chooseEinsatzNow($pid)&lang='+lang,
                     success: function(data) {
                         data = data=='none'?'This Plugin is not ready for use jet! Your admin has to activate it first!':data;
                         var count = data.match(/<\/li>/g);
                         if(count.length == 1){
-                            data = data.substr(data.search('chooseArticleNow')+17);
+                            data = data.substr(data.search('chooseEinsatzNow')+17);
                             data = data.substr(0,data.search("'")-1);
-                            chooseArticleNow(data);
+                            chooseEinsatzNow(data);
                             data = 'redirecting you now...';
                         }
-                        $('.articlePageChooser2').html(data);
+                        $('.einsatzPageChooser2').html(data);
                     }
                 });
             }
-            function chooseArticleNow(id){
-                location.href = 'article.php?id='+id+'&lang='+lang;
+            function chooseEinsatzNow(id){
+                location.href = 'einsatz.php?id='+id+'&lang='+lang;
             }
-	        function publishArticle(){
+	        function publishEinsatz(){
 		        $.ajax({
 			        type: 'POST',
 			        url: '../../functions.php',
@@ -187,7 +187,7 @@ if(substr($authLevel,1,1) == "1"){
 						if(data != '#published#'){
 							alert(data);
 						}else{
-							location.href = "article.php?publish=true&id=<?php echo($id);?>&lang="+lang;
+							location.href = "einsatz.php?publish=true&id=<?php echo($id);?>&lang="+lang;
 						}
 			        }
 		        });
@@ -203,13 +203,13 @@ if(substr($authLevel,1,1) == "1"){
             if(isset($_GET['maxId'])){
                 $maxId = $_GET['maxId'];
             }
-            echo('<div class="success">Article has been created<br/>it will only be visible after <div class="publish" onclick="publishArticle()">publish</div><br/><a href="preview.php?id='.$id.'&maxId='.$maxId.'&lang='.$lang.'">preview</a> | <a href="logout.php">logout</a></div>');
+            echo('<div class="success">Einsatz has been created<br/>it will only be visible after <div class="publish" onclick="publishEinsatz()">publish</div><br/><a href="preview.php?id='.$id.'&maxId='.$maxId.'&lang='.$lang.'">preview</a> | <a href="logout.php">logout</a></div>');
         }else{
-            echo('<div class="success not">article could not be added<br/>(user abort)</br><a href="article.php">repeat</a> | <a href="../../logout.php">logout</a></div>');
+            echo('<div class="success not">einsatz could not be added<br/>(user abort)</br><a href="einsatz.php">repeat</a> | <a href="../../logout.php">logout</a></div>');
         }
     }else if(isset($_GET['publish'])){
 	    if($_GET['publish'] == 'true'){
-		    echo('<div class="success published">Article has been published.<br/><a href="article.php">repeat</a> | <a href="../../logout.php">logout</a></div>');
+		    echo('<div class="success published">Einsatz has been published.<br/><a href="einsatz.php">repeat</a> | <a href="../../logout.php">logout</a></div>');
 	    }
     }else{
         if($id>0){
@@ -225,21 +225,21 @@ if(substr($authLevel,1,1) == "1"){
         </div>
         <div class="container">
             <div class="nav">
-                <a href="article.php" style="float:left">choose id</a>
+                <a href="einsatz.php" style="float:left">choose id</a>
                 <a href="logout.php" title="Logout" style="float:right;">Logout</a>
-                Article editor version 1.1
+                Einsatz editor version 1.1
             </div>
             <div class="content">
                 <div class="timing">
                     <div class="fileUpload hidden">
-                        <iframe src="../../fileUpload/index.php?id=<?php echo($id);?>&path=article" width="100%" height="100%"></iframe>
+                        <iframe src="../../fileUpload/index.php?id=<?php echo($id);?>&path=einsatz" width="100%" height="100%"></iframe>
                     </div>
-                    <form action="articleFunctions.php" method="post">
-                        Add article: <input name="date" type="date" placeholder="Datum" value="<?php if(isset($_POST['date'])){echo($_POST['date']);}else{echo(date('d.m.Y'));}?>" required />
-                        Team: <input type="text" name="team" required placeholder="Team" value="<?php if(isset($_POST['team'])){echo($_POST['team']);}?>" />
-                        Article Id <?php echo($maxId);?></br>
-                        Short text: <textarea name="short" required placeholder="short text"><?php echo($_POST['short']);?></textarea> <div class="uploadButton" onclick="showUpload()"><img src="../../images/upload.png" height="18"/>Upload</div>
-                        <textarea name="editor1" id="editor1"><div class="picsClickAble"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo('enter article here');}?></div></textarea>
+                    <form action="einsatzFunctions.php" method="post">
+                        Add Einsatz: <input name="date" type="date" placeholder="Datum" value="<?php if(isset($_POST['date'])){echo($_POST['date']);}else{echo(date('d.m.Y'));}?>" required />
+                        Time: <input type="time" name="time" required placeholder="Time" value="<?php if(isset($_POST['time'])){echo($_POST['time']);}else{echo(date('H:i'));}?>" />
+                        Einsatz Id <?php echo($maxId);?></br>
+                        Kurzbericht: <textarea name="short" required placeholder="z.B. Einsatz Hilfeleistung 1 - Hauffstraße"><?php echo($_POST['short']);?></textarea> <div class="uploadButton" onclick="showUpload()"><img src="../../images/upload.png" height="18"/>Upload</div>
+                        <textarea name="editor1" id="editor1"><div class="picsClickAble"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo('Einsatz hier eingeben.');}?></div></textarea>
                         <script>
                             CKEDITOR.replace( 'editor1' );
                             CKEDITOR.config.language = 'de';
@@ -256,16 +256,16 @@ if(substr($authLevel,1,1) == "1"){
     <?php
         }else{
         ?>
-            <body onload="chooseArticle()">
+            <body onload="chooseEinsatz()">
             <div class="container">
                 <div class="nav">
                     <a href="../../logout.php" title="Logout" style="float:right;">Logout</a>
-                    Article editor version 1.0
+                    Einsatz editor version 1.0
                 </div>
                 <div class="content">
                     <div class="timing">
-                        Choose page on which you want to add an article:
-                        <div class="articlePageChooser2"></div>
+                        Choose page on which you want to add an Einsatz:
+                        <div class="einsatzPageChooser2"></div>
                     </div>
                 </div>
             </div>

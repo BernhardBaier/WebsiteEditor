@@ -267,7 +267,8 @@ body,html{
 .searchOuter{
     position:absolute;
     z-index:5;
-    width:100%;
+    width:90%;
+    left:5%;
     text-align:center;
     top:125px;
 	max-height: 500px;

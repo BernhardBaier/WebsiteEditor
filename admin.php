@@ -132,7 +132,7 @@ if(substr($authLevel,0,1) == "1"){
     <script src="ckeditor/ckeditor.js"></script>
     <script>
         var startHTML = '';
-        var pageId = <?php echo($id);?>;
+        var pageId = <?php if($id>0){echo($id);}else{echo("'$id'");}?>;
         var lang = '<?php echo($lang);?>';
         var showPlugIn = false;
         var showUsers = false;
@@ -363,8 +363,10 @@ if(substr($authLevel,2,1) == '1'){
                 include("$location/include.php");
             }
             mysqli_free_result($erg);
+            if($authLevel == '1111'){
+                echo('<img src="plugins/logo.png" class="pluginNavImg" onclick="addPlugin(this);$(this).addClass(\'active\')" title="add plugin"/>');
+            }
             ?>
-            <img src="plugins/logo.png" class="pluginNavImg" onclick="addPlugin(this);$(this).addClass('active')" title="add plugin"/>
         </div>
         <div class="pluginInner">
             <?php
@@ -431,10 +433,18 @@ if(substr($authLevel,2,1) == '1'){
             <div class="pageOptionItem" onclick="showInsertLink()" title="insert a link to another page">insert Link</div>
             <div class="pageOptionItem" onclick="togglePicsClickable(this)" id="pageOptionItemPics" title="Select if pictures shall be viewable on this page">pics clickable</div>
             <div class="pageOptionItem" onclick="showPlugins()" title="show or add plugins">plugins</div>
-            <div class="pageOptionItem" onclick="location.href='setup.php?id=settings'" title="change the websites title or choose other languages and so on">setup</div>
+            <?php
+            if($authLevel == '1111'){
+                echo('<div class="pageOptionItem" onclick="location.href=\'setup.php?id=settings\'" title="change the websites title or choose other languages and so on">setup</div>');
+            }
+            ?>
             <div class="pageOptionItem" onclick="$('.ownUserControlOuter').removeClass('hidden')" title="show own user">user</div>
             <div class="pageOptionItem" onclick="showPageTourFunc()" title="show a tour to view the most important functions">tour</div>
-            <div class="pageOptionItem"><a href="update/update.php?forceUpdate=true" title="check editor fpr updates">check updates</a></div>
+            <?php
+            if($authLevel == '1111'){
+                echo('<div class="pageOptionItem"><a href="update/update.php?forceUpdate=true" title="check editor fpr updates">check updates</a></div>');
+            }
+            ?>
         </div>
         <div class="content" contenteditable="true" id="editable">
             <?php
@@ -448,6 +458,7 @@ if(substr($authLevel,2,1) == '1'){
         <script>
             CKEDITOR.disableAutoInline = true;
             CKEDITOR.inline( 'editable' );
+            CKEDITOR.config.language = 'de';
         </script>
         <div class="fileBrowser">
             <div id="status"></div>
@@ -456,7 +467,36 @@ if(substr($authLevel,2,1) == '1'){
                 <form name="browser">&nbsp;Type: <select name="type" onchange="setBrowserType()"><option>pictures</option><option>others</option></select> folder: <span class="browserPath"></span></form>
             </div><table width="100%"><tr><td>
             <div class="fileUpload hidden">
-                <iframe id="fileUpload1" src="fileUpload/index.php?id=<?php echo($id);?>" width="100%" height="100%"></iframe>
+                <div class="fileUploadContainer">
+                    <div class="fileUploadBackground" onclick="toggleUploadBackground()">Background</div>
+                    <div class="fileUploadOnBackground hidden">
+                        <div class="waitIcon hidden" id="loadingImg2" style="height:80px;width:80px;background:#FFF;position:absolute;top:50px;left:15px;"></div>
+                        <div class="fileUploadNotification">files are uploaded in background...</div>
+                    </div>
+                    <script>
+                        var opts = {
+                            lines: 12,
+                            length: 8,
+                            width: 4,
+                            radius: 12,
+                            corners: 1,
+                            rotate: 0,
+                            direction: 1,
+                            color: '#555',
+                            speed: 1.2,
+                            trail: 75,
+                            shadow: false,
+                            hwaccel: false,
+                            className: 'spinner',
+                            zIndex: 9,
+                            top: '40%',
+                            left: '50%'
+                        };
+                        var target = document.getElementById('loadingImg2');
+                        var spinner = new Spinner(opts).spin(target);
+                    </script>
+                    <iframe id="fileUpload1" src="fileUpload/index.php?id=<?php echo($id);?>" width="100%" height="100%"></iframe>
+                </div>
             </div>
             <div class="fileBOuter">
                 <div class="fileBLeft">

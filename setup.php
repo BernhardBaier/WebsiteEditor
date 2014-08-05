@@ -181,9 +181,11 @@ $editorVersion = '4.1';
 			include("setup/login.php");
 		}else if($_GET['id'] == "settings"){
 			include("setup/settings.php");
-		}else{
+		}else if(!file_exists('access.crypt')){
 			include("setup/welcome.php");
-		}
+		}else{
+            echo("<a href='admin.php'>an error occurred leave this page!</a>");
+        }
 		?>
 	</div>
 </div>

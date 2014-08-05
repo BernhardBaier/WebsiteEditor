@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/1a02630cf2fa8e9751b5f5abee13a7ed
+ * (2) http://ckeditor.com/builder/49f31eec9d85b231935263d8f73a7ae3
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/1a02630cf2fa8e9751b5f5abee13a7ed
+ * (3) http://ckeditor.com/builder/download/49f31eec9d85b231935263d8f73a7ae3
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,63 +25,62 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moonocolor',
+	skin: 'bootstrapck',
 	preset: 'standard',
 	ignore: [
-		'dev',
+		'.bender',
+		'.DS_Store',
 		'.gitignore',
 		'.gitattributes',
+		'.idea',
+		'.mailmap',
+		'bender.js',
+		'bender-err.log',
+		'bender-out.log',
+		'dev',
+		'node_modules',
+		'package.json',
 		'README.md',
-		'.mailmap'
+		'tests'
 	],
 	plugins : {
-		'backgrounds' : 1,
 		'basicstyles' : 1,
 		'blockquote' : 1,
 		'clipboard' : 1,
 		'colorbutton' : 1,
 		'colordialog' : 1,
 		'contextmenu' : 1,
-		'div' : 1,
-		'divarea' : 1,
 		'elementspath' : 1,
 		'enterkey' : 1,
 		'entities' : 1,
-		'find' : 1,
 		'floatingspace' : 1,
 		'font' : 1,
 		'format' : 1,
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
-		'iframe' : 1,
-		'iframedialog' : 1,
 		'image' : 1,
 		'indentlist' : 1,
 		'link' : 1,
 		'list' : 1,
-		'liststyle' : 1,
+		'locationmap' : 1,
 		'magicline' : 1,
-		'maximize' : 1,
+		'oembed' : 1,
 		'pastefromword' : 1,
-		'pastetext' : 1,
-		'pbckcode' : 1,
+		'qrc' : 1,
 		'removeformat' : 1,
 		'resize' : 1,
 		'scayt' : 1,
-		'selectall' : 1,
-		'showblocks' : 1,
-		'sourcearea' : 1,
+		'showborders' : 1,
+		'sourcedialog' : 1,
 		'specialchar' : 1,
+		'stat' : 1,
 		'stylescombo' : 1,
-		'stylesheetparser' : 1,
 		'tab' : 1,
 		'table' : 1,
 		'tableresize' : 1,
 		'tabletools' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
-		'wordcount' : 1,
-		'wsc' : 1,
 		'wysiwygarea' : 1
 	},
 	languages : {

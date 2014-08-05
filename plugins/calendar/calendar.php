@@ -31,7 +31,7 @@ $base = $sqlBase;
 $hostname = $_SERVER['HTTP_HOST'];
 $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
-if(!$include){
+if(!$include && $href != ''){
     include('../../functionsPlugins.php');
     addHTMLToReplace("{#insertPluginCalendar_$href"."_$lang#}","plugins/calendar/calendar.php?lang=$lang&year=$year&function=page&href=$href");
 }
@@ -299,7 +299,18 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                         for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){
                             $dayO = $day < 10?'0'.$day:$day;
                             $monthO = $month < 10?'0'.$month:$month;
-                            echo("<div class='calendarSiteTitle'>$dayO.$monthO.$year</div><div class='calendarSiteInner'>".$event[$year][$month][$day][$i]['name'].'</div>
+                            switch($event[$year][$month][$day][$i]['href']){
+                                case 'alle':
+                                    $images = '<img src="plugins/calendar/images/helm_aktive.jpg" height="20" title="aktive" /><img src="plugins/calendar/images/helm_jugend.jpg" height="20" title="jugend" />';
+                                    break;
+                                case 'jugend':
+                                    $images = '<img src="plugins/calendar/images/helm_jugend.jpg" height="20" title="jugend" />';
+                                    break;
+                                case 'aktive':
+                                    $images = '<img src="plugins/calendar/images/helm_aktive.jpg" height="20" title="aktive" />';
+                                    break;
+                            }
+                            echo("<div class='calendarSiteTitle'>$dayO.$monthO.$year</div><div class='calendarSiteInner'><div style='float:left'>$images</div>".$event[$year][$month][$day][$i]['name'].'</div>
     <div class="calendarSiteTime">'.$event[$year][$month][$day][$i]['start'].' Uhr</div>');
                             if(++$count > $maxCount){
                                 $month = 99;
@@ -310,8 +321,10 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                 }
             }
         }
-        $maxCount+=3;
-        echo("<div class='calendarSiteFooter' onclick='loadCalendarSide($maxCount)'>mehr</div>");
+        if($count > $maxCount){
+            $maxCount+=3;
+            echo("<div class='calendarSiteFooter' onclick='loadCalendarSide($maxCount)'>mehr</div>");
+        }
     }else{
         echo("unknown function: $func");
     }

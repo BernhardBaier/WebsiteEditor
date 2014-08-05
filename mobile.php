@@ -171,6 +171,7 @@ while($row = mysqli_fetch_array($erg)){
 <!--#style for plugins#-->
 <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
 
-    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' /><!--#end#-->
+    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
+    <link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' /><!--#end#-->
 </body>
 </html>
