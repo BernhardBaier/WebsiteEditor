@@ -55,34 +55,22 @@ function checkTables(){
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
-    $que = "CREATE TABLE `".$base."`.`users`(`id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`user` VARCHAR( 150 ) NULL ,`pw` VARCHAR( 150 ) NULL ,`access` VARCHAR( 150 ) NULL ,`email` VARCHAR( 150 ) NULL ,
-    `reg` VARCHAR( 150 ) NULL, `ondate` VARCHAR(150) NULL, `extra` VARCHAR(150) NULL);";
-    $tablesExistent = mysqli_query($sql, $que) or false;
-    if($tablesExistent != false){
-        $name = encrypt('admin','C3zyK5Uu3zdmgE6pCFB8');
-        $pw = encrypt('access','admin');
-        $mail = encrypt('admin@admin.de','C3zyK5Uu3zdmgE6pCFB8');
-        $access = encrypt('1110','C3zyK5Uu3zdmgE6pCFB8');
-        $que = "INSERT INTO $base.users (`user`, `pw`, `access`, `email`, `reg`, `ondate`) VALUES ('$name','$pw','$access','$mail','".date('d.m.Y')."','".date('d.m.Y')."');";
-        mysqli_query($sql, $que) or die(mysqli_error($sql));
-        echo('this seems to be an new page! Use admin admin');
-    }
 
     $que = "CREATE TABLE `".$base."`.`pages_de`(`id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 150 ) NULL ,`rank` INT( 10 ) NULL ,`child` VARCHAR( 150 ) NULL ,
     `childCount` int( 10 ) NULL ,`parent` int( 10 ) NULL, `extra` VARCHAR(150) NULL, `created` VARCHAR(150) NULL, `edit` VARCHAR(150) NULL);";
-    $tablesExistent = mysqli_query($sql, $que) or false;
-    if($tablesExistent != false){
-        $que = "INSERT INTO $base.pages_de (`name`, `parent`, `rank`,`created`,`edit`) VALUES ('Home','0','1','".date('d.m.Y')."','-');";
-        mysqli_query($sql, $que) or die(mysqli_error($sql));
-    }
+	$tablesExistent = mysqli_query($sql, $que) or false;
+	if($tablesExistent != false){
+		$que = "INSERT INTO $base.pages_de (`name`, `parent`, `rank`,`created`,`edit`) VALUES ('Startseite','0','1','".date('d.m.Y')."','-');";
+		mysqli_query($sql, $que) or die(mysqli_error($sql));
+	}
 
     $que = "CREATE TABLE `".$base."`.`pages_en`(`id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 150 ) NULL ,`rank` INT( 10 ) NULL ,`child` VARCHAR( 150 ) NULL ,
     `childCount` int( 10 ) NULL ,`parent` int( 10 ) NULL, `extra` VARCHAR(150) NULL, `created` VARCHAR(150) NULL, `edit` VARCHAR(150) NULL);";
-    $tablesExistent = mysqli_query($sql, $que) or false;
-    if($tablesExistent != false){
-        $que = "INSERT INTO $base.pages_en (`name`, `parent`, `rank`,`created`,`edit`) VALUES ('Home','0','1','".date('d.m.Y')."','-');";
-        mysqli_query($sql, $que) or die(mysqli_error($sql));
-    }
+	$tablesExistent = mysqli_query($sql, $que) or false;
+	if($tablesExistent != false){
+		$que = "INSERT INTO $base.pages_en (`name`, `parent`, `rank`,`created`,`edit`) VALUES ('Home','0','1','".date('d.m.Y')."','-');";
+		mysqli_query($sql, $que) or die(mysqli_error($sql));
+	}
 
     $que = "CREATE TABLE `".$base."`.`uploads`(`id` INT( 255 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 100 ) NULL ,`uploader` VARCHAR( 100 ) NULL ,`date` VARCHAR( 150 ) NULL ,`page` VARCHAR( 100 ) NULL ,
     `extra` VARCHAR(150) NULL);";
@@ -96,10 +84,7 @@ function checkTables(){
     `start` VARCHAR( 150 ) NULL,`end` VARCHAR( 150 ) NULL,`place` VARCHAR( 150 ) NULL,`href` VARCHAR( 150 ) NULL);";
     mysqli_query($sql, $que);
 
-    $que = "CREATE TABLE `".$base."`.`settings`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`parameter` VARCHAR( 150 ) NULL ,`value` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
-    mysqli_query($sql, $que);
-
-	$que = "CREATE TABLE `".$base."`.`plugins`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 150 ) NULL ,`location` VARCHAR( 150 ) NULL ,`includes` VARCHAR( 150 ) NULL ,`relations` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
+    $que = "CREATE TABLE `".$base."`.`plugins`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 150 ) NULL ,`location` VARCHAR( 150 ) NULL ,`includes` VARCHAR( 150 ) NULL ,`relations` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
 	mysqli_query($sql, $que);
 
 	$que = "CREATE TABLE `".$base."`.`toreplace`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`replace` VARCHAR( 150 ) NULL ,`url` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
@@ -162,8 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = decrypt($row['user'],'C3zyK5Uu3zdmgE6pCFB8');
             if($out == 'access' && $user == $username){
                 $path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
-                if($sslPath != 'none'){
-                    $path = str_replace($sslPath,'','https://'.$path);
+                if($sslPath == 'none' || $sslPath == ""){}else{
+	                $path = str_replace($sslPath,'','https://'.$path);
                 }
                 $path = 'http://'.substr($path,0,strrpos($path,'/'));
                 $aUser = $row['user'];
