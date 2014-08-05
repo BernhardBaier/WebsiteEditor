@@ -123,6 +123,20 @@ function movePics($path,$id){
         }
     }
 }
+function include2string($file) {
+	ob_start();
+    if(strrpos($file,'?') > -1){
+        $includes = substr($file,strrpos($file,'?')+1);
+        while(strpos($includes,'&') > -1){
+            setcookie(substr($includes,0,strpos($includes,'=')),substr($includes,strpos($includes,'=')+1,strpos($includes,'&')-(strpos($includes,'=')+1)),time()+999);
+            $includes = substr($includes,strpos($includes,'&')+1);
+        }
+        setcookie(substr($includes,0,strpos($includes,'=')),substr($includes,strpos($includes,'=')+1),time()+999);
+        $file = substr($file,0,strrpos($file,'.php')+4);
+    }
+	include $file;
+	return ob_get_clean();
+}
 function replaceTextWithPlugin($text){
 	global $sql;
 	$output = $text;
@@ -132,10 +146,9 @@ function replaceTextWithPlugin($text){
 		$textToReplace = $row['replace'];
 		if(strpos($output,$textToReplace) > -1){
 			$sourceOfReplacement = $row['url'];
-			if(file_exists($sourceOfReplacement)){
-				$file = fopen($sourceOfReplacement,'r');
-				$input = fread($file,filesize($sourceOfReplacement));
-				fclose($file);
+            $locationOfReplacement = substr($sourceOfReplacement,0,strrpos($sourceOfReplacement,'.php')+4);
+            if(file_exists($locationOfReplacement)){
+				$input = include2string($sourceOfReplacement);
 				$output = str_replace($textToReplace,$input,$output);
 			}else{
 				$output = str_replace($textToReplace,'',$output);
@@ -250,18 +263,6 @@ if(substr($authLevel,0,1) == '1'){
 			    if(copyAndReplace("content/$lang/$id.php","web-content/$lang/$id.php")){
 				    echo('#published#');
 			    }
-		    }
-		    break;
-	    case 'previewPage':
-		    $id=$_POST['id'];
-			if(!is_dir("content/$lang/preview/")){
-				mkdir("content/$lang/preview/");
-			}
-		    if(file_exists("content/$lang/preview/$id.php")){
-			    unlink("web-content/$lang/preview/$id.php");
-		    }
-		    if(copyAndReplace("content/$lang/$id.php","content/$lang/preview/$id.php")){
-			    echo('#preview#');
 		    }
 		    break;
         case 'clickAbleMenu':

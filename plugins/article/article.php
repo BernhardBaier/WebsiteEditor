@@ -178,6 +178,20 @@ if(substr($authLevel,1,1) == "1"){
             function chooseArticleNow(id){
                 location.href = 'article.php?id='+id+'&lang='+lang;
             }
+	        function publishArticle(){
+		        $.ajax({
+			        type: 'POST',
+			        url: '../../functions.php',
+			        data: 'function=publishText&id=<?php echo($id);?>&lang='+lang,
+			        success: function(data) {
+						if(data != '#published#'){
+							alert(data);
+						}else{
+							location.href = "article.php?publish=true&id=<?php echo($id);?>&lang="+lang;
+						}
+			        }
+		        });
+	        }
         </script>
     </head>
     <?php
@@ -189,17 +203,21 @@ if(substr($authLevel,1,1) == "1"){
             if(isset($_GET['maxId'])){
                 $maxId = $_GET['maxId'];
             }
-            echo('<div class="success">Article has been added<br/><a href="preview.php?id='.$id.'&maxId='.$maxId.'&lang='.$lang.'">preview</a> | <a href="logout.php">logout</a></div>');
+            echo('<div class="success">Article has been created<br/>it will only be visible after <div class="publish" onclick="publishArticle()">publish</div><br/><a href="preview.php?id='.$id.'&maxId='.$maxId.'&lang='.$lang.'">preview</a> | <a href="logout.php">logout</a></div>');
         }else{
-            echo('<div class="success not">article could not be added<br/>(user abort)</br><a href="plugins/article/article.php">repeat</a> | <a href="logout.php">logout</a></div>');
+            echo('<div class="success not">article could not be added<br/>(user abort)</br><a href="article.php">repeat</a> | <a href="../../logout.php">logout</a></div>');
         }
+    }else if(isset($_GET['publish'])){
+	    if($_GET['publish'] == 'true'){
+		    echo('<div class="success published">Article has been published.<br/><a href="article.php">repeat</a> | <a href="../../logout.php">logout</a></div>');
+	    }
     }else{
         if($id>0){
         ?>
         <body onload="init()">
         <div class="overlay hidden" title="close" onclick="hideMessages()"></div>
         <div class="deletePic msgBox hidden">
-            <div class="msgBoxImg"><img onclick="hideMessages()" height="20" title="close" src="images/close.png"/></div>
+            <div class="msgBoxImg"><img onclick="hideMessages()" height="20" title="close" src="../../images/close.png"/></div>
             <div class="deletePicTitle"></div>
             <form name="delete" action="javascript:deletePicNow()">
                 <input type="submit" value=" delete " /><input type="button" value=" cancel " onclick="hideMessages()" /><input type="hidden" name="name" />
@@ -241,7 +259,7 @@ if(substr($authLevel,1,1) == "1"){
             <body onload="chooseArticle()">
             <div class="container">
                 <div class="nav">
-                    <a href="logout.php" title="Logout" style="float:right;">Logout</a>
+                    <a href="../../logout.php" title="Logout" style="float:right;">Logout</a>
                     Article editor version 1.0
                 </div>
                 <div class="content">

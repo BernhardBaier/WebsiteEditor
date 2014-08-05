@@ -166,10 +166,11 @@ while($row = mysqli_fetch_array($erg)){
 </div>
 <script src="scriptMobile.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="picViewer/picViewer.js"></script>
+<script src="picViewer/picViewer.min.js"></script>
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#style for plugins#-->
 <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-<!--#end#-->
+
+    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' /><!--#end#-->
 </body>
 </html>

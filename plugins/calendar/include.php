@@ -34,11 +34,10 @@ function initPlugin_$plugId(th){
         data: 'year=2014&function=admin&href='+href+'&id=$plugId&lang='+lang,
         success: function(data) {
             $('.pluginInner').html(data);
-            if(getCurrentHTML().search('calendar') > -1){
+            if(getCurrentHTML().search('{#insertPluginCalendar') > -1){
                 $('.calendarOnPage').addClass('selected').html('remove from Page');
             }else{
                 $('.calendarOnPage').removeClass('selected').html('add to page');
-                $('.calendarUpdate').addClass('hidden');
             }
             $('#datetimepicker1').datetimepicker({
                 lang:'de',
@@ -208,33 +207,16 @@ function togglePlugin(name){
     }else{
         href = 'alle';
     }
-    $.ajax({
-        type: 'POST',
-        url: '$location/calendar.php',
-        data: 'year=2014&function=page&href='+href+'&id=$plugId&lang='+lang,
-        success: function(data) {
-            if(html.search('<div class=\"calendarPage\">') > -1){
-                var vor = html.substr(0,html.search('<div class=\"calendarPage\">'));
-                var rep = $('.calendarPage').html();
-                html = html.substr(html.search('<div class=\"calendarPage\">'));
-                html = html.replace(rep,'');
-                setEditorHTML(vor + html.substr(html.search('</div>') + 6));
-                $('.calendarOnPage').removeClass('selected').html('add to Page');
-                $('.calendarUpdate').addClass('hidden');
-            }else{
-                if(html.search('<h1>') < 5 && html.search('<h1>') > -1){
-                    var title = html.substr(0,html.search('</h1>') + 5);
-                    var text = html.substr(html.search('</h1>') + 5);
-                    setEditorHTML(title + '<div class=\"calendarPage\">'+data+'</div>' + text);
-                }else{
-                    setEditorHTML('<div class=\"calendarPage\">'+data+'</div>' + html);
-                }
-                $('.calendarOnPage').addClass('selected').html('remove from Page');
-                $('.calendarUpdate').removeClass('hidden');
-            }
-            window.setTimeout('saveText()',250);
-        }
-    });
+    var replace = '{#insertPluginCalendar_'+href+'_'+lang+'#}';
+    if(html.search(replace) > -1){
+        html = html.replace(replace,'');
+        setEditorHTML(html);
+        $('.calendarOnPage').removeClass('selected').html('add to page');
+    }else{
+        $('.calendarOnPage').addClass('selected').html('remove from Page');
+        insertHTMLatTheEnd(replace);
+    }
+    saveText();
 }";
     $file = fopen("$location/script.js",'w');
     fwrite($file,$output);

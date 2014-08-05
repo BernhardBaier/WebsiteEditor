@@ -36,6 +36,7 @@ function addPluginPath(path){
 }
 function resetAllPlugins(){
     try{
+        $('.pluginInner').html('<div class="loadingMessage" style="color:#555;">Loading...</div>');
         var imgs = document.getElementsByClassName('pluginNavImg');
         var max = imgs.length;
         for(i=0;i<max;i++){

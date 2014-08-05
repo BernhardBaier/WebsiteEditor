@@ -5,7 +5,7 @@
  * Date: 20.02.14
  * Time: 11:27
  */
-if(basename($_SERVER["SCRIPT_FILENAME"]) != 'login.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'register.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'calendar.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'index.php'){
+if(basename($_SERVER["SCRIPT_FILENAME"]) != 'login.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'register.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'calendar.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'index.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'setup.php'){
     include('auth.php');
 }
 if(!function_exists('decrypt')){
@@ -46,7 +46,7 @@ if(!file_exists('access.crypt')){
     exit;
 }else{
     $datei = fopen('access.crypt','r');
-    $in = fread($datei,filesize('access.php'));
+    $in = fread($datei,filesize('access.crypt'));
     fclose($datei);
     $in = decrypt($in,'2t8yamSQupnBd47s2j4n');
     $in = substr($in,6);

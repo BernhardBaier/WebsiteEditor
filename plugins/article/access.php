@@ -46,7 +46,7 @@ if(!file_exists('access.crypt')){
     exit;
 }else{
     $datei = fopen('access.crypt','r');
-    $in = fread($datei,filesize('access.php'));
+    $in = fread($datei,filesize('access.crypt'));
     fclose($datei);
     $in = decrypt($in,'2t8yamSQupnBd47s2j4n');
     $in = substr($in,6);

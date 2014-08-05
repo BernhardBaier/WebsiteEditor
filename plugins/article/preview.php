@@ -17,5 +17,5 @@ $in  = fread($file,filesize("content/$id/$lang/article.php"));
 fclose($file);
 $in = str_replace('src="','src="../../',$in);
 $in = str_replace("src='","src='../../",$in);
-echo($in."<div><a href='article.php?id=$id&lang=$lang'>back</a></div>");
+echo($in."<div><a href='article.php?success=true&id=$id&lang=$lang'>back</a></div>");
 echo('</body>');

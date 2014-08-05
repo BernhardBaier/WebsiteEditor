@@ -6,31 +6,45 @@
  * Time: 18:23
  */
 error_reporting(E_ERROR);
+$include = false;
 include('access.php');
-include('../../functionsPlugins.php');
-$lang = $_POST['lang'];
-$lang = $lang==''?'de':$lang;
-$table = "calendar_$lang";
-$year = $_POST['year'];
-$func = $_POST['function'];
+if(!isset($_POST['function'])){
+    $lang = $_COOKIE['lang'];
+    $year = $_COOKIE['year'];
+    $func = $_COOKIE['function'];
+    $href = $_COOKIE['href'];
+    $include = true;
+}else{
+    $lang = $_POST['lang'];
+    $year = $_POST['year'];
+    $func = $_POST['function'];
+    $href = $_POST['href'];
+    $plugId = $_POST['id'];
+}
 if($func != 'page' && $func != 'side'){
     include "auth.php";
 }
-$href = $_POST['href'];
-$plugId = $_POST['id'];
+$lang = $lang==''?'de':$lang;
+$table = "calendar_$lang";
 $year = $year == ''?date('Y'):$year;
 $base = $sqlBase;
 $hostname = $_SERVER['HTTP_HOST'];
 $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
+if(!$include){
+    include('../../functionsPlugins.php');
+    addHTMLToReplace("{#insertPluginCalendar_$href"."_$lang#}","plugins/calendar/calendar.php?lang=$lang&year=$year&function=page&href=$href");
+}
 if(!$sql){
     echo('sql error');
     exit;
 }
-function replaceUml($text){
-    $text = str_replace('<und>','&',$text);
-    $text = str_replace('<dpp>',':',$text);
-    return $text;
+if(!function_exists("replaceUml")){
+    function replaceUml($text){
+        $text = str_replace('<und>','&',$text);
+        $text = str_replace('<dpp>',':',$text);
+        return $text;
+    }
 }
 if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
     if(strpos($func,':')>-1){
@@ -199,7 +213,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                     <input type="submit" value=" create " />
                 </form>
             </div>
-        </div><div class="calendarOnPage" onclick="togglePlugin(\'calendar\')">add to page</div>Calendar:</div><div class="calendarUpdate" onclick="updateCalendar()">update on page</div>
+        </div>Calendar:<div class="calendarOnPage" onclick="togglePlugin(\'calendar\')">add to page</div></div>
         <div class="calendarAdmin">
             <div class="calendarAddEvent" onclick="showCalendarAddEvent()">Add event</div><div class="calendarViewMode">view mode:');
         echo("<select id='calendarViewMode'onchange='initPlugin_$plugId(0)'>");
@@ -239,7 +253,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                     for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){
                         $dayO = $day < 10?'0'.$day:$day;
                         $monthO = $month < 10?'0'.$month:$month;
-                        if($href == $event[$year][$month][$day][$i]['href'] || $href == 'alle'){
+                        if($href == $event[$year][$month][$day][$i]['href'] || $href == 'alle' || $event[$year][$month][$day][$i]['href'] == 'alle'){
                             echo("<div class='calendarOuter'><div class='calendarTermin'><div class='calendarDate'>$dayO.$monthO.$year</div>".$event[$year][$month][$day][$i]['name'].'
     <div class="calendarTerminAdmin"><img src="images/bin.png" title="delete" height="18" onclick="delTermin('.$event[$year][$month][$day][$i]['id'].')" />
     <img src="images/pencil.png" title="edit" height="18" onclick="editTermin('.$event[$year][$month][$day][$i]['id'].')" /></div>
@@ -261,7 +275,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                     for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){
                         $dayO = $day < 10?'0'.$day:$day;
                         $monthO = $month < 10?'0'.$month:$month;
-                        if($href == $event[$year][$month][$day][$i]['href'] || $href == 'alle'){
+                        if($href == $event[$year][$month][$day][$i]['href'] || $href == 'alle' || $event[$year][$month][$day][$i]['href'] == 'alle'){
                             echo("<div class='calendarOuter'><div class='calendarTermin'><div class='calendarDate'>$dayO.$monthO.$year</div>".$event[$year][$month][$day][$i]['name'].'
     <div class="calendarTime">'.$event[$year][$month][$day][$i]['start'].' Uhr</div><div class="calendarHref">'.$event[$year][$month][$day][$i]['href'].'</div></div></div>');
                         }
@@ -298,5 +312,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         }
         $maxCount+=3;
         echo("<div class='calendarSiteFooter' onclick='loadCalendarSide($maxCount)'>mehr</div>");
+    }else{
+        echo("unknown function: $func");
     }
 }

@@ -157,8 +157,8 @@ body{
 .success{
     text-align:center;
     margin:45px 15px;
-    background:#9AD717;
-    border:1px solid #090;
+    background:#ffa726;
+    border:1px solid #f57f17;
     font-size:25px;
     padding:10px;
     border-radius:15px;
@@ -174,4 +174,20 @@ body{
 }
 .success a:hover{
     color:#555;
+}
+.success.published{
+	background:#72d572;
+	border: 1px solid #2baf2b;
+}
+.publish{
+	display: inline;
+	cursor: pointer;
+	padding: 0 2px 2px 2px;
+	border-radius: 4px;
+	background:#72d572;
+	border: 1px solid #2baf2b;
+}
+.publish:hover{
+	background:#42bd41;
+	border: 1px solid #259b24;
 }
