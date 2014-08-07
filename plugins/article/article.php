@@ -236,7 +236,6 @@ if(substr($authLevel,1,1) == "1"){
                     </div>
                     <form action="articleFunctions.php" method="post">
                         Add article: <input name="date" type="date" placeholder="Datum" value="<?php if(isset($_POST['date'])){echo($_POST['date']);}else{echo(date('d.m.Y'));}?>" required />
-                        Team: <input type="text" name="team" required placeholder="Team" value="<?php if(isset($_POST['team'])){echo($_POST['team']);}?>" />
                         Article Id <?php echo($maxId);?></br>
                         Short text: <textarea name="short" required placeholder="short text"><?php echo($_POST['short']);?></textarea> <div class="uploadButton" onclick="showUpload()"><img src="../../images/upload.png" height="18"/>Upload</div>
                         <textarea name="editor1" id="editor1"><div class="picsClickAble"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo('enter article here');}?></div></textarea>

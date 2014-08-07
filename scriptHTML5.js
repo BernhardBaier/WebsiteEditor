@@ -29,9 +29,9 @@ function searchNow(){
             url: 'search.php',
             data: 'lang='+lang+'&que='+que+'&path='+preview,
             success: function(data) {
-	            data = data == 'Search results:'?data+'<br>No results found!':data;
+                data = data == 'Search results:'?data+'<br>No results found!':data;
                 $('.searchResultsInner').html(data);
-	            $('.searchOuter').removeClass('hidden');
+                $('.searchOuter').removeClass('hidden');
             }
         });
     }

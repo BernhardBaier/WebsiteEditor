@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/49f31eec9d85b231935263d8f73a7ae3
+ * (2) http://ckeditor.com/builder/3b906aa87b518995d7153bdffa689aae
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/49f31eec9d85b231935263d8f73a7ae3
+ * (3) http://ckeditor.com/builder/download/3b906aa87b518995d7153bdffa689aae
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,7 +25,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'bootstrapck',
+	skin: 'office2013',
 	preset: 'standard',
 	ignore: [
 		'.bender',
@@ -50,6 +50,8 @@ var CKBUILDER_CONFIG = {
 		'colorbutton' : 1,
 		'colordialog' : 1,
 		'contextmenu' : 1,
+		'div' : 1,
+		'divarea' : 1,
 		'elementspath' : 1,
 		'enterkey' : 1,
 		'entities' : 1,
@@ -57,7 +59,6 @@ var CKBUILDER_CONFIG = {
 		'font' : 1,
 		'format' : 1,
 		'horizontalrule' : 1,
-		'htmlwriter' : 1,
 		'image' : 1,
 		'indentlist' : 1,
 		'link' : 1,
@@ -69,7 +70,6 @@ var CKBUILDER_CONFIG = {
 		'qrc' : 1,
 		'removeformat' : 1,
 		'resize' : 1,
-		'scayt' : 1,
 		'showborders' : 1,
 		'sourcedialog' : 1,
 		'specialchar' : 1,

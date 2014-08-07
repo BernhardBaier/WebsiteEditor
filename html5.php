@@ -180,7 +180,7 @@ $preview = $_GET['preview'];
             </div>
         </div>
         <div class="footer">
-            Impressum
+            <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
         </div>
         <span class="copyRight">Copyright &copy; 2012 - <?php echo(date('Y').' '.$pageTitle);?></span>
      </div>

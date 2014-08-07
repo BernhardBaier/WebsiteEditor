@@ -184,6 +184,20 @@ if($authLevel == '1111'){
 		text-align: left;
 		margin: 0 5px;
 	}
+    .buttonCenter{
+        text-align: center;
+    }
+    .buttonCenter a{
+        text-decoration: none;
+        color: #fff;
+        padding: 4px;
+        border: 1px solid #1a237e;
+        border-radius: 5px;
+        background: #5c6bc0;
+    }
+    .buttonCenter a:hover{
+        background: #3f51b5;
+    }
 </style>
 <script>
 function showNotification(){
@@ -225,6 +239,7 @@ if(isset($_GET['upload'])){
 		<label><input type="checkbox" name="autoUp" <?php echo($autoUpdate);?> /> automatic updates</label><br>
 		<input type="submit" value="change" />
 	</form>
+    <div class="buttonCenter"><a href="editor.php?lang=<?php echo($_GET['lang']);?>&id=impress">edit impress</a></div>
 </div>
 <div class="buttonSet"><div class="buttonLeft" onclick="showNotification()">Change SQL Data</div><div class="buttonRight" onclick="location.href='admin.php'">go back to admin panel</div></div>
 <?php

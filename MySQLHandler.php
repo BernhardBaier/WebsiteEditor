@@ -7,10 +7,9 @@
 error_reporting(E_ERROR);
 $lang = 'de';
 include "MySQLHandlerFunctions.php";
-include('auth.php');
+include('access.php');
 if($authLevel != '' && $authLevel != '0000'){
     if(substr($authLevel,0,1) == '1'){
-        include('access.php');
         $base = $sqlBase;
         $table = $_POST['table'];
         $lang = substr($table,strrpos($table,'_')+1);

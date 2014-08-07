@@ -117,9 +117,18 @@ while($row = mysqli_fetch_array($erg)){
 	<meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
     <link rel="stylesheet" href="styleMobile.css" />
+    <script>
+        var lang = '<?php echo($lang);?>';
+    </script>
 </head>
 <body onload="init()">
 <div class="container">
+    <div class="searchResultsOuter hidden">
+        <div class="searchResults">
+            <img src="images/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
+            <div class="searchResultsInner"></div>
+        </div>
+    </div>
     <div class="header">
 	    <div class="headerDivider">
 	        <div class="menuImg"><img src="images/menu.png" height="100%" onclick="toggleMenu()" /></div>
@@ -158,7 +167,7 @@ while($row = mysqli_fetch_array($erg)){
         </div>
     </div>
     <div class="footer">
-        Footer
+        <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
     </div>
     <div class="copyright">
         Copyright &copy; 2014 <?php echo($pageTitle)?>

@@ -43,3 +43,18 @@ function toggleMenu(){
 	    expandMenu();
     }
 }
+function searchNow(){
+    var que = document.search.searchInput.value;
+    if(que != ''){
+        $.ajax({
+            type: 'POST',
+            url: 'search.php',
+            data: 'lang='+lang+'&que='+que+'&path=web-content',
+            success: function(data) {
+                data = data == 'Search results:'?data+'<br>No results found!':data;
+                $('.searchResultsInner').html(data);
+                $('.searchResultsOuter').removeClass('hidden');
+            }
+        });
+    }
+}

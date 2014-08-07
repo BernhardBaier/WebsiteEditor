@@ -29,11 +29,16 @@
     border:1px solid #CCC;
     cursor:pointer;
 }
-/*.picsClickAble{
-	border:2px solid #000;
-	border-radius: 3px;
-	padding: 2px;
-}*/
+.titledImg{
+    display: table;
+}
+.imgTitle{
+    display: table-row;
+    width: 100%;
+    text-align:center;
+    color:#333;
+    font-size:13px;
+}
 .picsClickAble img{
     margin:1px;
     box-shadow:1px 1px 3px #ccc;

@@ -7,6 +7,11 @@ body, html{
 	width:100%;
 	overflow: hidden;
 }
+a{
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
 .container{
     width:100%;
     height:100%;
@@ -176,6 +181,10 @@ body, html{
 .footer{
     height:8%;
     background:#A00;
+    text-align: center;
+}
+.footer a{
+    color: #fff;
 }
 .copyright{
     text-align:center;
@@ -192,4 +201,34 @@ body, html{
 .imgTitle{
 	font-size: 13px;
 	text-align: center;
+}
+.hidden{
+    display: none;
+}
+.searchResultsOuter{
+    position:absolute;
+    z-index:5;
+    width:90%;
+    left:5%;
+    text-align:center;
+    top:125px;
+}
+.searchResults{
+    min-width: 250px;
+    position: relative;
+    text-align:left;
+    display:inline-block;
+    border:1px solid #555;
+    border-radius:9px;
+    padding:6px;
+    background:#FFF;
+}
+.searchResultsInner{
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.searchItem{
+    margin: 0;
+    padding: 0;
+    background:#EEE;
 }

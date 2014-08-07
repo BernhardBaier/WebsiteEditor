@@ -404,7 +404,7 @@ function changeInsertType(){
     $('.htmlToInsert').html('<table><tr><td id="htmlToInsert">'+pic+'</td></tr></table>');
 }
 function insertPicNow(){
-    insertHTMLatCursor($('.htmlToInsert').html());
+    insertHTMLatCursor($('#htmlToInsert').html());
     hideMessages();
     togglePicsClickable();
     togglePicsClickable();

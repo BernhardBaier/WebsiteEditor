@@ -101,15 +101,19 @@ function insertHTMLatCursor(html){
 	}
 }
 function insertHTMLatTheEnd(html){
-	var editorHTML = getCurrentHTML();
-	var picsCA = editorHTML.search('<div class="picsClickAble">');
-	if(picsCA > -1){
-		var ktxt = editorHTML.substr(0,editorHTML.lastIndexOf('</div>'));
-		editorHTML = ktxt + html + editorHTML.substr(editorHTML.lastIndexOf('</div>'));
-	}else{
-		editorHTML += html;
-	}
-	setEditorHTML(editorHTML);
+    try{
+        var editorHTML = getCurrentHTML();
+        var picsCA = editorHTML.search('<div class="picsClickAble">');
+        if(picsCA > -1){
+            var ktxt = editorHTML.substr(0,editorHTML.lastIndexOf('</div>'));
+            editorHTML = ktxt + html + editorHTML.substr(editorHTML.lastIndexOf('</div>'));
+        }else{
+            editorHTML += html;
+        }
+        setEditorHTML(editorHTML);
+    }catch(ex){
+        alert('unable to insert!');
+    }
 }
 function init(){
     getSize();
@@ -184,7 +188,7 @@ function postInit(){
     if(typeof(initUserOptions) == "function"){
         initUserOptions();
     }
-    window.setTimeout('setStartHTML()',250);
+    window.setTimeout('setStartHTML()',1000);
 }
 function setStartHTML(){
 	startHTML = replaceUml(CKEDITOR.instances.editable.getData());

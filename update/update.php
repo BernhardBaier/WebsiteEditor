@@ -22,6 +22,7 @@ if($authLevel == '1111'){
     if(!file_exists('access.crypt')){
         copy('../access.crypt','access.crypt');
     }
+    // TODO: update plugins after update.
 ?>
 <!DOCTYPE html>
 <html>

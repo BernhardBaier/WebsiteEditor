@@ -5,6 +5,14 @@ body,html{
     padding:0;
     font-family:Arial, Helvetica, sans-serif;
 }
+a{
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+}
+a:hover{
+    color: #000;
+}
 .container{
     width:100%;
     height:100%;
@@ -132,6 +140,12 @@ body,html{
     font-size:18px;
     min-width:890px;
 }
+.footer a{
+    color: #fff;
+}
+.footer a:hover{
+    color: #c0c0c0;
+}
 .fb-like-outer{
     position:absolute;
     background:#EEE;
@@ -218,12 +232,6 @@ body,html{
     visibility:hidden;
     opacity:0;
 }
-.imgTitle{
-    width: 100%;
-    text-align:center;
-    color:#333;
-    font-size:13px;
-}
 .copyRight{
     color:#999;
     font-size:13px;
@@ -271,7 +279,6 @@ body,html{
     left:5%;
     text-align:center;
     top:125px;
-	max-height: 500px;
 }
 .searchResults{
 	min-width: 250px;
@@ -282,6 +289,11 @@ body,html{
     border-radius:9px;
     padding:6px;
     background:#FFF;
+}
+.searchResultsInner{
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .searchItem{
 	margin: 0;

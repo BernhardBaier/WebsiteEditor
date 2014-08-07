@@ -5,7 +5,7 @@
  * Date: 20.02.14
  * Time: 11:27
  */
-if(basename($_SERVER["SCRIPT_FILENAME"]) != 'login.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'register.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'calendar.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'index.php'){
+if(basename($_SERVER["SCRIPT_FILENAME"]) != 'login.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'register.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'calendar.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'index.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'search.php'){
     include('auth.php');
 }
 if(!function_exists('decrypt')){
