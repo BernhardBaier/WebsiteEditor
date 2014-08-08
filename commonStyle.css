@@ -31,6 +31,7 @@
 }
 .titledImg{
     display: table;
+    text-align: center;
 }
 .imgTitle{
     display: table-row;

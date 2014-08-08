@@ -85,10 +85,11 @@
 }
 .multipleOptionsOuter{
     position:absolute;
-    width:103px;
+    width:101px;
     background:#4e6cef;
     border:1px solid #2a36b1;
     border-radius:2px;
+    padding: 1px;
 }
 .multipleOptionsInner{
     position:relative;
@@ -103,13 +104,14 @@
 }
 .multipleOptionsItem{
 	position: relative;
-    background:#3b50ce;
-    border:1px solid #2a36b1;
-    border-radius:2px;
+    background:#eee;
+    border:1px solid #bdbdbd;
+    border-radius:3px;
+    font-size:14px;
     cursor:pointer;
 }
 .multipleOptionsItem:hover{
-    background:#738ffe;
+    background:#bdbdbd;
 }
 
 .fileInnerFile{

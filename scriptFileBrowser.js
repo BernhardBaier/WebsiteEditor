@@ -182,7 +182,7 @@ function showPicInfo(e,id){
 
 function showMultipleOptions(count){
     $('.multipleOptionsOuter').removeClass('hidden');
-    var opts = '<div class="multipleOptionsItem" onclick="multipleDelete()">delete</div><div class="multipleOptionsItem" onclick="multipleInsert()">insert</div><div class="multipleOptionsItem" onclick="moveMultiplePics()">move</div><div class="multipleOptionsItem" onclick="multipleDeselect()">deselect</div><div class="multipleOptionsItem" onclick="multipleSelectAll()">select all</div>';
+    var opts = '<div class="multipleOptionsItem" onclick="multipleDelete()">delete<img src="images/bin.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleInsert()">insert<img src="images/insert.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="moveMultiplePics()">move<img src="images/move.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleDeselect()">deselect</div><div class="multipleOptionsItem" onclick="multipleSelectAll()">select all</div>';
     $('.multipleOptions').html('options for '+count+' elements:<br/>'+opts);
 }
 function multipleSelectAll(){
@@ -359,7 +359,7 @@ function showInsertPic(path){
 
 function changeInsertType(){
     var pic = '';
-    var classes = 'pagePic ';
+    var classes = 'pagePic';
     var align = '';
     switch(document.insert.align.selectedIndex){
         case 0:
@@ -372,16 +372,13 @@ function changeInsertType(){
             align = 'right';
             break;
         case 3:
-            align = 'normal';
+            align = 'center;width:100%';
             break;
-    }
-    if(document.insert.border.checked){
-        classes += 'picInBox';
     }
     switch(document.insert.type.selectedIndex){
         case 0:
             if(align!=''){
-                pic = '<img width="250" style="float:'+align+';" src="'+document.insert.path.value+'" />';
+                pic = '<img width="250" style="float:'+align+'" src="'+document.insert.path.value+'" />';
             }else{
                 pic = '<img width="250" src="'+document.insert.path.value+'" />';
             }

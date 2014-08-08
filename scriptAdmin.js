@@ -55,48 +55,8 @@ function setEditorHTML(html){
 }
 function insertHTMLatCursor(html){
 	try{
-	    var oldAcPos = actCKEPos;
-		var editorHTML = getCurrentHTML();
-	    if(actCKEPos > editorHTML.length || actCKEPos == 'NULL'){
-		    insertHTMLatTheEnd(html);
-	    }else{
-	        var txt = CKEDITOR.instances.editable.getData().replace(/\n/,'');
-	        var finder = txt;
-	        var pos = 0;
-	        while(pos<=actCKEPos){
-	            var i = finder.search('<');
-	            if(i>0){
-		            var k = finder.search('&');
-	                if(k<i && k>0){
-	                    pos += k;
-	                    finder = finder.substr(k);
-	                }else{
-	                    if(k==0){
-	                        var j = finder.search(';')+1;
-	                        pos += j;
-	                        actCKEPos += (j-1);
-	                        finder = finder.substr(j);
-	                    }else{
-	                        pos += i;
-	                        finder = finder.substr(i);
-	                    }
-	                }
-	            }else{
-	                if(i==0){
-	                    var j = finder.search('>')+1;
-	                    pos += j;
-	                    actCKEPos += j;
-	                    finder = finder.substr(j);
-	                }else{
-	                    pos = actCKEPos;
-	                }
-	            }
-	        }
-	        txt = txt.substr(0,actCKEPos)+html+txt.substr(actCKEPos);
-	        actCKEPos = oldAcPos;
-		    setEditorHTML(txt);
-	    }
-	}catch (ex){
+        CKEDITOR.instances['editable'].insertHtml(html);
+    }catch (ex){
 		insertHTMLatTheEnd(html);
 	}
 }

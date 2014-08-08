@@ -306,3 +306,71 @@ a:hover{
     height:0;
     padding:0;
 }
+
+.weatherOuter{
+    background: #ffffff;
+    border-radius: 5px;
+}
+.weatherCard{
+    padding: 4px 0 0 0;
+}
+.weatherCopy{
+    text-align: center;
+    color: #777;
+    font-size: 12px;
+    padding: 0;
+}
+.weatherLegend{
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+    padding: 1px 0 2px 0;
+}
+.weatherLegend:hover{
+    color: #555;
+}
+.weatherLegendBox{
+    position: absolute;
+    bottom: 15px;
+    left:-255px;
+    width:248px;
+    border: 1px solid #565656;
+    border-radius: 5px;
+    padding: 3px;
+    background: #ffffff;
+}
+.weatherBoxOuter{
+    position: relative;
+    display: block;
+    height: 22px;
+}
+.weatherBox{
+    position: absolute;
+    top:1px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+}
+.weatherBox.box1{
+    background: #AF0064;
+}
+.weatherBox.box2{
+    background: #FF0000;
+}
+.weatherBox.box3{
+    background: #FA9600;
+}
+.weatherBox.box4{
+    background: #FFFF00;
+}
+.weatherBox.box5{
+    background: #CC99FF;
+}
+.weatherBox.box6{
+    background: #64B4FF;
+}
+.weatherBoxText{
+    position: absolute;
+    left: 23px;
+    top:2px
+}

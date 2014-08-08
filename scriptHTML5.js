@@ -39,3 +39,6 @@ function searchNow(){
 function navigateToPageById(id){
 	location.href = 'index.php?id='+id+'&lang='+lang;
 }
+function toggleWeatherLegend(){
+    $('.weatherLegendBox').toggleClass('hidden');
+}

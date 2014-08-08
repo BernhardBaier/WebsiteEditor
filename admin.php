@@ -308,7 +308,7 @@ include('content/user.php');
     insert picture as:</br>
     <form name="insert" action="javascript:insertPicNow()">
         <select name="type" onchange="changeInsertType()"><option>single pic</option><option>titled pic</option><option>subtitled pic</option></select><input type="button" onclick="showGaleryMaker()" value=" gallery " /></br>
-        <select name="align" onchange="changeInsertType()"><option>none</option><option>left</option><option>right</option><option>center</option></select><span style="font-size:13px;"><input type="checkbox" name="border" onchange="changeInsertType()"/>with border</span>
+        Alignment: <select name="align" onchange="changeInsertType()"><option>none</option><option>left</option><option>right</option><option>center</option></select>
         <div class="htmlToInsert"></div>
         <input type="submit" value=" ok " /><input type="hidden" name="path"/>
     </form>

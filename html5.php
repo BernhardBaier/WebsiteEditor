@@ -175,6 +175,24 @@ $preview = $_GET['preview'];
                 <div class="rightBar">
                     <div class="rightBarInner">
                         <div class="calendarSide"></div>
+                        <div class="weatherOuter">
+                            <div class="weatherCard">
+                                <a target="_blank" title="Ausführliche Wetterdaten" href="http://www.wettergefahren.de"><img src="http://www.wettergefahren.de/dyn/app/ws/maps/SU_x_x_0.gif" width="100%"></a>
+                            </div>
+                            <div class="weatherCopy">© <i>Deutscher Wetterdienst</i></div>
+                            <div class="weatherLegend" onclick="toggleWeatherLegend()">
+                                <div class="weatherLegendBox hidden" title="Sichtbarkeit ändern">
+                                    <img src="images/close.png" class="closingImg" />
+                                    <div class="weatherBoxOuter"><div class="weatherBox box1"></div><div class="weatherBoxText">Warnungen vor extremem Unwetter</div></div>
+                                    <div class="weatherBoxOuter"><div class="weatherBox box2"></div><div class="weatherBoxText">Unwetterwarnungen</div></div>
+                                    <div class="weatherBoxOuter"><div class="weatherBox box3"></div><div class="weatherBoxText">Warnungen vor markantem Wetter</div></div>
+                                    <div class="weatherBoxOuter"><div class="weatherBox box4"></div><div class="weatherBoxText">Wetterwarnungen</div></div>
+                                    <div class="weatherBoxOuter"><div class="weatherBox box5"></div><div class="weatherBoxText">Hitzewarnungen</div></div>
+                                    <div class="weatherBoxOuter"><div class="weatherBox box6"></div><div class="weatherBoxText">Keine Warnungen</div></div>
+                                </div>
+                                Legende
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
