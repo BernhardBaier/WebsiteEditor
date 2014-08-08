@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -33,15 +33,26 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } },
 	{ name: 'Subtitle',			element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
-	{
-		name: 'Special Container',
-		element: 'div',
-		styles: {
-			padding: '5px 10px',
-			background: '#eee',
-			border: '1px solid #ccc'
-		}
-	},
+    {
+        name: 'Alignment Right',
+        element: 'div',
+        styles: {
+            float: 'right'
+        }
+    },{
+        name: 'Alignment Left',
+        element: 'div',
+        styles: {
+            float: 'left'
+        }
+    },{
+        name: 'Alignment Center',
+        element: 'div',
+        styles: {
+            width: '100%',
+            align: 'center'
+        }
+    },
 
 	/* Inline Styles */
 
@@ -109,4 +120,3 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } }
 ] );
 
-// %LEAVE_UNMINIFIED% %REMOVE_LINE%

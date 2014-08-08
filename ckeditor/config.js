@@ -4,13 +4,6 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	
-	// %REMOVE_START%
-	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'basicstyles,blockquote,dialogui,dialog,clipboard,panel,floatpanel,menu,contextmenu,resize,button,toolbar,elementspath,enterkey,entities,floatingspace,listblock,richcombo,format,horizontalrule,wysiwygarea,image,indent,indentlist,fakeobjects,link,list,magicline,pastefromword,removeformat,showborders,specialchar,stylescombo,tab,table,tabletools,undo,sourcedialog,font,lineutils,widget,oembed,qrc,stat,tableresize,colordialog,panelbutton,colorbutton,locationmap,div,divarea';
-	config.skin = 'office2013';
-	// %REMOVE_END%
-
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
