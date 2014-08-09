@@ -6,7 +6,19 @@ function init(){
         $('.rightBar').height($('.content').height());
     }
     loadCalendarSide(3);
+    initCalendarPage();
     window.setTimeout('postInit()',250);
+}
+function initCalendarPage(){
+    try{
+        if($('.calendar').html() != ''){
+            var date = new Date();
+            for(var i = 1;i <= date.getMonth();i++){
+                document.getElementsByClassName('imgRotate')[i-1].className = 'imgRotate';
+                document.getElementById('calendarGroup'+i).className = 'calendarGroup invisible';
+            }
+        }
+    }catch (ex){}
 }
 function loadCalendarSide(count){
     $.ajax({
@@ -30,7 +42,7 @@ function searchNow(){
             url: 'search.php',
             data: 'lang='+lang+'&que='+que+'&path='+preview,
             success: function(data) {
-                data = data == 'Search results:'?data+'<br>No results found!':data;
+                data = data == 'Suchergebnisse:'?data+'<br>Keine Treffer!':data;
                 $('.searchResultsInner').html(data);
                 $('.searchOuter').removeClass('hidden');
             }
@@ -57,14 +69,11 @@ function initGallerySlider(){
             document.getElementById('galleryPrevSliderImg' + i + '_1').className = 'galleryPrevSliderImg';
             var link = 'gallerySliderNext('+i+')';
             gallerySliderPos[i] = 1;
-            window.setTimeout("startGallerySlider('"+link+"')",i*500);
+            window.setInterval(link,2500);
         }else{
             i = 99;
         }
     }
-}
-function startGallerySlider(link){
-    window.setInterval(link,2500);
 }
 function gallerySliderNext(id){
     gallerySliderPos[id]++;

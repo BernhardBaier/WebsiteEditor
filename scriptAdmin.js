@@ -8,7 +8,7 @@ function reloadLocation(rel){
     window.location.href = document.location.toString().substr(0,document.location.toString().lastIndexOf('/'))+'/admin.php?id='+pageId+'&action='+rel;
 }
 function confirmExit(){
-	if(startHTML != replaceUml(CKEDITOR.instances.editable.getData()) && replaceUml(CKEDITOR.instances.editable.getData()) != '<p>page not existent jet.<br /><span style="color<dpp>#555;font-size<dpp>12px;">Tipp<dpp> press crtl+s to save changes.</span></p>'){
+	if(startHTML != replaceUml(getCurrentHTML()) && replaceUml(getCurrentHTML()) != '<p>page not existent jet.<br /><span style="color<dpp>#555;font-size<dpp>12px;">Tipp<dpp> press crtl+s to save changes.</span></p>'){
 		return 'Save Content!';
 	}else{
 		document.getElementsByClassName('pageLoading')[0].className = 'pageLoading';
@@ -48,10 +48,10 @@ function getCKEPosition(){
 	}
 }
 function getCurrentHTML(){
-	return document.getElementById('editable').innerHTML;
+	return CKEDITOR.instances.editable.getData();
 }
 function setEditorHTML(html){
-	document.getElementById('editable').innerHTML = html;
+    CKEDITOR.instances.editable.setData(html);
 }
 function insertHTMLatCursor(html){
 	try{
@@ -489,7 +489,7 @@ function menuChange($function){
             if(data != 1 && data != ""){
                 $('.menu').html(data);
             }else{
-                window.setTimeout('printMenu()',timeToWait);
+                window.setTimeout('printMenu()',1);
             }
         }
     });
@@ -637,7 +637,7 @@ function showUploadError(){
     $('.uploadError').removeClass('hidden');
 }
 function saveText(path){
-    var text = replaceUml(CKEDITOR.instances.editable.getData());
+    var text = replaceUml(getCurrentHTML());
 	$.ajax({
 		type: 'POST',
 		url: 'functions.php',
@@ -645,7 +645,7 @@ function saveText(path){
 		success: function(data) {
 			if(data.search('#saved#') > -1 && data.search('#preview#') > -1) {
 				hideMessages();
-				startHTML = replaceUml(CKEDITOR.instances.editable.getData());
+				startHTML = replaceUml(getCurrentHTML());
 				showNotification('The changes have been saved',1500);
 			}else{
 				if(data!='1'){
@@ -960,6 +960,24 @@ function showPublish(){
     positionMessage();
 }
 function publishPageNow(){
+    var text = replaceUml(getCurrentHTML());
+    $.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=storeText:'+text+':content/'+lang+'/'+pageId+'.php&lang='+lang+'&id='+pageId,
+        success: function(data) {
+            if(data.search('#saved#') > -1 && data.search('#preview#') > -1) {
+                showNotification('The changes have been saved',1650);
+                window.setTimeout('publishPageNow2()',1);
+            }else{
+                if(data!='1'){
+                    alert(data);
+                }
+            }
+        }
+    });
+}
+function publishPageNow2(){
     if(document.getElementById('publishPageLang').checked){
         $.ajax({
             type: 'POST',
@@ -968,7 +986,7 @@ function publishPageNow(){
             success: function(data) {
                 if(data.search('#published#') != -1) {
                     hideMessages();
-                    startHTML = replaceUml(CKEDITOR.instances.editable.getData());
+                    startHTML = replaceUml(getCurrentHTML());
                     showNotification('All languages have been published',1500);
                 }else{
                     if(data!='1'){
@@ -985,7 +1003,6 @@ function publishPageNow(){
             success: function(data) {
                 if(data.search('#published#') != -1) {
                     hideMessages();
-                    startHTML = replaceUml(CKEDITOR.instances.editable.getData());
                     showNotification('Page has been published',1500);
                 }else{
                     if(data!='1'){

@@ -33,7 +33,7 @@ function initPlugin_$plugId(th){
         url: '$location/calendar.php',
         data: 'year=2014&function=admin&href='+href+'&id=$plugId&lang='+lang,
         success: function(data) {
-            $('.pluginInner').html(data);
+            $('.pluginInner').html('<div class=\"overlayCalendar hidden\" onclick=\"calendarHideAll()\"></div>'+data);
             if(getCurrentHTML().search('{#insertPluginCalendar') > -1){
                 $('.calendarOnPage').addClass('selected').html('remove from Page');
             }else{
@@ -71,12 +71,17 @@ function initPlugin_$plugId(th){
 }
 function showCalendarAddEvent(){
     $('.calendarAddEventOuter').removeClass('hidden');
+    positionCalendarBox();
 }
-function hideCalendarAddEvent(){
-    $('.calendarAddEventOuter').addClass('hidden');
+function positionCalendarBox(){
+    $('.overlayCalendar').removeClass('hidden').css('top',document.getElementsByClassName('pluginInner')[0].scrollTop);
+    $('.calendarEditEventOuter').css('top',document.getElementsByClassName('pluginInner')[0].scrollTop + 35);
+    $('.calendarAddEventOuter').css('top',document.getElementsByClassName('pluginInner')[0].scrollTop + 35);
 }
-function hideCalendarEditEvent(){
-    $('.calendarEditEventOuter').addClass('hidden');
+function calendarHideAll(){
+     $('.calendarAddEventOuter').addClass('hidden');
+     $('.calendarEditEventOuter').addClass('hidden');
+     $('.overlayCalendar').addClass('hidden');
 }
 function addEventNow(){
     var elem = document.calendarAddEvent;
@@ -92,7 +97,7 @@ function addEventNow(){
         data: 'function=insert:'+date+':'+start+':'+end+':'+name+':'+place+':'+href+'&lang='+lang,
         success: function(data) {
             if(data == '1'){
-                hideCalendarAddEvent();
+                calendarHideAll();
                 initPlugin_$plugId(0);
             }else{
                 alert(data);
@@ -114,7 +119,7 @@ function editEventNow(){
         data: 'function=update:'+date+':'+start+':'+end+':'+name+':'+place+':'+href+':'+elem.id.value+'&lang='+lang,
         success: function(data) {
             if(data == '1'){
-                hideCalendarAddEvent();
+                calendarHideAll();
                 initPlugin_$plugId(0);
             }else{
                 alert(data);
@@ -150,6 +155,7 @@ function editTermin(id){
         data: 'function=edit:'+id+'&lang='+lang,
         success: function(data) {
             $('.calendarEditEventOuter').html(data).removeClass('hidden');
+            positionCalendarBox();
             $('#datetimepicker4').datetimepicker({
                 lang:'de',
                 i18n:{
@@ -178,26 +184,6 @@ function editTermin(id){
             });
         }
     });
-}
-function updateCalendar(){
-    var elem = $('.calendarPage');
-    var href = document.getElementById('calendarViewMode');
-    if(href){
-        href = href.options[href.selectedIndex].value;
-    }else{
-        href = 'alle';
-    }
-    if(elem){
-        $.ajax({
-            type: 'POST',
-            url: '$location/calendar.php',
-            data: 'year=2014&function=page&href='+href+'&lang='+lang,
-            success: function(data) {
-                elem.html(data);
-                window.setTimeout('saveText()',250);
-            }
-        });
-    }
 }
 function togglePlugin(name){
     var html = getCurrentHTML();

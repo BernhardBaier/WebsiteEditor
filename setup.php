@@ -6,6 +6,26 @@
  * Time: 04:56
  */
 error_reporting(E_ERROR);
+if(!function_exists('decrypt')){
+    function decrypt($encrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
+        // Build a 256-bit $key which is a SHA256 hash of $salt and $password.
+        $key = hash('SHA256', $salt . $password, true);
+        // Retrieve $iv which is the first 22 characters plus ==, base64_decoded.
+        $iv = base64_decode(substr($encrypted, 0, 22) . '==');
+        // Remove $iv from $encrypted.
+        $encrypted = substr($encrypted, 22);
+        // Decrypt the data.  rtrim won't corrupt the data because the last 32 characters are the md5 hash; thus any \0 character has to be padding.
+        $decrypted = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, base64_decode($encrypted), MCRYPT_MODE_CBC, $iv), "\0\4");
+        // Retrieve $hash which is the last 32 characters of $decrypted.
+        $hash = substr($decrypted, -32);
+        // Remove the last 32 characters from $decrypted.
+        $decrypted = substr($decrypted, 0, -32);
+        // Integrity check.  If this fails, either the data is corrupted, or the password/salt was incorrect.
+        if (md5($decrypted) != $hash) return false;
+        // Yay!
+        return $decrypted;
+    }
+}
 $path = $_GET['path'];
 if(isset($_COOKIE['sslPath'])){
 	if(strlen($path) < 6){
@@ -13,8 +33,20 @@ if(isset($_COOKIE['sslPath'])){
 	}
 }
 if(file_exists('access.crypt')){
-	include "access.php";
 	if($_GET['id'] == 'user'){
+        $datei = fopen('access.crypt','r');
+        $in = fread($datei,filesize('access.crypt'));
+        fclose($datei);
+        $in = decrypt($in,'2t8yamSQupnBd47s2j4n');
+        $in = substr($in,6);
+        $sqlBase = substr($in,0,strpos($in,'#'));
+        $in = substr($in,strpos($in,'#')+6);
+        $sqlUser = substr($in,0,strpos($in,'#'));
+        $in = substr($in,strpos($in,'#')+6);
+        $sqlPass = substr($in,0,strpos($in,'#'));
+        $in = substr($in,strpos($in,'#')+6);
+        $sqlHost = substr($in,0,strpos($in,'#'));
+        $in = '';
 		$hostname = $_SERVER['HTTP_HOST'];
 		$host = $hostname == 'localhost'?$hostname:$sqlHost;
 		$sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
@@ -29,10 +61,10 @@ if(file_exists('access.crypt')){
 		if($userExists){
 			include("auth.php");
 		}
-	}elseif($_GET['id'] == 'login'){
+	}else if($_GET['id'] == 'login'){
 
 	}else{
-		include "auth.php";
+        include "access.php";
 	}
 }
 $path = str_replace('%2F','/',$path);

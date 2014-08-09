@@ -29,21 +29,25 @@
 }
 .calendarAddEventOuter{
 	position:absolute;
+    z-index: 999;
 	background:#FFF;
 	border-radius:3px;
 	border:1px solid #777;
 	margin:5px;
 	padding:2px;
-	z-index:99;
+    width: 264px;
+    left: calc(50% - 132px);
 }
 .calendarEditEventOuter{
 	position:absolute;
-	z-index:5;
+	z-index:999;
 	background:#FFF;
 	border-radius:3px;
 	border:1px solid #777;
 	margin:5px;
 	padding:2px;
+    width: 264px;
+    left: calc(50% - 132px);
 }
 .calendarAddEventOuter img{
 	cursor:pointer;
@@ -84,10 +88,18 @@
 	padding:2px;
 	border-radius:4px;
 	left:100px;
-	color:#00;
+	color:#000;
 	font-weight:bold;
 	background:#FFA54E;
 }
 .calendarPage{
 	position:relative;
+}
+.overlayCalendar{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: #000;
+    opacity: 0.7;
 }

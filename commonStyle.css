@@ -1,3 +1,7 @@
+p{
+    padding: 0;
+    margin: 0;
+}
 .hidden{
     visibility:hidden;
     height:0;
@@ -60,12 +64,17 @@
     -webkit-transform:rotate3D(0,0,1,180deg);
 }
 
+.galleryPrevSliderOuter img{
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
 .galleryPrevSliderOuter{
     width: 150px;
     height: 150px;
     position: relative;
     border: 1px solid #aaaaaa;
-    border-radius: 3px;
+    border-radius: 4px;
     margin: 1px;
     float: left;
 }
@@ -76,6 +85,7 @@
     position: absolute;
     z-index: 3;
     width: 100%;
+    border-radius: 4px 4px 0 0;
     background: #ffffff;
     background: rgba(255,255,255,0.7);
     text-align: center;

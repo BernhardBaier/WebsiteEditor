@@ -26,7 +26,7 @@ $path = $_POST['path'];
 $path = "$path/$lang/";
 $que = strtolower($_POST['que']);
 if($que == ''){
-    echo('Nothing to do!');
+    echo('Nichts zu tun!');
     exit;
 }
 //ToDO: iterate trough page titles
@@ -39,7 +39,7 @@ while($file = readdir($handler)){
 }
 closedir($handler);
 $max = sizeof($files);
-$out = 'Search results:';
+$out = 'Suchergebnisse:';
 for($i=0;$i<$max;$i++){
     $file = fopen($files[$i],'r');
 	$id = substr($files[$i],0,strrpos($files[$i],'.'));

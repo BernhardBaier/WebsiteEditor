@@ -109,7 +109,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             break;
     }
     echo('            <div class="calendarAddEventInner">
-                <img src="images/close.png" style="float:right;" onclick="hideCalendarEditEvent()" height="20" />Edit event:
+                <img src="images/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Edit event:
                 <form name="calendarEditEvent" action="javascript:editEventNow()">
                     <table>
                         <tr>
@@ -188,7 +188,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
     if($func == 'admin' && substr($authLevel,0,1) == '1'){
         echo('<div class="calendarAdmin"><div class="calendarEditEventOuter hidden"></div><div class="calendarAddEventOuter hidden">
             <div class="calendarAddEventInner">
-                <img src="images/close.png" style="float:right;" onclick="hideCalendarAddEvent()" height="20" />Add event:
+                <img src="images/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Add event:
                 <form name="calendarAddEvent" action="javascript:addEventNow()">
                     <table>
                         <tr>

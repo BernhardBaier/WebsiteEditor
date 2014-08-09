@@ -51,7 +51,7 @@ function searchNow(){
             url: 'search.php',
             data: 'lang='+lang+'&que='+que+'&path=web-content',
             success: function(data) {
-                data = data == 'Search results:'?data+'<br>No results found!':data;
+                data = data == 'Suchergebnisse:'?data+'<br>Keine Treffer!':data;
                 $('.searchResultsInner').html(data);
                 $('.searchResultsOuter').removeClass('hidden');
             }

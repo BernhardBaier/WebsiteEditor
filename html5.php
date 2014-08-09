@@ -17,6 +17,8 @@ $lang = $_GET['lang'];
 if($lang == ""){
     $lang = 'de';
 }
+$preview = $_GET['preview'];
+$prev = $preview == 'true'?'&preview=true':'';
 include 'access.php';
 $base = $sqlBase;
 $table = 'pages_'.$lang;
@@ -29,7 +31,7 @@ while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 function printMenu($sql,$n_parent=0,$level=0){
-    global $table,$parents,$lang;
+    global $table,$parents,$lang,$prev;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
     $erg = mysqli_query($sql,$que);
     $rows = array();
@@ -49,9 +51,9 @@ function printMenu($sql,$n_parent=0,$level=0){
                 $classToAdd = findInArray($parents,$pid)>-1?' active':'';
                 $level++;
                 if($childCount > 0){
-                    $output .= '<div class="menuItem topItem'.$classToAdd.'" onmouseover="this.childNodes[1].className=\'subMenu\'" onmouseout="this.childNodes[1].className=\'subMenu menuOut\'"><a href="index.php?id='.$pid.'&lang='.$lang.'">'.replaceUml($name).'</a><div class="subMenu menuOut">';
+                    $output .= '<div class="menuItem topItem'.$classToAdd.'" onmouseover="this.childNodes[1].className=\'subMenu\'" onmouseout="this.childNodes[1].className=\'subMenu menuOut\'"><a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a><div class="subMenu menuOut">';
                 }else{
-                    $output .= '<div class="menuItem topItem'.$classToAdd.'"><a href="index.php?id='.$pid.'&lang='.$lang.'">'.replaceUml($name).'</a>';
+                    $output .= '<div class="menuItem topItem'.$classToAdd.'"><a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a>';
                 }
             }else{
                 $classToAdd = $i==sizeof($rows)?' lastItem':'';
@@ -61,9 +63,9 @@ function printMenu($sql,$n_parent=0,$level=0){
                 }
                 if($childCount > 0){
                     $output .= '<div class="menuItem subItem'.$classToAdd.'" onmouseover="this.childNodes[2].className=\'subMenu2'.$levelText.'\'" onmouseout="this.childNodes[2].className=\'subMenu2'.$levelText.' menuOut\'">
-                    <a href="index.php?id='.$pid.'&lang='.$lang.'">'.replaceUml($name).'</a><div class="subMenu2'.$levelText.' menuOut">';
+                    <a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a><div class="subMenu2'.$levelText.' menuOut">';
                 }else{
-                    $output .= '<div class="menuItem subItem'.$classToAdd.'"><a href="index.php?id='.$pid.'&lang='.$lang.'">'.replaceUml($name).'</a>';
+                    $output .= '<div class="menuItem subItem'.$classToAdd.'"><a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a>';
                 }
             }
             if($childCount > 0){
@@ -114,8 +116,6 @@ while($pos > -1){
     $ktxt = substr($ktxt,$pos+1);
     $pos = strpos($ktxt,';');
 }
-
-$preview = $_GET['preview'];
 
 ?>
 <!DOCTYPE html>

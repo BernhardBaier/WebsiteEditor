@@ -24,7 +24,7 @@ if(substr($authLevel,1,1) == "1"){
         $input = fread($file,filesize("content/$id/$lang/article.php"));
         fclose($file);
     }
-    $input .= $output;
+    $input = $output.$input;
     $file = fopen("content/$id/$lang/article.php",'w');
     fwrite($file,$input);
     fclose($file);
