@@ -7,6 +7,28 @@
  */
 error_reporting(E_ERROR);
 include('access.php');
+if(!isset($_GET['id'])){
+    $base = $sqlBase;
+    $table = 'pages_'.$lang;
+    $hostname = $_SERVER['HTTP_HOST'];
+    $host = $hostname == 'localhost'?$hostname:$sqlHost;
+    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
+    $lang = $_GET['lang'];
+    if($lang == ''){
+        $lang = 'de';
+    }
+    $id = redirectToFirstPage($lang);
+    header("Location: admin.php?id=$id&lang=$lang");
+    exit;
+}
+function redirectToFirstPage($lang){
+    global $sql;
+    $que = "SELECT * FROM pages_$lang WHERE parent='0' and rank='1'";
+    $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+    while($row = mysqli_fetch_array($erg)){
+        return $row['id'];
+    }
+}
 function jsMenu($parent=0){
     global $sql,$lang;
     $que = "SELECT * FROM pages_$lang WHERE parent=$parent";

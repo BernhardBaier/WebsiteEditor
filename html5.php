@@ -5,7 +5,6 @@
  * Date: 18.01.14
  * Time: 10:19
  */
-error_reporting(E_ERROR);
 if(basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php'){
     header('Location: index.php');
 }

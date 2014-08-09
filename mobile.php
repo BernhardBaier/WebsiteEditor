@@ -29,7 +29,7 @@ while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 function printMenu($sql,$n_parent=0,$level=0){
-    global $table,$parents,$childs,$lang,$id;
+    global $table,$parents,$childs,$equal,$lang,$id;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
     $erg = mysqli_query($sql,$que);
     $rows = [];
@@ -49,13 +49,7 @@ function printMenu($sql,$n_parent=0,$level=0){
             if($parent == 0){
                 $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";
             }else{
-                $print = false;
-                if($level == sizeof($parents)-1){
-                    if(sizeof($childs) < 3 || $childs == '' || $childs == 'NULL'){
-                        $print = true;
-                    }
-                }
-                if(findInArray($parents,$pid) > -1 || findInArray($childs,$pid) > -1 || $print===true){
+                if(findInArray($parents,$pid) > -1 || findInArray($childs,$pid) > -1 || findInArray($equal,$pid) > -1){
                     $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";
                 }
             }
@@ -107,8 +101,16 @@ $que = "SELECT * FROM pages_$lang WHERE id=$id";
 $erg = mysqli_query($sql,$que);
 $childs = [];
 while($row = mysqli_fetch_array($erg)){
+    $parent = $row['parent'];
     $childs = unserialize($row['child']);
 }
+$que = "SELECT * FROM pages_$lang WHERE id=$parent";
+$erg = mysqli_query($sql,$que);
+$equal = [];
+while($row = mysqli_fetch_array($erg)){
+    $equal = unserialize($row['child']);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -123,6 +125,11 @@ while($row = mysqli_fetch_array($erg)){
 </head>
 <body onload="init()">
 <div class="container">
+    <div class="menuOuter" id="menu">
+        <?php
+        echo(printMenu($sql));
+        ?>
+    </div>
     <div class="searchResultsOuter hidden">
         <div class="searchResults">
             <img src="images/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
@@ -135,11 +142,6 @@ while($row = mysqli_fetch_array($erg)){
 	        <div class="pageTitle"><?php echo($pageTitle);?></div>
 		    <div class="menuLogo"><img src="images/logo.png" height="100%" /></div>
 		    <img class="searchIcon" onclick="expandMenu()" src="images/search.png" />
-		    <div class="menuOuter" id="menu">
-			    <?php
-			    echo(printMenu($sql));
-			    ?>
-		    </div>
 	    </div>
 	    <div class="searchOuter">
 		    <div class="searchBig">
@@ -176,6 +178,7 @@ while($row = mysqli_fetch_array($erg)){
 <script src="scriptMobile.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="picViewer/picViewer.min.js"></script>
+<link href='commonStyle.css' rel='stylesheet' />
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#style for plugins#-->
 <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />

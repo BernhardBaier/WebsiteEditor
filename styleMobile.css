@@ -120,8 +120,11 @@ a{
     transition:left 250ms;
     -webkit-transition:left 250ms;
     position:absolute;
-    top:100%;
-    left:-100%;
+    top:10%;
+    max-height: 88%;
+    max-height: calc(90% - 10px);
+    left:-125%;
+    overflow-y: scroll;
     z-index:5;
     border:2px solid #555;
     border-radius:0 5px 5px 0;
@@ -146,7 +149,7 @@ a{
 }
 .menuItem a{
     text-decoration:none;
-    font-size:25px;
+    font-size:20px;
     color:#333;
     font-weight:bold;
 }

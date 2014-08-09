@@ -37,7 +37,7 @@ function expandMenu(){
 function toggleMenu(){
     var left = document.getElementById('menu').style.left;
     if(left=='0px'){
-        document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+15)+'px';
+        document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+35)+'px';
     }else{
         document.getElementById('menu').style.left = 0;
 	    expandMenu();

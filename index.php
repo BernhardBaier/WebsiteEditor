@@ -6,6 +6,29 @@
  * Time: 17:08
  */
 error_reporting(E_ERROR);
+function redirectToFirstPage($lang){
+    global $sql;
+    $que = "SELECT * FROM pages_$lang WHERE parent='0' and rank='1'";
+    $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+    while($row = mysqli_fetch_array($erg)){
+        return $row['id'];
+    }
+}
+if(!isset($_GET['id'])){
+    include 'access.php';
+    $base = $sqlBase;
+    $table = 'pages_'.$lang;
+    $hostname = $_SERVER['HTTP_HOST'];
+    $host = $hostname == 'localhost'?$hostname:$sqlHost;
+    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
+    $lang = $_GET['lang'];
+    if($lang == ''){
+        $lang = 'de';
+    }
+    $id = redirectToFirstPage($lang);
+    header("Location: index.php?id=$id&lang=$lang");
+    exit;
+}
 $html5 = false;
 $mobile = false;
 if($_GET['forceMobile'] == 'true'){
