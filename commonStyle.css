@@ -59,3 +59,47 @@
     transform:rotate3D(0,0,1,180deg);
     -webkit-transform:rotate3D(0,0,1,180deg);
 }
+
+.galleryPrevSliderOuter{
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+    margin: 1px;
+    float: left;
+}
+.galleryPrevSliderOuter:hover{
+    background: #eee;
+}
+.galleryPrevSliderTitle{
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    background: #ffffff;
+    background: rgba(255,255,255,0.7);
+    text-align: center;
+}
+.galleryPrevSliderInner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.galleryPrevSliderImg{
+    transition:left 500ms;
+    -webkit-transition:left 500ms;
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    left:0;
+    opacity: 1;
+}
+.galleryPrevSliderImg.right{
+    left:150px;
+    opacity: 0;
+}
+.galleryPrevSliderImg.left{
+    left:-150px;
+}

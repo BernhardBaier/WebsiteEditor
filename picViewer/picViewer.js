@@ -16,6 +16,7 @@ var picViewerIsMobile = false;                      //is the viewer used by an m
 var picViewerPics = [];//the source of the picViewerImages will be stored in here
 var picViewerPicFkts = [];
 var picViewerImages = [];
+var picViewerImagesExclude = [];
 var picViewerPicTitles = [];
 var picViewerIndex = -1;
 var maxPicId = -1;
@@ -54,42 +55,44 @@ function picViewerFindInArray(arr,needle){
 }
 function picViewerHandlePics(){
     for(var i=0;i<picViewerImages.length;i++){
-        var source = picViewerImages[i].src.replace(location.toString(),'');
-        source=source.replace(picViewerThumbnails,'');
-        if(picViewerFindInArray(picViewerExcludePics,source.substr(source.lastIndexOf('/')+1)) == -1){
-            picViewerPics.push(source);
-            picViewerImages[i].id = 'galeryImg'+i;
-            picViewerImages[i].title = "Zum ansehen anklicken";
-            var queElem = $('#galeryImg'+i);
-            try{
-                if(queElem.parent().attr('class').search('titledImg') > -1){
-                    var killtext = queElem.parent().html();
-                    killtext = killtext.substr(killtext.search('<div class="imgTitle">') + 22);
-                    killtext = killtext.substr(0,killtext.search('</div>'));
-                    picViewerPicTitles[i] = killtext;
-                }else{
+        if(picViewerFindInArray(picViewerImagesExclude,picViewerImages[i]) == -1){
+            var source = picViewerImages[i].src.replace(location.toString(),'');
+            source=source.replace(picViewerThumbnails,'');
+            if(picViewerFindInArray(picViewerExcludePics,source.substr(source.lastIndexOf('/')+1)) == -1){
+                picViewerPics.push(source);
+                picViewerImages[i].id = 'galeryImg'+i;
+                picViewerImages[i].title = "Zum ansehen anklicken";
+                var queElem = $('#galeryImg'+i);
+                try{
+                    if(queElem.parent().attr('class').search('titledImg') > -1){
+                        var killtext = queElem.parent().html();
+                        killtext = killtext.substr(killtext.search('<div class="imgTitle">') + 22);
+                        killtext = killtext.substr(0,killtext.search('</div>'));
+                        picViewerPicTitles[i] = killtext;
+                    }else{
+                        picViewerPicTitles[i] = 'NULL';
+                    }
+                }catch (ex){
                     picViewerPicTitles[i] = 'NULL';
                 }
-            }catch (ex){
-                picViewerPicTitles[i] = 'NULL';
-            }
-            if(queElem.width() == 0 || queElem.height() == 0){
-                window.setTimeout('picViewerHandlePics()',100);
-                return;
-            }
-            picViewerPicFkts.push(queElem.width()/queElem.height());
-            picViewerPicFkts[i] = picViewerPicFkts[i]==0?1.5:picViewerPicFkts[i];
-            queElem.addClass('galPic');
-            if(autoResizePics){
-	            if(queElem.height()<autoResizeHeight){
-		            queElem.height(autoResizeHeight).width(autoResizeHeight*picViewerPicFkts[i]);
-	            }
-            }else{
-	            if(picViewerIsMobile == true && queElem.height() == 100){
-		            queElem.height(autoResizeHeightMobile).width(autoResizeHeightMobile*picViewerPicFkts[i]);
-	            }else{
-		            queElem.width(queElem.height()*picViewerPicFkts[i]);
-	            }
+                if(queElem.width() == 0 || queElem.height() == 0){
+                    window.setTimeout('picViewerHandlePics()',100);
+                    return;
+                }
+                picViewerPicFkts.push(queElem.width()/queElem.height());
+                picViewerPicFkts[i] = picViewerPicFkts[i]==0?1.5:picViewerPicFkts[i];
+                queElem.addClass('galPic');
+                if(autoResizePics){
+                    if(queElem.height()<autoResizeHeight){
+                        queElem.height(autoResizeHeight).width(autoResizeHeight*picViewerPicFkts[i]);
+                    }
+                }else{
+                    if(picViewerIsMobile == true && queElem.height() == 100){
+                        queElem.height(autoResizeHeightMobile).width(autoResizeHeightMobile*picViewerPicFkts[i]);
+                    }else{
+                        queElem.width(queElem.height()*picViewerPicFkts[i]);
+                    }
+                }
             }
         }
     }
@@ -115,6 +118,9 @@ function initPicViewer(){
     }
     picViewerGetSize();
     picViewerImages = $(picViewerClassName).find('img').map(function(){
+        return this;
+    }).get();
+    picViewerImagesExclude = $(picViewerClassName).find('a').find('img').map(function(){
         return this;
     }).get();
     picViewerHandlePics();
@@ -232,7 +238,7 @@ function showPicViewerId(){
 	}
     var $height = $width/picViewerPicFkts[picViewerIndex];
     if(showPicNameAsTitle || picViewerPicTitles[picViewerIndex] != 'NULL'){
-        $height += 19;
+        $width -= 19*picViewerPicFkts[picViewerIndex];
         var killtxt;
         if(picViewerPicTitles[picViewerIndex] != 'NULL'){
             killtxt = picViewerPicTitles[picViewerIndex];

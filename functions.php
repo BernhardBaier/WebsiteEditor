@@ -71,6 +71,53 @@ function clickAbleMenu($callback,$parent=0){
     mysqli_free_result($erg);
     return $output;
 }
+function gallerySlider($id,$name,$elemCount){
+    global $lang;
+    if(!file_exists("web-content/$lang/$id.php")){
+        return '-1';
+    }
+    $file = fopen("web-content/$lang/$id.php",'r');
+    $input = fread($file,filesize("web-content/$lang/$id.php"));
+    fclose($file);
+    if(!(strpos($input,'<div class="gallery">') > -1)){
+        return '0';
+    }
+    $input = substr($input,strpos($input,'<div class="gallery">'));
+    $pos = strpos($input,'<img');
+    $picPaths = [];
+    $count = 0;
+    while($pos>-1){
+        $input = substr($input,$pos);
+        $input = substr($input,strpos($input,'src=')+4);
+        $tren = substr($input,0,1);
+        $input = substr($input,1);
+        $path = substr($input,0,strpos($input,$tren));
+        if(file_exists($path)){
+            if(!(strpos($path,'/thumbs/') > -1)){
+                $tPath = substr($path,0,strrpos($path,'/')).'/thumbs'.substr($path,strrpos($path,'/'));
+                if(file_exists($tPath)){
+                    $path = $tPath;
+                }
+            }
+        }
+        $picPaths[$count++] = $path;
+        if($count <= 5){
+            $pos = strpos($input,'<img');
+        }else{
+            $pos = -1;
+        }
+    }
+    $output = "<a href='index.php?id=$id&lang=$lang' title='zu Galerie $name wechseln'><div class='galleryPrevSliderOuter'>
+    <div class='galleryPrevSliderTitle'>$name</div>
+    <div class='galleryPrevSliderInner'>";
+    for($i=0;$i<sizeof($picPaths);$i++){
+        $class = $i==0?'':' right';
+        $output .="<img src='".$picPaths[$i]."' id='galleryPrevSliderImg$elemCount".'_'.($i+1)."' class='galleryPrevSliderImg$class'>";
+    }
+$output .="    </div>
+</div></a><p>&nbsp;</p>";
+    return $output;
+}
 function movePics($path,$id){
     while(strpos($path,';')>-1){
         $name = substr($path,0,strpos($path,';'));
@@ -275,9 +322,17 @@ if(substr($authLevel,0,1) == '1'){
                 handleError($function);
             }
             break;
+        case 'gallerySlider':
+            if(!empty($options) && sizeof($options)>=4){
+                $lang = $options[3];
+                echo(gallerySlider($options[0],$options[1],$options[2]));
+            }else{
+                handleError($function);
+            }
+            break;
         case 'movePics':
             if(!empty($options) && sizeof($options)>=2){
-                echo(movePics($options[0],$options[1]));
+                movePics($options[0],$options[1]);
             }else{
                 handleError($function);
             }

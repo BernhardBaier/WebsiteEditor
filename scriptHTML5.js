@@ -17,6 +17,7 @@ function loadCalendarSide(count){
             $('.calendarSide').html(data);
         }
     });
+    initGallerySlider();
 }
 function postInit(){
     window.setTimeout('initPicViewer()',25);
@@ -41,4 +42,41 @@ function navigateToPageById(id){
 }
 function toggleWeatherLegend(){
     $('.weatherLegendBox').toggleClass('hidden');
+}
+var gallerySliderImages = [],gallerySliderPos = [];
+function initGallerySlider(){
+    var count = 0;
+    for(var i=0;i<99;i++){
+        count = 0;
+        while(document.getElementById('galleryPrevSliderImg' + i + '_' + (count + 1))){
+            count++;
+            document.getElementById('galleryPrevSliderImg' + i + '_' + count).style.top = ((150 -$('#galleryPrevSliderImg' + i + '_' + count).height()) / 2) + "px";
+        }
+        gallerySliderImages[i] = count + 1;
+        if(count > 0){
+            document.getElementById('galleryPrevSliderImg' + i + '_1').className = 'galleryPrevSliderImg';
+            var link = 'gallerySliderNext('+i+')';
+            gallerySliderPos[i] = 1;
+            window.setTimeout("startGallerySlider('"+link+"')",i*500);
+        }else{
+            i = 99;
+        }
+    }
+}
+function startGallerySlider(link){
+    window.setInterval(link,2500);
+}
+function gallerySliderNext(id){
+    gallerySliderPos[id]++;
+    for(var i=1;i<gallerySliderImages[id];i++){
+        document.getElementById('galleryPrevSliderImg' + id + '_' + i).className = 'galleryPrevSliderImg right';
+    }
+    if(gallerySliderPos[id] < gallerySliderImages[id]){
+        document.getElementById('galleryPrevSliderImg' + id + '_' + gallerySliderPos[id]).className = 'galleryPrevSliderImg';
+        document.getElementById('galleryPrevSliderImg' + id + '_' + (gallerySliderPos[id] - 1)).className = 'galleryPrevSliderImg left';
+    }else{
+        document.getElementById('galleryPrevSliderImg' + id + '_1').className = 'galleryPrevSliderImg';
+        document.getElementById('galleryPrevSliderImg' + id + '_' + (gallerySliderImages[id] - 1)).className = 'galleryPrevSliderImg left';
+        gallerySliderPos[id] = 1;
+    }
 }

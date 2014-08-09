@@ -128,16 +128,7 @@ function init(){
 	window.setTimeout("$('.pageLoading').addClass('hidden')",350);
 }
 function postInit(){
-	$('.pageLoading').css('opacity','0');
-    document.body.overflow = 'visible';
-	$('.fileBrowser').css("transition","bottom 1s").css("-webkit-transition","bottom 1s");
-	$('.leftBar').css("transition","left 1s").css("-webkit-transition","left 1s");
-	$('.content').css("transition","height 1s").css("-webkit-transition","height 1s");
-	$('.pageMenu').css("transition","height 1s").css("-webkit-transition","height 1s");
-	$('.pageContainer').css("transition","width 1s,left 1s").css("-webkit-transition","width 1s,left 1s");
-    $('.pageLoading').addClass('opac0');
-    $('.pageTour').removeClass('opac0');
-    setBrowserType();
+	setBrowserType();
     initOptions();
     $('body').keypress(function(event) {
         if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
@@ -149,6 +140,14 @@ function postInit(){
         initUserOptions();
     }
     window.setTimeout('setStartHTML()',1000);
+    $('.pageLoading').css('opacity','0').addClass('opac0');
+    document.body.overflow = 'visible';
+    $('.fileBrowser').css("transition","bottom 1s").css("-webkit-transition","bottom 1s");
+    $('.leftBar').css("transition","left 1s").css("-webkit-transition","left 1s");
+    $('.content').css("transition","height 1s").css("-webkit-transition","height 1s");
+    $('.pageMenu').css("transition","height 1s").css("-webkit-transition","height 1s");
+    $('.pageContainer').css("transition","width 1s,left 1s").css("-webkit-transition","width 1s,left 1s");
+    $('.pageTour').removeClass('opac0');
 }
 function setStartHTML(){
 	startHTML = replaceUml(CKEDITOR.instances.editable.getData());
@@ -176,7 +175,6 @@ function sizeMenu(){
         pageTourStep(0);
     }
 }
-var timeToWait = 1;
 function addMainPage(name){
     name = name == ""?document.input.pageName.value:name;
     menuChange('addMainPage:'+replaceUml(name));
@@ -885,14 +883,31 @@ function showPlugins(){
 }
 
 function showInsertLink(){
+    $('.insertLink').html('<lable>choose link type: <select onchange="changeInsertLinkType(this)"><option selected>Text link</option><option>Picture link</option><option>Link to a gallery</option></select></lable><br/><div class="insertLinkInner"></div>');
+    $('.overlay').removeClass('opac0 hidden');
+    $('.insertLinkOuter').removeClass('hidden').css('left',$('.leftBar').width()+115);
+    showInsertLinkToPage();
+}
+function changeInsertLinkType(th){
+    switch (th.selectedIndex){
+        case 0:
+            showInsertLinkToPage()
+            break;
+        case 1:
+            showInsertPictureLink();
+            break;
+        case 2:
+            showInsertLinkToGallery();
+            break;
+    }
+}
+function showInsertLinkToPage(){
     $.ajax({
         type: 'POST',
         url: 'functions.php',
         data: 'text=clickAbleMenu:insertLinkToPage($pid,this):'+lang,
         success: function(data) {
-            $('.insertLink').html(' &nbsp; &nbsp; &nbsp;Insert a link to page'+data);
-            $('.overlay').removeClass('hidden');
-            $('.insertLinkOuter').removeClass('hidden').css('left',$('.leftBar').width()+115);
+            $('.insertLinkInner').html('Insert a text link to page'+data);
         }
     });
 }
@@ -902,6 +917,37 @@ function insertLinkToPage(id,th){
     $('.pageMenuItem').removeClass('active');
     hideInsertLink();
 
+}
+function showInsertPictureLink(){
+    $('.insertLinkInner').html('function not ready jet!');
+}
+function showInsertLinkToGallery(){
+    $.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=clickAbleMenu:insertLinkToGallery($pid,this):'+lang,
+        success: function(data) {
+            $('.insertLinkInner').html('choose page with gallery'+data);
+        }
+    });
+}
+function insertLinkToGallery(id,th){
+    var count = $('.galleryPrevSliderOuter').length;
+    $.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=gallerySlider:'+id+':'+th.innerHTML+':'+count+':'+lang,
+        success: function(data) {
+            if(data == '-1'){
+                alert('you have to publish this page first!');
+            }else if(data == '0'){
+                alert('this page does not contain an gallery!');
+            }else{
+                insertHTMLatCursor(data);
+                hideInsertLink();
+            }
+        }
+    });
 }
 function hideInsertLink(){
     $('.insertLinkOuter').addClass('hidden');
