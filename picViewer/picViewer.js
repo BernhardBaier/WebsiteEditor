@@ -238,7 +238,6 @@ function showPicViewerId(){
 	}
     var $height = $width/picViewerPicFkts[picViewerIndex];
     if(showPicNameAsTitle || picViewerPicTitles[picViewerIndex] != 'NULL'){
-        $width -= 19*picViewerPicFkts[picViewerIndex];
         var killtxt;
         if(picViewerPicTitles[picViewerIndex] != 'NULL'){
             killtxt = picViewerPicTitles[picViewerIndex];
@@ -248,12 +247,20 @@ function showPicViewerId(){
             killtxt = killtxt.substr(0,killtxt.lastIndexOf('.'));
         }
         $('.picViewerTitle').removeClass('picViewerHidden').html(killtxt);
+        var height = $('.picViewerTitle').height()+2;
+        if(picViewerWindowWidth/(picViewerWindowHeight - height)>picViewerPicFkts[picViewerIndex]){
+            $('.picViewer').height($height).width($width);
+            $('.picViewerInner').height($height -  height).width(($height -  height)*picViewerPicFkts[picViewerIndex]);
+        }else{
+            $('.picViewer').height($height + height).width($width);
+            $('.picViewerInner').height($height).width($width);
+        }
     }else{
         $('.picViewerTitle').addClass('picViewerHidden').html('');
+        $('.picViewer').height($height).width($width);
+        $('.picViewerInner').height($height).width($width);
     }
     var $left = (picViewerWindowWidth - $width) / 2 - 10;
-    $('.picViewer').height($height).width($width);
-    $('.picViewerInner').height($height).width($width);
     picViewerActualWidth = $width;
     if(picVieweIsAuto){
         $('.picViewerOuter').css('left',$left).css('top',window.pageYOffset);

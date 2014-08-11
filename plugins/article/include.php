@@ -94,7 +94,7 @@ function addArticleToPage(id){
 		var editorContent = getCurrentHTML();
 		if(editorContent.search(textToInsert) == -1){
 			insertHTMLatCursor(textToInsert);
-			saveText('content/'+lang+'/'+id+'.php');
+			saveText('content/'+lang+'/'+id+'.php',false);
 		}
 	}else{
 		$.ajax({

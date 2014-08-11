@@ -202,7 +202,7 @@ function togglePlugin(name){
         $('.calendarOnPage').addClass('selected').html('remove from Page');
         insertHTMLatTheEnd(replace);
     }
-    saveText();
+    saveText('content',false);
 }";
     $file = fopen("$location/script.js",'w');
     fwrite($file,$output);

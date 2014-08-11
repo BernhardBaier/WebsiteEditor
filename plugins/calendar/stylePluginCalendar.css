@@ -35,11 +35,14 @@
 }
 .calendarTermin{
 	position:relative;
+    display: table;
+    width: 99%;
+    width: calc(100% - 3px);
 	text-align:left;
 	background:#EEE;
 	border-radius:3px;
 	font-size:15px;
-	height:21px;
+	min-height:21px;
 	padding:2px 1px 3px 1px;
 }
 .calendarDate{

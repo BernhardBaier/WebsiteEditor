@@ -47,10 +47,10 @@ function printMenu($sql,$n_parent=0,$level=0){
         $classToAdd = $id==$pid?' active':'';
         if($extra == "1"){
             if($parent == 0){
-                $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";
+                $output .= "<li><a href='index.php?id=$pid&lang=$lang'><div class='menuItem$classToAdd'>$name</div></a></li>";
             }else{
                 if(findInArray($parents,$pid) > -1 || findInArray($childs,$pid) > -1 || findInArray($equal,$pid) > -1){
-                    $output .= "<li><div class='menuItem$classToAdd'><a href='index.php?id=$pid&lang=$lang'>$name</a></div></li>";
+                    $output .= "<li><a href='index.php?id=$pid&lang=$lang'><div class='menuItem$classToAdd'>$name</div></a></li>";
                 }
             }
             if($childCount > 0){

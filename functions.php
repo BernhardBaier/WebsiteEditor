@@ -111,7 +111,7 @@ function gallerySlider($id,$name,$elemCount){
     <div class='galleryPrevSliderTitle'>$name</div>
     <div class='galleryPrevSliderInner'>";
     for($i=0;$i<sizeof($picPaths);$i++){
-        $class = $i==0?'':' right';
+        $class = $i==0?'opac0':' opac0 right';
         $output .="<img src='".$picPaths[$i]."' id='galleryPrevSliderImg$elemCount".'_'.($i+1)."' class='galleryPrevSliderImg$class'>";
     }
 $output .="    </div>

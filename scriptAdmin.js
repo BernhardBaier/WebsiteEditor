@@ -132,7 +132,7 @@ function postInit(){
     initOptions();
     $('body').keypress(function(event) {
         if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
-        saveText('content');
+        saveText('content', false);
         event.preventDefault();
         return false;
     });
@@ -636,17 +636,91 @@ function showUploadError(){
     $('.overlay').removeClass('hidden');
     $('.uploadError').removeClass('hidden');
 }
-function saveText(path){
-    var text = replaceUml(getCurrentHTML());
+function saveText(path, publish){
+    var elem = document.getElementsByClassName('titledImg');
+    var width = $('#editable').width();
+    var edited = false;
+    if(elem){
+        for(var j=0;j<elem.length;j++){
+            var oldWidth = elem[j].style.width.search('px');
+            if(oldWidth > -1){
+                oldWidth = elem[j].style.width.substr(0,oldWidth);
+                oldWidth = Math.round((oldWidth/width)*1000)/10;
+                elem[j].style.width = oldWidth + '%';
+                edited = true;
+            }
+            var innerImg = elem[j].innerHTML.match(/<img[\w\W]+?width:[\s0-9]+?px[\w\W]+?>/gi);
+            if(innerImg != null){
+                innerImg = innerImg.toString();
+                oldWidth = innerImg.substr(innerImg.search('width:')+6);
+                oldWidth = oldWidth.substr(0,oldWidth.search('px')).replace(' ','');
+                var newWidth = Math.round(((parseInt(oldWidth) + 8)/width)*1000)/10;
+                elem[j].innerHTML = elem[j].innerHTML.replace(innerImg.toString(),innerImg.replace(oldWidth+'px','100%'));
+                elem[j].style.width = newWidth + '%';
+                edited = true;
+            }
+        }
+    }
+    var text = getCurrentHTML();
+    var imgStyles = text.match(/<img[\w\W]+?>/gi);
+    var styles = [];
+    if(imgStyles != null){
+        for(var i=0;i<imgStyles.length;i++){
+            var match = imgStyles[i].match(/<img[\w\W]+?width:[\s0-9]+?px[\w\W]+?>/gi);
+            if(match == null){
+                match = imgStyles[i].match(/<img[\w\W]+?width="[\s0-9]+?"[\w\W]+?>/gi);
+            }
+            if(match != null){
+                styles[styles.length] = match.toString();
+            }
+        }
+    }
+    if(styles != null){
+        for(i=0;i<styles.length;i++){
+            styles[i] = styles[i].toString();
+            oldWidth = styles[i].substr(styles[i].search('width') + 6);
+            var pos1=oldWidth.search('px');
+            var pos2=oldWidth.search('"');
+            pos1 = pos1<0?1000000:pos1;
+            pos2 = pos2<0?1000000:pos2;
+            var tren = 'px';
+            var pos = 0;
+            if(pos2<pos1){
+                oldWidth = oldWidth.substr(1);
+                pos = oldWidth.search('"');
+                tren = '';
+            }
+            else{
+                pos = pos1;
+            }
+            oldWidth = oldWidth.substr(0,pos).replace(' ','');
+            newWidth = Math.round(((parseInt(oldWidth))/width)*1000)/10;
+            var newStyles = styles[i].replace((oldWidth+tren),newWidth+'%').replace(/height:[\s0-9]+?px/,'').replace(/height="[0-9]+?"/,'');
+            text = text.replace(styles[i],newStyles);
+            edited = true;
+        }
+    }
+    if(text != getCurrentHTML()){
+        setEditorHTML(text);
+    }
+    text = replaceUml(text);
 	$.ajax({
 		type: 'POST',
 		url: 'functions.php',
 		data: 'text=storeText:'+text+':'+path+'/'+lang+'/'+pageId+'.php&lang='+lang+'&id='+pageId,
 		success: function(data) {
 			if(data.search('#saved#') > -1 && data.search('#preview#') > -1) {
-				hideMessages();
-				startHTML = replaceUml(getCurrentHTML());
-				showNotification('The changes have been saved',1500);
+                startHTML = replaceUml(getCurrentHTML());
+                if(publish){
+                    publishPageNow();
+                }else{
+                    hideMessages();
+                }
+                if(edited){
+                    showNotification('The sizes have been changed to equal relative sizes and the changes have been saved',3500);
+                }else{
+                    showNotification('The changes have been saved',1500);
+                }
 			}else{
 				if(data!='1'){
 					alert(data);
@@ -655,22 +729,43 @@ function saveText(path){
 		}
 	});
 }
-function createPreviewOfPage(){
-	$.ajax({
-		type: 'POST',
-		url: 'functions.php',
-		data: 'text=previewPage&lang='+lang+'&id='+pageId,
-		success: function(data) {
-			if(data.search('#preview#') != -1) {
-				showNotification('The preview has been created',1500);
-			}else{
-				if(data!='1'){
-					alert(data);
-				}
-			}
-		}
-	});
+function publishPageNow(){
+    if(document.getElementById('publishPageLang').checked){
+        $.ajax({
+            type: 'POST',
+            url: 'functions.php',
+            data: 'text=publishText&lang=all&langs='+jsLanguages+'&id='+pageId,
+            success: function(data) {
+                if(data.search('#published#') != -1) {
+                    hideMessages();
+                    startHTML = replaceUml(getCurrentHTML());
+                    showNotification('All languages have been published',1500);
+                }else{
+                    if(data!='1'){
+                        alert(data);
+                    }
+                }
+            }
+        });
+    }else{
+        $.ajax({
+            type: 'POST',
+            url: 'functions.php',
+            data: 'text=publishText&lang='+lang+'&id='+pageId,
+            success: function(data) {
+                if(data.search('#published#') != -1) {
+                    hideMessages();
+                    showNotification('Page has been published',1500);
+                }else{
+                    if(data!='1'){
+                        alert(data);
+                    }
+                }
+            }
+        });
+    }
 }
+
 var notificationBoxMayHide = false;
 function showNotification(text,time){
     positionMessageTop();
@@ -958,60 +1053,6 @@ function showPublish(){
     $('.publishOuter').removeClass('hidden');
     $('.overlay').removeClass('hidden');
     positionMessage();
-}
-function publishPageNow(){
-    var text = replaceUml(getCurrentHTML());
-    $.ajax({
-        type: 'POST',
-        url: 'functions.php',
-        data: 'text=storeText:'+text+':content/'+lang+'/'+pageId+'.php&lang='+lang+'&id='+pageId,
-        success: function(data) {
-            if(data.search('#saved#') > -1 && data.search('#preview#') > -1) {
-                showNotification('The changes have been saved',1650);
-                window.setTimeout('publishPageNow2()',1);
-            }else{
-                if(data!='1'){
-                    alert(data);
-                }
-            }
-        }
-    });
-}
-function publishPageNow2(){
-    if(document.getElementById('publishPageLang').checked){
-        $.ajax({
-            type: 'POST',
-            url: 'functions.php',
-            data: 'text=publishText&lang=all&langs='+jsLanguages+'&id='+pageId,
-            success: function(data) {
-                if(data.search('#published#') != -1) {
-                    hideMessages();
-                    startHTML = replaceUml(getCurrentHTML());
-                    showNotification('All languages have been published',1500);
-                }else{
-                    if(data!='1'){
-                        alert(data);
-                    }
-                }
-            }
-        });
-    }else{
-        $.ajax({
-            type: 'POST',
-            url: 'functions.php',
-            data: 'text=publishText&lang='+lang+'&id='+pageId,
-            success: function(data) {
-                if(data.search('#published#') != -1) {
-                    hideMessages();
-                    showNotification('Page has been published',1500);
-                }else{
-                    if(data!='1'){
-                        alert(data);
-                    }
-                }
-            }
-        });
-    }
 }
 
 function getSize() {

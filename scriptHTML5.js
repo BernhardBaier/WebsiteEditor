@@ -74,6 +74,7 @@ function initGallerySlider(){
             i = 99;
         }
     }
+    $('.galleryPrevSliderImg').removeClass('opac0');
 }
 function gallerySliderNext(id){
     gallerySliderPos[id]++;

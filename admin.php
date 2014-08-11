@@ -361,7 +361,7 @@ include('content/user.php');
             echo('<div id="publishPageLang"></div>');
         }
         ?>
-        <input type="button" onclick="hideMessages()" value="cancel" /><input type="submit" value=" OK " onclick="publishPageNow()" />
+        <input type="button" onclick="hideMessages()" value="cancel" /><input type="submit" value=" OK " onclick="saveText('content',true)" />
     </div>
 </div>
 <?php
@@ -428,7 +428,7 @@ if(substr($authLevel,2,1) == '1'){
             <div class="pageMenuInfo">Website editor Version <?php echo($editorVersion);?>&nbsp;&nbsp;<br>&nbsp;Copyright &copy; 2014 Bernhard Baier&nbsp;&nbsp;</div>&nbsp;
                 <div class="pageMenuItem rightItem" onclick="$('.logout').removeClass('opac0').removeClass('hidden')" title="close session and log off">Logout</div>
                 <div class="pageMenuItem rightItem" onclick="showPublish()" title="publish this page">Publish</div>
-                <div class="pageMenuItem"><a onclick="saveText('content')" title="save content (ctrl + s)">Save</a></div>
+                <div class="pageMenuItem"><a onclick="saveText('content',false)" title="save content (ctrl + s)">Save</a></div>
                 <div class="pageMenuItem" onclick="showPageOptions(<?php echo($id);?>,this)" title="show the pages options"><a>Options</a></div>
                 <div class="pageMenuItem">
 	                <a target="_blank" href="index.php?id=<?php echo("$id&lang=$lang");?>&preview=true" title="preview this page in a new tab">Preview</a>
