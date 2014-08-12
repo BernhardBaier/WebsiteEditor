@@ -159,6 +159,7 @@ a{
     border:2px solid #565656;
     width:100%;
     width:calc(100% - 12px);
+    max-width: 100%;
 	height:68%;
     margin:0;
     padding:4px;
@@ -195,6 +196,13 @@ a{
 .content{
     display: table;
 	background: #fff;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+}
+.contentInner{
+    width: 100%;
+    max-width: 100%;
 }
 .contentInner h1{
     border:0 dotted #333;

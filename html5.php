@@ -133,7 +133,7 @@ while($pos > -1){
             }
         ?>
     </script>
-    <link rel="stylesheet" href="styleHTML5.css" />
+    <link rel="stylesheet" href="styleHTML5.min.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
 </head>
 <body onload="init()">
@@ -204,7 +204,7 @@ while($pos > -1){
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="scriptHTML5.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
-	<link rel="stylesheet" href="commonStyle.css"/>
+	<link rel="stylesheet" href="commonStyle.min.css"/>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
 	

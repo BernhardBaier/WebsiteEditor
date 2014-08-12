@@ -23,7 +23,7 @@ function postInit(){
     $(".pageOuter").scroll(function (e) {
         e.preventDefault();
         var elem = $(this);
-        if (elem.scrollTop() > 3){
+        if (elem.scrollTop() > 20){
             if(!addedMenuClass){
                 addedMenuClass = true;
                 $('.header').addClass('small');

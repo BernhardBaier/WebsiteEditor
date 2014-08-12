@@ -655,7 +655,7 @@ function saveText(path, publish){
                 oldWidth = innerImg.substr(innerImg.search('width:')+6);
                 oldWidth = oldWidth.substr(0,oldWidth.search('px')).replace(' ','');
                 var newWidth = Math.round(((parseInt(oldWidth) + 8)/width)*1000)/10;
-                elem[j].innerHTML = elem[j].innerHTML.replace(innerImg.toString(),innerImg.replace(oldWidth+'px','100%'));
+                elem[j].innerHTML = elem[j].innerHTML.replace(innerImg.toString(),innerImg.replace(oldWidth+'px','100%')).replace(/height:[\s0-9]+?px/,'').replace(/height="[0-9]+?"/,'');
                 elem[j].style.width = newWidth + '%';
                 edited = true;
             }

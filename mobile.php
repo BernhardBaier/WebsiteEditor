@@ -118,7 +118,7 @@ while($row = mysqli_fetch_array($erg)){
     <title><?php echo($pageTitle);?></title>
 	<meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
-    <link rel="stylesheet" href="styleMobile.css" />
+    <link rel="stylesheet" href="styleMobile.min.css" />
     <script>
         var lang = '<?php echo($lang);?>';
     </script>
@@ -178,7 +178,7 @@ while($row = mysqli_fetch_array($erg)){
 <script src="scriptMobile.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="picViewer/picViewer.min.js"></script>
-<link href='commonStyle.css' rel='stylesheet' />
+<link href='commonStyle.min.css' rel='stylesheet' />
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#style for plugins#-->
 <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />

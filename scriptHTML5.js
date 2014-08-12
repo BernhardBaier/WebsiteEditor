@@ -7,6 +7,7 @@ function init(){
     }
     loadCalendarSide(3);
     initCalendarPage();
+    initGallerySlider();
     window.setTimeout('postInit()',250);
 }
 function initCalendarPage(){
@@ -29,7 +30,6 @@ function loadCalendarSide(count){
             $('.calendarSide').html(data);
         }
     });
-    initGallerySlider();
 }
 function postInit(){
     window.setTimeout('initPicViewer()',25);

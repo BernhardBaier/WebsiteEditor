@@ -33,7 +33,7 @@ a:hover{
     border:1px solid #A00;
     margin:5px 0;
     text-align:left;
-    min-width:890px;
+    min-width:690px;
 }
 .content{
     width:100%;
@@ -88,7 +88,7 @@ a:hover{
     background:#D00;
     height:100px;
     padding:1px;
-    min-width:890px;
+    min-width:690px;
 }
 .pageTitle{
     position:absolute;
@@ -134,7 +134,7 @@ a:hover{
     height:100px;
     color:#EEE;
     font-size:18px;
-    min-width:890px;
+    min-width:690px;
 }
 .footer a{
     color: #fff;
@@ -219,6 +219,58 @@ a:hover{
 }
 .subItemLeft{
     left:-175px;
+}
+@media (max-width:1200px){
+    .rightBar{
+        width: 25%;
+    }
+    .topItem{
+        font-size: 18px;
+    }
+    .menuItem{
+        width: 150px;
+    }
+    .subItem{
+        font-size:15px;
+    }
+    .menu{
+        top: 65px;
+    }
+    .subMenu{
+        top:36px;
+    }
+    .subMenu2{
+        left: 150px;
+    }
+    .subItemLeft{
+        left:-152px;
+    }
+}
+@media (max-width:1000px){
+    .rightBar{
+        width: 30%;
+    }
+    .topItem{
+        font-size: 16px;
+    }
+    .menuItem{
+        width: 135px;
+    }
+    .subItem{
+        font-size:13px;
+    }
+    .menu{
+        top: 68px;
+    }
+    .subMenu{
+        top:33px;
+    }
+    .subMenu2{
+        left: 135px;
+    }
+    .subItemLeft{
+        left:-137px;
+    }
 }
 .lastItem{
     border:0;

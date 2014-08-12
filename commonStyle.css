@@ -41,6 +41,14 @@ p{
     border-radius:4px;
     background:#FFF;
     border:1px solid #CCC;
+    max-width: 98%;
+    max-width: calc(100% - 8x);
+}
+@media screen and (max-width: 600px) {
+    .titledImg{
+        max-width: 96%;
+        max-width: calc(100% - 16x);
+    }
 }
 .imgTitle{
     display: table-row;
