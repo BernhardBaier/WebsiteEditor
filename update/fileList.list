@@ -1,4 +1,4 @@
-#version#4.1.40#
+#version#4.1.41#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140624210348#
 #file#../plugins/access.php#date#20140624210350#
@@ -38,6 +38,18 @@
 #file#../plugins/article/stylePluginArticle.css#date#20140809132933#
 #file#../plugins/article/images/active.png#date#20140624210430#
 #file#../plugins/article/images/logo.png#date#20140624210432#
+#file#../plugins/einsatz/access.php#date#20140805183232#
+#file#../plugins/einsatz/auth.php#date#20140805183232#
+#file#../plugins/einsatz/einsatz.php#date#20140814171914#
+#file#../plugins/einsatz/einsatz.plg#date#20140805180459#
+#file#../plugins/einsatz/einsatzFunctions.php#date#20140814165910#
+#file#../plugins/einsatz/functions.php#date#20140805180803#
+#file#../plugins/einsatz/include.php#date#20140811110939#
+#file#../plugins/einsatz/preview.php#date#20140805180738#
+#file#../plugins/einsatz/style.css#date#20140731225326#
+#file#../plugins/einsatz/stylePluginEinsatz.css#date#20140811140508#
+#file#../plugins/einsatz/images/active.png#date#20140805191835#
+#file#../plugins/einsatz/images/logo.png#date#20140805191901#
 #file#../picViewer/picViewer.css#date#20140626124858#
 #file#../picViewer/picViewer.js#date#20140814173021#
 #file#../picViewer/picViewer.min.css#date#20140814172949#
