@@ -220,7 +220,7 @@ a:hover{
 .subItemLeft{
     left:-175px;
 }
-@media (max-width:1200px){
+@media (max-width:1180px){
     .rightBar{
         width: 25%;
     }

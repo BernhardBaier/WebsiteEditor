@@ -404,6 +404,13 @@ img{
     margin:2px 0;
     background:#CCC;
 }
+.menuItemHidden a{
+    text-decoration: none;
+    color: #000;
+}
+.menuItemHidden a:hover{
+    color: #555;
+}
 .menuItem:nth-child(3n){
     transition:height 500ms;
     height:0;

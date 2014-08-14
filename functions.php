@@ -7,6 +7,12 @@
  */
 error_reporting(E_ERROR);
 include('access.php');
+function getLoggedIn(){
+    if(isset($_COOKIE['PHPSESSID'])){
+        return '1';
+    }
+    return '0';
+}
 function replaceUml($text){
     $olds = ['<und>','<dpp>','ä','ö','ü','Ä','Ö','Ü','ß'];
     $news = ['&',':','&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;'];
@@ -360,6 +366,9 @@ if(substr($authLevel,0,1) == '1'){
 			    handleError($function);
 		    }
 		    break;
+        case "getLoggedIn":
+            echo(getLoggedIn());
+            break;
         default:
             echo("undefined call to function $function(".serialize($options).")");
             break;

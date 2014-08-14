@@ -4,11 +4,12 @@
 var windowHeight,windowWidth;
 var pageIsIniting = true;
 var showPageTour = false;
+var mayCancelLogOut = true;
 function reloadLocation(rel){
     window.location.href = document.location.toString().substr(0,document.location.toString().lastIndexOf('/'))+'/admin.php?id='+pageId+'&action='+rel;
 }
 function confirmExit(){
-	if(startHTML != replaceUml(getCurrentHTML()) && replaceUml(getCurrentHTML()) != '<p>page not existent jet.<br /><span style="color<dpp>#555;font-size<dpp>12px;">Tipp<dpp> press crtl+s to save changes.</span></p>'){
+	if(startHTML != replaceUml(getCurrentHTML()) && replaceUml(getCurrentHTML()) != '<p>page not existent jet.<br /><span style="color<dpp>#555;font-size<dpp>12px;">Tipp<dpp> press crtl+s to save changes.</span></p>' && mayCancelLogOut){
 		return 'Save Content!';
 	}else{
 		document.getElementsByClassName('pageLoading')[0].className = 'pageLoading';
@@ -148,9 +149,24 @@ function postInit(){
     $('.pageMenu').css("transition","height 1s").css("-webkit-transition","height 1s");
     $('.pageContainer').css("transition","width 1s,left 1s").css("-webkit-transition","width 1s,left 1s");
     $('.pageTour').removeClass('opac0');
+    window.setInterval('checkIfUserIsLoggedIn()',60000);
 }
 function setStartHTML(){
 	startHTML = replaceUml(CKEDITOR.instances.editable.getData());
+}
+function checkIfUserIsLoggedIn(){
+    $.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=getLoggedIn',
+        success: function(data) {
+            if(data != '1') {
+                alert(data);
+                mayCancelLogOut = false;
+                //location.href = 'logout.php';
+            }
+        }
+    });
 }
 function initPageTour(){//is used!
     showPageTour = true;

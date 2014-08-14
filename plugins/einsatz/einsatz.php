@@ -16,6 +16,12 @@ function findInArray($array,$needle){
     return -1;
 }
 if(substr($authLevel,1,1) == "1"){
+    $admin = false;
+    if($_GET['admin'] == 'true'){
+        if($authLevel == '1111'){
+            $admin = true;
+        }
+    }
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
@@ -69,6 +75,57 @@ if(substr($authLevel,1,1) == "1"){
                 }
             }
             $maxId++;
+            $adminId = $maxId;
+            if(isset($_POST['date'])){
+                $date = $_POST['date'];
+            }
+            if(isset($_POST['time'])){
+                $time = $_POST['time'];
+            }
+            if(isset($_POST['short'])){
+                $short = $_POST['short'];
+            }
+            if(isset($_POST['editor1'])){
+                $editor1 = $_POST['editor1'];
+            }
+            if(isset($_GET['adminId'])){
+                $adminId = $_GET['adminId'];
+                if($adminId>0 && $adminId<$maxId){
+                    $file = fopen("content/$id/$lang/einsatz.php",'r');
+                    $input = fread($file,filesize("content/$id/$lang/einsatz.php"));
+                    fclose($file);
+                    $input = substr($input,strpos($input,'#pluginEinsatzContent'.$adminId));
+                    $input = substr($input,strpos($input,'pluginEinsatzDate'));
+                    $input = substr($input,strpos($input,'>')+1);
+                    $date = substr($input,0,strpos($input,'</div>'));
+                    $date = str_replace(' ','',$date);
+                    $input = substr($input,strpos($input,'pluginEinsatzTeam'));
+                    $input = substr($input,strpos($input,'>')+1);
+                    $time = substr($input,0,strpos($input,'</div>'));
+                    $time = str_replace(' ','',$time);
+                    $input = substr($input,strpos($input,'pluginEinsatzShort'));
+                    $input = substr($input,strpos($input,'>')+1);
+                    $short = substr($input,0,strpos($input,'</div>'));
+
+                    if(strpos($input,'#pluginEinsatzContent'.($adminId-1)) > -1){
+                        $input = substr($input,0,strpos($input,'#pluginEinsatzContent'.($adminId-1)));
+                        $input = substr($input,0,strrpos($input,'<'));
+                        $input = substr($input,0,strrpos($input,'<'));
+                        $editor1 = substr($input,strpos($input,'pluginEinsatzContentInner'));
+                        $editor1 = substr($editor1,strpos($editor1,'>')+1);
+                        $editor1 = substr($editor1,0,strrpos($editor1,'</div>'));
+                        $editor1 = substr($editor1,0,strrpos($editor1,'</div>'));
+                    }else{
+                        $editor1 = substr($input,strpos($input,'pluginEinsatzContentInner'));
+                        $editor1 = substr($editor1,strpos($editor1,'>')+1);
+                        $editor1 = substr($editor1,0,strrpos($editor1,'</div>'));
+                        $editor1 = substr($editor1,0,strrpos($editor1,'</div>'));
+                    }
+                    $editor1 = str_replace('<div class="picsClickAble">','',$editor1);
+                }else{
+                    $adminId = $maxId;
+                }
+            }
         }
     }
     ?>
@@ -85,6 +142,7 @@ if(substr($authLevel,1,1) == "1"){
         <script>
             var lang = '<?php echo($lang);?>';
             var path = 'web-images/<?php echo($id);?>/einsatz/thumbs/';
+            var admin = '<?php if($authLevel == '1111'){echo('&admin=true');}?>';
             function replaceUml(text){
                 var umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß','&',':'],['<und>auml;','<und>ouml;','<und>uuml;','<und>Auml;','<und>Ouml;','<und>Uuml;','<und>szlig;','<und>','<dpp>']];
                 for(var i=0;i<umlaute[0].length;i++){
@@ -176,7 +234,7 @@ if(substr($authLevel,1,1) == "1"){
                 });
             }
             function chooseEinsatzNow(id){
-                location.href = 'einsatz.php?id='+id+'&lang='+lang;
+                location.href = 'einsatz.php?id='+id+'&lang='+lang+admin;
             }
 	        function publishEinsatz(){
 		        $.ajax({
@@ -192,6 +250,11 @@ if(substr($authLevel,1,1) == "1"){
 			        }
 		        });
 	        }
+            function loadOld(th){
+                if(th.selectedIndex > 0 ){
+                    location.href = 'einsatz.php?id=<?php echo($id);?>&lang='+lang+admin+"&adminId="+th.selectedIndex;
+                }
+            }
         </script>
     </head>
     <?php
@@ -235,17 +298,17 @@ if(substr($authLevel,1,1) == "1"){
                         <iframe src="../../fileUpload/index.php?id=<?php echo($id);?>&path=einsatz" width="100%" height="100%"></iframe>
                     </div>
                     <form action="einsatzFunctions.php" method="post">
-                        Add Einsatz: <input name="date" type="date" placeholder="Datum" value="<?php if(isset($_POST['date'])){echo($_POST['date']);}else{echo(date('d.m.Y'));}?>" required />
-                        Time: <input type="time" name="time" required placeholder="Time" value="<?php if(isset($_POST['time'])){echo($_POST['time']);}else{echo(date('H:i'));}?>" />
-                        Einsatz Id <?php echo($maxId);?></br>
-                        Kurzbericht: <textarea name="short" required placeholder="z.B. Einsatz Hilfeleistung 1 - Hauffstraße"><?php echo($_POST['short']);?></textarea> <div class="uploadButton" onclick="showUpload()"><img src="../../images/upload.png" height="18"/>Upload</div>
-                        <textarea name="editor1" id="editor1"><div class="picsClickAble"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo('Einsatz hier eingeben.');}?></div></textarea>
+                        Add Einsatz: <input name="date" type="date" placeholder="Datum" value="<?php if($date){echo($date);}else{echo(date('d.m.Y'));}?>" required />
+                        Time: <input type="time" name="time" required placeholder="Time" value="<?php if($time){echo($time);}else{echo(date('H:i'));}?>" />
+                        Einsatz Id <?php echo($adminId); if($admin){echo(' <lable>edit old one<select onchange="loadOld(this)"><option>..</option>');for($i=1;$i<$maxId;$i++){echo("<option>$i</option>");}echo('</select></lable>');}?></br>
+                        Kurzbericht: <textarea name="short" required placeholder="z.B. Einsatz Hilfeleistung 1 - Hauffstraße"><?php echo($short);?></textarea> <div class="uploadButton" onclick="showUpload()"><img src="../../images/upload.png" height="18"/>Upload</div>
+                        <textarea name="editor1" id="editor1"><div class="picsClickAble"><?php if(isset($editor1)){echo($editor1);}else{echo('Einsatz hier eingeben.');}?></div></textarea>
                         <script>
                             CKEDITOR.replace( 'editor1' );
                             CKEDITOR.config.language = 'de';
                         </script>
                         <input type="hidden" name="function" value="createEvent" /><input type="hidden" name="id" value="<?php echo($id);?>" /><input type="hidden" name="maxId" value="<?php echo($maxId);?>" />
-                        <input type="hidden" name="lang" value="<?php echo($lang);?>" /><input type="submit" value="Save" />
+                        <input type="hidden" name="adminId" value="<?php echo($adminId);?>" /><input type="hidden" name="lang" value="<?php echo($lang);?>" /><input type="submit" value="Save" />
                     </form>
                     Available pictures: (add per Drag & Drop)
                     <div class="filePreview">none</div>

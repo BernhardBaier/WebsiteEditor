@@ -293,7 +293,7 @@ if(!function_exists("printMenu")){
             $option = $extra == 1?"<img src='images/eye.png' height='18' title='visible' onclick='setVisibility($pid,0)' />":"<img src='images/eyeHid.png' height='18' title='invisible' onclick='setVisibility($pid,1)' />";
             $option2 = $childsChildCount == 0?"<img src='images/listicon.png' height='18' class='menuItemImg' />":"<img src='images/minus.png' title='hide group' onclick='hideGroupe($pid)' />";
             if($childsChildCount != 0){
-                echo("<ul id='menGrpIn$pid' class='hidden'><li><div class='menuItemHidden'><img src='images/plus.png' class='menuItemImg' onclick='showGroupe($pid)' title='show group' />&nbsp;&nbsp;$name</div></li></ul>");
+                echo("<ul id='menGrpIn$pid' class='hidden'><li><div class='menuItemHidden'><img src='images/plus.png' class='menuItemImg' onclick='showGroupe($pid)' title='show group' />&nbsp;&nbsp;<a href='admin.php?id=$pid&lang=$lang'>$name</a></div></li></ul>");
             }
             echo("<ul id='menGrpCt$pid'><li>");
             echo("<div class='menuItem' id='menuItem".$counter++."' draggable='true' ondragenter='handleDragEnter(event)' ondragover='handleDragOver(event)' ondrop='handleDrop(event)'>before</div>

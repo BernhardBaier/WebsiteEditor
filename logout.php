@@ -14,5 +14,6 @@ $_SESSION['id'] = '';
 $_SESSION['ip'] = '';
 session_destroy();
 $_SESSION['authlevel'] = '';
+setcookie('PHPSESSID','NULL',time()+1);
 header('Location: login.php');
 exit;

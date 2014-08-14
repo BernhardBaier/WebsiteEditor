@@ -27,10 +27,9 @@ var picViewerPicHeight = 25;
 if (!document.getElementById('picViewerStyle')){//get the style in
     var head  = document.getElementsByTagName('head')[0];
     var link  = document.createElement('link');
-    link.id   = 'picViewerStyle';
     link.rel  = 'stylesheet';
     link.type = 'text/css';
-    link.href = 'picViewer/picViewer.css';
+    link.href = 'picViewer/picViewer.min.css';
     head.appendChild(link);
 }
 function picViewerGetSize() {
