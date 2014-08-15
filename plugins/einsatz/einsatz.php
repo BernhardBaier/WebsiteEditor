@@ -122,6 +122,8 @@ if(substr($authLevel,1,1) == "1"){
                         $editor1 = substr($editor1,0,strrpos($editor1,'</div>'));
                     }
                     $editor1 = str_replace('<div class="picsClickAble">','',$editor1);
+                    $editor1 = str_replace('src="web-','src="../../web-',$editor1);
+                    $editor1 = str_replace("src='web-","src='../../web-",$editor1);
                 }else{
                     $adminId = $maxId;
                 }

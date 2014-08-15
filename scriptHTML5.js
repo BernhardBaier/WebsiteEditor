@@ -36,6 +36,28 @@ function postInit(){
 }
 function searchNow(){
     var que = document.search.searchInput.value;
+    $('.searchResultsInner').html("<div>Suchergebnisse:<br/></div><div id='loadingImg1' style='height:40px;width:40px;background:#FFF;'></div><br/>");
+    $('.searchOuter').removeClass('hidden');
+    var opts = {
+        lines: 12,
+        length: 8,
+        width: 4,
+        radius: 12,
+        corners: 1,
+        rotate: 0,
+        direction: 1,
+        color: '#555',
+        speed: 1.2,
+        trail: 75,
+        shadow: false,
+        hwaccel: false,
+        className: 'spinner',
+        zIndex: 9,
+        top: '65%',
+        left: '50%'
+    };
+    var target = document.getElementById('loadingImg1');
+    var spinner = new Spinner(opts).spin(target);
     if(que != ''){
         $.ajax({
             type: 'POST',
@@ -44,7 +66,6 @@ function searchNow(){
             success: function(data) {
                 data = data == 'Suchergebnisse:'?data+'<br>Keine Treffer!':data;
                 $('.searchResultsInner').html(data);
-                $('.searchOuter').removeClass('hidden');
             }
         });
     }
