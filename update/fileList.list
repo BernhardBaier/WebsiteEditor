@@ -1,4 +1,4 @@
-#version#4.1.41#
+#version#4.1.42#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20140624210348#
 #file#../plugins/access.php#date#20140624210350#
@@ -27,7 +27,7 @@
 #file#../plugins/settings/images/active.png#date#20140624210414#
 #file#../plugins/settings/images/logo.png#date#20140624210414#
 #file#../plugins/article/access.php#date#20140804185829#
-#file#../plugins/article/article.php#date#20140814172232#
+#file#../plugins/article/article.php#date#20140814173932#
 #file#../plugins/article/article.plg#date#20140624210420#
 #file#../plugins/article/articleFunctions.php#date#20140814172745#
 #file#../plugins/article/auth.php#date#20140804185829#
@@ -40,7 +40,7 @@
 #file#../plugins/article/images/logo.png#date#20140624210432#
 #file#../plugins/einsatz/access.php#date#20140805183232#
 #file#../plugins/einsatz/auth.php#date#20140805183232#
-#file#../plugins/einsatz/einsatz.php#date#20140814171914#
+#file#../plugins/einsatz/einsatz.php#date#20140814173921#
 #file#../plugins/einsatz/einsatz.plg#date#20140805180459#
 #file#../plugins/einsatz/einsatzFunctions.php#date#20140814165910#
 #file#../plugins/einsatz/functions.php#date#20140805180803#
@@ -101,10 +101,11 @@
 #file#../compress.php#date#20140624210522#
 #file#../deletePic.php#date#20140624210524#
 #file#../editor.php#date#20140806195025#
+#file#../fb.php#date#20140826003855#
 #file#../functions.php#date#20140812144735#
 #file#../functionsPlugins.php#date#20140805181647#
 #file#../getFiles.php#date#20140624210526#
-#file#../html5.php#date#20140812134826#
+#file#../html5.php#date#20140826011700#
 #file#../index.php#date#20140809170756#
 #file#../jquery-1.9.1.min.js#date#20140624210532#
 #file#../login.php#date#20140804013442#
@@ -119,7 +120,7 @@
 #file#../register.php#date#20140624210544#
 #file#../scriptAdmin.js#date#20140812144742#
 #file#../scriptFileBrowser.js#date#20140808172418#
-#file#../scriptHTML5.js#date#20140812134321#
+#file#../scriptHTML5.js#date#20140826012143#
 #file#../scriptMobile.js#date#20140811135445#
 #file#../scriptPlugin.js#date#20140805111201#
 #file#../search.php#date#20140809161735#
@@ -127,7 +128,7 @@
 #file#../spin.min.js#date#20140624210558#
 #file#../styleAdmin.css#date#20140812135937#
 #file#../styleFileBrowser.css#date#20140808171243#
-#file#../styleHTML5.css#date#20140812135229#
+#file#../styleHTML5.css#date#20140826012504#
 #file#../styleHTML5.min.css#date#20140812135249#
 #file#../styleLogin.css#date#20140624210604#
 #file#../styleMobile.css#date#20140811141139#

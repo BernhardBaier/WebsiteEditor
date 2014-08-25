@@ -142,16 +142,6 @@ a:hover{
 .footer a:hover{
     color: #c0c0c0;
 }
-.fb-like-outer{
-    position:absolute;
-    background:#EEE;
-    padding:13px 0 0 5px;
-    height:76px;
-    width:325px;
-    border-radius:5px;
-    left:5px;
-    top:5px;
-}
 
 .menu{
     position:absolute;
@@ -281,6 +271,10 @@ a:hover{
     opacity:0;
 }
 .copyRight{
+    position: absolute;
+    bottom: 1px;
+    left: 35%;
+    left: calc(50% - 121px);
     color:#999;
     font-size:13px;
 }
@@ -421,4 +415,44 @@ a:hover{
     position: absolute;
     left: 23px;
     top:2px
+}
+
+.fbLikeBoxOuter{
+    position: absolute;
+    left:4px;
+    top:8px;
+    width: 255px;
+    height: 82px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #3b5998;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.userCountOuter{
+    position: absolute;
+    right: 4px;
+    top: 20px;
+    width: 200px;
+    height: 60px;
+    border: 1px solid #990000;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: left;
+}
+.userCountNumbers{
+    float: left;
+    height: 100%;
+    display: flex;
+}
+.userCountNumbers span{
+    height: 21px;
+    padding: 0 4px;
+    margin: 18px 1px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 3px;
+    background: #CC6000;
+    border: 1px solid #e65100;
 }

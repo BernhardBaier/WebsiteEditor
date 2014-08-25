@@ -16,6 +16,22 @@ $lang = $_GET['lang'];
 if($lang == ""){
     $lang = 'de';
 }
+if(!isset($_COOKIE['usercount'])){
+    setcookie('usercount','false');
+}
+$users = 0;
+if(file_exists('usercount.txt')){
+    $file = fopen('usercount.txt','r');
+    $users = fread($file,filesize('usercount.txt'));
+    fclose($file);
+}
+if($_COOKIE['usercount'] == 'false'){
+    setcookie('usercount','true',time()+70000);
+    $users++;
+    $file = fopen('usercount.txt','w');
+    fwrite($file,$users);
+    fclose($file);
+}
 $preview = $_GET['preview'];
 $prev = $preview == 'true'?'&preview=true':'';
 include 'access.php';
@@ -133,7 +149,7 @@ while($pos > -1){
             }
         ?>
     </script>
-    <link rel="stylesheet" href="styleHTML5.min.css" />
+    <link rel="stylesheet" href="styleHTML5.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
 </head>
 <body onload="init()">
@@ -197,9 +213,24 @@ while($pos > -1){
             </div>
         </div>
         <div class="footer">
+            <div class="fbLikeBoxOuter" onclick="initFBPlugin()"><br>
+                Facebook Plug-in durch anklicken aktivieren.
+            </div>
             <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
+            <div class="userCountOuter">
+                <div class="userCountNumbers">
+                <?php
+                while(strlen($users) > 1){
+                    echo('<span>'.substr($users,0,1).'</span>');
+                    $users = substr($users,1);
+                }
+                echo("<span>$users</span>");
+                ?>
+                </div>
+                Besucher waren bereits auf unserer Website.
+            </div>
+            <span class="copyRight">Copyright &copy; 2012 - <?php echo(date('Y').' '.$pageTitle);?></span>
         </div>
-        <span class="copyRight">Copyright &copy; 2012 - <?php echo(date('Y').' '.$pageTitle);?></span>
      </div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="scriptHTML5.js"></script>

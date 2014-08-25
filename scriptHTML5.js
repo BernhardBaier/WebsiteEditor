@@ -1,6 +1,31 @@
 /**
  * Created by Bernhard on 20.01.14.
  */
+function setCookie(c_name,value,exdays){
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    document.cookie=c_name + "=" + c_value;
+}
+function getCookie(c_name){
+    var c_value = document.cookie;
+    var c_start = c_value.indexOf(" " + c_name + "=");
+    if (c_start == -1){
+        c_start = c_value.indexOf(c_name + "=");
+    }
+    if (c_start == -1){
+        c_value = "NULL";
+    }
+    else{
+        c_start = c_value.indexOf("=", c_start) + 1;
+        var c_end = c_value.indexOf(";", c_start);
+        if (c_end == -1){
+            c_end = c_value.length;
+        }
+        c_value = unescape(c_value.substring(c_start,c_end));
+    }
+    return c_value;
+}
 function init(){
     if(correctRightBar){
         $('.rightBar').height($('.content').height());
@@ -9,6 +34,12 @@ function init(){
     initCalendarPage();
     initGallerySlider();
     window.setTimeout('postInit()',250);
+}
+function postInit(){
+    if(getCookie('FBPlugin') == 'true'){
+        initFBPlugin();
+    }
+    window.setTimeout('initPicViewer()',25);
 }
 function initCalendarPage(){
     try{
@@ -30,9 +61,6 @@ function loadCalendarSide(count){
             $('.calendarSide').html(data);
         }
     });
-}
-function postInit(){
-    window.setTimeout('initPicViewer()',25);
 }
 function searchNow(){
     var que = document.search.searchInput.value;
@@ -110,4 +138,9 @@ function gallerySliderNext(id){
         document.getElementById('galleryPrevSliderImg' + id + '_' + (gallerySliderImages[id] - 1)).className = 'galleryPrevSliderImg left';
         gallerySliderPos[id] = 1;
     }
+}
+
+function initFBPlugin(){
+    setCookie('FBPlugin','true',1)
+    $('.fbLikeBoxOuter').html('<iframe src="fb.php" width="100%" height="100%" style="border: 0" scrolling="no"></iframe>').css('background','#fff');
 }

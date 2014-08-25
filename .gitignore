@@ -2,6 +2,7 @@
 *.pptx
 *.ppt
 *.rar
+*.txt
 upload/*
 content/de/*
 content/en/*
@@ -14,3 +15,4 @@ webSockets/*
 .ides/scopes/*
 einsatz/*
 moveOldPage.php
+fb.php
