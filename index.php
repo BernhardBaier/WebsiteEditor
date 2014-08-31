@@ -86,5 +86,19 @@ if($html5 === true){
         include('html5.php');
     }
 }else{
-    echo('old browser!');
+    $brMsg = $browser = 'IE'?" oder verwenden statt des Internet Explorers einen aktuellen Alternativbrowser wie Mozilla Firefox.":".";
+    echo("<style>
+    .oldBrowserWarning{
+        background: #f36c60;
+        border: 1px solid #f00;
+        padding: 2px;
+        margin: 5px;
+    }
+    </style>
+    <div class='oldBrowserWarning'>Sie verwenden eine veraltete Browserversion. Um diese Seite korrekt darstellen zu können aktualisieren Sie bitte Ihren Browser$brMsg</div>");
+    if($mobile === true){
+        include('mobile.php');
+    }else{
+        include('html5.php');
+    }
 }
