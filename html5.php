@@ -194,7 +194,7 @@ while($pos > -1){
                             <div class="weatherCard">
                                 <a target="_blank" title="Ausführliche Wetterdaten" href="http://www.wettergefahren.de"><img src="http://www.wettergefahren.de/dyn/app/ws/maps/SU_x_x_0.gif" width="100%"></a>
                             </div>
-                            <div class="weatherCopy">© <i>Deutscher Wetterdienst</i></div>
+                            <div class="weatherCopy">&copy; <i>Deutscher Wetterdienst</i></div>
                             <div class="weatherLegend" onclick="toggleWeatherLegend()">
                                 <div class="weatherLegendBox hidden" title="Sichtbarkeit ändern">
                                     <img src="images/close.png" class="closingImg" />

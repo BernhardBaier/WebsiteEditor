@@ -74,7 +74,9 @@ function picViewerHandlePics(){
                 }catch (ex){
                     picViewerPicTitles[i] = 'NULL';
                 }
-                if(queElem.width() == 0 || queElem.height() == 0){
+                if(queElem.width() == 0 || queElem.height() == 0 || queElem.width() == queElem.height()){
+                    picViewerPics = [];
+                    picViewerPicFkts = [];
                     window.setTimeout('picViewerHandlePics()',100);
                     return;
                 }

@@ -28,7 +28,9 @@ function getCookie(c_name){
 }
 function init(){
     if(correctRightBar){
-        $('.rightBar').height($('.content').height());
+        if($('.rightBar').height() < $('.content').height()){
+            $('.rightBar').height($('.content').height());
+        }
     }
     loadCalendarSide(3);
     initCalendarPage();

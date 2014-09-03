@@ -106,7 +106,7 @@ if($name != ""){
 <span class="loginTitle">Website editor Version <?php echo($editorVersion);?></br>Copyright &copy; 2014 Bernhard Baier</span>
 <div class="login">
     Register
-    <form action="register.php" method="post">
+    <form action="register.php?success=true" method="post">
         <table width="100%">
             <tr>
                 <td>Username:</td><td><input type="text" required name="username" value="<?php echo($name);?>" /></td>

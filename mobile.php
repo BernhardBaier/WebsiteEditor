@@ -124,19 +124,27 @@ while($row = mysqli_fetch_array($erg)){
     </script>
 </head>
 <body onload="init()">
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <div class="container">
     <div class="menuOuter" id="menu">
         <?php
         echo(printMenu($sql));
         ?>
     </div>
-    <div class="searchResultsOuter hidden">
-        <div class="searchResults">
-            <img src="images/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
-            <div class="searchResultsInner"></div>
-        </div>
-    </div>
     <div class="header">
+        <div class="searchResultsOuter hidden">
+            <div class="searchResults">
+                <img src="images/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
+                <div class="searchResultsInner"></div>
+            </div>
+        </div>
 	    <div class="headerDivider">
 	        <div class="menuImg"><img src="images/menu.png" height="100%" onclick="toggleMenu()" /></div>
 	        <div class="pageTitle"><?php echo($pageTitle);?></div>
@@ -146,8 +154,8 @@ while($row = mysqli_fetch_array($erg)){
 	    <div class="searchOuter">
 		    <div class="searchBig">
 			    <form class="searchBox" name="search" action="javascript:searchNow()">
-				    <input name="searchInput" placeholder="Suche" type="search">
-				    <input value=" go " type="submit">
+				    <input name="searchInput" placeholder="Suche" type="search" />
+				    <input value=" go " type="submit" />
 			    </form>
 		    </div>
 	    </div>
@@ -169,14 +177,18 @@ while($row = mysqli_fetch_array($erg)){
         </div>
     </div>
     <div class="footer">
-        <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
+        <div style="position:absolute;width:115px;height:20px;left:1px;top:1px;">
+            <div class="fb-like" data-href="https://www.facebook.com/FreiwilligeFeuerwehrHardt" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+        </div>
+        <a href="index.php?id=impress&lang=<?php echo($lang);?>" style="float: right">Impressum&nbsp;</a>
     </div>
     <div class="copyright">
         Copyright &copy; 2014 <?php echo($pageTitle)?>
     </div>
 </div>
-<script src="scriptMobile.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="scriptMobile.js"></script>
+<script src="spin.min.js" async></script>
 <script src="picViewer/picViewer.min.js"></script>
 <link href='commonStyle.min.css' rel='stylesheet' />
 <!-- DO NOT CHANGE THE LINES BELOW-->

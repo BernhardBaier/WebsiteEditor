@@ -12,11 +12,11 @@ function setRequest(text,url,out) {
         url: url,
         data: 'text='+text+'&lang='+lang,
         success: function(data) {
-            if(data.search('#refresh#') != -1) {
+            if(data.search('#refresh#') > -1) {
                 location.reload();
-            }else if(data.search('#reload#') != -1) {
+            }else if(data.search('#reload#') > -1) {
                 enterPath('');
-            }else if(data.search('#imgs#') != -1) {
+            }else if(data.search('#imgs#') > -1) {
                 showGaleryEditor(data.substr(6));
             }else if(data.search('#dirs#') > -1){
                 dirs = data.substr(6,data.search('#files#') - 6);
