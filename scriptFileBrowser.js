@@ -62,7 +62,9 @@ function enterPath(path){
         var num = browserPath.substr(browserPath.search('/')+1);
         num = num.substr(0,num.search('/'));
         if(num > 0){
-            $('.browserPath').html(browserPath.replace(num,jsPageNames[num]));
+            var pName = jsPageNames[num];
+            pName = pName == 'undefined'?"deleted page":pName;
+            $('.browserPath').html(browserPath.replace(num,pName));
         }
     }
     setCookie('filePath',browserPath,5);

@@ -5,6 +5,7 @@
  * Date: 01.08.14
  * Time: 20:29
  */
+error_reporting(E_ERROR);
 function changeValue($param,$value){
 	global $sql;
 	$que = "SELECT * FROM settings WHERE parameter='$param'";

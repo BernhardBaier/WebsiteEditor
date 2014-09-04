@@ -11,6 +11,14 @@ if(substr($authLevel,1,1) == "1"){
     $maxId = $_POST['maxId'];
     $adminId = $_POST['adminId'];
     $date = $_POST['date'];
+    if(strpos($date,'-') == 4){
+        $year = substr($date,0,4);
+        $month = substr($date,5,2);
+        $day = substr($date,8);
+        $date = $day.'.'.$month.'.'.$year;
+    }else{
+        $date = str_replace('-','.',$date);
+    }
     $short = $_POST['short'];
     $lang = $_POST['lang'];
     $text = $_POST['editor1'];

@@ -46,7 +46,7 @@ while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 function printMenu($sql,$n_parent=0,$level=0){
-    global $table,$parents,$lang,$prev;
+    global $table,$parents,$lang,$prev,$preview;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
     $erg = mysqli_query($sql,$que);
     $rows = array();
@@ -61,7 +61,7 @@ function printMenu($sql,$n_parent=0,$level=0){
         $extra = $row['extra'];
         $name = $row['name'];
         $childCount = $row['childCount'];
-        if($extra == "1"){
+        if($extra == "1" || $preview == 'true'){
             if($parent == 0){
                 $classToAdd = findInArray($parents,$pid)>-1?' active':'';
                 $level++;

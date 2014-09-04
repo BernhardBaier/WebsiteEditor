@@ -141,7 +141,7 @@ function postInit(){
         initUserOptions();
     }
     window.setTimeout('setStartHTML()',1000);
-    $('.pageLoading').css('opacity','0').addClass('opac0');
+    $('.pageLoading').addClass('opac0');
     document.body.overflow = 'visible';
     $('.fileBrowser').css("transition","bottom 1s").css("-webkit-transition","bottom 1s");
     $('.leftBar').css("transition","left 1s").css("-webkit-transition","left 1s");
@@ -746,40 +746,70 @@ function saveText(path, publish){
 	});
 }
 function publishPageNow(){
-    if(document.getElementById('publishPageLang').checked){
-        $.ajax({
-            type: 'POST',
-            url: 'functions.php',
-            data: 'text=publishText&lang=all&langs='+jsLanguages+'&id='+pageId,
-            success: function(data) {
-                if(data.search('#published#') != -1) {
-                    hideMessages();
-                    startHTML = replaceUml(getCurrentHTML());
-                    showNotification('All languages have been published',1500);
+    $.ajax({
+        type: 'POST',
+        url: 'MySQLHandler.php',
+        data: 'table=pages_'+lang+'&function=getValueById:'+pageId+':extra',
+        success: function(data) {
+            if(data == '1'){
+                if(document.getElementById('publishPageLang').checked){
+                    $.ajax({
+                        type: 'POST',
+                        url: 'functions.php',
+                        data: 'text=publishText&lang=all&langs='+jsLanguages+'&id='+pageId,
+                        success: function(data) {
+                            if(data.search('#published#') != -1) {
+                                hideMessages();
+                                startHTML = replaceUml(getCurrentHTML());
+                                showNotification('All languages have been published',1500);
+                            }else{
+                                if(data!='1'){
+                                    alert(data);
+                                }
+                            }
+                        }
+                    });
                 }else{
-                    if(data!='1'){
-                        alert(data);
-                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'functions.php',
+                        data: 'text=publishText&lang='+lang+'&id='+pageId,
+                        success: function(data) {
+                            if(data.search('#published#') != -1) {
+                                hideMessages();
+                                showNotification('Page has been published',1500);
+                            }else{
+                                if(data!='1'){
+                                    alert(data);
+                                }
+                            }
+                        }
+                    });
                 }
+            }else{
+                hideMessages();
+                $('.publishErrorOuter').removeClass('opac0 hidden');
+                $('.overlay').removeClass('opac0 hidden');
             }
-        });
-    }else{
-        $.ajax({
-            type: 'POST',
-            url: 'functions.php',
-            data: 'text=publishText&lang='+lang+'&id='+pageId,
-            success: function(data) {
-                if(data.search('#published#') != -1) {
-                    hideMessages();
-                    showNotification('Page has been published',1500);
-                }else{
-                    if(data!='1'){
-                        alert(data);
-                    }
-                }
+        }
+    });
+}
+function publishPageWithVisib(){
+    $.ajax({
+        type: 'POST',
+        url: 'MySQLHandler.php',
+        data: 'table=pages_'+lang+'&function=setVisibility:'+pageId+':1',
+        success: function(data) {
+            if(data == '1'){
+                hideMessages();
+                document.getElementById('visibImg'+pageId).innerHTML = "<img src='images/eye.png' height='18' title='visible' onclick='setVisibility("+pageId+",0)' />";
+                publishPageNow();
+            }else{
+                alert(data);
+                hideMessages();
             }
-        });
-    }
+        }
+    });
 }
 
 var notificationBoxMayHide = false;

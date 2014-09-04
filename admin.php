@@ -264,8 +264,8 @@ include('content/user.php');
     <span class="infoBoxInfo"></span>
 </div>
 <div class="notificationBox msgBox opac0 hidden" onmouseover="notificationBoxHover()" onmouseout="notificationBoxDisHover()">
-	<div class="msgBoxImg"><img onclick="hideNotificationBox()" height="20" title="close" src="images/close.png"/></div>
-	<div class="notificationBoxInner"></div>
+    <div class="msgBoxImg"><img onclick="hideNotificationBox()" height="20" title="close" src="images/close.png"/></div>
+    <div class="notificationBoxInner"></div>
 </div>
 
 <div class="renamePic msgBox hidden">
@@ -362,6 +362,14 @@ include('content/user.php');
         }
         ?>
         <input type="button" onclick="hideMessages()" value="cancel" /><input type="submit" value=" OK " onclick="saveText('content',true)" />
+    </div>
+</div>
+<div class="publishErrorOuter msgBox opac0 hidden">
+    <div class="msgBoxImg"><img onclick="hideMessages()" height="20" title="close" src="images/close.png"/></div>
+    <div class="publishErrorInner">
+        This page is not visible at the moment!<br>
+        Do you want me to make it visible and publish it then?<br>
+        <input type="button" value="cancel" onclick="hideMessages()" /><input type="submit" value=" OK " onclick="publishPageWithVisib();" />
     </div>
 </div>
 <?php

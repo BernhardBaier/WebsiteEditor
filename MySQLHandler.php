@@ -104,6 +104,7 @@ if($authLevel != '' && $authLevel != '0000'){
                 case 'setVisibility':
                     if(!empty($options) && sizeof($options)>=2){
                         setVisibility($options[0],$options[1],$sql);
+                        echo('1');
                     }else{
                         echo('missing Options for function!');
                     }
@@ -111,6 +112,13 @@ if($authLevel != '' && $authLevel != '0000'){
                 case 'getNameById':
                     if(!empty($options) && sizeof($options)>=1){
                         echo(getValueById($options[0],'name',$sql));
+                    }else{
+                        echo('missing Options for function!');
+                    }
+                    break;
+                case 'getValueById':
+                    if(!empty($options) && sizeof($options)>=2){
+                        echo(getValueById($options[0],$options[1],$sql));
                     }else{
                         echo('missing Options for function!');
                     }

@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR);
 /**
  * Created by PhpStorm.
  * User: Bernhard
@@ -80,11 +81,13 @@ if(isset($_POST['pass'])){
 		$host = $hostname == 'localhost'?$hostname:$sqlHost;
 		$sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
 		$que = "CREATE TABLE `".$sqlBase."`.`users` (`id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`user` VARCHAR( 150 ) NULL ,`pw` VARCHAR( 150 ) NULL ,`access` VARCHAR( 150 ) NULL ,`email` VARCHAR( 150 ) NULL ,`reg` VARCHAR( 150 ) NULL, `ondate` VARCHAR(150) NULL, `extra` VARCHAR(150) NULL);";
-		mysqli_query($sql, $que) or die (mysqli_error($sql));
+		mysqli_query($sql, $que);
 		$que = "INSERT INTO `".$sqlBase."`.`users` (`user`,`pw`,`access`,`email`,`reg`,`ondate`) VALUES ('$name','$pass','$access','$mail','".date('d.m.Y')."','-')";
 		mysqli_query($sql, $que) or die (mysqli_error($sql));
 		echo('1');
-	}
+	}else{
+        echo('0');
+    }
 }else{
 ?>
 <script>
@@ -104,9 +107,14 @@ function createUser(){
 				document.getElementsByClassName('noteBox')[0].className = "noteBox";
 				window.setTimeout('location.href = "setup.php?id=login";',1500);
 			}else{
-				document.getElementsByClassName('noteBox')[0].innerHTML = 'The user could not be added.';
-				document.getElementsByClassName('noteBox')[0].className = "noteBox error";
-			}
+                if(data == '0'){
+                    document.getElementsByClassName('noteBox')[0].innerHTML = 'A user is already existent!';
+                }else{
+                    alert(data);
+                    document.getElementsByClassName('noteBox')[0].innerHTML = 'The user could not be added.';
+                }
+                document.getElementsByClassName('noteBox')[0].className = "noteBox error";
+            }
 		}
 	});
 }
