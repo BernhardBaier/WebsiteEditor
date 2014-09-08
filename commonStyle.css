@@ -46,6 +46,7 @@ p{
     border:1px solid #CCC;
     max-width: 98%;
     max-width: calc(100% - 8x);
+    margin: 2px 4px;
 }
 @media screen and (max-width: 600px) {
     .titledImg{

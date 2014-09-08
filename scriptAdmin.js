@@ -132,10 +132,18 @@ function postInit(){
 	setBrowserType();
     initOptions();
     $('body').keypress(function(event) {
-        if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
-        saveText('content', false);
-        event.preventDefault();
-        return false;
+        if (!(event.ctrlKey) && !(event.which == 19)) return true;
+        if(event.which == 115){
+            saveText('content', false);
+            event.preventDefault();
+            return false;
+        }else if(event.which == 112){
+            saveText('content',true)
+            event.preventDefault();
+            return false;
+        }else{
+            return true;
+        }
     });
     if(typeof(initUserOptions) == "function"){
         initUserOptions();
@@ -1182,7 +1190,7 @@ function pageTourStep(step){
             break;
         case 6:
             $('.tourBox').width(windowWidth-leftWidth+2).height(windowHeight-botHeight-35).css('left',leftWidth-9).css('top',32);
-            $('.tourText').css('top',windowHeight-botHeight+7).css('left',windowWidth*0.5).html('inside this area you can edit the webpages content<br/>pres control + s to save or use the button in the top<br/><div class="tourBut tourLeft" onclick="pageTourStep('+(step-1)+')">go back</div><div class="tourBut" onclick="pageTourStep('+(step+1)+')">proceed</div></div>');
+            $('.tourText').css('top',windowHeight-botHeight+7).css('left',windowWidth*0.5).html('inside this area you can edit the webpages content<br/>press control + s to save or use the button in the top.<br/>Tipp: use control + p to directly publish a page.<br/><div class="tourBut tourLeft" onclick="pageTourStep('+(step-1)+')">go back</div><div class="tourBut" onclick="pageTourStep('+(step+1)+')">proceed</div></div>');
             break;
         case 7:
             $('.tourBox').width(windowWidth-leftWidth+2).height(botHeight-2).css('left',leftWidth-9).css('top',windowHeight-botHeight-3);
