@@ -6,6 +6,7 @@
  * Time: 22:01
  */
 error_reporting(E_ERROR);
+$sql = false;
 include('access.php');
 function getLoggedIn(){
     if(isset($_COOKIE['PHPSESSID'])){
@@ -190,11 +191,14 @@ function include2string($file) {
 	include $file;
 	return ob_get_clean();
 }
-function replaceTextWithPlugin($text){
-	global $sql;
-	$output = $text;
-	$que = "SELECT * FROM toreplace WHERE 1";
-	$erg = mysqli_query($sql,$que);
+function replaceTextWithPlugin($text,$sql){
+    global $sqlBase;
+    $output = $text;
+    $que = "SELECT * FROM $sqlBase.toreplace";
+    $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+    if(!$erg){
+        $output.="Error in MySQL request $que!";
+    }
 	while($row = mysqli_fetch_array($erg)){
 		$textToReplace = $row['replace'];
 		if(strpos($output,$textToReplace) > -1){
@@ -211,10 +215,11 @@ function replaceTextWithPlugin($text){
 	return $output;
 }
 function copyAndReplace($source,$dest){
+    global $sql;
 	$file = fopen($source,'r');
 	$input = fread($file,filesize($source));
 	fclose($file);
-	$input = replaceTextWithPlugin($input);
+	$input = replaceTextWithPlugin($input,$sql);
 	while(strpos($input,'{#insertPlugin') > -1){
 		$ktxt = substr($input,strpos($input,'{#insertPlugin'));
 		$ktxt = substr($ktxt,0,strpos($ktxt,'#}')+2);
@@ -238,6 +243,9 @@ if(substr($authLevel,0,1) == '1'){
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+    if(!$sql){
+        die('MySQL-Error');
+    }
     if(strpos($function,':')>-1){
         $option = substr($function,strpos($function,':') + 1);
         $function = substr($function,0,strpos($function,':'));
@@ -370,7 +378,7 @@ if(substr($authLevel,0,1) == '1'){
             echo(getLoggedIn());
             break;
         default:
-            echo("undefined call to function $function(".serialize($options).")");
+            echo("undefined call to function $function(".serialize($options).") in functions.php");
             break;
     }
 }

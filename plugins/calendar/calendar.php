@@ -326,6 +326,6 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             echo("<div class='calendarSiteFooter' onclick='loadCalendarSide($maxCount)'>mehr</div>");
         }
     }else{
-        echo("unknown function: $func");
+        echo("unknown function: $func in calendar.php");
     }
 }

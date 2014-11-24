@@ -66,6 +66,9 @@ function loadCalendarSide(count){
 }
 function searchNow(){
     var que = document.search.searchInput.value;
+    if(que.replace(' ','') == ""){
+        return;
+    }
     $('.searchResultsInner').html("<div>Suchergebnisse:<br/></div><div id='loadingImg1' style='height:40px;width:40px;background:#FFF;'></div><br/>");
     $('.searchOuter').removeClass('hidden');
     var opts = {

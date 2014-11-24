@@ -141,12 +141,12 @@ if(substr($authLevel,0,1) == "1"){
 <head>
     <title><?php echo($pageTitle);?> Admin</title>
     <link rel="SHORTCUT ICON" href="images/editorLogo.png"/>
-    <link rel="stylesheet" href="styleAdmin.css"/>
-    <link rel="stylesheet" href="commonStyle.css"/>
-    <link rel="stylesheet" href="styleFileBrowser.css"/>
+    <link rel="stylesheet" href="styleAdmin.min.css"/>
+    <link rel="stylesheet" href="commonStyle.min.css"/>
+    <link rel="stylesheet" href="styleFileBrowser.min.css"/>
     <link rel="stylesheet" type="text/css" href="datepicker/jquery.datetimepicker.css" >
 
-    <!-- todo: remove this in final!--><script src="jquery-1.9.1.min.js"></script>
+    <!-- todo: remove this in final!--<script src="jquery-1.9.1.min.js"></script><!---->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script src="spin.min.js"></script>

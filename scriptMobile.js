@@ -19,12 +19,22 @@ function initCalendarPage(){
         }
     }catch (ex){}
 }
+var lastScrollPos = 0, scrollTimer,goingToTop = false;
 function postInit(){
-    $(".pageOuter").scroll(function (e) {
-        e.preventDefault();
-        var elem = $(this);
-        if (elem.scrollTop() > 20){
-            if(!addedMenuClass){
+    scrollTimer = window.setInterval("scrollReaction()",500);
+}
+function scrollReaction(){
+    var elem = $(".pageOuter");
+    var scrollPos = elem.scrollTop();
+    if(lastScrollPos != scrollPos){
+        if(lastScrollPos - scrollPos > 20){
+            $('.topOverlay').removeClass('opac0 hidden');
+        }else if(lastScrollPos - scrollPos < -10){
+            $('.topOverlay').addClass('opac0 hidden');
+        }
+        lastScrollPos = scrollPos;
+        if (lastScrollPos > 60){
+            if(!addedMenuClass && !goingToTop){
                 addedMenuClass = true;
                 $('.header').addClass('small');
                 $('.pageOuter').addClass('small');
@@ -33,11 +43,23 @@ function postInit(){
                 $('.searchOuter').addClass('small');
             }
         }else{
+            $('.topOverlay').addClass('opac0 hidden');
             if(addedMenuClass){
                 expandMenu();
             }
         }
-    });
+    }
+}
+function goToTop(){
+    try{
+        goingToTop = true;
+        $(".pageOuter").animate({ scrollTop: 0 }, "slow");
+        $('.topOverlay').addClass('opac0 hidden');
+        if(addedMenuClass){
+            expandMenu();
+        }
+        window.setTimeout("goingToTop=false;",1000);
+    }catch (ex){}
 }
 function expandMenu(){
     addedMenuClass = false;
@@ -58,6 +80,9 @@ function toggleMenu(){
 }
 function searchNow(){
     var que = document.search.searchInput.value;
+    if(que.replace(' ','') == ""){
+        return;
+    }
     $('.searchResultsInner').html("<div>Suchergebnisse:<br/></div><div id='loadingImg1' style='height:40px;width:40px;background:#FFF;'></div><br/>");
     $('.searchResultsOuter').removeClass('hidden');
     var opts = {

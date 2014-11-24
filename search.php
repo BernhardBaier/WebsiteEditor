@@ -29,7 +29,6 @@ if($que == ''){
     echo('Nichts zu tun!');
     exit;
 }
-//ToDO: iterate trough page titles
 $handler = opendir($path);
 $files = [];
 while($file = readdir($handler)){
@@ -40,23 +39,27 @@ while($file = readdir($handler)){
 closedir($handler);
 $max = sizeof($files);
 $out = 'Suchergebnisse:';
+$hostname = $_SERVER['HTTP_HOST'];
+$host = $hostname == 'localhost'?$hostname:$sqlHost;
+$sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
 for($i=0;$i<$max;$i++){
     $file = fopen($files[$i],'r');
 	$id = substr($files[$i],0,strrpos($files[$i],'.'));
 	$id = substr($id,strrpos($id,'/')+1);
     $in = strtolower(strip_tags(fread($file,filesize($files[$i])),'<h1></h1>'));
-    $hostname = $_SERVER['HTTP_HOST'];
-    $host = $hostname == 'localhost'?$hostname:$sqlHost;
-    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+    $pageTitle = getValueById($id,'name');
     if(strpos($in,$que)>-1 && getValueById($id,'extra') == '1'){
+        $in = str_replace("<h1>".strtolower($pageTitle)."</h1>",'',$in);
         $start = strpos($in,$que)-25;
         $length = 175;
         if($start < 0){
             $length += $start;
             $start = 0;
         }
-        $in = substr($in,$start,$length).'(...)';
-        $out .= '<div class="searchItem" onclick="navigateToPageById('.$id.')">'.str_replace($que,'<span style="color:#f00;">'.$que.'</span>',$in).'</div>';
+        if($start + $length < filesize($files[$i])){
+            $in = substr($in,$start,$length).'(...)';
+        }
+        $out .= '<div class="searchItem" onclick="navigateToPageById('.$id.')"><div class="searchTitle">'.$pageTitle.'</div>'.str_replace($que,'<span style="color:#f00;">'.$que.'</span>',$in).'</div>';
     }
     fclose($file);
 }

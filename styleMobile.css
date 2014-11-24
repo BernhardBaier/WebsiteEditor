@@ -194,6 +194,7 @@ a{
     }
 }
 .content{
+    position: relative;
     display: table;
 	background: #fff;
     width: 100%;
@@ -212,6 +213,7 @@ a{
 	margin:0;
 }
 .footer{
+    position: relative;
     height:8%;
     background:#A00;
     text-align: center;
@@ -219,10 +221,19 @@ a{
 .footer a{
     color: #fff;
 }
+.fbBox{
+    position:absolute;
+    z-index: 999;
+    width:115px;
+    height:20px;
+    left:1px;
+    top:1px;
+}
 .copyright{
     text-align:center;
     color:#999;
     font-size:13px;
+    height: 17px;
 }
 .galPic{
     padding:4px;
@@ -264,4 +275,32 @@ a{
     margin: 0;
     padding: 0;
     background:#EEE;
+}
+
+.roundButton{
+    border-radius: 50%;
+}
+.topOverlay{
+    position: absolute;
+    z-index: 99;
+    top:101%;
+    top:calc(100% + 5px);
+    right:5px;
+    width: 40px;
+    height: 40px;
+    background: #FFF;
+    border: 2px solid #999;
+    box-shadow: 0 0 5px #AAA;
+}
+.topOverlayInner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.topOverlayInner img{
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30%;
+    left: 30%;
 }

@@ -337,11 +337,19 @@ a:hover{
     overflow-y: scroll;
     overflow-x: hidden;
 }
+.searchTitle{
+    margin: 0;
+    padding: 0;
+    background:#d1d1d1;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
 .searchItem{
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
     background:#EEE;
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .height0{

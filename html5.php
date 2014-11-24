@@ -90,7 +90,7 @@ function printMenu($sql,$n_parent=0,$level=0){
         }
     }
     mysqli_free_result($erg);
-    if($output == ''){
+    if($output == '' && $level == 0){
         $output = 'Your website is up and running. It seams as if no page is visible at the moment. Please use the admin panel to add content.';
     }
     return $output;
@@ -149,7 +149,7 @@ while($pos > -1){
             }
         ?>
     </script>
-    <link rel="stylesheet" href="styleHTML5.css" />
+    <link rel="stylesheet" href="styleHTML5.min.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
 </head>
 <body onload="init()">
@@ -233,16 +233,16 @@ while($pos > -1){
         </div>
      </div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="scriptHTML5.js"></script>
+	<script src="scriptHTML5.min.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
     <script src="spin.min.js" async></script>
     <link rel="stylesheet" href="commonStyle.min.css"/>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
-	
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+	<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
     <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
-    <link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' /><!--#end#-->
+    <link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' />
+    <!--#end#-->
 </div>
 </body>
 </html>

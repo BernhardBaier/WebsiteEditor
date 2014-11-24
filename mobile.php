@@ -47,10 +47,18 @@ function printMenu($sql,$n_parent=0,$level=0){
         $classToAdd = $id==$pid?' active':'';
         if($extra == "1"){
             if($parent == 0){
-                $output .= "<li><a href='index.php?id=$pid&lang=$lang'><div class='menuItem$classToAdd'>$name</div></a></li>";
+                if(strpos($classToAdd, "active") > -1){
+                    $output .= "<li><a><div class='menuItem$classToAdd'>$name</div></a></li>";
+                }else{
+                    $output .= "<li><a href='index.php?id=$pid&lang=$lang'><div class='menuItem$classToAdd'>$name</div></a></li>";
+                }
             }else{
                 if(findInArray($parents,$pid) > -1 || findInArray($childs,$pid) > -1 || findInArray($equal,$pid) > -1){
-                    $output .= "<li><a href='index.php?id=$pid&lang=$lang'><div class='menuItem$classToAdd'>$name</div></a></li>";
+                    if(strpos($classToAdd, "active") > -1){
+                        $output .= "<li><a><div class='menuItem$classToAdd'>$name</div></a></li>";
+                    }else{
+                        $output .= "<li><a href='index.php?id=$pid&lang=$lang'><div class='menuItem$classToAdd'>$name</div></a></li>";
+                    }
                 }
             }
             if($childCount > 0){
@@ -148,7 +156,7 @@ while($row = mysqli_fetch_array($erg)){
 	    <div class="headerDivider">
 	        <div class="menuImg"><img src="images/menu.png" height="100%" onclick="toggleMenu()" /></div>
 	        <div class="pageTitle"><?php echo($pageTitle);?></div>
-		    <div class="menuLogo"><img src="images/logo.png" height="100%" /></div>
+		    <div class="menuLogo"><a href="index.php?lang=<?php echo($lang);?>"><img src="images/logo.png" height="100%" /></a></div>
 		    <img class="searchIcon" onclick="expandMenu()" src="images/search.png" />
 	    </div>
 	    <div class="searchOuter">
@@ -159,6 +167,11 @@ while($row = mysqli_fetch_array($erg)){
 			    </form>
 		    </div>
 	    </div>
+        <div class="roundButton topOverlay opac0 hidden">
+            <div class="topOverlayInner" onclick="goToTop()">
+                <img src="images/arrowTop.png" />
+            </div>
+        </div>
     </div>
     <div class="pageOuter" id="pageOuter">
         <div class="content">
@@ -177,8 +190,10 @@ while($row = mysqli_fetch_array($erg)){
         </div>
     </div>
     <div class="footer">
-        <div style="position:absolute;width:115px;height:20px;left:1px;top:1px;">
-            <div class="fb-like" data-href="https://www.facebook.com/FreiwilligeFeuerwehrHardt" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+        <div class="fbBox">
+            <div>
+                <div class="fb-like" data-href="https://www.facebook.com/FreiwilligeFeuerwehrHardt" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+            </div>
         </div>
         <a href="index.php?id=impress&lang=<?php echo($lang);?>" style="float: right">Impressum&nbsp;</a>
     </div>
@@ -187,15 +202,15 @@ while($row = mysqli_fetch_array($erg)){
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="scriptMobile.js"></script>
+<script src="scriptMobile.min.js"></script>
 <script src="spin.min.js" async></script>
 <script src="picViewer/picViewer.min.js"></script>
 <link href='commonStyle.min.css' rel='stylesheet' />
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#style for plugins#-->
 <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-
-    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
-    <link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' /><!--#end#-->
+<link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
+<link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' />
+<!--#end#-->
 </body>
 </html>
