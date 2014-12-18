@@ -8,12 +8,15 @@ if($authLevel == '1111'){
         $file = fopen('fileList.list','r');
         $in = fread($file,filesize('fileList.list'));
         fclose($file);
-        $version = substr($in,0,strpos($in,PHP_EOL));
-        $in = substr($in,strpos($in,PHP_EOL));
+        $in = substr($in,strpos($in,'#'));
+        $version = substr($in,0,strpos($in,'#',9)+1);
+        $in = substr($in,strpos($in,'#',9));
         if(strpos($in,'#updateVersion#') > -1){
-            $in = substr($in,strpos($in,PHP_EOL));
+            $in = substr($in,strpos($in,'#updateVersion#')+15);
+            $in = substr($in,strpos($in,'#')+1);
         }
-        $in = $version.'#updateVersion#'.$updateVersion.'#'.$in;
+        $in = $version.'
+#updateVersion#'.$updateVersion.'#'.$in;
         $file = fopen('fileList.list','w');
         fwrite($file,$in);
         fclose($file);
