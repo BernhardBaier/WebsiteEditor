@@ -44,6 +44,7 @@ if($authLevel == '1111'){
         var max = 0;
         var timer;
         function updateUpdater(){
+            $('.updateUpdater').removeClass('hidden');
             $.ajax({
                 type: 'POST',
                 url: 'copy.php',
@@ -241,9 +242,19 @@ if($authLevel == '1111'){
         .spacer{
             height:30px;
         }
+        .updateUpdater{
+            position: absolute;
+            background: #fff;
+            width: 100%;
+            height: 100%;
+        }
+        .updateUpdater.hidden{
+            display: none;
+        }
     </style>
 </head>
 <body onload="init()">
+<div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
 <div>
     <div class="pageTitle">Welcome to the update Panel.</div>
     <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
