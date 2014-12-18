@@ -128,20 +128,30 @@ if($authLevel == '1111'){
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(i+1);
                     }else{
-                        $('.file').html('finishing update...');
                         $.ajax({
                             type: 'POST',
-                            url: 'finish.php',
-                            data: 'version='+version,
+                            url: 'copy.php',
+                            data: 'path=../update/fileList.list&remotePath='+remotePath,
                             success: function(data) {
-                                if(data == '1'){
-                                    $('.progressBar').html('100%').width(1020);
-                                    $('.file').html('Update Complete');
-                                    $('.data').html('');
-                                    document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
-                                }else{
+                                if(data != "1"){
                                     alert(data);
                                 }
+                                $('.file').html('finishing update...');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'finish.php',
+                                    data: 'version='+version,
+                                    success: function(data) {
+                                        if(data == '1'){
+                                            $('.progressBar').html('100%').width(1020);
+                                            $('.file').html('Update Complete');
+                                            $('.data').html('');
+                                            document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
+                                        }else{
+                                            alert(data);
+                                        }
+                                    }
+                                });
                             }
                         });
                     }
