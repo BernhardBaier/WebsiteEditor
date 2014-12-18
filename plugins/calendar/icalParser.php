@@ -92,6 +92,7 @@ if(substr($authLevel,0,1) == '1'){
         if(strpos($event,'RRULE') > -1){
             $rule[$count] = substr($event,strpos($event,"RULE")+5);
             $rule[$count] = substr($rule[$count],0,strpos($rule[$count],PHP_EOL));
+            $rule[$count] = str_replace(array("\r\n", "\r", "\n", " "),'',$rule[$count]);
         }else{
             $rule[$count] = '';
         }
@@ -101,7 +102,7 @@ if(substr($authLevel,0,1) == '1'){
     }
     $terminCount = 0;
     for($i=0;$i<$count;$i++){
-        $termine[$terminCount] = '<div class="event">'.$date[$i].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$date[$i].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\')">Add</div></div>';
+        $termine[$terminCount] = str_replace(array("\r\n", "\r", "\n"), '','<div class="event">'.$date[$i].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$date[$i].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\');">Add</div></div>');
         $terminCount++;
         if($rule[$i] != ''){
             if(strpos($rule[$i],'MONTHLY') > -1){
@@ -121,7 +122,7 @@ if(substr($authLevel,0,1) == '1'){
                         for($j=$startYear;$j<$endYear;$j++){
                             for($k=$startMonth;$k<$endMonth;$k++){
                                 $dates[$dateCount] = get_date($k,$j,$weeks,$numOfDay,-1);
-                                $termine[$terminCount] = '<div class="event">'.$dates[$dateCount].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$dates[$dateCount].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\')">Add</div></div>';
+                                $termine[$terminCount] = str_replace(array("\r\n", "\r", "\n"), '','<div class="event">'.$dates[$dateCount].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$dates[$dateCount].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\')">Add</div></div>');
                                 $dateCount++;
                                 $terminCount++;
                             }
@@ -131,7 +132,7 @@ if(substr($authLevel,0,1) == '1'){
                         for($j=$startYear;$j<$endYear;$j++){
                             for($k=$startMonth;$k<$endMonth;$k++){
                                 $dates[$dateCount] = get_date($k,$j,$weeks,$numOfDay);
-                                $termine[$terminCount] = '<div class="event">'.$dates[$dateCount].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$dates[$dateCount].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\')">Add</div></div>';
+                                $termine[$terminCount] = str_replace(array("\r\n", "\r", "\n"), '','<div class="event">'.$dates[$dateCount].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$dates[$dateCount].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\')">Add</div></div>');
                                 $dateCount++;
                                 $terminCount++;
                             }

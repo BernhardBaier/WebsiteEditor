@@ -259,7 +259,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         echo('</select>
         </div><div class="calendarImport" onclick="$(\'.calendarImport\').toggleClass(\'active\').removeClass(\'big\');document.getElementById(\'uploadFrame1000\').src=\'plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'\'"><div>Import</div><div class="calendarImportUpload">
         <iframe id="uploadFrame1000" src="plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'" width="500" height="1000" frameborder="no" border="0" scrolling="no"></iframe>
-        </div></div><div class="calendarYearChooser"><img src="images/left.png" style="float:left" onclick="showYear('.($year-1).')" />'.$year.'<img src="images/right.png" style="float:right" onclick="showYear('.($year+1).')" /></div>
+        </div></div><div class="calendarYearChooser"><img src="images/left.png" style="float:left" onclick="showYear('.(intval($year)-1).')" />'.$year.'<img src="images/right.png" style="float:right" onclick="showYear('.(intval($year)+1).')" /></div>
         </div>');
         echo('<div class="calendar">');
         for($month=1;$month<13;$month++){

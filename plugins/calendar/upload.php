@@ -36,13 +36,13 @@ if(substr($authLevel,0,1) == '1'){
         function init(){
 
         }
-        function insertEvent(date,start,end,name,place,href){
-            date = replaceUml(date);
-            start = replaceUml(start);
-            end = replaceUml(end);
-            name = replaceUml(name);
-            place = replaceUml(place);
-            href = replaceUml(href);
+        function insertEvent(d,s,e,n,p,h){
+            var date = replaceUml(d);
+            var start = replaceUml(s);
+            var end = replaceUml(e);
+            var name = replaceUml(n);
+            var place = replaceUml(p);
+            var  href = replaceUml(h);
             $.ajax({
                 type: 'POST',
                 url: 'calendar.php',

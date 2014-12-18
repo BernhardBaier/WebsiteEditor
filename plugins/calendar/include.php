@@ -27,9 +27,12 @@ function initPlugin_$plugId(th){
 }
 function showYear(year){
     year = year == 0?getCookie('year'):year;
+    if(parseInt(year)<200){
+        year = '2'+year.toString();
+    }
     var jetzt = new Date();
     year = year == 'NULL'?jetzt.getFullYear():year;
-    setCookie('year',year,1);
+    setCookie('year',year.toString(),1);
     var href = document.getElementById('calendarViewMode');
     if(href){
         href = href.options[href.selectedIndex].value;
@@ -149,7 +152,6 @@ function delTerminNow(){
         success: function(data) {
             if(data == '1'){
                 hideMessages();
-                var jetzt = new Date();
                 showYear(0);
             }else{
                 alert(data);

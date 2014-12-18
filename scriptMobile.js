@@ -9,12 +9,12 @@ function init(){
     initPicViewerMobile();
 }
 function showYear(year,href){
+    var href = document.getElementById('calendarHref').innerHTML;
     var date = new Date();
     var now = date.getFullYear();
     if(year == 0){
         year = now;
     }
-    $('.calendarYearChooserTitle').html("<div class='arrow-left' onclick='showYear("+(year-1)+",\"alle\")'></div>"+year+"<div class='arrow-right' onclick='showYear("+(year+1)+")'></div>");
     $.ajax({
         type: 'POST',
         url: 'plugins/calendar/calendar.php',
@@ -29,6 +29,7 @@ function showYear(year,href){
             }
         }
     });
+    $('.calendarYearChooserTitle').html("<div class='arrow-left' onclick='showYear("+(year-1)+")'></div>"+year+"<div class='arrow-right' onclick='showYear("+(year+1)+")'></div>");
 }
 function initCalendarPage(){
     try{
