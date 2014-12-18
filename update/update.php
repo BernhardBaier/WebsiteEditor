@@ -8,14 +8,14 @@ if($authLevel == '1111'){
         $file = fopen('fileList.list','r');
         $in = fread($file,filesize('fileList.list'));
         fclose($file);
-        if(!(strpos($in,'#updateVersion#') > -1)){
-            $version = substr($in,0,strpos($in,PHP_EOL));
+        $version = substr($in,0,strpos($in,PHP_EOL));
+        if(strpos($in,'#updateVersion#') > -1){
             $in = substr($in,strpos($in,PHP_EOL));
-            $in = $version.'#updateVersion#'.$updateVersion.'#'.$in;
-            $file = fopen('fileList.list','w');
-            fwrite($file,$in);
-            fclose($file);
         }
+        $in = $version.'#updateVersion#'.$updateVersion.'#'.$in;
+        $file = fopen('fileList.list','w');
+        fwrite($file,$in);
+        fclose($file);
     }
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
