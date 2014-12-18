@@ -9,6 +9,7 @@ if($authLevel == '1111'){
         $in = fread($file,filesize('fileList.list'));
         fclose($file);
         $version = substr($in,0,strpos($in,PHP_EOL));
+        $in = substr($in,strpos($in,PHP_EOL));
         if(strpos($in,'#updateVersion#') > -1){
             $in = substr($in,strpos($in,PHP_EOL));
         }
