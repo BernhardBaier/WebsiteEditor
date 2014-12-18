@@ -4,6 +4,19 @@ include 'auth.php';
 if($authLevel == '1111'){
     $updateVersion = "2.0";
     $updateUpdater = false;
+    if($_GET['action'] == 'updateFileList'){
+        $file = fopen('fileList.list','r');
+        $in = fread($file,filesize('fileList.list'));
+        fclose($file);
+        if(!(strpos($in,'#updateVersion#') > -1)){
+            $version = substr($in,0,strpos($in,PHP_EOL));
+            $in = substr($in,strpos($in,PHP_EOL));
+            $in = $version.'#updateVersion#'.$updateVersion.'#'.$in;
+            $file = fopen('fileList.list','w');
+            fwrite($file,$in);
+            fclose($file);
+        }
+    }
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
     fclose($file);
@@ -61,7 +74,7 @@ if($authLevel == '1111'){
                             if(data != "1"){
                                 alert(data);
                             }
-                            window.location.reload();
+                            window.location.href='update.php?forceUpdate=true&action=updateFileList';
                         }
                     });
                 }
