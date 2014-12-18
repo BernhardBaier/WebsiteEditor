@@ -193,13 +193,6 @@ if($authLevel == '1111'){
             }
             $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
         }
-        while(strpos($in,'#file#') > -1){
-            $in = substr($in,strpos($in,'#file#')+6);
-            $path = substr($in,0,strpos($in,'#'));
-            if(file_exists($path)){
-                unlink($path);
-            }
-        }
         echo("var version = '$version';
 ");
     }
