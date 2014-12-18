@@ -1,4 +1,5 @@
 #version#4.1.45#
+#updateVersion#2.0#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../content/user.php#date#20141124174456#
 #file#../plugins/access.php#date#20140624210350#

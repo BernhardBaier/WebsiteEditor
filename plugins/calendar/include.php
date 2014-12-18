@@ -22,6 +22,14 @@ function initPlugin_$plugId(th){
         resetAllPlugins();
         th.src = th.src.substring(0,th.src.lastIndexOf('/'))+'/active.png';
     }
+    var jetzt = new Date();
+    showYear(jetzt.getFullYear());
+}
+function showYear(year){
+    year = year == 0?getCookie('year'):year;
+    var jetzt = new Date();
+    year = year == 'NULL'?jetzt.getFullYear():year;
+    setCookie('year',year,1);
     var href = document.getElementById('calendarViewMode');
     if(href){
         href = href.options[href.selectedIndex].value;
@@ -31,7 +39,7 @@ function initPlugin_$plugId(th){
     $.ajax({
         type: 'POST',
         url: '$location/calendar.php',
-        data: 'year=2014&function=admin&href='+href+'&id=$plugId&lang='+lang,
+        data: 'year='+year+'&function=admin&href='+href+'&id=$plugId&lang='+lang,
         success: function(data) {
             $('.pluginInner').html('<div class=\"overlayCalendar hidden\" onclick=\"calendarHideAll()\"></div>'+data);
             if(getCurrentHTML().search('{#insertPluginCalendar') > -1){
@@ -98,7 +106,7 @@ function addEventNow(){
         success: function(data) {
             if(data == '1'){
                 calendarHideAll();
-                initPlugin_$plugId(0);
+                showYear(date.substring(6));
             }else{
                 alert(data);
             }
@@ -120,7 +128,7 @@ function editEventNow(){
         success: function(data) {
             if(data == '1'){
                 calendarHideAll();
-                initPlugin_$plugId(0);
+                showYear(date.substring(6));
             }else{
                 alert(data);
             }
@@ -141,7 +149,8 @@ function delTerminNow(){
         success: function(data) {
             if(data == '1'){
                 hideMessages();
-                initPlugin_$plugId(0);
+                var jetzt = new Date();
+                showYear(0);
             }else{
                 alert(data);
             }
@@ -203,6 +212,9 @@ function togglePlugin(name){
         insertHTMLatTheEnd(replace);
     }
     saveText('content',false);
+}
+function parsed(){
+    $('.calendarImport').addClass('big');
 }";
     $file = fopen("$location/script.js",'w');
     fwrite($file,$output);

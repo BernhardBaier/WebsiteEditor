@@ -202,7 +202,7 @@ while($row = mysqli_fetch_array($erg)){
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="scriptMobile.min.js"></script>
+<script src="scriptMobile.js"></script>
 <script src="spin.min.js" async></script>
 <script src="picViewer/picViewer.min.js"></script>
 <link href='commonStyle.min.css' rel='stylesheet' />

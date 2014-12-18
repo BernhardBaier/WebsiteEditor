@@ -2,11 +2,21 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
+    $updateVersion = "2.0";
+    $updateUpdater = false;
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
     fclose($file);
     $oldVersion = substr($in,strpos($in,'#version#')+9);
     $oldVersion = substr($oldVersion,0,strpos($oldVersion,'#'));
+    if(strpos($in,'#updateVersion#') > -1){
+        $upVersionNew = substr($in,strpos($in,'#updateVersion#')+15);
+        $upVersionNew = substr($upVersionNew,0,strpos($upVersionNew,'#'));
+        if($updateVersion != $upVersionNew){
+            // update Updater first!
+            $updateUpdater = true;
+        }
+    }
     $in = substr($in,strpos($in,'#path#')+6);
     $remotePath = substr($in,0,strpos($in,'#'));
     $file = fopen($remotePath.'update/fileList.list','r');
@@ -33,6 +43,29 @@ if($authLevel == '1111'){
     <script>
         var max = 0;
         var timer;
+        function updateUpdater(){
+            $.ajax({
+                type: 'POST',
+                url: 'copy.php',
+                data: 'path=../update/copy.php&remotePath='+remotePath,
+                success: function(data) {
+                    if(data != "1"){
+                        alert(data);
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'copy.php',
+                        data: 'path=../update/update.php&remotePath='+remotePath,
+                        success: function(data) {
+                            if(data != "1"){
+                                alert(data);
+                            }
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+        }
         function moveFilesNow(){
             max = files.length;
             $('.progressBar').removeClass('hidden');
@@ -47,6 +80,11 @@ if($authLevel == '1111'){
             }
         }
         function init(){
+            <?php
+            if($updateUpdater === true){
+            echo("updateUpdater();");
+            }
+            ?>
             if(files.length == 0){
                 document.getElementsByClassName('button')[0].innerHTML = 'Package up to date.';
                 document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
@@ -94,12 +132,12 @@ if($authLevel == '1111'){
         }
         var files = [];
 <?php
+        echo("var remotePath = '$remotePath';
+");
     if($oldVersion != $version){
         $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#'));
         $in = substr($in,strpos($in,'#file#'));
         $count = 0;
-        echo("var remotePath = '$remotePath';
-");
         while(strpos($remoteIn,'#file#')>-1){
             $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#')+6);
             $path = substr($remoteIn,0,strpos($remoteIn,'#'));

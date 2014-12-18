@@ -6,6 +6,13 @@
 	position:relative;
 	height:30px;
 }
+.calendarPageTitle{
+    position: absolute;
+    font-weight: bold;
+    color: #263238;
+    left: 47%;
+    left: calc(50% - 34px);
+}
 .calendarTerminAdmin{
 	float:right;
 }
@@ -90,7 +97,34 @@
 	left:100px;
 	color:#000;
 	font-weight:bold;
-	background:#FFA54E;
+	background:#ffa726;
+    border: 1px solid #ef6c00;
+}
+.calendarImport{
+    transition:width 500ms,height 500ms;
+    position: absolute;
+    background: #0091ea;
+    color:#fff;
+    padding: 2px;
+    border-radius: 3px;
+    border: 1px solid #01579b;
+    left: 310px;
+    cursor: pointer;
+    z-index: 99;
+    width: 80px;
+    height: 20px;
+    overflow: hidden;
+}
+.calendarImport:hover{
+    background: #0288d1;
+}
+.calendarImport.active{
+    width: 280px;
+    height: 110px;
+}
+.calendarImport.big{
+    width: 500px;
+    height: 800px;
 }
 .calendarPage{
 	position:relative;
@@ -102,4 +136,13 @@
     z-index: 50;
     background: #000;
     opacity: 0.7;
+}
+.calendarYearChooser{
+    position: absolute;
+    left: 44%;
+    left: calc(50% - 38px);
+}
+.calendarYearChooser img{
+    cursor: pointer;
+    height: 20px;
 }

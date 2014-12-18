@@ -21,7 +21,7 @@ if(!isset($_POST['function'])){
     $href = $_POST['href'];
     $plugId = $_POST['id'];
 }
-if($func != 'page' && $func != 'side'){
+if($func != 'pageEvents' && $func != 'side'){
     include "auth.php";
 }
 $lang = $lang==''?'de':$lang;
@@ -33,7 +33,7 @@ $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
 if(!$include && $href != ''){
     include('../../functionsPlugins.php');
-    addHTMLToReplace("{#insertPluginCalendar_$href"."_$lang#}","plugins/calendar/calendar.php?lang=$lang&year=$year&function=page&href=$href");
+    addHTMLToReplace("{#insertPluginCalendar_$href"."_$lang#}","plugins/calendar/calendar.php?lang=$lang&function=page&href=$href");
 }
 if(!$sql){
     echo('sql error');
@@ -68,8 +68,22 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             $options[3] = replaceUml($options[3]);
             $options[4] = replaceUml($options[4]);
             $options[5] = replaceUml($options[5]);
-            $que = "INSERT INTO `".$base."`.`".$table."` (`id`, `year`, `month`, `day`, `name`, `start`, `end`, `place`, `href`) VALUES (NULL,'$year','$month','$day','$options[3]','$options[1]','$options[2]','$options[4]','$options[5]');";
-            echo(mysqli_query($sql, $que) or mysqli_error($sql));
+            $eventExists=false;
+            $id = 0;
+            $que = "SELECT * FROM ".$table." WHERE year='$year' AND month='$month' AND day='$day' AND name='$options[3]'";
+            $erg = mysqli_query($sql, $que) or die(mysqli_error($sql));
+            while($row = mysqli_fetch_array($erg)){
+                if($row['name'] == $options[3]){
+                    $id = $row['id'];
+                    $eventExists = true;
+                }
+            }
+            if($eventExists === false){
+                $que = "INSERT INTO `".$base."`.`".$table."` (`id`, `year`, `month`, `day`, `name`, `start`, `end`, `place`, `href`) VALUES (NULL,'$year','$month','$day','$options[3]','$options[1]','$options[2]','$options[4]','$options[5]');";
+            }else{
+                $que = "UPDATE `".$base."`.`".$table."` SET year='$year',month='$month',day='$day',name='$options[3]',start='$options[1]',end='$options[2]',place='$options[4]',href='$options[5]' WHERE id=$id;";
+            }
+            echo(mysqli_query($sql, $que) or die(mysqli_error($sql)));
         }else{
             echo('missing Options for function!');
         }
@@ -164,7 +178,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
     }else{
         echo('error');
     }
-}else if(substr($func,0,4) == 'edit'){
+}else if(substr($func,0,4) == 'edit' && substr($authLevel,0,1) == '1'){
     $que = "DELETE FROM `".$base."`.`".$table."` WHERE id=".substr($func,7).";";
     echo(mysqli_query($sql, $que) or mysqli_error($sql));
 }else{
@@ -213,10 +227,10 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                     <input type="submit" value=" create " />
                 </form>
             </div>
-        </div>Calendar:<div class="calendarOnPage" onclick="togglePlugin(\'calendar\')">add to page</div></div>
+        </div><div class="calendarPageTitle">Calendar</div><div class="calendarOnPage" onclick="togglePlugin(\'calendar\')">add to page</div></div>
         <div class="calendarAdmin">
             <div class="calendarAddEvent" onclick="showCalendarAddEvent()">Add event</div><div class="calendarViewMode">view mode:');
-        echo("<select id='calendarViewMode'onchange='initPlugin_$plugId(0)'>");
+        echo("<select id='calendarViewMode'onchange='showYear($year)'>");
         if($href=='alle'){
             echo('<option selected>alle</option>');
         }else{
@@ -243,7 +257,9 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             echo('<option>Atemschutz</option>');
         }
         echo('</select>
-        </div>
+        </div><div class="calendarImport" onclick="$(\'.calendarImport\').toggleClass(\'active\').removeClass(\'big\');document.getElementById(\'uploadFrame1000\').src=\'plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'\'"><div>Import</div><div class="calendarImportUpload">
+        <iframe id="uploadFrame1000" src="plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'" width="500" height="1000" frameborder="no" border="0" scrolling="no"></iframe>
+        </div></div><div class="calendarYearChooser"><img src="images/left.png" style="float:left" onclick="showYear('.($year-1).')" />'.$year.'<img src="images/right.png" style="float:right" onclick="showYear('.($year+1).')" /></div>
         </div>');
         echo('<div class="calendar">');
         for($month=1;$month<13;$month++){
@@ -265,8 +281,11 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             echo("</div>");
         }
         echo('</div>');
-    }else if($func == 'page'){
-        echo('<div class="calendar">');
+    }else if($func == 'page' && substr($authLevel,0,1) == '1'){
+        echo("<div class='calendar'><div id='calendarHref'>$href</div>");
+        echo("<div class='calendarYearChooser'><span class='calendarYearChooserTitle'>$year</span></div>");
+        echo('<div class="calendarContent"></div></div>');
+    }else if($func == 'pageEvents'){
         for($month=1;$month<13;$month++){
             echo("<div class='calendarTitle'>$months[$month] <img src='images/menuOptions.png' height='18' class='imgRotate imgRotated' onclick='$(this).toggleClass(\"imgRotated\");$(\"#calendarGroup$month\").toggleClass(\"invisible\")' />");
             echo("<div id='calendarGroup$month' class='calendarGroup'>");
@@ -284,42 +303,60 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             }
             echo("</div></div>");
         }
-        echo('</div>');
     }else if($func == 'side'){
-        $year = date('Y');
+        $que = "SELECT * FROM ".$table." WHERE 1";
+        $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
+        $event = Array();
+        $i=1;
+        while($row = mysqli_fetch_array($erg)){
+            $eventCount = sizeof($event[$row['year']][$row['month']][$row['day']]);
+            $eventCount = $eventCount == ''?0:$eventCount;
+            $event[$row['year']][$row['month']][$row['day']][$eventCount]['id'] = $row['id'];
+            $event[$row['year']][$row['month']][$row['day']][$eventCount]['name'] = $row['name'];
+            $event[$row['year']][$row['month']][$row['day']][$eventCount]['start'] = $row['start'];
+            $event[$row['year']][$row['month']][$row['day']][$eventCount]['end'] = $row['end'];
+            $event[$row['year']][$row['month']][$row['day']][$eventCount]['place'] = $row['place'];
+            $event[$row['year']][$row['month']][$row['day']][$eventCount]['href'] = $row['href'];
+        }
+        mysqli_free_result($erg);
         $count = 1;
         $maxCount = $_POST['maxCount'];
         $maxCount = $maxCount<3?3:$maxCount;
         echo('<div class="calendarSiteHeader">Termin&uuml;bersicht</div>');
-        for($month=date('n');$month<13;$month++){
-            for($day=1;$day<32;$day++){
-                if(sizeof($event[$year][$month][$day]) > 0){
-                    if($month == date('n') && $day < date('j')){
-                    }else{
-                        for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){
-                            $dayO = $day < 10?'0'.$day:$day;
-                            $monthO = $month < 10?'0'.$month:$month;
-                            switch($event[$year][$month][$day][$i]['href']){
-                                case 'alle':
-                                    $images = '<img src="plugins/calendar/images/helm_aktive.jpg" height="20" title="aktive" /><img src="plugins/calendar/images/helm_jugend.jpg" height="20" title="jugend" />';
-                                    break;
-                                case 'jugend':
-                                    $images = '<img src="plugins/calendar/images/helm_jugend.jpg" height="20" title="jugend" />';
-                                    break;
-                                case 'aktive':
-                                    $images = '<img src="plugins/calendar/images/helm_aktive.jpg" height="20" title="aktive" />';
-                                    break;
-                            }
-                            echo("<div class='calendarSiteTitle'>$dayO.$monthO.$year</div><div class='calendarSiteInner'><div style='float:left'>$images</div>".$event[$year][$month][$day][$i]['name'].'</div>
+        $maxYear = 2020;
+        $startMonth = date('n');
+        for($year = date('Y');$year<$maxYear;$year++){
+            for($month=$startMonth;$month<13;$month++){
+                for($day=1;$day<32;$day++){
+                    if(sizeof($event[$year][$month][$day]) > 0){
+                        if($month == date('n') && $day < date('j')){
+                        }else{
+                            for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){
+                                $dayO = $day < 10?'0'.$day:$day;
+                                $monthO = $month < 10?'0'.$month:$month;
+                                switch($event[$year][$month][$day][$i]['href']){
+                                    case 'alle':
+                                        $images = '<img src="plugins/calendar/images/helm_aktive.jpg" height="20" title="aktive" /><img src="plugins/calendar/images/helm_jugend.jpg" height="20" title="jugend" />';
+                                        break;
+                                    case 'jugend':
+                                        $images = '<img src="plugins/calendar/images/helm_jugend.jpg" height="20" title="jugend" />';
+                                        break;
+                                    case 'aktive':
+                                        $images = '<img src="plugins/calendar/images/helm_aktive.jpg" height="20" title="aktive" />';
+                                        break;
+                                }
+                                echo("<div class='calendarSiteTitle'>$dayO.$monthO.$year</div><div class='calendarSiteInner'><div style='float:left'>$images</div>".$event[$year][$month][$day][$i]['name'].'</div>
     <div class="calendarSiteTime">'.$event[$year][$month][$day][$i]['start'].' Uhr</div>');
-                            if(++$count > $maxCount){
-                                $month = 99;
-                                $day = 99;
+                                if(++$count > $maxCount){
+                                    $month = 99;
+                                    $day = 99;
+                                }
                             }
                         }
                     }
                 }
             }
+            $startMonth = 1;
         }
         if($count > $maxCount){
             $maxCount+=3;

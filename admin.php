@@ -154,8 +154,8 @@ if(substr($authLevel,0,1) == "1"){
     <script src="ckeditor/ckeditor.js"></script>
     <script>
         var startHTML = '';
-        var pageId = <?php if($id>0){echo($id);}else{echo("'$id'");}?>;
-        var lang = '<?php echo($lang);?>';
+        pageId = <?php if($id>0){echo($id);}else{echo("'$id'");}?>;
+        lang = '<?php echo($lang);?>';
         var showPlugIn = false;
         var showUsers = false;
         <?php

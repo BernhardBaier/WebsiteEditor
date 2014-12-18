@@ -43,14 +43,33 @@ function postInit(){
     }
     window.setTimeout('initPicViewer()',25);
 }
+function showYear(year){
+    var href = document.getElementById('calendarHref').innerHTML;
+    var date = new Date();
+    var now = date.getFullYear();
+    if(year == 0){
+        year = now;
+    }
+    $.ajax({
+        type: 'POST',
+        url: 'plugins/calendar/calendar.php',
+        data: 'year='+year+'&function=pageEvents&href='+href+'&id=1&lang='+lang,
+        success: function(data) {
+            $('.calendarContent').html(data);
+            if(year == now){
+                for(var i = 1;i <= date.getMonth();i++){
+                    document.getElementsByClassName('imgRotate')[i-1].className = 'imgRotate';
+                    document.getElementById('calendarGroup'+i).className = 'calendarGroup invisible';
+                }
+            }
+        }
+    });
+    $('.calendarYearChooserTitle').html("<div class='arrow-left' onclick='showYear("+(year-1)+")'></div>"+year+"<div class='arrow-right' onclick='showYear("+(year+1)+")'></div>");
+}
 function initCalendarPage(){
     try{
         if($('.calendar').html() != ''){
-            var date = new Date();
-            for(var i = 1;i <= date.getMonth();i++){
-                document.getElementsByClassName('imgRotate')[i-1].className = 'imgRotate';
-                document.getElementById('calendarGroup'+i).className = 'calendarGroup invisible';
-            }
+            showYear(0);
         }
     }catch (ex){}
 }

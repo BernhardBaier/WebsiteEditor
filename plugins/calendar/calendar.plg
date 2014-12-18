@@ -6,6 +6,8 @@
 #required#
 #file#images/logo.png#
 #file#images/logo.png#
+#file#images/helm_aktive.jpg#
+#file#images/helm_jugend.jpg#
 #file#access.crypt#
 #file#access.php#
 #file#auth.php#
@@ -14,6 +16,7 @@
 #file#stylePluginCalendar.css#
 #file#style.css#
 #file#icalParser.php#
+#file#upload.php#
 #includes#
 #file#stylePluginCalendar.css#
 #end#

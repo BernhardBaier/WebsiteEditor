@@ -233,7 +233,7 @@ while($pos > -1){
         </div>
      </div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="scriptHTML5.min.js"></script>
+	<script src="scriptHTML5.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
     <script src="spin.min.js" async></script>
     <link rel="stylesheet" href="commonStyle.min.css"/>
