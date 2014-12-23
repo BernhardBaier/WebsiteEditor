@@ -50,6 +50,7 @@ function showYear(year){
     if(year == 0){
         year = now;
     }
+    $('.calendarLoading').removeClass('hidden');
     $.ajax({
         type: 'POST',
         url: 'plugins/calendar/calendar.php',
@@ -62,6 +63,7 @@ function showYear(year){
                     document.getElementById('calendarGroup'+i).className = 'calendarGroup invisible';
                 }
             }
+            $('.calendarLoading').addClass('hidden');
         }
     });
     $('.calendarYearChooserTitle').html("<div class='arrow-left' onclick='showYear("+(year-1)+")'></div>"+year+"<div class='arrow-right' onclick='showYear("+(year+1)+")'></div>");
@@ -69,6 +71,26 @@ function showYear(year){
 function initCalendarPage(){
     try{
         if($('.calendar').html() != ''){
+            var opts = {
+                lines: 12,
+                length: 8,
+                width: 4,
+                radius: 12,
+                corners: 1,
+                rotate: 0,
+                direction: 1,
+                color: '#000',
+                speed: 1.2,
+                trail: 75,
+                shadow: false,
+                hwaccel: false,
+                className: 'spinner',
+                zIndex: 9,
+                top: '50px',
+                left: '50%'
+            };
+            var target = document.getElementById('loadingImgCal');
+            var spinner = new Spinner(opts).spin(target);
             showYear(0);
         }
     }catch (ex){}

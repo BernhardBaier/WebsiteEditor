@@ -282,7 +282,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         }
         echo('</div>');
     }else if($func == 'page' && substr($authLevel,0,1) == '1'){
-        echo("<div class='calendar'><div id='calendarHref'>$href</div>");
+        echo("<div class='calendar'><div class='calendarLoading'>Loading<div id='loadingImgCal' style='height:40px;width:40px'></div></div><div id='calendarHref'>$href</div>");
         echo("<div class='calendarYearChooser'><span class='calendarYearChooserTitle'>$year</span></div>");
         echo('<div class="calendarContent"></div></div>');
     }else if($func == 'pageEvents'){

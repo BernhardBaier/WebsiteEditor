@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.0";
+    $updateVersion = "2.1";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -95,6 +95,10 @@ if($authLevel == '1111'){
             }else{
                 timer = window.setTimeout('moveOneFile(1)',15000);
                 moveOneFile(0);
+                var maxThreads = 5;
+                for(var j=1;j<maxThreads;j++){
+                    window.setTimeout('moveOneFile(nextFileToMove)',100*j);
+                }
             }
         }
         function init(){
@@ -108,26 +112,33 @@ if($authLevel == '1111'){
                 document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
             }
         }
+        var nextFileToMove = 0;
+        var threadsRunning = 0;
+        var filesMoved = 0;
         function moveOneFile(i){
+            threadsRunning++;
+            nextFileToMove = i + 1;
             $('.file').html('Copying file '+files[i].substr(2));
             try{
                 window.clearTimeout(timer);
             }catch (ex){}
-            timer = window.setTimeout('moveOneFile('+(i+1)+')',15000);
+            timer = window.setTimeout('moveOneFile('+(nextFileToMove)+')',15000);
             $.ajax({
                 type: 'POST',
                 url: 'copy.php',
                 data: 'path='+files[i]+'&remotePath='+remotePath,
                 success: function(data) {
+                    threadsRunning--;
                     window.clearTimeout(timer);
                     if(data!='1'){
                         $('.data').html(data);
                     }
-                    if(i<max-1){
-                        var prog = Math.round((i+1)*100/max)-1;
+                    filesMoved++;
+                    if(nextFileToMove < max){
+                        var prog = Math.round((filesMoved)*100/max)-1;
                         $('.progressBar').html(prog+'%').width(20+prog*10);
-                        moveOneFile(i+1);
-                    }else{
+                        moveOneFile(nextFileToMove);
+                    }else if(threadsRunning == 0){
                         $.ajax({
                             type: 'POST',
                             url: 'copy.php',
