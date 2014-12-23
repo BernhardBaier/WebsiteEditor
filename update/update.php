@@ -94,10 +94,11 @@ if($authLevel == '1111'){
                 $('.data').html('');
             }else{
                 timer = window.setTimeout('moveOneFile(1)',15000);
+                $('.file').html('Copying files:<br>');
                 moveOneFile(0);
-                var maxThreads = 5;
+                var maxThreads = 2;
                 for(var j=1;j<maxThreads;j++){
-                    window.setTimeout('moveOneFile(nextFileToMove)',100*j);
+                    window.setTimeout('moveOneFile(nextFileToMove)',500*j);
                 }
             }
         }
@@ -116,9 +117,12 @@ if($authLevel == '1111'){
         var threadsRunning = 0;
         var filesMoved = 0;
         function moveOneFile(i){
+            if(i==-1){
+                i=nextFileToMove;
+            }
             threadsRunning++;
             nextFileToMove = i + 1;
-            $('.file').html('Copying file '+files[i].substr(2));
+            $('.file').html($('.file').html()+files[i].substr(3)+'<br>');
             try{
                 window.clearTimeout(timer);
             }catch (ex){}
@@ -137,7 +141,7 @@ if($authLevel == '1111'){
                     if(nextFileToMove < max){
                         var prog = Math.round((filesMoved)*100/max)-1;
                         $('.progressBar').html(prog+'%').width(20+prog*10);
-                        moveOneFile(nextFileToMove);
+                        moveOneFile(-1);
                     }else if(threadsRunning == 0){
                         $.ajax({
                             type: 'POST',
