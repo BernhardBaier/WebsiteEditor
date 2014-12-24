@@ -258,7 +258,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         }
         echo('</select>
         </div><div class="calendarImport" onclick="$(\'.calendarImport\').toggleClass(\'active\').removeClass(\'big\');document.getElementById(\'uploadFrame1000\').src=\'plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'\'"><div>Import</div><div class="calendarImportUpload">
-        <iframe id="uploadFrame1000" src="plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'" width="500" height="1000" frameborder="no" border="0" scrolling="no"></iframe>
+        <iframe id="uploadFrame1000" src="plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'" width="500" height="2500" frameborder="no" border="0" scrolling="no"></iframe>
         </div></div><div class="calendarYearChooser"><img src="images/left.png" style="float:left" onclick="showYear('.(intval($year)-1).')" />'.$year.'<img src="images/right.png" style="float:right" onclick="showYear('.(intval($year)+1).')" /></div>
         </div>');
         echo('<div class="calendar">');
@@ -294,7 +294,13 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
                     for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){
                         $dayO = $day < 10?'0'.$day:$day;
                         $monthO = $month < 10?'0'.$month:$month;
-                        if($href == $event[$year][$month][$day][$i]['href'] || $href == 'alle' || $event[$year][$month][$day][$i]['href'] == 'alle'){
+                        $aktive = false;
+                        if($href=='aktive'){
+                            if($event[$year][$month][$day][$i]['href'] == 'Atemschutz' || $event[$year][$month][$day][$i]['href'] == "Maschinisten"){
+                                $aktive = true;
+                            }
+                        }
+                        if($href == $event[$year][$month][$day][$i]['href'] || $href == 'alle' || $event[$year][$month][$day][$i]['href'] == 'alle' || $aktive){
                             echo("<div class='calendarOuter'><div class='calendarTermin'><div class='calendarDate'>$dayO.$monthO.$year</div>".$event[$year][$month][$day][$i]['name'].'
     <div class="calendarTime">'.$event[$year][$month][$day][$i]['start'].' Uhr</div><div class="calendarHref">'.$event[$year][$month][$day][$i]['href'].'</div></div></div>');
                         }

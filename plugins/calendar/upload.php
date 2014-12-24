@@ -78,7 +78,7 @@ if(substr($authLevel,0,1) == '1'){
         display: inline-flex;
         width: 100%;
         position: relative;
-        height: 21px;
+        min-height: 21px;
         border: 1px solid #4fc3f7;
         border-radius: 2px;
         margin: 0 0 1px 0;
@@ -147,7 +147,7 @@ if(isset($_GET['action'])){
     if(move_uploaded_file($_FILES['upfile']['tmp_name'], $path)) {
         include 'icalParser.php';
     }else{
-        echo('error - retry later or retry another file');
+        echo('error uploading file - retry later or retry another file');
     }
     $que = "UPDATE `".$base."`.`".$table."` SET value = '$defaultLocation' WHERE parameter='defaultLocation'";
     $erg = mysqli_query($sql,$que) or die(mysqli_error($sql));
@@ -178,7 +178,7 @@ if(isset($_GET['action'])){
             <select name="belongsTo"><option>alle</option><option>aktive</option><option>jugend</option><option>Maschinisten</option><option>Atemschutz</option></select>
         </label>
     </div>
-    <input type="hidden" name="MAX_FILE_SIZE" value="5000" />
+    <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
     <img src="../../images/gear.png" style="position: absolute;cursor: pointer;left:250px" onclick="$('.importOptions').toggleClass('hidden')" />ICal File:<br>
     <input name="upfile" type="file" /><br>
     <input type="submit" value="parse file" />

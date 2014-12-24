@@ -86,7 +86,7 @@ if(substr($authLevel,0,1) == '1'){
         $summary[$count] = substr($summary[$count],0,strpos($summary[$count],PHP_EOL));
         $loc[$count] = substr($event,strpos($event,"LOCATION")+9);
         $loc[$count] = substr($loc[$count],0,strpos($loc[$count],PHP_EOL));
-        if($loc[$count] == ''){
+        if(str_replace(array("\r\n", "\r", "\n", " "),'',$loc[$count]) == ''){
             $loc[$count] = $defaultLocation;
         }
         if(strpos($event,'RRULE') > -1){
@@ -140,6 +140,43 @@ if(substr($authLevel,0,1) == '1'){
                         }
                     }
                 }
+            }else if(strpos($rule[$i],'WEEKLY') > -1){
+                $rule[$i] = substr($rule[$i],strpos($rule[$i],'WEEKLY')+7);
+                $endDate = false;
+                if(strpos($rule[$i],'UNTIL') > -1){
+                    $rule[$i] = substr($rule[$i],strpos($rule[$i],'UNTIL')+6);
+                    $endDate = substr($rule[$i],0,strpos($rule[$i],';'));
+                    $endDate = substr($endDate,0,8);
+                    $rule[$i] = substr($rule[$i],strpos($rule[$i],';')+1);
+                }
+                $interval = intval(substr($rule[$i],strpos($rule[$i],'=')+1,strpos($rule[$i],';')-(strpos($rule[$i],'=')+1)));
+                $startYear = intval(substr($date[$i],6,4));
+                $startMonth = intval(substr($date[$i],3,2));
+                $startDay = intval(substr($date[$i],0,2));
+                if($endDate!==false){
+                    $endYear = substr($endDate,0,4);
+                    $endMonth = substr($endDate,4,2);
+                    $endDay = substr($endDate,6,2);
+                    echo($endDate);
+                }else{
+                    $endYear = $startYear;
+                    $endMonth = 12;
+                    $endDay = 31;
+                }
+                $continue = true;
+                $daysAdded = 0;
+                while($continue){
+                    $daysAdded += $interval * 7;
+                    $dateN = mktime(0, 0, 0, $startMonth, $startDay+$daysAdded, $startYear);
+                    if(intval(date("Ymd",$dateN)) > intval($endYear.$endMonth.$endDay)){
+                        $continue = false;
+                    }else{
+                        $dateN = date("d.m.Y",$dateN);
+                        $termine[$terminCount] = str_replace(array("\r\n", "\r", "\n"), '','<div class="event">'.$dateN.' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$dateN.'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\')">Add</div></div>');
+                        $terminCount++;
+                    }
+                }
+                $dateCount = 0;
             }
         }
     }
