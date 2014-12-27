@@ -1,8 +1,8 @@
-#version#4.1.48#
+#version#4.1.49#
 #updateVersion#2.1#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
-#file#../content/user.php#date#20141223143759#
-#file#../plugins/access.php#date#20140624210350#
+#file#../content/user.php#date#20141227135046#
+#file#../plugins/access.php#date#20141227140359#
 #file#../plugins/active.png#date#20140624210352#
 #file#../plugins/add.php#date#20140624210354#
 #file#../plugins/browse.php#date#20140624210354#
@@ -20,7 +20,7 @@
 #file#../plugins/calendar/images/helm_aktive.jpg#date#20140805190647#
 #file#../plugins/calendar/images/helm_jugend.jpg#date#20140805190746#
 #file#../plugins/calendar/images/logo.png#date#20140624210404#
-#file#../plugins/settings/access.php#date#20141223143828#
+#file#../plugins/settings/access.php#date#20141227140343#
 #file#../plugins/settings/auth.php#date#20141223143831#
 #file#../plugins/settings/functions.php#date#20141227133211#
 #file#../plugins/settings/include.php#date#20140624210410#
@@ -56,10 +56,10 @@
 #file#../picViewer/picViewer.js#date#20140831181518#
 #file#../picViewer/picViewer.min.css#date#20140814172949#
 #file#../picViewer/picViewer.min.js#date#20140831181620#
-#file#../update/access.php#date#20141227132853#
+#file#../update/access.php#date#20141227140309#
 #file#../update/auth.php#date#20140624210434#
 #file#../update/copy.php#date#20141223143835#
-#file#../update/finish.php#date#20141227133912#
+#file#../update/finish.php#date#20141227140208#
 #file#../update/update.php#date#20141223143838#
 #file#../setup/login.php#date#20140801204116#
 #file#../setup/settings.php#date#20141223143840#
@@ -141,4 +141,4 @@
 #file#../styleHTML5.min.css#date#20141223143940#
 #file#../styleLogin.css#date#20140624210604#
 #file#../styleMobile.css#date#20141223143943#
-#file#../styleMobile.min.css#date#20141223143945#
+#file#../styleMobile.min.css#date#20141227135048#

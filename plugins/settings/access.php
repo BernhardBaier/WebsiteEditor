@@ -42,8 +42,7 @@ if(!function_exists('encrypt')){
     }
 }
 if(!file_exists('access.crypt')){
-    header('Location:setup.php');
-    exit;
+    copy('../access.crypt','access.crypt');
 }else{
     $datei = fopen('access.crypt','r');
     $in = fread($datei,filesize('access.crypt'));

@@ -11,6 +11,9 @@ if($authLevel == '1111'){
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+    if(!$sql){
+        die('authentication failed!');
+    }
     $que = "UPDATE `".$sqlBase."`.`settings` SET value='$version' WHERE parameter='editorVersion'";
     echo(mysqli_query($sql,$que) or die(mysqli_error($sql)));
 }else{
