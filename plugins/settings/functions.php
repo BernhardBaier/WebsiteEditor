@@ -73,13 +73,13 @@ if($authLevel == '1111'){
             while(strpos($input,'#file#') < strpos($input,'#required#')){
                 $input = substr($input,strpos($input,'#file#')+6);
                 $file = substr($input,0,strpos($input,'#'));
-                if(!file_exists('../../'.$file)){
+                if(!file_exists('../'.$file)){
                     $output .= "fatal error could not copy file $file!</br>";
                 }else{
                     if(file_exists($path.$file)){
                         unlink($path.$file);
                     }
-                    copy('../../'.$file,$path.$file);
+                    copy('../'.$file,$path.$file);
                 }
             }
             $input = substr($input,strpos($input,'#required#')+10);

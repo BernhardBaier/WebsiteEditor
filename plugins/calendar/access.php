@@ -5,9 +5,7 @@
  * Date: 20.02.14
  * Time: 11:27
  */
-if(basename($_SERVER["SCRIPT_FILENAME"]) != 'login.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'register.php' && basename($_SERVER["SCRIPT_FILENAME"]) != 'calendar.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'index.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,10) != 'search.php'){
-    include('auth.php');
-}
+include('auth.php');
 if(!function_exists('decrypt')){
     function decrypt($encrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
         // Build a 256-bit $key which is a SHA256 hash of $salt and $password.
