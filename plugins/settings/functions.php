@@ -12,6 +12,16 @@ if($authLevel == '1111'){
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     $function = $_POST['function'];
+    if(!file_exists('access.crypt')){
+        if(!copy('../access.crypt','access.crypt')){
+            die('authentication failed');
+        }
+    }
+    if(!file_exists('auth.php')){
+        if(!copy('../auth.php','auth.php')){
+            die('authentication failed');
+        }
+    }
     switch($function){
         case 'searchPlugins':
             $que = "SELECT * FROM plugins WHERE 1";
