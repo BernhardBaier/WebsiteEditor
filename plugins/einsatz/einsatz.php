@@ -292,7 +292,7 @@ if(substr($authLevel,1,1) == "1"){
             <div class="nav">
                 <a href="einsatz.php" style="float:left">choose id</a>
                 <a href="logout.php" title="Logout" style="float:right;">Logout</a>
-                Einsatz editor version 1.1
+                Einsatz editor version 1.2
             </div>
             <div class="content">
                 <div class="timing">
@@ -312,6 +312,17 @@ if(substr($authLevel,1,1) == "1"){
                         <input type="hidden" name="function" value="createEvent" /><input type="hidden" name="id" value="<?php echo($id);?>" /><input type="hidden" name="maxId" value="<?php echo($maxId);?>" />
                         <input type="hidden" name="adminId" value="<?php echo($adminId);?>" /><input type="hidden" name="lang" value="<?php echo($lang);?>" /><input type="submit" value="Save" />
                     </form>
+                    <?php
+                    if($admin === true){
+                    ?>
+                    <form action="einsatzFunctions.php" method="post">
+                        <input type="hidden" name="function" value="deleteEvent" /><input type="hidden" name="id" value="<?php echo($id);?>" /><input type="hidden" name="maxId" value="<?php echo($maxId);?>" />
+                        <input type="hidden" name="adminId" value="<?php echo($adminId);?>" /><input type="hidden" name="lang" value="<?php echo($lang);?>" />
+                        <input type="hidden" name="editor1" value="" /><input type="submit" value="delete this event" />
+                    </form>
+                    <?php
+                    }
+                    ?>
                     Available pictures: (add per Drag & Drop)
                     <div class="filePreview">none</div>
                 </div>
@@ -325,7 +336,7 @@ if(substr($authLevel,1,1) == "1"){
             <div class="container">
                 <div class="nav">
                     <a href="../../logout.php" title="Logout" style="float:right;">Logout</a>
-                    Einsatz editor version 1.0
+                    Einsatz editor version 1.2
                 </div>
                 <div class="content">
                     <div class="timing">
