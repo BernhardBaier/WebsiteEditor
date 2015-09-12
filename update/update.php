@@ -76,10 +76,17 @@ if($authLevel == '1111'){
                         url: 'copy.php',
                         data: 'path=../update/update.php&remotePath='+remotePath,
                         success: function(data) {
-                            if(data != "1"){
-                                alert(data);
-                            }
-                            window.location.href='update.php?forceUpdate=true&action=updateFileList';
+                            $.ajax({
+                                type: 'POST',
+                                url: 'copy.php',
+                                data: 'path=../update/style.css&remotePath='+remotePath,
+                                success: function(data) {
+                                    if(data != "1"){
+                                        alert(data);
+                                    }
+                                    window.location.href='update.php?forceUpdate=true&action=updateFileList';
+                                }
+                            });
                         }
                     });
                 }
