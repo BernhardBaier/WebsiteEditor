@@ -5,7 +5,9 @@
  * Date: 20.02.14
  * Time: 11:27
  */
-include('auth.php');
+if(basename($_SERVER["SCRIPT_FILENAME"]) != 'calendar.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,9) != 'index.php' && substr(basename($_SERVER["SCRIPT_FILENAME"]),0,10) != 'search.php'){
+    include('auth.php');
+}
 if(!function_exists('decrypt')){
     function decrypt($encrypted, $password, $salt='!kQm*fF3pXe1Kbm%9') {
         // Build a 256-bit $key which is a SHA256 hash of $salt and $password.
@@ -39,13 +41,13 @@ if(!function_exists('encrypt')){
         return $iv_base64 . $encrypted;
     }
 }
-if(!file_exists('access.crypt')){
-    header('Location:setup.php');
-    exit;
+if(!file_exists('../access.crypt')){
+    copy('../access.crypt','access.crypt');
 }else{
-    $datei = fopen('access.crypt','r');
-    $in = fread($datei,filesize('access.crypt'));
+    $datei = fopen('../access.crypt','r');
+    $in = fread($datei,filesize('../access.php'));
     fclose($datei);
+    $datei = '';
     $in = decrypt($in,'2t8yamSQupnBd47s2j4n');
     $in = substr($in,6);
     $sqlBase = substr($in,0,strpos($in,'#'));

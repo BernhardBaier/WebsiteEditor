@@ -8,7 +8,18 @@
     position:absolute;
     right:24px;
     top:3px;
-    color:#555;
+    color:#000;
+}
+.fileBrowserOptions{
+    display:inline-flex;
+    float:right;
+    cursor:pointer
+}
+.fileBrowserOptions img{
+    opacity: 0.4;
+}
+.fileBrowserOptions:hover img{
+    opacity: 0.8;
 }
 .leftFolders{
     transition:height 500ms;
@@ -17,7 +28,7 @@
     height:266px;
     overflow-y:auto;
     padding:2px;
-    background:#ffe0b2;
+    background:#cfd8dc;
 }
 .fileBLeft{
     min-width:100px;
@@ -44,15 +55,25 @@
     cursor:pointer;
     border:0 dotted #222;
     border-bottom-width:1px;
+    padding-left: 20px
+}
+.folderInner img{
+    position: absolute;
+    height: 18px;
+    left: 5px;
+    opacity: 0.4;
+}
+.folderInner:hover img{
+    opacity: 0.75;
 }
 .folderInner:hover{
-    background:#ffcc80;
+    background:#b0bec5;
 }
 .folderInner.active{
-    background:#72d572;
+    background:#b0bec5;
 }
 .folderInner.active:hover{
-    background:#42bd41;
+    background:#90a4ae;
 }
 .prevImg{
     padding:4px;
@@ -86,10 +107,11 @@
 .multipleOptionsOuter{
     position:absolute;
     width:101px;
-    background:#4e6cef;
-    border:1px solid #2a36b1;
+    background:#607d8b;
+    border:1px solid #263238;
     border-radius:2px;
     padding: 1px;
+    z-index: 5;
 }
 .multipleOptionsInner{
     position:relative;
@@ -110,8 +132,14 @@
     font-size:14px;
     cursor:pointer;
 }
+.multipleOptionsItem img{
+    opacity: 0.3;
+}
 .multipleOptionsItem:hover{
     background:#bdbdbd;
+}
+.multipleOptionsItem:hover img{
+    opacity:0.6;
 }
 
 .fileInnerFile{
@@ -140,8 +168,14 @@
     font-size:14px;
     cursor:pointer;
 }
+.picHandler img{
+    opacity: 0.4;
+}
 .picHandler:hover{
     background:#bdbdbd;
+}
+.picHandler:hover img{
+    opacity: 0.8;
 }
 .picHandlerImg{
 	position:  absolute;
@@ -151,16 +185,16 @@
 	float: right;
 }
 .renamePic{
-    background:#EEE;
-    border:1px solid #9e9e9e;
+    border:1px solid #263238;
+    background:#cfd8dc;
 }
 .deletePic{
     background:#f9bdbb;
     border:1px solid #e51c23;
 }
-.insertPic{
-    background:#bdbdbd;
-    border:1px solid #616161;
+.insertPic {
+    border: 1px solid #263238;
+    background: #cfd8dc;
 }
 .galeryMakerOuter{
     transition:right 1s;
@@ -169,7 +203,7 @@
     right:0;
     width:50%;
     height:100%;
-    background:#0d5302;
+    background:#90a4ae;
 }
 .width0{
     width:0;
@@ -182,7 +216,7 @@
 }
 .galeryMakerTitle{
     text-align:center;
-    color:#EEE;
+    color:#000;
     font-size:25px;
 }
 .galMakerImg{
@@ -201,16 +235,16 @@
 .galeryMakerButton{
     text-align:center;
     padding:3px;
-    background:#757575;
+    background:#78909c;
     color:#FFF;
     font-size:20px;
     border-radius:5px;
-    border:1px solid #424242;
+    border:1px solid #263238;
     cursor:pointer;
     margin:0 7px;
 }
 .galeryMakerButton:hover{
-    background:#666;
+    background:#607d8b;
 }
 .galeryMakerImg{
     position:absolute;
@@ -222,24 +256,35 @@
     transition:opacity 250ms,height 250ms;
     -webkit-transition:opacity 250ms,height 250ms;
     position:absolute;
-    background:#757575;
+    background:#b0bec5;
     right:5px;
     top:37px;
     font-size:17px;
     overflow-y:hidden;
     padding:5px;
     border-radius:0 0 5px 5px;
-    border:3px solid #0d5302;
+    border:3px solid #90a4ae;
 }
 .galeryMakerOptions div{
-    padding:2px;
+    color: #000;
+    padding:2px 22px 2px 2px;
     margin:1px;
-    border:1px solid #bdbdbd;
+    text-align:left;
+    border:1px solid #eceff1;
     border-radius:3px;
     cursor:pointer;
+    position: relative;
+}
+.galeryMakerOptions div img{
+    position: absolute;
+    right: 0;
+    opacity: 0.4;
 }
 .galeryMakerOptions div:hover{
-    background:#555;
+    background:#cfd8dc;
+}
+.galeryMakerOptions div:hover img{
+    opacity:0.8;
 }
 
 .browserType{

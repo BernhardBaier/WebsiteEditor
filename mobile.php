@@ -23,7 +23,7 @@ $table = 'pages_'.$lang;
 $hostname = $_SERVER['HTTP_HOST'];
 $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
-$que = "SELECT * FROM settings WHERE parameter='pageTitle'";
+$que = "SELECT * FROM settings WHERE parameter='pageTitle_$lang'";
 $erg = mysqli_query($sql,$que);
 while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
@@ -198,7 +198,7 @@ while($row = mysqli_fetch_array($erg)){
         <a href="index.php?id=impress&lang=<?php echo($lang);?>" style="float: right">Impressum&nbsp;</a>
     </div>
     <div class="copyright">
-        Copyright &copy; 2014 <?php echo($pageTitle)?>
+        Copyright &copy; 2014  - <?php echo(date('Y').' '.$pageTitle);?>
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

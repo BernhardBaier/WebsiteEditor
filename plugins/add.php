@@ -67,13 +67,13 @@ $input = substr($input,strpos($input,'#required#')+10);
 while(strpos($input,'#file#') < strpos($input,'#includes#') && strpos($input,'#file#') > -1){
     $input = substr($input,strpos($input,'#file#')+6);
     $file = substr($input,0,strpos($input,'#'));
-    if(!file_exists($path.$file)){
-        $output .= "could not find file $file!</br>";
+    if(!file_exists('../'.$file)){
+        $output .= "fatal error could not copy file $file!</br>";
     }else{
-        $pos = findInArray($files,$file);
-        if($pos>-1){
-            array_splice($files,$pos,1);
+        if(file_exists($path.$file)){
+            unlink($path.$file);
         }
+        copy('../'.$file,$path.$file);
     }
 }
 if(sizeof($files)>0){

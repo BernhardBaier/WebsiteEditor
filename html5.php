@@ -40,13 +40,13 @@ $table = 'pages_'.$lang;
 $hostname = $_SERVER['HTTP_HOST'];
 $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
-$que = "SELECT * FROM settings WHERE parameter='pageTitle'";
+$que = "SELECT * FROM settings WHERE parameter='pageTitle_$lang'";
 $erg = mysqli_query($sql,$que);
 while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 function printMenu($sql,$n_parent=0,$level=0){
-    global $table,$parents,$lang,$prev,$preview;
+    global $table,$parents,$lang,$prev,$preview,$authLevel;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
     $erg = mysqli_query($sql,$que);
     $rows = array();
@@ -61,7 +61,7 @@ function printMenu($sql,$n_parent=0,$level=0){
         $extra = $row['extra'];
         $name = $row['name'];
         $childCount = $row['childCount'];
-        if($extra == "1" || $preview == 'true'){
+        if($extra == "1" || ($preview == 'true' && substr($authLevel,0,1) == "1")){
             if($parent == 0){
                 $classToAdd = findInArray($parents,$pid)>-1?' active':'';
                 $level++;
@@ -239,10 +239,9 @@ while($pos > -1){
     <link rel="stylesheet" href="commonStyle.min.css"/>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
-	<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
-    <link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' />
-    <!--#end#-->
+    
+    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' /><!--#end#-->
 </div>
 </body>
 </html>

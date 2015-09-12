@@ -86,22 +86,24 @@ if(!isset($authLevel)){
     include('../auth.php');
 }
 if($authLevel == '1111'){
+	$lang = $_GET['lang'];
+	$lang = $lang == "" ? "de" : $lang;
 	if($_GET['action'] == 'deleteLogo'){
 		unlink('../images/logo.png');
-		header('Location: ../setup.php?id=settings');
+		header('Location: ../setup.php?id=settings&lang='.$lang);
 		exit;
 	}else if($_GET['action'] == 'upload'){
 		if(substr(basename($_FILES['upfile']['name']),-3) == 'png'){
 			$uploadFile = '../upload/logo.png';
 			if(move_uploaded_file($_FILES['upfile']['tmp_name'], $uploadFile)) {
-				header('Location: settings.php?action=moveFile');
+				header('Location: settings.php?action=moveFile&lang='.$lang);
 				exit;
 			}else{
-                header('Location: ../setup.php?id=settings&upload=could not move file!');
+                header('Location: ../setup.php?id=settings&lang='.$lang.'&upload=could not move file!');
                 exit;
             }
 		}else{
-            header('Location: ../setup.php?id=settings&upload=only png files allowed here!');
+            header('Location: ../setup.php?id=settings&lang='.$lang.'&upload=only png files allowed here!');
             exit;
         }
 	}else if($_GET['action'] == 'moveFile'){
@@ -110,13 +112,13 @@ if($authLevel == '1111'){
 			if($checkSize[1] > 90){
 				if(resizeImage("../upload/logo.png","../images/logo.png",90)){
 					unlink('../upload/logo.png');
-					header('Location: ../setup.php?id=settings');
+					header('Location: ../setup.php?id=settings&lang='.$lang);
 					exit;
 				}
 			}else{
 				if(copy('../upload/logo.png','../images/logo.png')){
 					unlink('../upload/logo.png');
-					header('Location: ../setup.php?id=settings');
+					header('Location: ../setup.php?id=settings&lang='.$lang);
 					exit;
 				}
 			}
@@ -130,10 +132,10 @@ if($authLevel == '1111'){
 		$hostname = $_SERVER['HTTP_HOST'];
 		$host = $hostname == 'localhost'?$hostname:$sqlHost;
 		$sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
-		changeValue('pageTitle',$pageTitle);
+		changeValue('pageTitle_'.$lang,$pageTitle);
 		changeValue('languageSupport',$multiLang);
 		changeValue('autoUpdate',$autoUpdate);
-		header('Location: ../setup.php?id=settings');
+		header('Location: ../setup.php?id=settings&lang='.$lang);
 		exit;
 	}
 	$hostname = $_SERVER['HTTP_HOST'];
@@ -142,7 +144,7 @@ if($authLevel == '1111'){
 	if(!$sql){
 		echo('sql error');
 	}else{
-		$que = "SELECT * FROM settings WHERE parameter='pageTitle'";
+		$que = "SELECT * FROM settings WHERE parameter='pageTitle_$lang'";
 		$erg = mysqli_query($sql,$que);
 		while($row = mysqli_fetch_array($erg)){
 			$pageTitle = $row['value'];
@@ -234,13 +236,13 @@ if(isset($_GET['upload'])){
 		echo('Logo: <img src="images/logo.png" height="45" /> <input type="button" onclick="location.href=\'setup/settings.php?action=deleteLogo\'" value="change logo"/>');
 	}
 	?><br>
-	<form action="setup/settings.php?action=change" method="post">
+	<form action="setup/settings.php?action=change&lang=<?php echo($lang);?>" method="post">
 		<label>Title of the website: <input type="text" name="pageTitle" placeholder="title" value="<?php echo($pageTitle);?>" /></label><br>
 		<label><input type="checkbox" name="multiLang" <?php echo($multiLang);?> /> multi language support</label><br>
 		<label><input type="checkbox" name="autoUp" <?php echo($autoUpdate);?> /> automatic updates</label><br>
 		<input type="submit" value="change" />
 	</form>
-    <div class="buttonCenter"><a href="editor.php?lang=<?php echo($_GET['lang']);?>&id=impress">edit impress</a></div>
+    <div class="buttonCenter"><a href="editor.php?lang=<?php echo($lang);?>&id=impress">edit impress</a></div>
 </div>
 <div class="buttonSet"><div class="buttonLeft" onclick="showNotification()">Change SQL Data</div><div class="buttonRight" onclick="location.href='admin.php'">go back to admin panel</div></div>
 <?php

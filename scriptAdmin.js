@@ -302,9 +302,9 @@ function showGroupe(id){
 }
 function showOptions(id,name,parent,rank){
     if(document.getElementById('menuOptions'+id).className.search('hidden') > -1){
-        $('#menuOptions'+id).html('<div class="menuOptionsItem"><a href="javascript:showRename('+id+',\''+name+'\')">rename</a><img src="images/pencil.png" class="menuOptionImg"/></div><div class="menuOptionsItem"><a href="javascript:showDelete('+id+',\''+name+'\')">delete</a><img src="images/bin.png" class="menuOptionImg"/></div><div class="menuOptionsItem"><a href="javascript:showAddSubPage('+id+',\''+name+'\')">add sub page</a></div>').removeClass('hidden');
+        $('#menuOptions'+id).html('<div class="menuOptionsItem"><a title="rename page '+name+'" href="javascript:showRename('+id+',\''+name+'\')">rename<img src="images/pencil.png" class="menuOptionImg"/></a></div><div class="menuOptionsItem"><a title="delete page '+name+'" href="javascript:showDelete('+id+',\''+name+'\')">delete<img src="images/bin.png" class="menuOptionImg"/></a></div><div class="menuOptionsItem"><a title="add a sub page to '+name+'" href="javascript:showAddSubPage('+id+',\''+name+'\')">add sub page</a></div>').removeClass('hidden');
         if(parent > 0){
-            document.getElementById('menuOptions'+id).innerHTML += '<div class="menuOptionsItem"><a href="javascript:showAddEqualPage('+parent+','+(rank+1)+',\''+name+'\')">add page</a></div>';
+            document.getElementById('menuOptions'+id).innerHTML += '<div class="menuOptionsItem"><a title="add a page after '+name+'" href="javascript:showAddEqualPage('+parent+','+(rank+1)+',\''+name+'\')">add page</a></div>';
         }
        document.getElementById('menuOptionsImg'+id).src = "images/calendarHide.png";
     }else{
@@ -1032,10 +1032,47 @@ function showPlugins(){
 }
 
 function showInsertLink(){
-    $('.insertLink').html('<lable>choose link type: <select onchange="changeInsertLinkType(this)"><option selected>Text link</option><option>Picture link</option><option>Link to a gallery</option></select></lable><br/><div class="insertLinkInner"></div>');
+    $('.insertLink').html('<lable>choose link type: <select onchange="changeInsertLinkType(this)"><option selected>Text link</option><option>Link to a gallery</option></select></lable><br/><div class="insertLinkInner"></div>');
     $('.overlay').removeClass('opac0 hidden');
     $('.insertLinkOuter').removeClass('hidden').css('left',$('.leftBar').width()+115);
     showInsertLinkToPage();
+}
+function showAddPictureLink(){
+	$('.insertPicLink').removeClass('opac0 hidden');
+	$.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=clickAbleMenu:addLinkToPicture($pid,this):'+lang,
+        success: function(data) {
+            $(".insertPicLinkMenue").html(data);
+        }
+    });
+}
+function addLinkToPicture(id,th){
+	var oldHTML = $('#htmlToInsert').html();
+	var text = document.getElementById('linkTextToInsert').value;
+	var newHTML = "";
+	if(oldHTML.search('<a ') > -1){
+		newHTML = oldHTML.substr(0,oldHTML.search('href')+6);
+		newHTML += "index.php?id="+id+"&lang="+lang + oldHTML.substr(oldHTML.search(' title')-1);
+		$('#htmlToInsert').html(newHTML);
+		oldHTML = newHTML;
+		newHTML = oldHTML.substr(0,oldHTML.search(' title')+8);
+		newHTML += text + oldHTML.substr(oldHTML.search('>')-1);
+		$('#htmlToInsert').html(newHTML);
+		showNotification('Link replaced',1500);
+	} else {
+		$('#htmlToInsert').html("<a href='index.php?id="+id+"&lang="+lang+"' title='"+text+"'>"+oldHTML+"</a>");
+		showNotification('Link added',1500);
+	}
+}
+function removeLinkFromPicture(){
+	var oldHTML = $('#htmlToInsert').html();
+	if(oldHTML.search('</a>') > -1){
+		oldHTML = oldHTML.substr(oldHTML.search('>')+1);
+		$('#htmlToInsert').html(oldHTML.replace("</a>",""));
+		showNotification('Link removed',1500);
+	}
 }
 function changeInsertLinkType(th){
     switch (th.selectedIndex){
@@ -1043,9 +1080,6 @@ function changeInsertLinkType(th){
             showInsertLinkToPage()
             break;
         case 1:
-            showInsertPictureLink();
-            break;
-        case 2:
             showInsertLinkToGallery();
             break;
     }
@@ -1066,9 +1100,6 @@ function insertLinkToPage(id,th){
     $('.pageMenuItem').removeClass('active');
     hideInsertLink();
 
-}
-function showInsertPictureLink(){
-    $('.insertLinkInner').html('function not ready jet!');
 }
 function showInsertLinkToGallery(){
     $.ajax({
@@ -1217,7 +1248,7 @@ function pageTourStep(step){
             $('.tourText').css('top',10).css('left',leftWidth-10).html('over here we have one menuitem<br/>you can change it\'s position via drag & drop<br/>by clicking on the name you can edit the page<br/><div class="tourBut tourLeft" onclick="pageTourStep('+(step-1)+')">go back</div><div class="tourBut" onclick="pageTourStep('+(step+1)+')">proceed</div></div>');
             break;
         case 13:
-            $('.tourBox').width(59).height(22).css('left',leftWidth-78).css('top',32);
+            $('.tourBox').width(46).height(22).css('left',leftWidth-65).css('top',32);
             $('.tourText').css('top',10).css('left',leftWidth-10).html('the eye shows the visibility of the page<br/>by clicking on the arrow you get more options for this item like rename, delete or add sup pages<br/><div class="tourBut tourLeft" onclick="pageTourStep('+(step-1)+')">go back</div><div class="tourBut" onclick="pageTourStep('+(step+1)+')">proceed</div></div>');
             break;
         case 14:

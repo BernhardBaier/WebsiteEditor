@@ -84,6 +84,10 @@ p{
     transition:transform 1s;
     -webkit-transition:-webkit-transform 1s;
     cursor:pointer;
+    opacity: 0.4;
+}
+.imgRotate:hover{
+    opacity: 0.8;
 }
 .imgRotated{
     transform:rotate3D(0,0,1,180deg);

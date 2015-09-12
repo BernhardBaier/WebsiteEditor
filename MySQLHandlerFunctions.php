@@ -290,8 +290,8 @@ if(!function_exists("printMenu")){
             $name = $row['name'];
             $childCount = $row['childCount'];
             $childsChildCount = getValueById($pid,"childCount",$sql);
-            $option = $extra == 1?"<img src='images/eye.png' height='18' title='visible' onclick='setVisibility($pid,0)' />":"<span id='visibImg$pid'><img src='images/eyeHid.png' height='18' title='invisible' onclick='setVisibility($pid,1)' /></span>";
-            $option2 = $childsChildCount == 0?"<img src='images/listicon.png' height='18' class='menuItemImg' />":"<img src='images/minus.png' title='hide group' onclick='hideGroupe($pid)' />";
+            $option = $extra == 1?"<img src='images/eye.png' title='visible' onclick='setVisibility($pid,0)' />":"<span id='visibImg$pid'><img src='images/eyeHid.png' title='invisible' onclick='setVisibility($pid,1)' /></span>";
+            $option2 = $childsChildCount == 0?"<img src='images/listicon.png' id='menuItemImg' />":"<img src='images/minus.png' title='hide group' onclick='hideGroupe($pid)' />";
             if($childsChildCount != 0){
                 echo("<ul id='menGrpIn$pid' class='hidden'><li><div class='menuItemHidden'><img src='images/plus.png' class='menuItemImg' onclick='showGroupe($pid)' title='show group' />&nbsp;&nbsp;<a href='admin.php?id=$pid&lang=$lang'>$name</a></div></li></ul>");
             }
@@ -302,7 +302,7 @@ if(!function_exists("printMenu")){
                             <div class='menuItemInner' id='menuItem".$counter."' draggable='true' ondragstart='handleDragStart(event)' ondragenter='handleDragEnter(event)' ondragover='handleDragOver(event)'
                                  ondragend='handleDragEnd(event)'><a id='menuItem".$counter."' href='admin.php?id=$pid&lang=$lang'>$name</a><div id='menuItemInfo".$counter++."' class='hidden'>$pid;$parent;$rank;$name;</div><div class='menuOptions hidden'
                                  id='menuOptions$pid'></div></div>
-                            <div class='menuItemRight'>$option<img src='images/menuOptions.png' height='18' title='options' onclick='$(this).toggleClass(\"imgRotated\");showOptions($pid,\"$name\",$parent,$rank)' class='imgRotate' /></div>
+                            <div class='menuItemRight'>$option<img src='images/menuOptions.png' height='20' title='options' onclick='$(this).toggleClass(\"imgRotated\");showOptions($pid,\"$name\",$parent,$rank)' class='imgRotate' /></div>
                         </div>
                         <div class='menuItem' id='menuItem$counter' draggable='true'>
                             <div id='menuItem".$counter."_1' class='menuItemLeftDrop' draggable='true' ondragenter='handleDragEnter(event)' ondragover='handleDragOver(event)' ondrop='handleDrop(event)'>after</div>

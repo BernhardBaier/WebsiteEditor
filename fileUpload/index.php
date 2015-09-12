@@ -82,11 +82,30 @@ $path = $path==""?"":"&path=".$path;
     .hidden{
         visibility:hidden;
     }
+    .leaveFileUplaod{
+        position:absolute;
+        top:5px;
+        right:5px;
+        padding:5px;
+        background:#90a4ae;
+        border-radius:3px;
+        cursor:pointer;
+        color: #000;
+        border: 1px solid #263238;
+    }
+    .leaveFileUplaod:hover{
+        background: #cfd8dc;
+    }
+    .fileUpload{
+        position:absolute;
+        top:5px;
+        left:calc(50% - 90px);
+    }
 </style>
 </head>
 <body>
-<h1 style="position:absolute;top:5px;left:calc(50% - 90px);">File Upload</h1>
-<div style="position:absolute;top:5px;right:5px;padding:5px;background:#f00;border-radius:3px;cursor:pointer;" title="leave" onclick="leaveUpload()">Leave</div>
+<h1 class="fileUpload">File Upload</h1>
+<div class="leaveFileUplaod" title="leave" onclick="leaveUpload()">Leave</div>
 <div class="waitIcon hidden" id="loadingImg1" style="height:55px;width:55px;background:#FFF;position:absolute;top:5px;right:5px;"></div>
 <script>
     var opts = {

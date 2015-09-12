@@ -57,13 +57,48 @@ function jsMenu($parent=0){
     return $output;
 }
 if(substr($authLevel,0,1) == "1"){
+    $id = $_GET['id'];
+    if($id == ""){
+        $id = 1;
+    }
+    $lang = $_GET['lang'];
+    if($lang == "" || !in_array($lang,$languages)){
+        $lang = 'de';
+    }
+    if(!is_dir('content')){
+        mkdir('content');
+    }
+    if(!is_dir('content/'.$lang)){
+        mkdir('content/'.$lang);
+    }
+    if(!is_dir('web-content')){
+        mkdir('web-content');
+    }
+    if(!is_dir('web-content/'.$lang)){
+        mkdir('web-content/'.$lang);
+    }
+    if(!is_dir('web-images/')){
+        mkdir('web-images/');
+    }
+    if(!is_dir('web-images/'.$id)){
+        mkdir('web-images/'.$id);
+        mkdir('web-images/'.$id.'/thumbs');
+    }
+    if(!is_dir('web-others/')){
+        mkdir('web-others/');
+    }
+    if(!is_dir('web-others/'.$id)){
+        mkdir('web-others/'.$id);
+        mkdir('web-others/'.$id.'/thumbs');
+    }
+    $action = $_GET['action'];
     $pageTitle = 'no title';
-    $editorVersion = '4.0';
+    $editorVersion = '4.2';
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     if($sql){
-        $que = "SELECT * FROM settings WHERE parameter='pageTitle'";
+        $que = "SELECT * FROM settings WHERE parameter='pageTitle_$lang'";
         $erg = mysqli_query($sql,$que);
         while($row = mysqli_fetch_array($erg)){
             $pageTitle = $row['value'];
@@ -100,50 +135,15 @@ if(substr($authLevel,0,1) == "1"){
             mysqli_free_result($erg);
         }
     }
-    $id = $_GET['id'];
-    if($id == ""){
-        $id = 1;
-    }
-    $lang = $_GET['lang'];
-    if($lang == "" || !in_array($lang,$languages)){
-        $lang = 'de';
-    }
-    if(!is_dir('content')){
-        mkdir('content');
-    }
-    if(!is_dir('content/'.$lang)){
-        mkdir('content/'.$lang);
-    }
-    if(!is_dir('web-content')){
-        mkdir('web-content');
-    }
-    if(!is_dir('web-content/'.$lang)){
-        mkdir('web-content/'.$lang);
-    }
-    if(!is_dir('web-images/')){
-        mkdir('web-images/');
-    }
-    if(!is_dir('web-images/'.$id)){
-        mkdir('web-images/'.$id);
-        mkdir('web-images/'.$id.'/thumbs');
-    }
-    if(!is_dir('web-others/')){
-        mkdir('web-others/');
-    }
-    if(!is_dir('web-others/'.$id)){
-        mkdir('web-others/'.$id);
-        mkdir('web-others/'.$id.'/thumbs');
-    }
-    $action = $_GET['action'];
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title><?php echo($pageTitle);?> Admin</title>
     <link rel="SHORTCUT ICON" href="images/editorLogo.png"/>
-    <link rel="stylesheet" href="styleAdmin.min.css"/>
-    <link rel="stylesheet" href="commonStyle.min.css"/>
-    <link rel="stylesheet" href="styleFileBrowser.min.css"/>
+    <link rel="stylesheet" href="styleAdmin.css"/>
+    <link rel="stylesheet" href="commonStyle.css"/>
+    <link rel="stylesheet" href="styleFileBrowser.css"/>
     <link rel="stylesheet" type="text/css" href="datepicker/jquery.datetimepicker.css" >
 
     <!-- todo: remove this in final!--<script src="jquery-1.9.1.min.js"></script><!---->
@@ -327,12 +327,18 @@ include('content/user.php');
 </div>
 <div class="insertPic msgBox msgBoxBig hidden">
     <div class="msgBoxImg"><img onclick="hideMessages()" height="20" title="close" src="images/close.png"/></div>
+	<div class="insertPicLink opac0 hidden">
+		<div class="msgBoxImg"><img onclick="$('.insertPicLink').addClass('opac0 hidden');" height="20" title="close" src="images/close.png"/></div>
+		<div>link hover text: <input type="text" value="" id="linkTextToInsert"></div>
+		<div class="insertPicLinkMenue"></div>
+		<div><input type="button" value="remove link" onclick="removeLinkFromPicture()" /></div>
+	</div>
     insert picture as:</br>
     <form name="insert" action="javascript:insertPicNow()">
         <select name="type" onchange="changeInsertType()"><option>single pic</option><option>titled pic</option><option>subtitled pic</option></select><input type="button" onclick="showGaleryMaker()" value=" gallery " /></br>
         Alignment: <select name="align" onchange="changeInsertType()"><option>none</option><option>left</option><option>right</option><option>center</option></select>
         <div class="htmlToInsert"></div>
-        <input type="submit" value=" ok " /><input type="hidden" name="path"/>
+        <input type="button" value="add a link" onclick="showAddPictureLink()" /><input type="submit" value=" ok " /><input type="hidden" name="path"/>
     </form>
 </div>
 <div class="insertMultiplePic msgBox msgBoxBig hidden">
@@ -376,8 +382,10 @@ include('content/user.php');
 if(substr($authLevel,2,1) == '1'){
     echo('
 <div class="userControlOuter out">
-    <div class="userControlTitle">User control<img src="images/close.png" onclick="showUserControl()" height="25" style="float:right;" /></div>
-    <div class="userControlInner"></div>
+    <div class="userControlContainer">
+        <div class="userControlTitle">User control<img src="images/close.png" onclick="showUserControl()" height="25" style="float:right;" /></div>
+        <div class="userControlInner"></div>
+    </div>
 </div>');
 }
 ?>
@@ -416,6 +424,7 @@ if(substr($authLevel,2,1) == '1'){
 
 <div class="container">
     <div class="leftBar">
+        <div class="leftBarBorder"></div>
         <div class="leftBarTitle">Website menu</div>
         <div class="menu" onclick="reprintMenu()">&nbsp;&nbsp;&nbsp;&nbsp;reprint menu</div>
     </div>
@@ -425,7 +434,7 @@ if(substr($authLevel,2,1) == '1'){
 			<div class="galeryMakerOuter">
 				<div class="galeryMakerTitle"><img src="images/close.png" style="position:absolute;left:5px;top:5px;cursor:pointer;" title="close" onclick="hideMessages()" height="25" />Gallery Editor
 					<img src="images/galOptions.png" class="galeryMakerImg imgRotate" height="30" onclick="$('.galeryMakerOptions').toggleClass('height0');$(this).toggleClass('imgRotated')" />
-					<div class="galeryMakerOptions height0"><div onclick="galeryMakerSelectAll(1)">Select all</div><div onclick="galeryMakerSelectAll(0)">Deselect all</div></div></div>
+					<div class="galeryMakerOptions height0"><div onclick="galeryMakerSelectAll(1)">Select all <img height="20" src="images/select.png" /></div><div onclick="galeryMakerSelectAll(0)">Deselect all <img height="18" src="images/deselect.png" /></div></div></div>
 				<div class="galeryMakerInner"></div>
 				<div class="galeryMakerButton" onclick="generateGallery()">generate gallery with selected pictures</div>
 			</div>
@@ -449,7 +458,7 @@ if(substr($authLevel,2,1) == '1'){
                     echo("<div class='pageMenuItem' onclick=\"$('.langChooser').toggleClass('hidden')\" title='actual language'>Lang: $lang</div>");
                 }
                 ?>
-            </div>Editing mode
+            </div>Text editing mode
         </div>
         <div class="langChooser hidden">
             <?php
@@ -459,16 +468,16 @@ if(substr($authLevel,2,1) == '1'){
             ?>
         </div>
         <div class="pageOptions height0 hidden">Page Options:</br>
-            <div class="pageOptionItem" onclick="insertPageTitle()" title="insert the Name of the page at the top">insert PageTitle</div>
-            <div class="pageOptionItem" onclick="showInsertLink()" title="insert a link to another page">insert Link</div>
+            <div class="pageOptionItem" onclick="insertPageTitle()" title="insert the Name of the page at the top">insert pagetitle</div>
+            <div class="pageOptionItem" onclick="showInsertLink()" title="insert a link to another page">insert link</div>
             <div class="pageOptionItem" onclick="togglePicsClickable(this)" id="pageOptionItemPics" title="Select if pictures shall be viewable on this page">pics clickable</div>
             <div class="pageOptionItem" onclick="showPlugins()" title="show or add plugins">plugins</div>
             <?php
             if($authLevel == '1111'){
-                echo('<div class="pageOptionItem" onclick="location.href=\'setup.php?id=settings\'" title="change the websites title or choose other languages and so on">setup</div>');
+                echo('<div class="pageOptionItem" onclick="location.href=\'setup.php?id=settings&lang='.$lang.'\'" title="change the websites title or choose other languages and so on">setup</div>');
             }
             ?>
-            <div class="pageOptionItem" onclick="$('.ownUserControlOuter').removeClass('hidden')" title="show own user">user</div>
+            <div class="pageOptionItem" onclick="$('.ownUserControlOuter').removeClass('hidden')" title="show own user">own user</div>
             <div class="pageOptionItem" onclick="showPageTourFunc()" title="show a tour to view the most important functions">tour</div>
             <?php
             if($authLevel == '1111'){

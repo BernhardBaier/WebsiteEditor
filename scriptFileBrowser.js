@@ -107,7 +107,7 @@ function setBrowserMode(th){
 }
 function showBrowser(){
     hideMultipleOptions();
-    var $folders = '<div class="folderOuter"><div style="display:inline-flex;float:right;cursor:pointer"><img title="set view mode" src="images/gear.png" height="20" onclick="showBrowserSettings()" /></div><div class="folderInner" style="display:flex" onclick="enterPath(\'../\')" title="go up"><img height="15" src="images/folderUp.png" /> up</div>';
+    var $folders = '<div class="folderOuter"><div class="fileBrowserOptions"><img title="set view mode" src="images/gear.png" height="20" onclick="showBrowserSettings()" /></div><div class="folderInner" style="display:flex" onclick="enterPath(\'../\')" title="go up"><img height="15" src="images/folderUp.png" /> up</div>';
     var $dirs = dirs == ";"?"":dirs;
     while($dirs.search(';') > -1){
         var th_name = $dirs.substr(0,$dirs.search(';'));
@@ -184,7 +184,7 @@ function showPicInfo(e,id){
 
 function showMultipleOptions(count){
     $('.multipleOptionsOuter').removeClass('hidden');
-    var opts = '<div class="multipleOptionsItem" onclick="multipleDelete()">delete<img src="images/bin.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleInsert()">insert<img src="images/insert.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="moveMultiplePics()">move<img src="images/move.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleDeselect()">deselect</div><div class="multipleOptionsItem" onclick="multipleSelectAll()">select all</div>';
+    var opts = '<div class="multipleOptionsItem" onclick="multipleDelete()">delete<img src="images/bin.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleInsert()">insert<img src="images/insert.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="moveMultiplePics()">move<img src="images/move.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleDeselect()">deselect<img src="images/deselect.png" class="picHandlerImg"/></div><div class="multipleOptionsItem" onclick="multipleSelectAll()">select all<img src="images/select.png" class="picHandlerImg"/></div>';
     $('.multipleOptions').html('options for '+count+' elements:<br/>'+opts);
 }
 function multipleSelectAll(){
@@ -227,7 +227,7 @@ function showMovePics(path){
         success: function(data) {
             $('.movePicMenu').html(data);
             $('.overlay').removeClass('hidden');
-            $('.movePicOuter').removeClass('hidden').css('top',60);
+            $('.movePicOuter').removeClass('hidden');
             $('.movePicTitle').html(count);
         }
     });
@@ -403,7 +403,7 @@ function changeInsertType(){
     $('.htmlToInsert').html('<table><tr><td id="htmlToInsert">'+pic+'</td></tr></table>');
 }
 function insertPicNow(){
-    insertHTMLatCursor($('#htmlToInsert').html());
+    insertHTMLatCursor($('#htmlToInsert').html()+"<p>&nbsp;</p>");
     hideMessages();
     togglePicsClickable();
     togglePicsClickable();

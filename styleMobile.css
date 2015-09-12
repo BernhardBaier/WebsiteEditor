@@ -120,7 +120,7 @@ a{
     max-height: calc(90% - 10px);
     left:-125%;
     overflow-y: scroll;
-    z-index:99;
+    z-index:5;
     border:2px solid #555;
     border-radius:0 5px 5px 0;
     box-shadow:0 0 2px 2px #555;
@@ -275,14 +275,6 @@ a{
     margin: 0;
     padding: 0;
     background:#EEE;
-}
-.searchTitle{
-    margin: 0;
-    padding: 0;
-    background:#d1d1d1;
-    font-weight: bold;
-    font-size: 20px;
-    cursor: pointer;
 }
 
 .roundButton{
