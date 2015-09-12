@@ -26,19 +26,19 @@ if($authLevel == '1111'){
     fclose($file);
     $oldVersion = substr($in,strpos($in,'#version#')+9);
     $oldVersion = substr($oldVersion,0,strpos($oldVersion,'#'));
-    if(strpos($in,'#updateVersion#') > -1){
-        $upVersionNew = substr($in,strpos($in,'#updateVersion#')+15);
+    $in = substr($in,strpos($in,'#path#')+6);
+    $remotePath = substr($in,0,strpos($in,'#'));
+    $file = fopen($remotePath.'update/fileList.list','r');
+    $remoteIn = fread($file,999999);
+    fclose($file);
+    if(strpos($remoteIn,'#updateVersion#') > -1){
+        $upVersionNew = substr($remoteIn,strpos($remoteIn,'#updateVersion#')+15);
         $upVersionNew = substr($upVersionNew,0,strpos($upVersionNew,'#'));
         if($updateVersion != $upVersionNew){
             // update Updater first!
             $updateUpdater = true;
         }
     }
-    $in = substr($in,strpos($in,'#path#')+6);
-    $remotePath = substr($in,0,strpos($in,'#'));
-    $file = fopen($remotePath.'update/fileList.list','r');
-    $remoteIn = fread($file,999999);
-    fclose($file);
     $description = substr($remoteIn,strpos($remoteIn,"#description#")+13);
     $description = substr($description,0,strpos($description,'#'));
     $version = substr($remoteIn,strpos($remoteIn,'#version#')+9);
@@ -238,7 +238,7 @@ if($authLevel == '1111'){
 <body onload="init()">
 <div class="container" align="center">
     <div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
-    <div class="pageTitle">Welcome to the update Panel.<br>Your WebsiteEditor will be updated from Version <?php echo("$oldVersion to $version:<br>$description");?></div>
+    <div class="pageTitle">Welcome to the update Panel.<?php if($oldVersion!=$version){echo("<br>Your WebsiteEditor will be updated from Version $oldVersion to $version:<br>$description");}?></div>
     <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div class="button"><a href="../admin.php">Skip Update</a></div>
     <div style="position:relative">
