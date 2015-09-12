@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <title>Website Editor <?php echo($editorVersion);?></title>
     <link rel="SHORTCUT ICON" href="images/editorLogo.png"/>
-    <link rel="stylesheet" href="styleLogin.css" />
+    <link rel="stylesheet" href="styleLogin.min.css" />
 </head>
 <body>
 <?php

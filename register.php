@@ -100,7 +100,7 @@ if($name != ""){
 <head>
     <title>Register</title>
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
-    <link rel="stylesheet" href="styleLogin.css" />
+    <link rel="stylesheet" href="styleLogin.min.css" />
 </head>
 <body>
 <span class="loginTitle">Website editor Version <?php echo($editorVersion);?></br>Copyright &copy; 2014 Bernhard Baier</span>

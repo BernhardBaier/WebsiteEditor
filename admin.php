@@ -141,9 +141,9 @@ if(substr($authLevel,0,1) == "1"){
 <head>
     <title><?php echo($pageTitle);?> Admin</title>
     <link rel="SHORTCUT ICON" href="images/editorLogo.png"/>
-    <link rel="stylesheet" href="styleAdmin.css"/>
-    <link rel="stylesheet" href="commonStyle.css"/>
-    <link rel="stylesheet" href="styleFileBrowser.css"/>
+    <link rel="stylesheet" href="styleAdmin.min.css"/>
+    <link rel="stylesheet" href="commonStyle.min.css"/>
+    <link rel="stylesheet" href="styleFileBrowser.min.css"/>
     <link rel="stylesheet" type="text/css" href="datepicker/jquery.datetimepicker.css" >
 
     <!-- todo: remove this in final!--<script src="jquery-1.9.1.min.js"></script><!---->
@@ -199,8 +199,8 @@ if(substr($authLevel,0,1) == "1"){
 
     <script src="datepicker/jquery.datetimepicker.js"></script>
 
-    <script src="scriptFileBrowser.js"></script>
-    <script src="scriptAdmin.js"></script>
+    <script src="scriptFileBrowser.min.js"></script>
+    <script src="scriptAdmin.min.js"></script>
     <script>
         <?php
         if(strpos($_SESSION['extra'],'tour') < 0 || !$_SESSION['extra']){
@@ -209,7 +209,7 @@ if(substr($authLevel,0,1) == "1"){
         }
         ?>
     </script>
-    <script src="scriptPlugin.js"></script>
+    <script src="scriptPlugins.min.js"></script>
 </head>
 <body onload="init()">
 <div class="pageLoading"><div class="loadingImg"><div id="loadingImg1"></div><div class="loadingMessage" style="color:#FFF;">Loading</div></div></div>

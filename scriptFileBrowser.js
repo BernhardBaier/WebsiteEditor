@@ -116,12 +116,12 @@ function showBrowser(){
             active = ' active';
         }
         if(browserMode == 0){
-            $folders += '<div class="folderInner'+active+'" onclick="enterPath(\''+$dirs.substr(0,$dirs.search(';'))+'\')" title="enter dir"><img height="15" src="images/folder.png" /> '+ th_name +'</div>';
+            $folders += '<div class="folderInner'+active+'" onclick="enterPath(\''+$dirs.substr(0,$dirs.search(';'))+'\')" title="enter dir"><img height="15" src="images/folder.png" /> <nobr>'+ th_name +'</nobr></div>';
         }else{
             if(th_name>0){
                 th_name = jsPageNames[th_name];
             }
-            $folders += '<div class="folderInner'+active+'" onclick="enterPath(\''+$dirs.substr(0,$dirs.search(';'))+'\')" title="enter dir"><img height="15" src="images/folder.png" /> '+ th_name +'</div>';
+            $folders += '<div class="folderInner'+active+'" onclick="enterPath(\''+$dirs.substr(0,$dirs.search(';'))+'\')" title="enter dir"><img height="15" src="images/folder.png" /> <nobr>'+ th_name +'</nobr></div>';
         }
         $dirs = $dirs.substr($dirs.search(';')+1);
     }
