@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.1";
+    $updateVersion = "2.3";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -39,6 +39,8 @@ if($authLevel == '1111'){
     $file = fopen($remotePath.'update/fileList.list','r');
     $remoteIn = fread($file,999999);
     fclose($file);
+    $description = substr($remoteIn,strpos($remoteIn,"#description#")+13);
+    $description = substr($description,0,strpos($description,'#'));
     $version = substr($remoteIn,strpos($remoteIn,'#version#')+9);
     $version = substr($version,0,strpos($version,'#'));
     $force = $_GET['forceUpdate'];
@@ -49,6 +51,7 @@ if($authLevel == '1111'){
     if(!file_exists('access.crypt')){
         copy('../access.crypt','access.crypt');
     }
+
     // TODO: update plugins after update.
 ?>
 <!DOCTYPE html>
@@ -235,7 +238,7 @@ if($authLevel == '1111'){
 <body onload="init()">
 <div class="container" align="center">
     <div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
-    <div class="pageTitle">Welcome to the update Panel.</div>
+    <div class="pageTitle">Welcome to the update Panel.<br>Your WebsiteEditor will be updated from Version <?php echo("$oldVersion to $version:<br>$description");?></div>
     <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div class="button"><a href="../admin.php">Skip Update</a></div>
     <div style="position:relative">

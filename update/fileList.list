@@ -1,12 +1,13 @@
-#version#4.2.2#
-#updateVersion#2.2#
+#description#Mayor update with a new icon set and design for Admin panel<br>New functions for Admin panel.#
+#version#4.2.3#
+#updateVersion#2.3#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
-#file#../update/update.php#date#20150912161237#
-#file#../update/copy.php#date#20150823181513#
+#file#../update/update.php#date#20150912163921#
+#file#../update/copy.php#date#20150912163905#
 #file#../update/access.php#date#20150823181513#
 #file#../update/auth.php#date#20150823181513#
 #file#../update/finish.php#date#20150823181512#
-#file#../update/style.css#date#20150912160729#
+#file#../update/style.css#date#20150912163909#
 #file#../datepicker/jquery.datetimepicker.css#date#20150823181455#
 #file#../datepicker/jquery.datetimepicker.js#date#20150823181455#
 #file#../fileUpload/.jshintrc#date#20150823181456#
