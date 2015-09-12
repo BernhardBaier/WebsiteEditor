@@ -431,6 +431,12 @@ img{
     margin:2px 0;
     background:#CCC;
 }
+.menuItemHidden img{
+    opacity: 0.4;
+}
+.menuItemHidden:hover img{
+    opacity: 0.8;
+}
 .menuItemHidden a{
     text-decoration: none;
     color: #000;
@@ -469,6 +475,7 @@ img{
 }
 #menuItemImg{
     opacity: 0.3;
+    cursor: default;
 }
 #menuItemImg:hover{
     opacity: 0.3;
@@ -514,7 +521,7 @@ img{
 }
 .menuItemInner a{
     text-decoration:none;
-    color:#333;
+    color:#000;
 }
 .menuItemRight{
     position:absolute;

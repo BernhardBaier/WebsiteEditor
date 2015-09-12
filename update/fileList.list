@@ -1,4 +1,4 @@
-#version#4.2.1#
+#version#4.2.2#
 #updateVersion#2.2#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20150912161237#
@@ -164,7 +164,7 @@
 #file#../search.php#date#20150823181436#
 #file#../setup.php#date#20150823181436#
 #file#../spin.min.js#date#20150823181436#
-#file#../styleAdmin.css#date#20150911172603#
+#file#../styleAdmin.css#date#20150912162356#
 #file#../styleAdmin.min.css#date#20150823181436#
 #file#../styleFileBrowser.css#date#20150911172300#
 #file#../styleFileBrowser.min.css#date#20150910194951#
