@@ -1,0 +1,16 @@
+#name#Image Slider#
+#copy#
+#file#access.crypt#
+#file#access.php#
+#file#auth.php#
+#required#
+#file#access.crypt#
+#file#access.php#
+#file#auth.php#
+#file#images/logo.png#
+#file#images/active.png#
+#file#include.php#
+#file#style.css#
+#file#functions.php#
+#includes#
+#end#
