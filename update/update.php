@@ -56,6 +56,7 @@ if($authLevel == '1111'){
 <head>
     <title>Updater</title>
     <link rel="SHORTCUT ICON" href="../images/editorLogo.png"/>
+    <link rel="stylesheet" href="style.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
         var max = 0;
@@ -223,74 +224,10 @@ if($authLevel == '1111'){
     }
 ?>
     </script>
-    <style>
-        .progressBar{
-            position:absolute;
-            transition:width 1s ease-out;
-            -webkit-transition:width 1s ease-out;
-            height:25px;
-            top:2px;
-            left:2px;
-            background:#568C0A;
-            text-align:center;
-            padding:4px 4px 0 4px;
-            border-radius:5px;
-        }
-        .progressBar.hidden{
-            display:none;
-        }
-        .progressBarUnder{
-            position:absolute;
-            height:27px;
-            width:1024px;
-            border:1px solid #555;
-            padding:4px 4px 0 4px;
-            border-radius:5px;
-        }
-        .progressBarUnder.hidden{
-            display:none;
-        }
-        .button{
-            display:inline-flex;
-            margin:1px;
-            background:#F90;
-            border-radius:3px;
-            padding:2px;
-            cursor:pointer;
-        }
-        .button:hover{
-            background:#FF8000;
-        }
-        .button a{
-            text-decoration:none;
-            color:#000;
-        }
-        .button.green{
-            background:#568C0A;
-        }
-        .button.green:hover{
-            background:#88BE14;
-        }
-        .button.hidden{
-            display:none;
-        }
-        .spacer{
-            height:30px;
-        }
-        .updateUpdater{
-            position: absolute;
-            background: #fff;
-            width: 100%;
-            height: 100%;
-        }
-        .updateUpdater.hidden{
-            display: none;
-        }
-    </style>
 </head>
 <body onload="init()">
-<div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
-<div>
+<div class="container" align="center">
+    <div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
     <div class="pageTitle">Welcome to the update Panel.</div>
     <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div class="button"><a href="../admin.php">Skip Update</a></div>
