@@ -1,4 +1,4 @@
-#name#Image Slider#
+#name#ImgSlider#
 #copy#
 #file#access.crypt#
 #file#access.php#
@@ -11,6 +11,8 @@
 #file#images/active.png#
 #file#include.php#
 #file#style.css#
-#file#functions.php#
+#file#stylePluginImgSlider.css#
+#file#imgSlider.js#
 #includes#
+#file#stylePluginImgSlider.css#
 #end#

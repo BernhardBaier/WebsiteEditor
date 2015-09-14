@@ -9,11 +9,11 @@ error_reporting(E_ERROR);
 include('auth.php');
 function showDir($path){
     global $dirs,$files;
-    $handle = opendir($path);
+    $handler = opendir($path);
     $except = Array('.','..','.htaccess','.gitignore');
     $count1=0;
     $count2=0;
-    while($file = readdir($handle)){
+    while($file = readdir($handler)){
         if(!in_array($file,$except)){
             if(strpos($file,'.') > -1){
                 $files[$count2++] = $file;
@@ -26,8 +26,8 @@ function showDir($path){
 if($authLevel != '' && $authLevel != '0000'){
     $path = $_POST['text'];
     $gal = $_POST['gal'];
-    $dirs = '';
-    $files = '';
+    $dirs = [];
+    $files = [];
     if($path != ""){
         showDir($path);
     }

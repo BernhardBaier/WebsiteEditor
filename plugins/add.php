@@ -67,19 +67,17 @@ $input = substr($input,strpos($input,'#required#')+10);
 while(strpos($input,'#file#') < strpos($input,'#includes#') && strpos($input,'#file#') > -1){
     $input = substr($input,strpos($input,'#file#')+6);
     $file = substr($input,0,strpos($input,'#'));
-    if(!file_exists('../'.$file)){
-        $output .= "fatal error could not copy file $file!</br>";
-    }else{
-        if(file_exists($path.$file)){
-            unlink($path.$file);
-        }
-        copy('../'.$file,$path.$file);
+    $files[findInArray($files,$file)] = "";
+    if(!file_exists($path.$file)){
+        $output .= "fatal error could not find file $file!</br>";
     }
 }
 if(sizeof($files)>0){
     for($i = 0;$i < sizeof($files);$i++){
         if(substr($files[$i],-4) != '.plg'){
-            unlink($path.$files[$i]);
+            if(file_exists($path.$files[$i])){
+                unlink($path.$files[$i]);
+            }
         }
     }
 }
