@@ -123,7 +123,7 @@ while($row = mysqli_fetch_array($erg)){
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo($pageTitle);?></title>
+    <title><?php echo(strip_tags($pageTitle));?></title>
 	<meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
     <link rel="stylesheet" href="styleMobile.min.css" />

@@ -158,7 +158,7 @@ while($pos > -1){
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo($pageTitle);?></title>
+    <title><?php echo(strip_tags($pageTitle));?></title>
     <script>
         var pageId = <?php echo($id);?>;
         var lang = '<?php echo($lang);?>';

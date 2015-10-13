@@ -13,11 +13,11 @@ while($row = mysqli_fetch_array($erg2)){
     $name = $row['name'];
     $plugId = $row['id'];
 }
-if(!is_dir('settings')){
-    mkdir('settings');
+if(!is_dir($location.'/settings')){
+    mkdir($location.'/settings');
 }
-if(!is_dir('sliders')){
-    mkdir('sliders');
+if(!is_dir($location.'/sliders')){
+    mkdir($location.'/sliders');
 }
 echo("<img src='$location/images/logo.png' title='$name' class='pluginNavImg' onclick='initPlugin_$plugId(this);$(this).addClass(\"active\")'/>");
 mysqli_free_result($erg2);
@@ -57,7 +57,7 @@ function initPlugin_$plugId(th){
                 file = file.substr(file.search(';')+1);
             }
             maxImgCount = imgCount;
-            files = files == ''?'empty dir':files;
+            files = files == ''?'empty dir. Upload files in main panel.':files;
             var text = '<div class=\"sliderContainer\"><div class=\"sliderLeftPics\"><div class=\"sliderTitleAdder hidden\"><div class=\"sliderTitleAdderTitle\"></div><form name=\"sliderOptions\" action=\"javascript:addSliderTitleNow()\"><input type=\"hidden\" name=\"id\">';
             text += '<input type=\"text\" name=\"optionText\"><input type=\"submit\" value=\"OK\"></form></div><div class=\"sliderOverlay hidden\" onclick=\"hideImgSliderTitle()\"></div><div class=\"sliderContainerTitle\">Select the pictures for the slider:</div>'+files;
             text += '<div class=\"updateSlider\" title=\"generate slider preview\" onclick=\"updateSlider()\"><img src=\"$location/images/updateSlider.png\" /></div></div><div class=\"sliderRightSlider\">';

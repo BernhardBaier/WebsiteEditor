@@ -29,6 +29,14 @@ function redirectToFirstPage($lang){
         return $row['id'];
     }
 }
+function findInArray($array,$needle){
+    for($i=0;$i<sizeof($array);$i++){
+        if($array[$i] == $needle){
+            return $i;
+        }
+    }
+    return -1;
+}
 function jsMenu($parent=0){
     global $sql,$lang;
     $que = "SELECT * FROM pages_$lang WHERE parent=$parent";
@@ -58,13 +66,58 @@ function jsMenu($parent=0){
 }
 if(substr($authLevel,0,1) == "1"){
     $id = $_GET['id'];
+    $lang = $_GET['lang'];
     if($id == ""){
         $id = 1;
     }
-    $lang = $_GET['lang'];
-    if($lang == "" || !in_array($lang,$languages)){
-        $lang = 'de';
+    $action = $_GET['action'];
+    $pageTitle = 'no title';
+    $editorVersion = '4.2';
+    $hostname = $_SERVER['HTTP_HOST'];
+    $host = $hostname == 'localhost'?$hostname:$sqlHost;
+    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+    if($sql){
+        $que = "SELECT * FROM settings WHERE parameter='languageSupport'";
+        $erg = mysqli_query($sql,$que);
+        $langSupport = false;
+        while($row = mysqli_fetch_array($erg)){
+            $langSupport = $row['value'];
+        }
+        mysqli_free_result($erg);
+        $langSupport = $langSupport=='multi'?true:false;
+        $languages = array();
+        $longLanguages = array();
+        if($langSupport){
+            $que = "SELECT * FROM settings WHERE parameter='languages'";
+            $erg = mysqli_query($sql,$que);
+            while($row = mysqli_fetch_array($erg)){
+                $languages = unserialize($row['value']);
+            }
+            mysqli_free_result($erg);
+            $que = "SELECT * FROM settings WHERE parameter='languagesLong'";
+            $erg = mysqli_query($sql,$que);
+            while($row = mysqli_fetch_array($erg)){
+                $longLanguages = unserialize($row['value']);
+            }
+            mysqli_free_result($erg);
+        }
+        if($lang == "" || findInArray($languages,$lang) == -1){
+            $lang = 'de';
+        }
+        $que = "SELECT * FROM settings WHERE parameter='pageTitle_$lang'";
+        $erg = mysqli_query($sql,$que);
+        while($row = mysqli_fetch_array($erg)){
+            $pageTitle = $row['value'];
+        }
+        mysqli_free_result($erg);
+        $que = "SELECT * FROM settings WHERE parameter='editorVersion'";
+        $erg = mysqli_query($sql,$que);
+        while($row = mysqli_fetch_array($erg)){
+            $editorVersion = $row['value'];
+        }
+        mysqli_free_result($erg);
     }
+
     if(!is_dir('content')){
         mkdir('content');
     }
@@ -91,55 +144,11 @@ if(substr($authLevel,0,1) == "1"){
         mkdir('web-others/'.$id);
         mkdir('web-others/'.$id.'/thumbs');
     }
-    $action = $_GET['action'];
-    $pageTitle = 'no title';
-    $editorVersion = '4.2';
-    $hostname = $_SERVER['HTTP_HOST'];
-    $host = $hostname == 'localhost'?$hostname:$sqlHost;
-    $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
-    if($sql){
-        $que = "SELECT * FROM settings WHERE parameter='pageTitle_$lang'";
-        $erg = mysqli_query($sql,$que);
-        while($row = mysqli_fetch_array($erg)){
-            $pageTitle = $row['value'];
-        }
-        mysqli_free_result($erg);
-        $que = "SELECT * FROM settings WHERE parameter='editorVersion'";
-        $erg = mysqli_query($sql,$que);
-        while($row = mysqli_fetch_array($erg)){
-            $editorVersion = $row['value'];
-        }
-        mysqli_free_result($erg);
-        $que = "SELECT * FROM settings WHERE parameter='languageSupport'";
-        $erg = mysqli_query($sql,$que);
-        $langSupport = false;
-        while($row = mysqli_fetch_array($erg)){
-            $langSupport = $row['value'];
-        }
-        mysqli_free_result($erg);
-        $langSupport = $langSupport=='multi'?true:false;
-        $languages = array();
-        $longLanguages = array();
-        if($langSupport){
-            $que = "SELECT * FROM settings WHERE parameter='languages'";
-            $erg = mysqli_query($sql,$que);
-            while($row = mysqli_fetch_array($erg)){
-                $languages = unserialize($row['value']);
-            }
-            mysqli_free_result($erg);
-            $que = "SELECT * FROM settings WHERE parameter='languagesLong'";
-            $erg = mysqli_query($sql,$que);
-            while($row = mysqli_fetch_array($erg)){
-                $longLanguages = unserialize($row['value']);
-            }
-            mysqli_free_result($erg);
-        }
-    }
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><?php echo($pageTitle);?> Admin</title>
+    <title><?php echo(strip_tags($pageTitle));?> Admin</title>
     <link rel="SHORTCUT ICON" href="images/editorLogo.png"/>
     <link rel="stylesheet" href="styleAdmin.css"/>
     <link rel="stylesheet" href="commonStyle.css"/>
