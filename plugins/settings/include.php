@@ -59,6 +59,23 @@ function removePlugin(id){
             }
         }
     });
+}
+function updateAllPlugins(url){
+    url = url.substr(url.length-1,1) == '/'?url:url+'/';
+    var returnThis = false;
+    $.ajax({
+        type: 'POST',
+        url: url+'functions.php',
+        data: 'function=updateAllPlugins',
+        success: function(data) {
+            if(data != '1'){
+                alert(data);
+            }else{
+                returnThis = true;
+            }
+        }
+    });
+    return returnThis;
 }";
     $file = fopen("$location/script.js",'w');
     fwrite($file,$output);

@@ -61,6 +61,7 @@ if($authLevel == '1111'){
     <link rel="SHORTCUT ICON" href="../images/editorLogo.png"/>
     <link rel="stylesheet" href="style.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../plugins/settings/script.js"></script>
     <script>
         var max = 0;
         var timer;
@@ -124,6 +125,10 @@ if($authLevel == '1111'){
                 document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
             }
         }
+        function leaveUpdate(){
+            updateAllPlugins('../plugins/settings/');
+            window.location = '../admin.php';
+        }
         var nextFileToMove = 0;
         var threadsRunning = 0;
         var filesMoved = 0;
@@ -172,7 +177,7 @@ if($authLevel == '1111'){
                                             $('.progressBar').html('100%').width(1020);
                                             $('.file').html('Update Complete');
                                             $('.data').html('');
-                                            document.getElementsByClassName('button')[1].innerHTML = '<a href="../admin.php">Leave Update</a>';
+                                            document.getElementsByClassName('button')[1].innerHTML = '<a href="javascript:leaveUpdate()">Leave Update</a>';
                                         }else{
                                             alert(data);
                                         }

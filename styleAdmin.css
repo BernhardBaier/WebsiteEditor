@@ -198,7 +198,7 @@ img{
     transition:opacity 250ms,height 250ms;
     -webkit-transition:opacity 250ms,height 250ms;
     position:absolute;
-    z-index:5;
+    z-index:15;
     top:33px;
     background:#37474f;
     color:#eceff1;

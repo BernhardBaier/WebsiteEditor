@@ -213,6 +213,7 @@ function hideMultipleOptions(){
     $('.multipleOptionsOuter').addClass('hidden');
 }
 function showMovePics(path){
+    path = replaceUml(path);
     positionMessage();
     var count = 1;
     var paths = path;
@@ -245,6 +246,7 @@ function moveMultiplePics(){
     showMovePics(arr);
 }
 function movePicsNow(path,id){
+    path = replaceUml(path);
     $.ajax({
         type: 'POST',
         url: 'functions.php',
@@ -278,7 +280,7 @@ function multipleDelete(){
     for(i=0;i<elem.length;i++){
         var src=$('#'+$(elem[i]).attr('id')+' img').attr('src');
         if(src){
-            arr[count++] = src;
+            arr[count++] = replaceUml(src);
         }
     }
     adminPicsToDelete = arr;

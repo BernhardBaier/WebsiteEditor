@@ -149,15 +149,15 @@ while($row = mysqli_fetch_array($erg)){
     <div class="header">
         <div class="searchResultsOuter hidden">
             <div class="searchResults">
-                <img src="images/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
+                <img src="pictures/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
                 <div class="searchResultsInner"></div>
             </div>
         </div>
 	    <div class="headerDivider">
-	        <div class="menuImg"><img src="images/menu.png" height="100%" onclick="toggleMenu()" /></div>
+	        <div class="menuImg"><img src="pictures/menu.png" height="100%" onclick="toggleMenu()" /></div>
 	        <div class="pageTitle"><?php echo($pageTitle);?></div>
 		    <div class="menuLogo"><a href="index.php?lang=<?php echo($lang);?>"><img src="images/logo.png" height="100%" /></a></div>
-		    <img class="searchIcon" onclick="expandMenu()" src="images/search.png" />
+		    <img class="searchIcon" onclick="expandMenu()" src="pictures/search.png" />
 	    </div>
 	    <div class="searchOuter">
 		    <div class="searchBig">
@@ -169,7 +169,7 @@ while($row = mysqli_fetch_array($erg)){
 	    </div>
         <div class="roundButton topOverlay opac0 hidden">
             <div class="topOverlayInner" onclick="goToTop()">
-                <img src="images/arrowTop.png" />
+                <img src="pictures/arrowTop.png" />
             </div>
         </div>
     </div>
@@ -178,6 +178,28 @@ while($row = mysqli_fetch_array($erg)){
             <div class="contentInner">
                 <?php
                 $preview = $_GET['preview'];
+                if($preview == 'true') {
+                    $preview = false;
+                    session_start();
+                    $authLevel = "";
+                    $hostname = $_SERVER['HTTP_HOST'];
+                    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                        $ip = $_SERVER['HTTP_CLIENT_IP'];
+                    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                    } else {
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                    }
+                    if($ip == $_SESSION['ip']){
+                        $authLevel = $_SESSION['authlevel'];
+                    }
+                    if(substr($authLevel,0,1) == "1"){
+                        $preview = 'true';
+                    }
+                    echo('level: '.$authLevel);
+                }else{
+                    $preview = false;
+                }
                 $pagePath = $preview=='true'?'content':'web-content';
                 $preview = $preview=='true'?'preview/':'';
                 if(file_exists("$pagePath/$lang/".$preview."$id.php")){
@@ -208,9 +230,10 @@ while($row = mysqli_fetch_array($erg)){
 <link href='commonStyle.min.css' rel='stylesheet' />
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#style for plugins#-->
-<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+
 <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
-<link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' />
-<!--#end#-->
+<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+<link href='plugins/ImgSlider/stylePluginImgSlider.css' rel='stylesheet' />
+<script src='plugins/ImgSlider/skriptPluginImgSlider.js'></script><!--#end#-->
 </body>
 </html>

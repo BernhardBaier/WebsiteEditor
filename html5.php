@@ -5,6 +5,7 @@
  * Date: 18.01.14
  * Time: 10:19
  */
+include('access.php');
 if(basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php'){
     header('Location: index.php');
 }
@@ -33,8 +34,29 @@ if($_COOKIE['usercount'] == 'false'){
     fclose($file);
 }
 $preview = $_GET['preview'];
-$prev = $preview == 'true'?'&preview=true':'';
-include 'access.php';
+if($preview == 'true') {
+    $preview = false;
+    session_start();
+    $authLevel = "";
+    $hostname = $_SERVER['HTTP_HOST'];
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    if($ip == $_SESSION['ip']){
+        $authLevel = $_SESSION['authlevel'];
+    }
+    if(substr($authLevel,0,1) == "1"){
+        $prev = '&preview=true';
+         $preview = true;
+    }
+}else{
+    $preview = false;
+    $prev = '';
+}
 $base = $sqlBase;
 $table = 'pages_'.$lang;
 $hostname = $_SERVER['HTTP_HOST'];
@@ -46,7 +68,7 @@ while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 function printMenu($sql,$n_parent=0,$level=0){
-    global $table,$parents,$lang,$prev,$preview,$authLevel;
+    global $table,$parents,$lang,$prev,$preview;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
     $erg = mysqli_query($sql,$que);
     $rows = array();
@@ -61,7 +83,7 @@ function printMenu($sql,$n_parent=0,$level=0){
         $extra = $row['extra'];
         $name = $row['name'];
         $childCount = $row['childCount'];
-        if($extra == "1" || ($preview == 'true' && substr($authLevel,0,1) == "1")){
+        if($extra == "1" || $preview == true){
             if($parent == 0){
                 $classToAdd = findInArray($parents,$pid)>-1?' active':'';
                 $level++;
@@ -156,7 +178,7 @@ while($pos > -1){
 <div class="pageOuter">
     <div class="searchOuter hidden">
         <div class="searchResults">
-	        <img class="closingImg" src="images/close.png" title="schließen" onclick="$('.searchOuter').addClass('hidden')" />
+	        <img class="closingImg" src="pictures/close.png" title="schließen" onclick="$('.searchOuter').addClass('hidden')" />
 	        <div class="searchResultsInner"></div>
         </div>
     </div>
@@ -178,8 +200,8 @@ while($pos > -1){
             <div class="content">
                 <div class="contentInner">
                     <?php
-                    $pagePath = $preview=='true'?'content':'web-content';
-                    $preview = $preview=='true'?'preview/':'';
+                    $pagePath = $preview==true?'content':'web-content';
+                    $preview = $preview==true?'preview/':'';
                     if(file_exists("$pagePath/$lang/".$preview."$id.php")){
                         include("$pagePath/$lang/".$preview."$id.php");
                     }else{
@@ -189,33 +211,12 @@ while($pos > -1){
                 </div>
                 <div class="rightBar">
                     <div class="rightBarInner">
-                        <div class="calendarSide"></div>
-                        <div class="weatherOuter">
-                            <div class="weatherCard">
-                                <a target="_blank" title="Ausführliche Wetterdaten" href="http://www.wettergefahren.de"><img src="http://www.wettergefahren.de/dyn/app/ws/maps/SU_x_x_0.gif" width="100%"></a>
-                            </div>
-                            <div class="weatherCopy">&copy; <i>Deutscher Wetterdienst</i></div>
-                            <div class="weatherLegend" onclick="toggleWeatherLegend()">
-                                <div class="weatherLegendBox hidden" title="Sichtbarkeit ändern">
-                                    <img src="images/close.png" class="closingImg" />
-                                    <div class="weatherBoxOuter"><div class="weatherBox box1"></div><div class="weatherBoxText">Warnungen vor extremem Unwetter</div></div>
-                                    <div class="weatherBoxOuter"><div class="weatherBox box2"></div><div class="weatherBoxText">Unwetterwarnungen</div></div>
-                                    <div class="weatherBoxOuter"><div class="weatherBox box3"></div><div class="weatherBoxText">Warnungen vor markantem Wetter</div></div>
-                                    <div class="weatherBoxOuter"><div class="weatherBox box4"></div><div class="weatherBoxText">Wetterwarnungen</div></div>
-                                    <div class="weatherBoxOuter"><div class="weatherBox box5"></div><div class="weatherBoxText">Hitzewarnungen</div></div>
-                                    <div class="weatherBoxOuter"><div class="weatherBox box6"></div><div class="weatherBoxText">Keine Warnungen</div></div>
-                                </div>
-                                Legende
-                            </div>
-                        </div>
+                        Right Bar
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer">
-            <div class="fbLikeBoxOuter" onclick="initFBPlugin()"><br>
-                Facebook Plug-in durch anklicken aktivieren.
-            </div>
             <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
             <div class="userCountOuter">
                 <div class="userCountNumbers">
@@ -233,15 +234,17 @@ while($pos > -1){
         </div>
      </div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="scriptHTML5.min.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
     <script src="spin.min.js" async></script>
     <link rel="stylesheet" href="commonStyle.min.css"/>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
     
-    <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-    <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' /><!--#end#-->
+<link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
+<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
+<link href='plugins/ImgSlider/stylePluginImgSlider.css' rel='stylesheet' />
+<script src='plugins/ImgSlider/skriptPluginImgSlider.js'></script><!--#end#-->
+    <script src="scriptHTML5.min.js"></script>
 </div>
 </body>
 </html>

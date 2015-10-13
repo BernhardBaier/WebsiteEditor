@@ -1,47 +1,12 @@
 /**
- * Created by Bernhard on 20.01.14.
+ * Created by Bernhard on 13.05.14.
  */
-function setCookie(c_name,value,exdays){
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-    document.cookie=c_name + "=" + c_value;
-}
-function getCookie(c_name){
-    var c_value = document.cookie;
-    var c_start = c_value.indexOf(" " + c_name + "=");
-    if (c_start == -1){
-        c_start = c_value.indexOf(c_name + "=");
-    }
-    if (c_start == -1){
-        c_value = "NULL";
-    }
-    else{
-        c_start = c_value.indexOf("=", c_start) + 1;
-        var c_end = c_value.indexOf(";", c_start);
-        if (c_end == -1){
-            c_end = c_value.length;
-        }
-        c_value = unescape(c_value.substring(c_start,c_end));
-    }
-    return c_value;
-}
+var addedMenuClass = false;
 function init(){
-    if(correctRightBar){
-        if($('.rightBar').height() < $('.content').height()){
-            $('.rightBar').height($('.content').height());
-        }
-    }
-    loadCalendarSide(3);
+    window.setTimeout('postInit()',250);
     initCalendarPage();
     initGallerySlider();
-    window.setTimeout('postInit()',250);
-}
-function postInit(){
-    if(getCookie('FBPlugin') == 'true'){
-        initFBPlugin();
-    }
-    window.setTimeout('initPicViewer()',25);
+    initPicViewerMobile();
 }
 function showYear(year){
     var href = document.getElementById('calendarHref').innerHTML;
@@ -95,15 +60,67 @@ function initCalendarPage(){
         }
     }catch (ex){}
 }
-function loadCalendarSide(count){
-    $.ajax({
-        type: 'POST',
-        url: 'plugins/calendar/calendar.php',
-        data: 'maxCount='+count+'&function=side',
-        success: function(data) {
-            $('.calendarSide').html(data);
+var lastScrollPos = 0, scrollTimer,goingToTop = false;
+function postInit(){
+    scrollTimer = window.setInterval("scrollReaction()",500);
+    try{
+        initImgSlider();
+    }catch(ex){}
+}
+function scrollReaction(){
+    var elem = $(".pageOuter");
+    var scrollPos = elem.scrollTop();
+    if(lastScrollPos != scrollPos){
+        if(lastScrollPos - scrollPos > 20){
+            $('.topOverlay').removeClass('opac0 hidden');
+        }else if(lastScrollPos - scrollPos < -10){
+            $('.topOverlay').addClass('opac0 hidden');
         }
-    });
+        lastScrollPos = scrollPos;
+        if (lastScrollPos > 60){
+            if(!addedMenuClass && !goingToTop){
+                addedMenuClass = true;
+                $('.header').addClass('small');
+                $('.pageOuter').addClass('small');
+                $('.headerDivider').addClass('small');
+                $('.searchIcon').addClass('small');
+                $('.searchOuter').addClass('small');
+            }
+        }else{
+            $('.topOverlay').addClass('opac0 hidden');
+            if(addedMenuClass){
+                expandMenu();
+            }
+        }
+    }
+}
+function goToTop(){
+    try{
+        goingToTop = true;
+        $(".pageOuter").animate({ scrollTop: 0 }, "slow");
+        $('.topOverlay').addClass('opac0 hidden');
+        if(addedMenuClass){
+            expandMenu();
+        }
+        window.setTimeout("goingToTop=false;",1000);
+    }catch (ex){}
+}
+function expandMenu(){
+    addedMenuClass = false;
+    $('.header').removeClass('small');
+    $('.pageOuter').removeClass('small');
+    $('.headerDivider').removeClass('small');
+    $('.searchIcon').removeClass('small');
+    $('.searchOuter').removeClass('small');
+}
+function toggleMenu(){
+    var left = document.getElementById('menu').style.left;
+    if(left=='0px'){
+        document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+35)+'px';
+    }else{
+        document.getElementById('menu').style.left = 0;
+	    expandMenu();
+    }
 }
 function searchNow(){
     var que = document.search.searchInput.value;
@@ -111,7 +128,7 @@ function searchNow(){
         return;
     }
     $('.searchResultsInner').html("<div>Suchergebnisse:<br/></div><div id='loadingImg1' style='height:40px;width:40px;background:#FFF;'></div><br/>");
-    $('.searchOuter').removeClass('hidden');
+    $('.searchResultsOuter').removeClass('hidden');
     var opts = {
         lines: 12,
         length: 8,
@@ -136,7 +153,7 @@ function searchNow(){
         $.ajax({
             type: 'POST',
             url: 'search.php',
-            data: 'lang='+lang+'&que='+que+'&path='+preview,
+            data: 'lang='+lang+'&que='+que+'&path=web-content',
             success: function(data) {
                 data = data == 'Suchergebnisse:'?data+'<br>Keine Treffer!':data;
                 $('.searchResultsInner').html(data);
@@ -145,10 +162,7 @@ function searchNow(){
     }
 }
 function navigateToPageById(id){
-	location.href = 'index.php?id='+id+'&lang='+lang;
-}
-function toggleWeatherLegend(){
-    $('.weatherLegendBox').toggleClass('hidden');
+    location.href = 'index.php?id='+id+'&lang='+lang;
 }
 var gallerySliderImages = [],gallerySliderPos = [];
 function initGallerySlider(){
@@ -184,9 +198,4 @@ function gallerySliderNext(id){
         document.getElementById('galleryPrevSliderImg' + id + '_' + (gallerySliderImages[id] - 1)).className = 'galleryPrevSliderImg left';
         gallerySliderPos[id] = 1;
     }
-}
-
-function initFBPlugin(){
-    setCookie('FBPlugin','true',1)
-    $('.fbLikeBoxOuter').html('<iframe src="fb.php" width="100%" height="100%" style="border: 0" scrolling="no"></iframe>').css('background','#fff');
 }

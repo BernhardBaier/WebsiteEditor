@@ -31,6 +31,8 @@ function renamePic($o_name,$name,$path){
     }
 }
 function deletePic($name,$path){
+    $path = replaceUml($path);
+    $name = replaceUml($name);
     if(file_exists($path.'thumbs/'.$name)){
         unlink($path.'thumbs/'.$name);
     }
@@ -126,6 +128,7 @@ $output .="    </div>
     return $output;
 }
 function movePics($path,$id){
+    $path = replaceUml($path);
     while(strpos($path,';')>-1){
         $name = substr($path,0,strpos($path,';'));
         $name = substr($name,strrpos($name,'/')+1);
@@ -216,9 +219,12 @@ function replaceTextWithPlugin($text,$sql){
 }
 function copyAndReplace($source,$dest){
     global $sql;
-	$file = fopen($source,'r');
-	$input = fread($file,filesize($source));
-	fclose($file);
+    $input = $source;
+    if(file_exists($source)) {
+        $file = fopen($source, 'r');
+        $input = fread($file, filesize($source));
+        fclose($file);
+    }
 	$input = replaceTextWithPlugin($input,$sql);
 	while(strpos($input,'{#insertPlugin') > -1){
 		$ktxt = substr($input,strpos($input,'{#insertPlugin'));
@@ -274,6 +280,8 @@ if(substr($authLevel,0,1) == '1'){
             if(!empty($options) && sizeof($options)>=2){
                 if(deletePic($options[0],$options[1])){
                     echo('#reload#');
+                }else{
+                    echo('could not delete file '.$options[1]);
                 }
             }else{
                 handleError($function);
@@ -327,11 +335,11 @@ if(substr($authLevel,0,1) == '1'){
 		    }
 		    break;
         case 'clickAbleMenu':
-            if(!empty($options) && sizeof($options)>=2){
+            if(!empty($options) && sizeof($options)>=1){
                 $options[0] = substr($options[0],-1) == ')'?$options[0]:$options[0].'()';
                 $options[0] = str_replace("'",'"',$options[0]);
                 $lang = $options[1];
-                echo(clickAbleMenu($options[0]));
+                echo(clickAbleMenu(replaceUml($options[0])));
             }else{
                 handleError($function);
             }

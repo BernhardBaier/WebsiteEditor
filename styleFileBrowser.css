@@ -88,7 +88,8 @@
     background:#EEE;
 }
 .prevImg.selected{
-    background:#42bd41;
+    background:#8bc34a;
+    border: 1px solid #33691e;
 }
 .picInfo{
     position:absolute;
@@ -220,6 +221,7 @@
     font-size:25px;
 }
 .galMakerImg{
+    position: relative;
     padding:3px;
     margin:1px;
     float:left;
@@ -229,8 +231,8 @@
     cursor:pointer;
 }
 .galMakerImg.selected{
-    background:#42bd41;
-    border:1px solid #0d5302;
+    background:#8bc34a;
+    border:1px solid #33691e;
 }
 .galeryMakerButton{
     text-align:center;

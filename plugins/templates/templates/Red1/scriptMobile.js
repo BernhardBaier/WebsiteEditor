@@ -63,6 +63,9 @@ function initCalendarPage(){
 var lastScrollPos = 0, scrollTimer,goingToTop = false;
 function postInit(){
     scrollTimer = window.setInterval("scrollReaction()",500);
+    try{
+        initImgSlider();
+    }catch(ex){}
 }
 function scrollReaction(){
     var elem = $(".pageOuter");

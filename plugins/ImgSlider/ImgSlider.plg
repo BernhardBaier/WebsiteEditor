@@ -12,7 +12,12 @@
 #file#include.php#
 #file#style.css#
 #file#stylePluginImgSlider.css#
-#file#imgSlider.js#
+#file#skriptPluginImgSlider.js#
+#file#imgSliderCreateSettings.php#
+#file#imgSliderCreate.php#
+#file#skriptPluginImgSlider.js#
+#file#skriptAdmin.js#
 #includes#
 #file#stylePluginImgSlider.css#
+#file#skriptPluginImgSlider.js#
 #end#

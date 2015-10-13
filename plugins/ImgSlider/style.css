@@ -3,20 +3,43 @@
     height: 96%;
     height: calc(100% - 20px);
     width: 100%;
+    overflow: hidden;
+}
+.sliderContainerTitle{
+    position: absolute;
+    top: 0;
+    height: 20px;
 }
 .sliderLeftPics{
+    padding: 20px 0 0 0;
     position: absolute;
-    width: 65%;
+    width: 55%;
     height: 100%;
     left: 0;
     top: 0;
 }
 .updateSlider{
+    cursor: pointer;
     position: absolute;
-    bottom: 0;
+    right: 0;
     background: #b3e5fc;
-    width: 100%;
-    text-align:center;
+    width: 20px;
+    height: 100%;
+    top: 0;
+}
+.updateSlider img{
+    position: absolute;
+    left: -3px;
+    width: 26px;
+    top: 25%;
+    top: calc(25% - 13px);
+    opacity: 0.5;
+}
+.updateSlider:hover{
+    background: #81d4fa;
+}
+.updateSlider:hover img{
+    opacity: 1;
 }
 .updateSlider a{
     color: #000;
@@ -27,10 +50,86 @@
 }
 .sliderRightSlider{
     position: absolute;
-    width: 35%;
+    width: 45%;
     height: 100%;
+    height: calc(100% + 20px);
     right: 0;
     top: 0;
     border: 0 solid #263238;
     border-left-width: 1px;
+}
+.sliderRightSliderTop{
+    position: absolute;
+    height: 50%;
+    top: 0;
+    width: 100%;
+}
+.sliderRightSliderBottom{
+    position: absolute;
+    z-index: 10;
+    height: 49%;
+    height: calc(50% - 1px);
+    top: 50%;
+    width: 100%;
+    border: 0 solid #263238;
+    border-top-width: 1px;
+    background: rgba(255, 255, 255, 0.5);
+}
+.addPluginImgSliderToPage{
+    cursor: pointer;
+    text-align: center;
+    width: 99%;
+    width: calc(100% - 2px);
+    padding: 0 5px;
+    background: #2196f3;
+    border: 1px solid #0d47a1;
+    color: #fff;
+}
+.addPluginImgSliderToPage:hover{
+    background: #1e88e5;
+}
+.addPluginImgSliderToPage.hidden{
+    display: none;
+}
+.sliderImgOptions{
+    position: absolute;
+    width: 95%;
+    width: calc(100% - 7px);
+    top: 45%;
+    top: calc(50% - 10px);
+    height: 20px;
+    background: rgba(255, 255 ,255, 0.75);
+    border: 1px solid #263238;
+    color: #000;
+    border-radius: 2px;
+    text-align: center;
+}
+.sliderImgOptions:hover{
+    background: #fff;
+}
+.sliderImgOptions.hidden{
+    display: none;
+}
+.sliderOverlay{
+    z-index: 4;
+    background: #000;
+    opacity: 0.6;
+    position: absolute;
+    width: 99%;
+    width: calc(100% - 1px);
+    height: 100%;
+}
+.sliderOverlay.hidden{
+    display: none;
+}
+.sliderTitleAdder{
+    padding: 5px;
+    border-radius: 3px;
+    z-index: 5;
+    position: absolute;
+    left: 45%;
+    left: calc(50% - 99px);
+    top: 10%;
+    background: #fff;
+    border: 1px solid #263238;
 }

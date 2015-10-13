@@ -36,6 +36,7 @@ $added = false;
 $hostname = $_SERVER['HTTP_HOST'];
 $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+$output = "";
 if($sql){
     $que = "SELECT * FROM plugins WHERE name ='$name'";
     $erg = mysqli_query($sql,$que);
@@ -50,11 +51,11 @@ if($sql){
 }
 
 $input = substr($input,strpos($input,'#copy#')+6);
-while(strpos($input,'#file#') < strpos($input,'#required#')){
+while(strpos($input,'#file#') < strpos($input,'#required#') && strpos($input,'#file#') > -1){
     $input = substr($input,strpos($input,'#file#')+6);
     $file = substr($input,0,strpos($input,'#'));
     if(!file_exists('../'.$file)){
-        $output .= "fatal error could not copy file $file!</br>";
+        $output .= "error could not copy file $file!</br>";
     }else{
         if(file_exists($path.$file)){
             unlink($path.$file);

@@ -123,7 +123,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             break;
     }
     echo('            <div class="calendarAddEventInner">
-                <img src="images/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Edit event:
+                <img src="pictures/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Edit event:
                 <form name="calendarEditEvent" action="javascript:editEventNow()">
                     <table>
                         <tr>
@@ -202,7 +202,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
     if($func == 'admin' && substr($authLevel,0,1) == '1'){
         echo('<div class="calendarAdmin"><div class="calendarEditEventOuter hidden"></div><div class="calendarAddEventOuter hidden">
             <div class="calendarAddEventInner">
-                <img src="images/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Add event:
+                <img src="pictures/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Add event:
                 <form name="calendarAddEvent" action="javascript:addEventNow()">
                     <table>
                         <tr>
@@ -259,7 +259,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         echo('</select>
         </div><div class="calendarImport" onclick="$(\'.calendarImport\').toggleClass(\'active\').removeClass(\'big\');document.getElementById(\'uploadFrame1000\').src=\'plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'\'"><div>Import</div><div class="calendarImportUpload">
         <iframe id="uploadFrame1000" src="plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'" width="500" height="2500" frameborder="no" border="0" scrolling="no"></iframe>
-        </div></div><div class="calendarYearChooser"><img src="images/left.png" style="float:left" onclick="showYear('.(intval($year)-1).')" />'.$year.'<img src="images/right.png" style="float:right" onclick="showYear('.(intval($year)+1).')" /></div>
+        </div></div><div class="calendarYearChooser"><img src="plugins/calendar/images/left.png" style="float:left" onclick="showYear('.(intval($year)-1).')" />'.$year.'<img src="plugins/calendar/images/right.png" style="float:right" onclick="showYear('.(intval($year)+1).')" /></div>
         </div>');
         echo('<div class="calendar">');
         for($month=1;$month<13;$month++){
@@ -287,7 +287,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         echo('<div class="calendarContent"></div></div>');
     }else if($func == 'pageEvents'){
         for($month=1;$month<13;$month++){
-            echo("<div class='calendarTitle'>$months[$month] <img src='images/menuOptions.png' height='18' class='imgRotate imgRotated' onclick='$(this).toggleClass(\"imgRotated\");$(\"#calendarGroup$month\").toggleClass(\"invisible\")' />");
+            echo("<div class='calendarTitle'>$months[$month] <img src='plugins/calendar/images/down.png' height='18' class='imgRotate imgRotated' onclick='$(this).toggleClass(\"imgRotated\");$(\"#calendarGroup$month\").toggleClass(\"invisible\")' />");
             echo("<div id='calendarGroup$month' class='calendarGroup'>");
             for($day=1;$day<32;$day++){
                 if(sizeof($event[$year][$month][$day]) > 0){
