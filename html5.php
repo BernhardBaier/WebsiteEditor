@@ -67,6 +67,29 @@ $erg = mysqli_query($sql,$que);
 while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
+mysqli_free_result($erg);
+$que = "SELECT * FROM settings WHERE parameter='languageSupport'";
+$erg = mysqli_query($sql,$que);
+$langSupport = false;
+while($row = mysqli_fetch_array($erg)){
+    $langSupport = $row['value'];
+}
+mysqli_free_result($erg);
+$langSupport = $langSupport=='multi'?true:false;
+if($langSupport){
+    $que = "SELECT * FROM settings WHERE parameter='languages'";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $languages = unserialize($row['value']);
+    }
+    mysqli_free_result($erg);
+    $que = "SELECT * FROM settings WHERE parameter='languagesLong'";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $longLanguages = unserialize($row['value']);
+    }
+    mysqli_free_result($erg);
+}
 function printMenu($sql,$n_parent=0,$level=0){
     global $table,$parents,$lang,$prev,$preview;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
@@ -185,6 +208,18 @@ while($pos > -1){
     <div class="container" align="center">
         <div class="header">
             <div class="searchBox">
+                <?php
+                if($langSupport){
+                    echo("<div class='languageChooser'>");
+                    if($lang == $languages[0]){
+                        echo("<a href='index.php?id=".$id."&lang=".$languages[1]."' title='switch to ".$longLanguages[1]."'><img src='pictures/flag_".$languages[1].".png' /></a>");
+                    }
+                    if($lang == $languages[1]){
+                        echo("<a href='index.php?id=".$id."&lang=".$languages[0]."' title='wechsele zu ".$longLanguages[0]."'><img src='pictures/flag_".$languages[0].".png' /></a>");
+                    }
+                    echo("</div>");
+                }
+                ?>
                 <form name="search" action="javascript:searchNow()">
                     <input type="search" name="searchInput" placeholder="Suche" />
                     <input type="submit" value=" go " />

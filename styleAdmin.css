@@ -910,22 +910,25 @@ img{
 }
 
 .langChooser{
+    transition:opacity 250ms,height 250ms;
+    -webkit-transition:opacity 250ms,height 250ms;
     position:absolute;
-    left:277px;
-    z-index:5;
-    background:#FFF;
-    border:3px solid #616161;
-    border-radius:0 0 5px 5px;
+    z-index:15;
+    top:33px;
+    background:#37474f;
+    color:#eceff1;
     padding:2px;
+    border-radius:0 0 5px 5px;
+    text-align:center;
+    left: 216px;
 }
 .langChooser a{
     text-decoration:none;
-    border:0 dotted #616161;
-    border-bottom-width:1px;
-    color:#000;
+    color:#fff;
 }
-.langChooser a:hover{
-    color:#616161;
+.langChooser a{
+    text-decoration:none;
+    color:#fff;
 }
 .insertPicLink{
 	position:absolute;

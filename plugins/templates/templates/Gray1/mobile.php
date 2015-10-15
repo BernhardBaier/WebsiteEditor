@@ -230,10 +230,6 @@ while($row = mysqli_fetch_array($erg)){
 <link href='commonStyle.min.css' rel='stylesheet' />
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#style for plugins#-->
-
-<link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
-<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-<link href='plugins/ImgSlider/stylePluginImgSlider.css' rel='stylesheet' />
-<script src='plugins/ImgSlider/skriptPluginImgSlider.js'></script><!--#end#-->
+<!--#end#-->
 </body>
 </html>

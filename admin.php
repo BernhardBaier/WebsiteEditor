@@ -197,9 +197,9 @@ if(substr($authLevel,0,1) == "1"){
             $(\'.tourText\').html(\'Here we have our user control panel<br/><div class="tourBut tourLeft" onclick="pageTourStep(\'+(step-1)+\')">go back</div><div class="tourBut" onclick="pageTourStep(\'+(step+1)+\')">proceed</div></div>\');
             ');
             }else{
-                echo('$(\'.tourBox\').width(150).height(28).css(\'left\',(leftWidth+windowWidth)*0.5-85).css(\'top\',0);
-            $(\'.tourText\').css(\'top\',40).css(\'left\',(leftWidth+windowWidth)*0.5-155);
-            $(\'.tourText\').html(\'The actual page name<br/><div class="tourBut tourLeft" onclick="pageTourStep(\'+(step-1)+\')">go back</div><div class="tourBut" onclick="pageTourStep(\'+(step+1)+\')">proceed</div></div>\');
+                echo('$(\'.tourBox\').width(150).height(28).css(\'left\',(leftWidth+windowWidth)*0.5-95).css(\'top\',0);
+            $(\'.tourText\').css(\'top\',40).css(\'left\',(leftWidth+windowWidth)*0.5-175);
+            $(\'.tourText\').html(\'The current page name<br/><div class="tourBut tourLeft" onclick="pageTourStep(\'+(step-1)+\')">go back</div><div class="tourBut" onclick="pageTourStep(\'+(step+1)+\')">proceed</div></div>\');
             ');
             }
             ?>
@@ -450,7 +450,7 @@ if(substr($authLevel,2,1) == '1'){
 		</div>
 	</div>
     <div class="pageContainer">
-        <div class="pageMenu"><div class="pageMenuInner"><span class="pageMenuTitle" title="the name of the actual page"></span>
+        <div class="pageMenu"><div class="pageMenuInner"><span class="pageMenuTitle" title="the name of the current page"></span>
             <div class="pageMenuInfo">Website editor Version <?php echo($editorVersion);?>&nbsp;&nbsp;<br>&nbsp;Copyright &copy; <?php echo(date('Y',time()));?> Bernhard Baier&nbsp;&nbsp;</div>&nbsp;
                 <div class="pageMenuItem rightItem" onclick="$('.logout').removeClass('opac0').removeClass('hidden')" title="close session and log off">Logout</div>
                 <div class="pageMenuItem rightItem" onclick="showPublish()" title="publish this page">Publish</div>
@@ -460,11 +460,11 @@ if(substr($authLevel,2,1) == '1'){
 	                <a target="_blank" href="index.php?id=<?php echo("$id&lang=$lang");?>&preview=true" title="preview this page in a new tab">Preview</a>
                 </div>
                 <?php
+                if($langSupport){
+                    echo("<div class='pageMenuItem' onclick=\"$('.langChooser').toggleClass('hidden')\" title='current language'>Lang: $lang</div>");
+                }
                 if(substr($authLevel,2,1) == '1'){
                     echo('<div class="pageMenuItem" onclick="showUserControl()" title="show registered users and set their rights">Users</div>');
-                }
-                if($langSupport){
-                    echo("<div class='pageMenuItem' onclick=\"$('.langChooser').toggleClass('hidden')\" title='actual language'>Lang: $lang</div>");
                 }
                 ?>
             </div>Text editing mode
@@ -472,7 +472,7 @@ if(substr($authLevel,2,1) == '1'){
         <div class="langChooser hidden">
             <?php
             for($i=0;$i<sizeof($languages);$i++){
-                echo("<a href='admin.php?id=$id&lang=".$languages[$i]."'>".$longLanguages[$i]."</a><br>");
+                echo("<div class='pageOptionItem'><a href='admin.php?id=$id&lang=".$languages[$i]."'>".$longLanguages[$i]."</a></div>");
             }
             ?>
         </div>
