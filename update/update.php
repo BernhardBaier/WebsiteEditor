@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.3";
+    $updateVersion = "2.4";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -126,8 +126,18 @@ if($authLevel == '1111'){
             }
         }
         function leaveUpdate(){
-            updateAllPlugins('../plugins/settings/');
-            window.location = '../admin.php';
+            $.ajax({
+                type: 'POST',
+                url: '../plugins/settings/functions.php',
+                data: 'function=updateAllPlugins',
+                success: function(data) {
+                    if(data != '1'){
+                        alert(data);
+                    }else{
+                        window.location = '../admin.php';
+                    }
+                }
+            });
         }
         var nextFileToMove = 0;
         var threadsRunning = 0;

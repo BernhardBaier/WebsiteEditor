@@ -11,6 +11,7 @@ function changeValue($param,$value){
 	$que = "SELECT * FROM settings WHERE parameter='$param'";
 	$erg = mysqli_query($sql,$que);
 	$search = false;
+	$value = str_replace("'","\'",$value);
 	while($row = mysqli_fetch_array($erg)){
 		$search = $row['value'];
 	}
@@ -129,6 +130,7 @@ if($authLevel == '1111'){
 		$multiLang = $multiLang=='on'?'multi':'single';
 		$autoUpdate = $_POST['autoUp'];
 		$pageTitle = $pageTitle == ''?'no Title':$pageTitle;
+		$pageTitle = str_replace('"',"'",$pageTitle);
 		$hostname = $_SERVER['HTTP_HOST'];
 		$host = $hostname == 'localhost'?$hostname:$sqlHost;
 		$sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);

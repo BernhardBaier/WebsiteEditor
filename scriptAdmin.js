@@ -132,6 +132,11 @@ function postInit(){
 	setBrowserType();
     initOptions();
     $('body').keypress(function(event) {
+        if(event.keyCode == 27){
+            closeEverything();
+            event.preventDefault();
+            return false;
+        }
         if (!(event.ctrlKey) && !(event.which == 19)) return true;
         if(event.which == 115){
             saveText('content', false);
@@ -139,6 +144,10 @@ function postInit(){
             return false;
         }else if(event.which == 112){
             saveText('content',true)
+            event.preventDefault();
+            return false;
+        }else if(event.which == 97){
+            multipleSelectAll();
             event.preventDefault();
             return false;
         }else{
@@ -158,6 +167,14 @@ function postInit(){
     $('.pageContainer').css("transition","width 1s,left 1s").css("-webkit-transition","width 1s,left 1s");
     $('.pageTour').removeClass('opac0');
     window.setInterval('checkIfUserIsLoggedIn()',60000);
+}
+function closeEverything(){
+    hideMessages();
+    $('.pluginOuter').addClass('out');
+    $('.userControlOuter').addClass('out');
+    $('.fileUpload').addClass('hidden');
+    hideGaleryEditor();
+    multipleDeselect();
 }
 function setStartHTML(){
 	startHTML = replaceUml(CKEDITOR.instances.editable.getData());
