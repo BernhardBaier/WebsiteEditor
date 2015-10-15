@@ -24,13 +24,13 @@
     background: #eceff1;
 }
 .pluginTemplateEditorBottom img{
-    width: 250px;
+    width: 400px;
     float: left;
 }
 .pluginTemplateEditorAdd{
     cursor: pointer;
     position: absolute;
-    left: 260px;
+    left: 410px;
     background: #b0bec5;
     border: 1px solid #263238;
     border-radius: 5px;
