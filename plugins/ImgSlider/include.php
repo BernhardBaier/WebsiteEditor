@@ -59,15 +59,44 @@ function initPlugin_$plugId(th){
             maxImgCount = imgCount;
             files = files == ''?'empty dir. Upload files in main panel.':files;
             var text = '<div class=\"sliderContainer\"><div class=\"sliderLeftPics\"><div class=\"sliderTitleAdder hidden\"><div class=\"sliderTitleAdderTitle\"></div><form name=\"sliderOptions\" action=\"javascript:addSliderTitleNow()\"><input type=\"hidden\" name=\"id\">';
-            text += '<input type=\"text\" name=\"optionText\"><input type=\"submit\" value=\"OK\"></form></div><div class=\"sliderOverlay hidden\" onclick=\"hideImgSliderTitle()\"></div><div class=\"sliderContainerTitle\">Select the pictures for the slider:</div>'+files;
+            text += '<input type=\"text\" autofocus name=\"optionText\"><input type=\"submit\" value=\"OK\"></form></div><div class=\"sliderOverlay hidden\" onclick=\"hideImgSliderTitle()\"></div><div class=\"sliderContainerTitle\">Select the pictures for the slider:</div>'+files;
             text += '<div class=\"updateSlider\" title=\"generate slider preview\" onclick=\"updateSlider()\"><img src=\"$location/images/updateSlider.png\" /></div></div><div class=\"sliderRightSlider\">';
             text += '<div class=\"sliderRightSliderTop\"><div>Preview:</div><div class=\"imgSliderOuter\" onmouseover=\"imgSliderHover(true)\" onmouseout=\"imgSliderHover(false)\"></div></div><div class=\"sliderRightSliderBottom\"><div>Settings:</div>';
             text += '<form name=\"imgSliderSettings\" action=\"javascript:imgSliderGenerateSettings()\"><label>Height <input type=\"text\" name=\"height\" /></label><br>';
             text += '<label>Margin <input type=\"text\" name=\"margin\" /></label><br><label>Speed <input type=\"text\" name=\"speed\" /></label><br><label>Timeout <input type=\"text\" name=\"timeout\" /></label><br>';
             text += '<input type=\"submit\" value=\"update\" name=\"imgSliderSettingsSet\" /></form><div class=\"addPluginImgSliderToPage hidden\" onclick=\"addPluginImgSliderToPage()\">add to page</div></div></div></div>'
             $('.pluginInner').html(text);
+            getExistingSliders();
         }
     });
+}
+function getExistingSliders(){
+    $.ajax({
+        type: 'POST',
+        url: '$location/restoreImgSliders.php',
+        data: 'path=sliders/imgSlider'+pageId+'_'+lang+'.php',
+        success: function(data) {
+            if(data != ''){
+                $('.sliderRightSliderTop').html('<div>Preview:</div>'+data);
+                window.setTimeout('resetExistingSliders()',10);
+            }
+        }
+    });
+}
+function resetExistingSliders(){
+    var id = 0;
+    var count = 0;
+    try{
+        for(id=0;id<100;id++){
+            if(document.getElementById('sliderPic'+id).src == document.getElementById('sliderImage'+count).src){
+                document.getElementById('sliderImg'+id).className = 'galMakerImg selected';
+                document.getElementById('sliderImgOption'+id).className = 'sliderImgOptions';
+                $('#imgSliderTextBackup'+id).html($('#imgSliderText'+count).html());
+                count++;
+            }
+        }
+    }catch (ex){}
+    updateSlider();
 }
 function addSliderTitle(id){
     document.sliderOptions.id.value = id;
