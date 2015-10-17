@@ -28,6 +28,22 @@ $erg = mysqli_query($sql,$que);
 while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
+mysqli_free_result($erg);
+$langSupport = $langSupport=='multi'?true:false;
+if($langSupport){
+    $que = "SELECT * FROM settings WHERE parameter='languages'";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $languages = unserialize($row['value']);
+    }
+    mysqli_free_result($erg);
+    $que = "SELECT * FROM settings WHERE parameter='languagesLong'";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $longLanguages = unserialize($row['value']);
+    }
+    mysqli_free_result($erg);
+}
 function printMenu($sql,$n_parent=0,$level=0){
     global $table,$parents,$childs,$equal,$lang,$id;
     $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
@@ -129,6 +145,7 @@ while($row = mysqli_fetch_array($erg)){
     <link rel="stylesheet" href="styleMobile.min.css" />
     <script>
         var lang = '<?php echo($lang);?>';
+        var mobile = true;
     </script>
 </head>
 <body onload="init()">
@@ -165,6 +182,18 @@ while($row = mysqli_fetch_array($erg)){
 				    <input name="searchInput" placeholder="Suche" type="search" />
 				    <input value=" go " type="submit" />
 			    </form>
+                <?php
+                if($langSupport){
+                    echo("<div class='languageChooser'>");
+                    if($lang == $languages[0]){
+                        echo("<a href='index.php?id=".$id."&lang=".$languages[1]."' title='switch to ".$longLanguages[1]."'><img src='pictures/flag_".$languages[1].".png' /></a>");
+                    }
+                    if($lang == $languages[1]){
+                        echo("<a href='index.php?id=".$id."&lang=".$languages[0]."' title='wechsele zu ".$longLanguages[0]."'><img src='pictures/flag_".$languages[0].".png' /></a>");
+                    }
+                    echo("</div>");
+                }
+                ?>
 		    </div>
 	    </div>
         <div class="roundButton topOverlay opac0 hidden">
@@ -196,7 +225,6 @@ while($row = mysqli_fetch_array($erg)){
                     if(substr($authLevel,0,1) == "1"){
                         $preview = 'true';
                     }
-                    echo('level: '.$authLevel);
                 }else{
                     $preview = false;
                 }

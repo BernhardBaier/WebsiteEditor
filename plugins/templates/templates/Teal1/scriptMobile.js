@@ -2,6 +2,7 @@
  * Created by Bernhard on 13.05.14.
  */
 var addedMenuClass = false;
+mobile = true;
 function init(){
     window.setTimeout('postInit()',250);
     initCalendarPage();

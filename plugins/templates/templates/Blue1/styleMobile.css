@@ -58,6 +58,16 @@ a{
     padding:6px;
     position: relative;
 }
+.searchBig{
+    position: relative;
+}
+.languageChooser{
+    position: absolute;
+    left: 185px;
+    width: 32px;
+    height: 20px;
+    top: 9px;
+}
 .searchBox input[type=search]{
 	height: 55%;
 	padding:2px;

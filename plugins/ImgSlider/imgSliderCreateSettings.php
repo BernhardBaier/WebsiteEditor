@@ -28,9 +28,21 @@ if($timeout == "" || !is_numeric($timeout)){
     $timeout = '5000';
 }
 $output = "function imgSliderSettings(){
-    $('.imgSliderOuter').css({width: '".$width."px',height: '".$height."px',margin: '".$margin."px'});
-    imgSliderSpeed = ".$speed.";
+	if (typeof mobile == 'undefined') {
+		mobile = false;
+	}
+	if(mobile == true){
+		$('.imgSliderOuter').css({width: 'calc(100% - ".($margin*2)."px)',height: '".$height."px',margin: '".$margin."px'});
+		window.setTimeout('correctSliderHeight()',500);
+	}else{
+		$('.imgSliderOuter').css({width: '".$width."px',height: '".$height."px',margin: '".$margin."px'});
+	}
+	imgSliderSpeed = ".$speed.";
     imgSliderTimeout = ".$timeout.";
+}
+function correctSliderHeight(){
+	var h = ($('.imgSliderOuter').width())/1.5;
+	$('.imgSliderOuter').css({height: h+'px'});
 }";
 $file = fopen('settings/imgSliderSettings'.$id.'.js','w');
 fwrite($file,$output);
