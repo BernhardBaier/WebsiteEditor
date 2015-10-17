@@ -38,9 +38,6 @@ function init(){
     window.setTimeout('postInit()',250);
 }
 function postInit(){
-    if(getCookie('FBPlugin') == 'true'){
-        initFBPlugin();
-    }
     window.setTimeout('initPicViewer()',25);
     try{
         initImgSlider();
@@ -187,9 +184,4 @@ function gallerySliderNext(id){
         document.getElementById('galleryPrevSliderImg' + id + '_' + (gallerySliderImages[id] - 1)).className = 'galleryPrevSliderImg left';
         gallerySliderPos[id] = 1;
     }
-}
-
-function initFBPlugin(){
-    setCookie('FBPlugin','true',1)
-    $('.fbLikeBoxOuter').html('<iframe src="fb.php" width="100%" height="100%" style="border: 0" scrolling="no"></iframe>').css('background','#fff');
 }

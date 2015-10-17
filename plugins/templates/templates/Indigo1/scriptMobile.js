@@ -3,6 +3,7 @@
  */
 var addedMenuClass = false;
 function init(){
+    alert('i');
     window.setTimeout('postInit()',250);
     initCalendarPage();
     initGallerySlider();

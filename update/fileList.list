@@ -1,6 +1,6 @@
-#description#Mayor update with a new icon set and design for Admin panel<br>new template and updater improved#
-#version#4.2.7#
-#updateVersion#2.4#
+#description#Mayor update with a new icon set and design for Admin panel<br>New functions for Admin panel.#
+#version#4.2.8#
+#updateVersion#2.3#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151015134125#
 #file#../update/copy.php#date#20150912163905#
@@ -68,11 +68,12 @@
 #file#../plugins/logo.png#date#20150910192929#
 #file#../plugins/ImgSlider/access.php#date#20151015150621#
 #file#../plugins/ImgSlider/auth.php#date#20151015150621#
-#file#../plugins/ImgSlider/ImgSlider.plg#date#20151012160623#
+#file#../plugins/ImgSlider/ImgSlider.plg#date#20151015184748#
 #file#../plugins/ImgSlider/imgSliderCreate.php#date#20151012162000#
 #file#../plugins/ImgSlider/imgSliderCreateSettings.php#date#20151012112553#
-#file#../plugins/ImgSlider/include.php#date#20151014012009#
-#file#../plugins/ImgSlider/script.js#date#20151015150804#
+#file#../plugins/ImgSlider/include.php#date#20151015201121#
+#file#../plugins/ImgSlider/restoreImgSliders.php#date#20151015192229#
+#file#../plugins/ImgSlider/script.js#date#20151017125246#
 #file#../plugins/ImgSlider/skriptAdmin.js#date#20151013151415#
 #file#../plugins/ImgSlider/skriptPluginImgSlider.js#date#20151012152958#
 #file#../plugins/ImgSlider/skriptPluginImgSliderSettings.js#date#20151010171017#
@@ -87,7 +88,7 @@
 #file#../plugins/templates/choose.php#date#20151013232404#
 #file#../plugins/templates/getTemplates.php#date#20151015140906#
 #file#../plugins/templates/include.php#date#20151015141131#
-#file#../plugins/templates/script.js#date#20151015150804#
+#file#../plugins/templates/script.js#date#20151017125246#
 #file#../plugins/templates/skriptPluginTemplate.js#date#20151015141131#
 #file#../plugins/templates/style.css#date#20151015131732#
 #file#../plugins/templates/templateEditor.plg#date#20151015140045#
@@ -144,7 +145,7 @@
 #file#../plugins/templates/templates/Indigo1/pictures/preview.jpg#date#20151015131626#
 #file#../plugins/templates/templates/Indigo1/scriptHTML5.js#date#20151012113646#
 #file#../plugins/templates/templates/Indigo1/scriptHTML5.min.js#date#20151013230431#
-#file#../plugins/templates/templates/Indigo1/scriptMobile.js#date#20151010164500#
+#file#../plugins/templates/templates/Indigo1/scriptMobile.js#date#20151017130621#
 #file#../plugins/templates/templates/Indigo1/scriptMobile.min.js#date#20150912171751#
 #file#../plugins/templates/templates/Indigo1/styleHTML5.css#date#20151015120821#
 #file#../plugins/templates/templates/Indigo1/styleHTML5.min.css#date#20151015123148#
@@ -232,7 +233,7 @@
 #file#../commonStyle.min.css#date#20150912172547#
 #file#../compress.php#date#20150823181435#
 #file#../deletePic.php#date#20150823181435#
-#file#../design.pptx#date#20151015133637#
+#file#../design.pptx#date#20151015152805#
 #file#../editor.php#date#20150823181435#
 #file#../fb.php#date#20151015123208#
 #file#../functions.php#date#20151013202212#
@@ -256,7 +257,7 @@
 #file#../scriptFileBrowser.js#date#20151013201757#
 #file#../scriptFileBrowser.min.js#date#20150912171620#
 #file#../scriptHTML5.min.js#date#20151015150621#
-#file#../scriptMobile.min.js#date#20151015150621#
+#file#../scriptMobile.min.js#date#20151017130621#
 #file#../scriptPlugin.js#date#20150823181436#
 #file#../scriptPlugins.min.js#date#20150912171832#
 #file#../search.php#date#20150823181436#
@@ -271,7 +272,6 @@
 #file#../styleLogin.min.css#date#20150912172021#
 #file#../styleMobile.min.css#date#20151015150621#
 #file#../tour.php#date#20150823181437#
-#file#../usercount.txt#date#20151015113421#
+#file#../usercount.txt#date#20151017125255#
 #file#../users.php#date#20150823181437#
-#file#../~$design.pptx#date#20151015150725#
 #file#../content/user.php#date#20150823181449#
