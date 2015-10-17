@@ -29,6 +29,13 @@ while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 mysqli_free_result($erg);
+$que = "SELECT * FROM settings WHERE parameter='languageSupport'";
+$erg = mysqli_query($sql,$que);
+$langSupport = false;
+while($row = mysqli_fetch_array($erg)){
+    $langSupport = $row['value'];
+}
+mysqli_free_result($erg);
 $langSupport = $langSupport=='multi'?true:false;
 if($langSupport){
     $que = "SELECT * FROM settings WHERE parameter='languages'";
