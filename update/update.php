@@ -36,7 +36,6 @@ if($authLevel == '1111'){
         $upVersionNew = substr($upVersionNew,0,strpos($upVersionNew,'#'));
         if($updateVersion != $upVersionNew){
             // update Updater first!
-            echo($updateVersion." : ".$upVersionNew);
             $updateUpdater = true;
         }
     }
