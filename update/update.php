@@ -288,6 +288,9 @@ if($authLevel == '1111'){
                     }
                 }
             }
+            if(!file_exists($path)){
+                $add = true;
+            }
             if(strpos($in,$path) > -1){
                 $ktxt = substr($in,0,strpos($in,$path)-6);
                 $in = substr($in,strpos($in,$path));
