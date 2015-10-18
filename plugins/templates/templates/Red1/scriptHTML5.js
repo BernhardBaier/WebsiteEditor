@@ -57,13 +57,15 @@ function showYear(year){
     $.ajax({
         type: 'POST',
         url: 'plugins/calendar/calendar.php',
-        data: 'year='+year+'&function=pageEvents&href='+href+'&id=1&lang='+lang,
+        data: 'year='+year+'&function=pageEvents&href='+href+'&id=2&lang='+lang,
         success: function(data) {
             $('.calendarContent').html(data);
             if(year == now){
                 for(var i = 1;i <= date.getMonth();i++){
-                    document.getElementsByClassName('imgRotate')[i-1].className = 'imgRotate';
-                    document.getElementById('calendarGroup'+i).className = 'calendarGroup invisible';
+                    try{
+                        document.getElementsByClassName('imgRotate')[i-1].className = 'imgRotate';
+                        document.getElementById('calendarGroup'+i).className = 'calendarGroup invisible';
+                    }catch(ex){}
                 }
             }
             $('.calendarLoading').addClass('hidden');

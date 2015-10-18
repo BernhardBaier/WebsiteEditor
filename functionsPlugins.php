@@ -48,7 +48,9 @@ if(substr($authLevel,0,1) == '1') {
     }
     if($action == 'addHTML'){
         addHTMLToReplace($html_in,$path_in);
+        echo('1');
     }else if($action == 'removeHTML'){
         removeHTMLFromReplace($html_in);
+        echo('0');
     }
 }

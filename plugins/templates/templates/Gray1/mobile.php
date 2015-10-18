@@ -114,7 +114,7 @@ function findInArray($array,$needle){
     return -1;
 }
 function replaceUml($text){
-    $umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
+    $umlaute = [['Ã¤','Ã¶','Ã¼','Ã„','Ã–','Ãœ','ÃŸ'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
     for($i=0;$i<sizeof($umlaute[0]);$i++){
         $text = str_replace($umlaute[0][$i],$umlaute[1][$i],$text);
     }
@@ -165,7 +165,7 @@ while($row = mysqli_fetch_array($erg)){
     <div class="header">
         <div class="searchResultsOuter hidden">
             <div class="searchResults">
-                <img src="pictures/close.png" title="schließen" onclick="$('.searchResultsOuter').addClass('hidden')" />
+                <img src="pictures/close.png" title="schlieÃŸen" onclick="$('.searchResultsOuter').addClass('hidden')" />
                 <div class="searchResultsInner"></div>
             </div>
         </div>

@@ -17,7 +17,11 @@
 	float:right;
 }
 .calendarTerminAdmin img{
+	opacity: 0.5;
 	cursor:pointer;
+}
+.calendarTerminAdmin img:hover{
+	opacity: 1;
 }
 .calendarAddEvent{
 	float:left;

@@ -6,12 +6,10 @@
  * Time: 18:47
  */
 $path = $_POST['path'];
-$input = '';
+$input = '1';
 if(file_exists($path)){
     $datei = fopen($path,'r');
     $input = fread($datei,filesize($path));
     fclose($datei);
-}else{
-    echo('error');
 }
 echo($input);

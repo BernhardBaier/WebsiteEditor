@@ -118,7 +118,7 @@ function imgSliderGenerateSettings(){
 function imgSliderWriteSettings(){
     $.ajax({
         type: 'POST',
-        url: 'plugins/imgSlider/imgSliderCreateSettings.php',
+        url: 'plugins/ImgSlider/imgSliderCreateSettings.php',
         data: 'width='+imgSliderWidth+'&height='+imgSliderHeight+'&margin='+imgSliderMargin+'&speed='+imgSliderSpeed+'&timeout='+imgSliderTimeout+'&id='+pageId,
         success: function(data) {
             if(data != '1'){

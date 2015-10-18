@@ -29,6 +29,13 @@ while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
 mysqli_free_result($erg);
+$que = "SELECT * FROM settings WHERE parameter='languageSupport'";
+$erg = mysqli_query($sql,$que);
+$langSupport = false;
+while($row = mysqli_fetch_array($erg)){
+    $langSupport = $row['value'];
+}
+mysqli_free_result($erg);
 $langSupport = $langSupport=='multi'?true:false;
 if($langSupport){
     $que = "SELECT * FROM settings WHERE parameter='languages'";
@@ -249,6 +256,7 @@ while($row = mysqli_fetch_array($erg)){
 <link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
 <link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
 <link href='plugins/ImgSlider/stylePluginImgSlider.css' rel='stylesheet' />
-<script src='plugins/ImgSlider/skriptPluginImgSlider.js'></script><!--#end#-->
+<script src='plugins/ImgSlider/skriptPluginImgSlider.js'></script>
+<link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' /><!--#end#-->
 </body>
 </html>

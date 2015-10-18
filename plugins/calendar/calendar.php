@@ -31,9 +31,11 @@ $base = $sqlBase;
 $hostname = $_SERVER['HTTP_HOST'];
 $host = $hostname == 'localhost'?$hostname:$sqlHost;
 $sql = mysqli_connect($host,$sqlUser,$sqlPass,$base);
-if(!$include && $href != ''){
-    include('../../functionsPlugins.php');
-    addHTMLToReplace("{#insertPluginCalendar_$href"."_$lang#}","plugins/calendar/calendar.php?lang=$lang&function=page&href=$href");
+if(isset($authLevel)){
+    if(!$include && substr($authLevel,0,1) == '1' && $href != ''){
+        include('../../functionsPlugins.php');
+        addHTMLToReplace("{#insertPluginCalendar_$href"."_$lang#}","plugins/calendar/calendar.php?lang=$lang&function=page&href=$href");
+    }
 }
 if(!$sql){
     echo('sql error');

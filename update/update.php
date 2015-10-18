@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.4";
+    $updateVersion = "2.5";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -43,6 +43,25 @@ if($authLevel == '1111'){
     $description = substr($description,0,strpos($description,'#'));
     $version = substr($remoteIn,strpos($remoteIn,'#version#')+9);
     $version = substr($version,0,strpos($version,'#'));
+    $file = fopen($remotePath.'update/versions.des','r');
+    $desFile = fread($file,9999);
+    fclose($file);
+    if(!(strpos($desFile,$version) > -1) && $desFile != ''){
+        $desFile .= "
+#version#$version#$description#";
+    }
+    if(strpos($desFile,$oldVersion) > -1){
+        $desFile = substr($desFile,strpos($desFile,$oldVersion)-1);
+        $description = '';
+        while(strpos($desFile,'#version#') > -1){
+            $desFile = substr($desFile,strpos($desFile,'#version#')+9);
+            $ver = substr($desFile,0,strpos($desFile,'#'));
+            $desFile = substr($desFile,strpos($desFile,'#')+1);
+            $des = substr($desFile,0,strpos($desFile,'#'));
+            $desFile = substr($desFile,strpos($desFile,'#')+1);
+            $description .= "<div class='description version'>$ver</div>$des";
+        }
+    }
     $force = $_GET['forceUpdate'];
     if($version == $oldVersion && $force != 'true'){
         header('Location: ../admin.php');
@@ -51,8 +70,6 @@ if($authLevel == '1111'){
     if(!file_exists('access.crypt')){
         copy('../access.crypt','access.crypt');
     }
-
-    // TODO: update plugins after update.
 ?>
 <!DOCTYPE html>
 <html>
@@ -85,10 +102,17 @@ if($authLevel == '1111'){
                                 url: 'copy.php',
                                 data: 'path=../update/style.css&remotePath='+remotePath,
                                 success: function(data) {
-                                    if(data != "1"){
-                                        alert(data);
-                                    }
-                                    window.location.href='update.php?forceUpdate=true&action=updateFileList';
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'copy.php',
+                                        data: 'path=../update/versions.des&remotePath='+remotePath,
+                                        success: function(data) {
+                                            if(data != "1"){
+                                                alert(data);
+                                            }
+                                            window.location.href='update.php?forceUpdate=true&action=updateFileList';
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -253,7 +277,8 @@ if($authLevel == '1111'){
 <body onload="init()">
 <div class="container" align="center">
     <div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
-    <div class="pageTitle">Welcome to the update Panel.<?php if($oldVersion!=$version){echo("<br>Your WebsiteEditor will be updated from Version $oldVersion to $version:<br>$description");}?></div>
+    <div class="pageTitle">Welcome to the update Panel.<?php if($oldVersion!=$version){echo("<br>Your WebsiteEditor will be updated from Version $oldVersion to $version:");}?></div>
+    <div class="description"><?php  if($oldVersion!=$version){echo($description);}?></div>
     <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div class="button"><a href="../admin.php">Skip Update</a></div>
     <div style="position:relative">

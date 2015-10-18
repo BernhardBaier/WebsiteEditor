@@ -10,9 +10,19 @@ html,body{
 img{
     border:0;
 }
+.description{
+    background: #eceff1;
+    font-size: 13px;
+}
+.description.version{
+    background: #cfd8dc;
+    font-size: 15px;
+    font-weight: bold;
+}
 .container{
     position: relative;
     margin: 5px;
+    overflow:auto;
     background: #fff;
     height: 99%;
     height: calc(100% - 10px);

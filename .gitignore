@@ -17,3 +17,10 @@ einsatz/*
 moveOldPage.php
 fb.php
 imagesOld/*
+mobile.php
+index.php
+html5.php
+styleMobile.min.css
+styleHTML5.min.css
+scriptHTML5.min.js
+scriptMobile.min.js

@@ -76,7 +76,7 @@ function getExistingSliders(){
         url: '$location/restoreImgSliders.php',
         data: 'path=sliders/imgSlider'+pageId+'_'+lang+'.php',
         success: function(data) {
-            if(data != ''){
+            if(data != '1'){
                 $('.sliderRightSliderTop').html('<div>Preview:</div>'+data);
                 window.setTimeout('resetExistingSliders()',10);
             }
@@ -177,7 +177,7 @@ function addPluginImgSliderToPage(){
                 url: 'functionsPlugins.php',
                 data: 'path=$location/sliders/imgSlider'+pageId+'_'+lang+'.php&html={#insertPluginImgSlider'+pageId+'_'+lang+'#}&action=addHTML',
                 success: function(data) {
-                    if(data != ''){
+                    if(data != '1'){
                         alert(data);
                     }
                 }
@@ -193,7 +193,6 @@ fclose($file);
 }
 echo("
 <script src='$location/script.js'></script>
-<script src='$location/skriptPluginImgSlider.js'></script>
 <script src='$location/skriptAdmin.js'></script>
 <script src='$location/skriptPluginImgSliderSettings.js'></script>
 <link rel='stylesheet' href='$location/stylePluginImgSlider.css' />
