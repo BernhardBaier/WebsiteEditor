@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.6";
+    $updateVersion = "2.7";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -15,7 +15,7 @@ if($authLevel == '1111'){
             $description = '#description#'.substr($in,0,strpos($in,'#')+1);
             $in = substr($in,strpos($in,'#')+1);
         }
-        $version = '4';
+        $version = '#version#4#';
         if(strpos($in,'#version#')>-1){
             $in = substr($in,strpos($in,'#version#')+9);
             $version = '#version#'.substr($in,0,strpos($in,'#')+1);
