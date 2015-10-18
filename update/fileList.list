@@ -1,5 +1,5 @@
-#description#bugfix for templates#
-#version#4.2.13#
+#description#styles for templates#
+#version#4.2.14#
 #updateVersion#2.8#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151018143943#
@@ -103,8 +103,8 @@
 #file#../plugins/templates/templates/Blue1/scriptMobile.min.js#date#20151017130813#
 #file#../plugins/templates/templates/Blue1/styleHTML5.css#date#20151018124436#
 #file#../plugins/templates/templates/Blue1/styleHTML5.min.css#date#20151018130712#
-#file#../plugins/templates/templates/Blue1/styleMobile.css#date#20151017153139#
-#file#../plugins/templates/templates/Blue1/styleMobile.min.css#date#20151017153311#
+#file#../plugins/templates/templates/Blue1/styleMobile.css#date#20151018152414#
+#file#../plugins/templates/templates/Blue1/styleMobile.min.css#date#20151018152427#
 #file#../plugins/templates/templates/Gray1/gray1.tmpl#date#20151015125923#
 #file#../plugins/templates/templates/Gray1/html5.php#date#20151018144252#
 #file#../plugins/templates/templates/Gray1/images/arrowTop.png#date#20150823181502#
@@ -122,8 +122,8 @@
 #file#../plugins/templates/templates/Gray1/scriptMobile.min.js#date#20151017130813#
 #file#../plugins/templates/templates/Gray1/styleHTML5.css#date#20151018130858#
 #file#../plugins/templates/templates/Gray1/styleHTML5.min.css#date#20151018130941#
-#file#../plugins/templates/templates/Gray1/styleMobile.css#date#20151017153146#
-#file#../plugins/templates/templates/Gray1/styleMobile.min.css#date#20151017153303#
+#file#../plugins/templates/templates/Gray1/styleMobile.css#date#20151018152409#
+#file#../plugins/templates/templates/Gray1/styleMobile.min.css#date#20151018152435#
 #file#../plugins/templates/templates/Indigo1/html5.php#date#20151018144258#
 #file#../plugins/templates/templates/Indigo1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Indigo1/images/close.png#date#20150823181502#
@@ -141,8 +141,8 @@
 #file#../plugins/templates/templates/Indigo1/scriptMobile.min.js#date#20151017130813#
 #file#../plugins/templates/templates/Indigo1/styleHTML5.css#date#20151018130905#
 #file#../plugins/templates/templates/Indigo1/styleHTML5.min.css#date#20151018130935#
-#file#../plugins/templates/templates/Indigo1/styleMobile.css#date#20151017153241#
-#file#../plugins/templates/templates/Indigo1/styleMobile.min.css#date#20151017153252#
+#file#../plugins/templates/templates/Indigo1/styleMobile.css#date#20151018152305#
+#file#../plugins/templates/templates/Indigo1/styleMobile.min.css#date#20151018152450#
 #file#../plugins/templates/templates/Red1/fb.php#date#20150823181435#
 #file#../plugins/templates/templates/Red1/html5.php#date#20151014011234#
 #file#../plugins/templates/templates/Red1/images/arrowTop.png#date#20150823181502#
@@ -177,8 +177,8 @@
 #file#../plugins/templates/templates/Teal1/scriptMobile.min.js#date#20151017130813#
 #file#../plugins/templates/templates/Teal1/styleHTML5.css#date#20151018130910#
 #file#../plugins/templates/templates/Teal1/styleHTML5.min.css#date#20151018130919#
-#file#../plugins/templates/templates/Teal1/styleMobile.css#date#20151017153208#
-#file#../plugins/templates/templates/Teal1/styleMobile.min.css#date#20151017153220#
+#file#../plugins/templates/templates/Teal1/styleMobile.css#date#20151018152405#
+#file#../plugins/templates/templates/Teal1/styleMobile.min.css#date#20151018152443#
 #file#../plugins/templates/templates/Teal1/teal1.tmpl#date#20151017141646#
 #file#../plugins/calendar/calendar.php#date#20151017164841#
 #file#../plugins/calendar/calendar.plg#date#20150910180606#

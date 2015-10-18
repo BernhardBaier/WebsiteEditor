@@ -36,6 +36,8 @@ a{
 	min-height:40px;
 	width: 100%;
 	position: relative;
+    border: 0 solid #3949ab;
+    border-bottom-width: 1px;
 }
 .headerDivider.small{
 	height:100%;
@@ -217,6 +219,8 @@ a{
     height:8%;
     background:#3f51b5;
     text-align: center;
+    border: 0 solid #303f9f;
+    border-bottom-width: 1px;
 }
 .footer a{
     color: #fff;
@@ -243,8 +247,10 @@ a{
 }
 .searchResultsOuter{
     position:absolute;
-    z-index:5;
+    z-index:15;
     width:90%;
+    overflow: auto;
+    max-width: 90%;
     left:5%;
     text-align:center;
     top:125px;
@@ -267,6 +273,12 @@ a{
     margin: 0;
     padding: 0;
     background:#EEE;
+}
+.searchTitle{
+    margin: 0;
+    padding: 0;
+    background: #D1D1D1;
+    font-size: 20px;
 }
 .searchBig{
     position: relative;

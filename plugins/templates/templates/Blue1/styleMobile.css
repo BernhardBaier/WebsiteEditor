@@ -24,6 +24,8 @@ a{
 	min-height: 40px;
     background:#2196f3;
     position:relative;
+    border: 0 solid #1e88e5;
+    border-bottom-width: 1px;
 }
 .header.small{
 	height:9%;
@@ -227,6 +229,8 @@ a{
     height:8%;
     background:#2196f3;
     text-align: center;
+    border: 0 solid #1976d2;
+    border-bottom-width: 1px;
 }
 .footer a{
     color: #fff;
@@ -253,8 +257,10 @@ a{
 }
 .searchResultsOuter{
     position:absolute;
-    z-index:5;
+    z-index:15;
     width:90%;
+    overflow: auto;
+    max-width: 90%;
     left:5%;
     text-align:center;
     top:125px;
@@ -277,6 +283,12 @@ a{
     margin: 0;
     padding: 0;
     background:#EEE;
+}
+.searchTitle{
+    margin: 0;
+    padding: 0;
+    background: #D1D1D1;
+    font-size: 20px;
 }
 
 .roundButton{
