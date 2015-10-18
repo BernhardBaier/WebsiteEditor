@@ -43,6 +43,7 @@ if($authLevel == '1111'){
     $remotePath = substr($in,0,strpos($in,'#'));
     $file = fopen($remotePath.'update/fileList.list','r');
     $remoteIn = fread($file,999999);
+    echo($remoteIn);
     fclose($file);
     if(strpos($remoteIn,'#updateVersion#') > -1){
         $upVersionNew = substr($remoteIn,strpos($remoteIn,'#updateVersion#')+15);
