@@ -2,20 +2,33 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.5";
+    $updateVersion = "2.6";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
         $in = fread($file,filesize('fileList.list'));
         fclose($file);
         $in = substr($in,strpos($in,'#'));
-        $version = substr($in,0,strpos($in,'#',9)+1);
-        $in = substr($in,strpos($in,'#',9));
+        $description = "";
+        if(strpos($in,'#description#')>-1){
+            $in = substr($in,strpos($in,'#description#')+13);
+            $description = '#description#'.substr($in,0,strpos($in,'#')+1);
+            $in = substr($in,strpos($in,'#')+1);
+        }
+        $version = '4';
+        if(strpos($in,'#version#')>-1){
+            $in = substr($in,strpos($in,'#version#')+9);
+            $version = '#version#'.substr($in,0,strpos($in,'#')+1);
+            $in = substr($in,strpos($in,'#')+1);
+        }
         if(strpos($in,'#updateVersion#') > -1){
             $in = substr($in,strpos($in,'#updateVersion#')+15);
             $in = substr($in,strpos($in,'#')+1);
         }
-        $in = $version.'
+        if(strpos($in,'#') < strpos($in,'#file#')){
+            $in = substr($in,strpos($in,'#file#'));
+        }
+        $in = $description.$version.'
 #updateVersion#'.$updateVersion.'#'.$in;
         $file = fopen('fileList.list','w');
         fwrite($file,$in);
