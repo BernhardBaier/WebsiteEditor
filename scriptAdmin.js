@@ -175,6 +175,7 @@ function closeEverything(){
     $('.fileUpload').addClass('hidden');
     hideGaleryEditor();
     multipleDeselect();
+    hidePageTour();
 }
 function setStartHTML(){
 	startHTML = replaceUml(CKEDITOR.instances.editable.getData());
