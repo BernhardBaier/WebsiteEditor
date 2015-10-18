@@ -1,7 +1,7 @@
 #description#bugfix in Calendar and templates#
 #version#4.2.12#
-#updateVersion#2.7#
-#path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
+#updateVersion#2.8#
+#path#https://raw.githubusercontent.com/BernhardBaier/WebsiteEditor/master/#
 #file#../update/update.php#date#20151018140124#
 #file#../update/copy.php#date#20150912163905#
 #file#../update/access.php#date#20150823181513#

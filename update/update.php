@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.7";
+    $updateVersion = "2.8";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -25,11 +25,16 @@ if($authLevel == '1111'){
             $in = substr($in,strpos($in,'#updateVersion#')+15);
             $in = substr($in,strpos($in,'#')+1);
         }
+        if(strpos($in,'#path#') > -1){
+            $in = substr($in,strpos($in,'#path#')+6);
+            $path = '#path#'.substr($in,0,strpos($in,'#')+1);
+            $in = substr($in,strpos($in,'#')+1);
+        }
         if(strpos($in,'#') < strpos($in,'#file#')){
             $in = substr($in,strpos($in,'#file#'));
         }
         $in = $description.$version.'
-#updateVersion#'.$updateVersion.'#'.$in;
+#updateVersion#'.$updateVersion.'#'.$path.$in;
         $file = fopen('fileList.list','w');
         fwrite($file,$in);
         fclose($file);
@@ -37,13 +42,23 @@ if($authLevel == '1111'){
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
     fclose($file);
-    $oldVersion = substr($in,strpos($in,'#version#')+9);
-    $oldVersion = substr($oldVersion,0,strpos($oldVersion,'#'));
-    $in = substr($in,strpos($in,'#path#')+6);
-    $remotePath = substr($in,0,strpos($in,'#'));
+    $oldVersion = '4';
+    if(strpos($in,'#version#')>-1){
+        $in = substr($in,strpos($in,'#version#')+9);
+        $oldVersion = substr($in,0,strpos($in,'#'));
+        $in = substr($in,strpos($in,'#')+1);
+    }
+    $remotePath = false;
+    if(strpos($in,'#path#')>-1){
+        $in = substr($in,strpos($in,'#path#')+6);
+        $remotePath = substr($in,0,strpos($in,'#'));
+        $in = substr($in,strpos($in,'#')+1);
+    }
+    if($remotePath == false){
+        die('files corrupted!');
+    }
     $file = fopen($remotePath.'update/fileList.list','r');
     $remoteIn = fread($file,999999);
-    echo($remoteIn);
     fclose($file);
     if(strpos($remoteIn,'#updateVersion#') > -1){
         $upVersionNew = substr($remoteIn,strpos($remoteIn,'#updateVersion#')+15);
@@ -53,10 +68,18 @@ if($authLevel == '1111'){
             $updateUpdater = true;
         }
     }
-    $description = substr($remoteIn,strpos($remoteIn,"#description#")+13);
-    $description = substr($description,0,strpos($description,'#'));
-    $version = substr($remoteIn,strpos($remoteIn,'#version#')+9);
-    $version = substr($version,0,strpos($version,'#'));
+    $description = "";
+    if(strpos($remoteIn,'#description#')>-1){
+        $remoteIn = substr($remoteIn,strpos($remoteIn,'#description#')+13);
+        $description = substr($remoteIn,0,strpos($remoteIn,'#'));
+        $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
+    }
+    $version = '4';
+    if(strpos($remoteIn,'#version#')>-1){
+        $remoteIn = substr($remoteIn,strpos($remoteIn,'#version#')+9);
+        $version = substr($remoteIn,0,strpos($remoteIn,'#'));
+        $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
+    }
     $file = fopen($remotePath.'update/versions.des','r');
     $desFile = fread($file,9999);
     fclose($file);
