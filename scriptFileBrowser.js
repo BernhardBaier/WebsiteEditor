@@ -382,33 +382,55 @@ function changeInsertType(){
     switch(document.insert.type.selectedIndex){
         case 0:
             if(align!=''){
-                pic = '<img width="250" style="float:'+align+'" src="'+document.insert.path.value+'" />';
+                pic = '<img width="250" style="float:'+align+'" src="'+document.insert.path.value+'" ></img>';
             }else{
-                pic = '<img width="250" src="'+document.insert.path.value+'" />';
+                pic = '<img width="250" src="'+document.insert.path.value+'" ></img>';
             }
             break;
         case 1:
             if(align!=''){
-                pic = '<div style="float:'+align+'" class="titledImg '+classes+'"><div class="imgTitle">Title</div><img width="250" src="'+document.insert.path.value+'" /></div>';
+                pic = '<div style="float:'+align+'" class="titledImg '+classes+'"><div class="imgTitle">Title</div><img width="250" src="'+document.insert.path.value+'" ></img></div>';
             }else{
-                pic = '<div class="titledImg '+classes+'"><div class="imgTitle">Title</div><img width="250" src="'+document.insert.path.value+'" /></div>';
+                pic = '<div class="titledImg '+classes+'"><div class="imgTitle">Title</div><img width="250" src="'+document.insert.path.value+'" ></img></div>';
             }
             break;
         case 2:
             if(align!=''){
-                pic = '<div style="float:'+align+'" class="titledImg '+classes+'"><img width="250" src="'+document.insert.path.value+'" /><div class="imgTitle">Title</div></div>';
+                pic = '<div style="float:'+align+'" class="titledImg '+classes+'"><img width="250" src="'+document.insert.path.value+'" ></img><div class="imgTitle">Title</div></div>';
             }else{
-                pic = '<div class="titledImg '+classes+'"><img width="250" src="'+document.insert.path.value+'" /><div class="imgTitle">Title</div></div>';
+                pic = '<div class="titledImg '+classes+'"><img width="250" src="'+document.insert.path.value+'" ></img><div class="imgTitle">Title</div></div>';
             }
             break;
     }
+    try{
+        document.getElementById('insertPicLinkButton').className = '';
+        document.getElementById('insertPicLinkButton').value = 'add a link';
+    }catch(ex){}
     $('.htmlToInsert').html('<table><tr><td id="htmlToInsert">'+pic+'</td></tr></table>');
 }
 function insertPicNow(){
-    insertHTMLatCursor($('#htmlToInsert').html()+"<p>&nbsp;</p>");
+    var html = $('#htmlToInsert').html()+"<p>&nbsp;</p>";
+    if(html.search('<a') > -1){
+        if(html.search('imgTitle') > -1){
+            var link = html.substr(0,html.search('>')+1);
+            html = html.replace(link,'').replace('</a>','');
+            var ktxt = html.substr(0,html.search('imgTitle')+10);
+            html = html.substr(html.search('imgTitle')+10);
+            ktxt += link + html.substr(0,html.search('<')) + '</a>';
+            html = html.substr(html.search('<'));
+            html = ktxt + html;
+            ktxt = html.substr(0,html.search('<img'));
+            html = html.substr(html.search('<img'));
+            var pos = html.search('/>');
+            pos = pos == -1?html.search('</img>'):pos;
+            pos = pos == -1?html.search('>') - 2:pos;
+            ktxt += link + html.substr(0,pos + 2) + ' /></a>';
+            html = html.substr(pos + 3);
+            html = ktxt + html;
+        }
+    }
+    insertHTMLatCursor(html);
     hideMessages();
-    togglePicsClickable();
-    togglePicsClickable();
 }
 
 function showGaleryMaker(){

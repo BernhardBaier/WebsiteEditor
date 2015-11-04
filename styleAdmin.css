@@ -92,7 +92,7 @@ img{
     background:#37474f;
     position:absolute;
 	opacity: 1;
-    z-index:99;
+    z-index:999;
 }
 .loadingImg{
     position:absolute;
@@ -402,7 +402,7 @@ img{
 	cursor: pointer;
 }
 .menuSub input[type=submit]:hover{
-    background:#55830C;
+    background:#8bc34a;
 }
 .menuSub input[type=text]{
     border:1px solid #616161;
@@ -454,7 +454,7 @@ img{
     transition:height 500ms;
     height:0;
     overflow:hidden;
-    background:#e99;
+    background:#26a69a;
     opacity:0;
 }
 .menuItem.visib{
@@ -471,7 +471,7 @@ img{
     background:#CCC;
 }
 .menuItem.over{
-    background:#d88;
+    background:#00796b;
 }
 #menuItemImg{
     opacity: 0.3;
@@ -490,18 +490,18 @@ img{
 .menuItemRightDrop{
     width:50%;
     display:inline-flex;
-    background:#9e9;
+    background:#9ccc65;
 }
 .menuItemRightDrop.over{
-    background:#8d8;
+    background:#689f38;
 }
 .menuItemLeftDrop{
     width:50%;
     display:inline-flex;
-    background:#99e;
+    background:#29b6f6;
 }
 .menuItemLeftDrop.over{
-    background:#88d;
+    background:#0288d1;
 }
 .menuItemLeft{
     position:absolute;
@@ -599,25 +599,38 @@ img{
 .msgBox input[type=submit]{
     border-radius:3px;
     margin:1px;
-    border:1px solid #0d5302;
-    background:#056f00;
+    border:1px solid #1b5e20;
+    background:#43a047;
     cursor:pointer;
     color:#FFF;
 }
 .msgBox input[type=submit]:hover{
-    border:1px solid #056f00;
-    background:#0a7e07;
+    background:#66bb6a;
 }
 .msgBox input[type=button]{
     border-radius:3px;
     margin:1px;
-    border:1px solid #f4511e;
-    background:#ef6c00;
+    border:1px solid #ff6d00;
+    background:#ff9800;
     cursor:pointer;
 }
 .msgBox input[type=button]:hover{
-    border:1px solid #ef6c00;
-    background:#fb8c00;
+    background:#ffa726;
+}
+#insertPicLinkButton{
+    border:1px solid #1a237e;
+    background:#3f51b5;
+    color: #fff;
+}
+#insertPicLinkButton:hover{
+    background:#5c6bc0;
+}
+#insertPicLinkButton.active{
+    border:1px solid #1b5e20;
+    background:#43a047;
+}
+#insertPicLinkButton.active:hover{
+    background:#4caf50;
 }
 .delete{
 	background:#f9bdbb;
@@ -634,8 +647,8 @@ img{
 .notificationBox{
     transition:opacity 500ms;
     -webkit-transition:opacity 500ms;
-    background:#a3e9a4;
-    border:1px solid #259b24;
+    background:#8bc34a;
+    border:1px solid #33691e;
     padding:10px;
 }
 .notificationBox a{

@@ -16,37 +16,8 @@ function confirmExit(){
 		document.getElementsByClassName('loadingMessage')[0].innerHTML = 'Loading';
 	}
 }
-var actCKEPos ='NULL';
-function getCharacterOffsetWithin(range, node) {
-    var treeWalker = document.createTreeWalker(
-        node,
-        NodeFilter.SHOW_TEXT,
-        function(node) {
-            var nodeRange = document.createRange();
-            nodeRange.selectNodeContents(node);
-            return nodeRange.compareBoundaryPoints(Range.END_TO_END, range) < 1 ?
-                NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-        },
-        false
-    );
-
-    var charCount = 0;
-    while (treeWalker.nextNode()) {
-        charCount += treeWalker.currentNode.length;
-    }
-    if (range.startContainer.nodeType == 3) {
-        charCount += range.startOffset;
-    }
-    return charCount;
-}
 function getCKEPosition(){
-	try{
-		var el = document.getElementById("editable");
-		var range = window.getSelection().getRangeAt(0);
-		actCKEPos = getCharacterOffsetWithin(range, el);
-	}catch(ex){
-		actCKEPos = 'NULL';
-	}
+	return false;
 }
 function getCurrentHTML(){
 	return CKEDITOR.instances.editable.getData();
@@ -55,6 +26,26 @@ function setEditorHTML(html){
     CKEDITOR.instances.editable.setData(html);
 }
 function insertHTMLatCursor(html){
+    if(html.search('width=') > -1){
+        var ktxt = html;
+        var killText = '';
+        while(ktxt.search('width=') > -1){
+            killText += ktxt.substr(0,ktxt.search('width=') + 6);
+            ktxt = ktxt.substr(ktxt.search('width=') + 6);
+            var tren = ktxt.substr(0,1);
+            ktxt = ktxt.substr(1);
+            var width = ktxt.substr(0,ktxt.search(tren));
+            if(!(width.search('px') > -1 || width.search('%') > -1)){
+                width += 'px';
+            }
+            ktxt = ktxt.substr(ktxt.search(tren));
+            killText += tren + width;
+        }
+        killText += ktxt;
+        if(html.length <= killText.length){
+            html = killText;
+        }
+    }
 	try{
         CKEDITOR.instances['editable'].insertHtml(html);
     }catch (ex){
@@ -580,11 +571,13 @@ function getNameById(id,out){
 }
 
 function findInArray(arr,needle){
-    for(var i=0;i<arr.length;i++){
-        if(arr[i]==needle){
-            return i;
+    try{
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]==needle){
+                return i;
+            }
         }
-    }
+    }catch(ex){}
     return -1;
 }
 function setCookie(c_name,value,exdays){
@@ -682,6 +675,7 @@ function saveText(path, publish){
     var elem = document.getElementsByClassName('titledImg');
     var width = $('#editable').width();
     var edited = false;
+    var innerImg;
     if(elem){
         for(var j=0;j<elem.length;j++){
             var oldWidth = elem[j].style.width.search('px');
@@ -691,7 +685,17 @@ function saveText(path, publish){
                 elem[j].style.width = oldWidth + '%';
                 edited = true;
             }
-            var innerImg = elem[j].innerHTML.match(/<img[\w\W]+?width:[\s0-9]+?px[\w\W]+?>/gi);
+            innerImg = elem[j].innerHTML.match(/<img[\w\W]+?width:[\s0-9]+?%[\w\W]+?>/gi);
+            if(innerImg != null){
+                innerImg = innerImg.toString();
+                oldWidth = innerImg.substr(innerImg.search('width:')+6);
+                oldWidth = oldWidth.substr(0,oldWidth.search('%')).replace(' ','');
+                if(oldWidth != 100) {
+                    var newWidth = Math.round(parseInt(width *(oldWidth / 100)) - 40);
+                    elem[j].innerHTML = elem[j].innerHTML.replace(innerImg.toString(), innerImg.replace(oldWidth + '%', newWidth + 'px')).replace(/height:[\s0-9]+?px/, '').replace(/height="[0-9]+?"/, '');
+                }
+            }
+            innerImg = elem[j].innerHTML.match(/<img[\w\W]+?width:[\s0-9]+?px[\w\W]+?>/gi);
             if(innerImg != null){
                 innerImg = innerImg.toString();
                 oldWidth = innerImg.substr(innerImg.search('width:')+6);
@@ -708,12 +712,14 @@ function saveText(path, publish){
     var styles = [];
     if(imgStyles != null){
         for(var i=0;i<imgStyles.length;i++){
-            var match = imgStyles[i].match(/<img[\w\W]+?width:[\s0-9]+?px[\w\W]+?>/gi);
-            if(match == null){
-                match = imgStyles[i].match(/<img[\w\W]+?width="[\s0-9]+?"[\w\W]+?>/gi);
-            }
-            if(match != null){
-                styles[styles.length] = match.toString();
+            if(findInArray(innerImg,imgStyles.toString()) == -1){
+                var match = imgStyles[i].match(/<img[\w\W]+?width:[\s0-9]+?px[\w\W]+?>/gi);
+                if(match == null){
+                    match = imgStyles[i].match(/<img[\w\W]+?width="[\s0-9]+?"[\w\W]+?>/gi);
+                }
+                if(match != null){
+                    styles.push(match.toString())
+                }
             }
         }
     }
@@ -877,24 +883,16 @@ function togglePicsClickable(th){
 		th = document.getElementById('pageOptionItemPics');
 	}
     var html = getCurrentHTML();
-	var picsWhereClickAble = false;;
-    while(html.search('<div class="picsClickAble">') > -1){
-        var killtxt = html;
-        var helpstr = $('.picsClickAble').html();
-        var txt = killtxt.replace(helpstr,'');
-        killtxt = txt.substr(txt.search('<div class="picsClickAble">') + 27);
-        killtxt = killtxt.substr(killtxt.search('</div>') + 6);
-        txt = txt.substr(0,txt.search('<div class="picsClickAble">'));
-        setEditorHTML(txt + helpstr + killtxt);
-	    picsWhereClickAble = true;
-	    html = getCurrentHTML();
+    if(html.search('<div class="picsClickAble">') > -1){
+        html = html.substr(html.search('<div class="picsClickAble">') + 1);
+        html = html.substr(html.search('>') + 1);
+        html = html.substr(0,html.lastIndexOf('</div>'));
+        setEditorHTML(html);
+        $(th).removeClass('selected');
+    }else {
+        setEditorHTML('<div class="picsClickAble">' + html + '</div>');
+        $(th).addClass('selected');
     }
-	if(!picsWhereClickAble){
-		setEditorHTML('<div class="picsClickAble">' + html + '</div>');
-		$(th).addClass('selected');
-	}else{
-		$(th).removeClass('selected');
-	}
 }
 function initOptions(){
     if(getCurrentHTML().search('<div class="picsClickAble">') == -1){
@@ -1066,6 +1064,9 @@ function showAddPictureLink(){
         }
     });
 }
+function hideAddPictureLink(){
+    $('.insertPicLink').addClass('opac0 hidden');
+}
 function addLinkToPicture(id,th){
 	var oldHTML = $('#htmlToInsert').html();
 	var text = document.getElementById('linkTextToInsert').value;
@@ -1082,6 +1083,9 @@ function addLinkToPicture(id,th){
 	} else {
 		$('#htmlToInsert').html("<a href='index.php?id="+id+"&lang="+lang+"' title='"+text+"'>"+oldHTML+"</a>");
 		showNotification('Link added',1500);
+        hideAddPictureLink();
+        document.getElementById('insertPicLinkButton').className = 'active';
+        document.getElementById('insertPicLinkButton').value = 'change link';
 	}
 }
 function removeLinkFromPicture(){
@@ -1090,6 +1094,9 @@ function removeLinkFromPicture(){
 		oldHTML = oldHTML.substr(oldHTML.search('>')+1);
 		$('#htmlToInsert').html(oldHTML.replace("</a>",""));
 		showNotification('Link removed',1500);
+        hideAddPictureLink();
+        document.getElementById('insertPicLinkButton').className = '';
+        document.getElementById('insertPicLinkButton').value = 'add a link';
 	}
 }
 function changeInsertLinkType(th){

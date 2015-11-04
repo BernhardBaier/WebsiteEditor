@@ -73,7 +73,7 @@ a:hover{
     border:0 solid #263238;
 	border-left-width:1px;
     box-shadow:inset 0 0 150px #37474f;
-    background:#607d8b;
+    background:#455a64;
 }
 .rightBarInner{
     display:block;
@@ -85,7 +85,7 @@ a:hover{
     width:85%;
     border:0 solid #263238;
     box-shadow:inset 0 0 150px #37474f;
-    background:#78909c;
+    background:#455a64;
     height:100px;
     padding:1px;
     min-width:690px;
@@ -155,7 +155,7 @@ a:hover{
     box-shadow:inset 0 0 1px #fff;
 }
 .menuItem a{
-    color:#EEE;
+    color:#263238;
     font-weight:bold;
     text-decoration:none;
     cursor:pointer;
@@ -168,14 +168,14 @@ a:hover{
     -webkit-transition:background 250ms;
     font-size:20px;
     position:relative;
-    background:#666;
+    background:#90a4ae;
     float:left;
     margin:0 1px;
     padding:7px 0;
-    border:1px solid #444;
+    border:1px solid #37474f;
 }
 .topItem:hover{
-    background:#555;
+    background:#78909c;
 }
 .subItem{
     transition:background 250ms;
@@ -185,10 +185,10 @@ a:hover{
     padding:4px 0;
     border:0 dotted #000;
     border-bottom-width:1px;
-    box-shadow:inset 0 0 1px #BBB;
+    box-shadow:inset 0 0 1px #eceff1;
 }
 .subItem:hover{
-    background:#666;
+    background:#78909c;
 }
 .subMenu{
     top:38px;
@@ -204,8 +204,8 @@ a:hover{
     position:absolute;
     left:175px;
     top:-1px;
-    background:#AAA;
-    border:1px solid #888;
+    background:#b0bec5;
+    border:1px solid #455a64;
 }
 .subItemLeft{
     left:-175px;

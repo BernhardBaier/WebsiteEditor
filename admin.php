@@ -151,7 +151,7 @@ if(substr($authLevel,0,1) == "1"){
     <title><?php echo(strip_tags($pageTitle));?> Admin</title>
     <link rel="SHORTCUT ICON" href="images/editorLogo.png"/>
     <link rel="stylesheet" href="styleAdmin.css"/>
-    <link rel="stylesheet" href="commonStyle.css"/>
+    <link rel="stylesheet" href="commonStyle.min.css"/>
     <link rel="stylesheet" href="styleFileBrowser.css"/>
     <link rel="stylesheet" type="text/css" href="datepicker/jquery.datetimepicker.css" >
 
@@ -337,7 +337,7 @@ include('content/user.php');
 <div class="insertPic msgBox msgBoxBig hidden">
     <div class="msgBoxImg"><img onclick="hideMessages()" height="20" title="close" src="images/close.png"/></div>
 	<div class="insertPicLink opac0 hidden">
-		<div class="msgBoxImg"><img onclick="$('.insertPicLink').addClass('opac0 hidden');" height="20" title="close" src="images/close.png"/></div>
+		<div class="msgBoxImg"><img onclick="hideAddPictureLink()" height="20" title="close" src="images/close.png"/></div>
 		<div>link hover text: <input type="text" value="" id="linkTextToInsert"></div>
 		<div class="insertPicLinkMenue"></div>
 		<div><input type="button" value="remove link" onclick="removeLinkFromPicture()" /></div>
@@ -347,7 +347,7 @@ include('content/user.php');
         <select name="type" onchange="changeInsertType()"><option>single pic</option><option>titled pic</option><option>subtitled pic</option></select><input type="button" onclick="showGaleryMaker()" value=" gallery " /></br>
         Alignment: <select name="align" onchange="changeInsertType()"><option>none</option><option>left</option><option>right</option><option>center</option></select>
         <div class="htmlToInsert"></div>
-        <input type="button" value="add a link" onclick="showAddPictureLink()" /><input type="submit" value=" ok " /><input type="hidden" name="path"/>
+        <input type="button" id="insertPicLinkButton" value="add a link" onclick="showAddPictureLink()" /><input type="submit" value=" ok " /><input type="hidden" name="path"/>
     </form>
 </div>
 <div class="insertMultiplePic msgBox msgBoxBig hidden">
