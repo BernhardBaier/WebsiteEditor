@@ -658,6 +658,10 @@ img{
 .notificationBox a:hover{
 	color: #616161;
 }
+.notificationBox.errorBox{
+    background:#f9bdbb;
+    border:1px solid #e51c23;
+}
 .deleteTermin{
 	background:#f9bdbb;
 	border:1px solid #e51c23;

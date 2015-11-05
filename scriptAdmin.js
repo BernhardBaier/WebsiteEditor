@@ -765,9 +765,9 @@ function saveText(path, publish){
                     hideMessages();
                 }
                 if(edited){
-                    showNotification('The sizes have been changed to equal relative sizes and the changes have been saved',3500);
+                    showNotification('pictures resized. Changes saved.',3500);
                 }else{
-                    showNotification('The changes have been saved',1500);
+                    showNotification('changes saved.',1500);
                 }
 			}else{
 				if(data!='1'){
@@ -793,7 +793,7 @@ function publishPageNow(){
                             if(data.search('#published#') != -1) {
                                 hideMessages();
                                 startHTML = replaceUml(getCurrentHTML());
-                                showNotification('All languages have been published',1500);
+                                showNotification('all languages published.',1500);
                             }else{
                                 if(data!='1'){
                                     alert(data);
@@ -809,7 +809,7 @@ function publishPageNow(){
                         success: function(data) {
                             if(data.search('#published#') != -1) {
                                 hideMessages();
-                                showNotification('Page has been published',1500);
+                                showNotification('page published.',1500);
                             }else{
                                 if(data!='1'){
                                     alert(data);
@@ -846,7 +846,13 @@ function publishPageWithVisib(){
 
 var notificationBoxMayHide = false;
 function showNotification(text,time){
+    showNotification(text,time,false);
+}
+function showNotification(text,time,msgType){
     positionMessageTop();
+    if(msgType){
+        $('.notificationBox').addClass('errorBox');
+    }
 	$('.notificationBox').removeClass('hidden').removeClass('opac0');
     $('.notificationBoxInner').html(text);
 	notificationBoxMayHide = true;
@@ -868,7 +874,7 @@ function hideNotificationBox(){
 }
 function hideNotificationBoxCompletely(){
 	if(notificationBoxMayHide){
-		$('.notificationBox').addClass('hidden')
+		$('.notificationBox').addClass('hidden').removeClass('errorBox');
 	}else{
 		$('.notificationBox').removeClass('opac0');
 	}
@@ -892,6 +898,13 @@ function togglePicsClickable(th){
     }else {
         setEditorHTML('<div class="picsClickAble">' + html + '</div>');
         $(th).addClass('selected');
+        if(html.search('{#insertPluginImgSlider') > -1){
+            var ktxt = html.substr(html.search('{#insertPluginImgSlider'));
+            ktxt = ktxt.substr(0,html.search('#}'));
+            if(ktxt.length < 35){
+                showNotification("imgSlider won't work when pics are clickAble!",3500,true);
+            }
+        }
     }
 }
 function initOptions(){
@@ -1082,7 +1095,7 @@ function addLinkToPicture(id,th){
 		showNotification('Link replaced',1500);
 	} else {
 		$('#htmlToInsert').html("<a href='index.php?id="+id+"&lang="+lang+"' title='"+text+"'>"+oldHTML+"</a>");
-		showNotification('Link added',1500);
+		showNotification('link added.',1500);
         hideAddPictureLink();
         document.getElementById('insertPicLinkButton').className = 'active';
         document.getElementById('insertPicLinkButton').value = 'change link';
@@ -1093,7 +1106,7 @@ function removeLinkFromPicture(){
 	if(oldHTML.search('</a>') > -1){
 		oldHTML = oldHTML.substr(oldHTML.search('>')+1);
 		$('#htmlToInsert').html(oldHTML.replace("</a>",""));
-		showNotification('Link removed',1500);
+		showNotification('link removed.',1500);
         hideAddPictureLink();
         document.getElementById('insertPicLinkButton').className = '';
         document.getElementById('insertPicLinkButton').value = 'add a link';
@@ -1102,7 +1115,7 @@ function removeLinkFromPicture(){
 function changeInsertLinkType(th){
     switch (th.selectedIndex){
         case 0:
-            showInsertLinkToPage()
+            showInsertLinkToPage();
             break;
         case 1:
             showInsertLinkToGallery();

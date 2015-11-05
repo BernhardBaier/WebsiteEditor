@@ -1,5 +1,5 @@
-#description#bugfix for editor#
-#version#4.2.15#
+#description#small bug fixes and template Gra1 improved#
+#version#4.2.16#
 #updateVersion#2.8#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151018143943#
@@ -120,10 +120,10 @@
 #file#../plugins/templates/templates/Gray1/scriptHTML5.min.js#date#20151017140053#
 #file#../plugins/templates/templates/Gray1/scriptMobile.js#date#20151010164500#
 #file#../plugins/templates/templates/Gray1/scriptMobile.min.js#date#20151017130813#
-#file#../plugins/templates/templates/Gray1/styleHTML5.css#date#20151104234943#
-#file#../plugins/templates/templates/Gray1/styleHTML5.min.css#date#20151104235131#
-#file#../plugins/templates/templates/Gray1/styleMobile.css#date#20151018152409#
-#file#../plugins/templates/templates/Gray1/styleMobile.min.css#date#20151018152435#
+#file#../plugins/templates/templates/Gray1/styleHTML5.css#date#20151104235755#
+#file#../plugins/templates/templates/Gray1/styleHTML5.min.css#date#20151104235807#
+#file#../plugins/templates/templates/Gray1/styleMobile.css#date#20151105002236#
+#file#../plugins/templates/templates/Gray1/styleMobile.min.css#date#20151105002316#
 #file#../plugins/templates/templates/Indigo1/html5.php#date#20151018144258#
 #file#../plugins/templates/templates/Indigo1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Indigo1/images/close.png#date#20150823181502#
@@ -246,7 +246,7 @@
 #file#../README.md#date#20151013164558#
 #file#../redirect.php#date#20150823181436#
 #file#../register.php#date#20150912172105#
-#file#../scriptAdmin.js#date#20151104232815#
+#file#../scriptAdmin.js#date#20151105005807#
 #file#../scriptAdmin.min.js#date#20151017161230#
 #file#../scriptFileBrowser.js#date#20151104223115#
 #file#../scriptFileBrowser.min.js#date#20151017161244#
@@ -255,7 +255,7 @@
 #file#../search.php#date#20150823181436#
 #file#../setup.php#date#20150823181436#
 #file#../spin.min.js#date#20150823181436#
-#file#../styleAdmin.css#date#20151104234051#
+#file#../styleAdmin.css#date#20151105005455#
 #file#../styleAdmin.min.css#date#20151017161311#
 #file#../styleFileBrowser.css#date#20151015142736#
 #file#../styleFileBrowser.min.css#date#20151017160008#
