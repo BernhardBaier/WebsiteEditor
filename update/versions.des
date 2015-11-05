@@ -15,4 +15,5 @@
 #version#4.2.13#bugfix for templates#
 #version#4.2.14#styles for templates#
 #version#4.2.15#budfix for editor and template Gray1 changed#
-#version#4.2.16#small bug fixes and template Gra1 improved#
+#version#4.2.16#small bug fixes and template Gray1 improved#
+#version#4.2.17#bug fix for updater#

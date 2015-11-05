@@ -1,8 +1,8 @@
-#description#small bug fixes and template Gra1 improved#
-#version#4.2.16#
-#updateVersion#2.8#
+#description#bugfix for updater#
+#version#4.2.17#
+#updateVersion#2.9#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
-#file#../update/update.php#date#20151018143943#
+#file#../update/update.php#date#20151105014026#
 #file#../update/copy.php#date#20151018142234#
 #file#../update/access.php#date#20150823181513#
 #file#../update/auth.php#date#20150823181513#

@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.8";
+    $updateVersion = "2.9";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -57,9 +57,11 @@ if($authLevel == '1111'){
     if($remotePath == false){
         die('files corrupted!');
     }
-    $file = fopen($remotePath.'update/fileList.list','r');
-    $remoteIn = fread($file,999999);
+    copy($remotePath.'update/fileList.list','workList.list');
+    $file = fopen('workList.list','r');
+    $remoteIn = fread($file,filesize('workList.list'));
     fclose($file);
+    unlink('workList.list');
     if(strpos($remoteIn,'#updateVersion#') > -1){
         $upVersionNew = substr($remoteIn,strpos($remoteIn,'#updateVersion#')+15);
         $upVersionNew = substr($upVersionNew,0,strpos($upVersionNew,'#'));
@@ -80,9 +82,11 @@ if($authLevel == '1111'){
         $version = substr($remoteIn,0,strpos($remoteIn,'#'));
         $remoteIn = substr($remoteIn,strpos($remoteIn,'#')+1);
     }
-    $file = fopen($remotePath.'update/versions.des','r');
-    $desFile = fread($file,9999);
+    copy($remotePath.'update/versions.des','workVersions.des');
+    $file = fopen('workVersions.des','r');
+    $desFile = fread($file,filesize('workVersions.des'));
     fclose($file);
+    unlink('workVersions.des');
     if(!(strpos($desFile,$version) > -1) && $desFile != ''){
         $desFile .= "
 #version#$version#$description#";
