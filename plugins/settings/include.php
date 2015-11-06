@@ -40,7 +40,7 @@ if($authLevel == '1111'){
             data: 'function=updatePlugin&id='+id,
             success: function(data) {
                 if(data == '1'){
-                    reloadLocation('showPlugins');
+                    reloadLocation('showPlugins&pluginId=$plugId');
                 }else{
                     alert(data);
                 }
@@ -54,7 +54,7 @@ if($authLevel == '1111'){
             data: 'function=removePlugin&id='+id,
             success: function(data) {
                 if(data == '1'){
-                    reloadLocation('showPlugins');
+                    reloadLocation('showPlugins&pluginId=$plugId');
                 }else{
                     alert(data);
                 }

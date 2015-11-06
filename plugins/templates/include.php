@@ -78,7 +78,7 @@ function plugin".$name."UpdateSource(){
         $.ajax({
             type: 'POST',
             url: 'plugins/templates/getOptions.php',
-            data: 'path='+$('#pluginTemplateEditorPath'+templateId).html(),
+            data: 'path='+$('#pluginTemplateEditorPath'+templateId).html()+'&lang=$lang',
             success: function(data) {
                 if(data != null){
                     document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=$location/' + data + '&forcePath=true';
@@ -141,7 +141,7 @@ function plugin".$name."ChoosePrepared(){
         $.ajax({
             type: 'POST',
             url: 'plugins/templates/getOptions.php',
-            data: 'path='+$('#pluginTemplateEditorPath'+templateId).html()+'&echoContent=true',
+            data: 'path='+$('#pluginTemplateEditorPath'+templateId).html()+'&echoContent=true&lang=$lang',
             success: function(data) {
                 if(data != null){
                     if(data.search('rightBarItem') > -1){
@@ -216,11 +216,11 @@ function plugin".$name."SearchPages(){
     $.ajax({
         type: 'POST',
         url: 'plugins/templates/changeOptions.php',
-        data: 'name='+replaceUml(plugin".$name."Title)+'&lang='+lang,
+        data: 'name='+replaceUml(plugin".$name."Title)+'&lang=$lang',
         success: function(data) {
             if(data != '0'){
-                $('.rightBarTitle').html('<a href=\"index.php?id='+data+'&lang=<?php echo(\$lang);?>\">'+plugin".$name."Title+'</a>');
-                plugin".$name."Title = '<a href=\"index.php?id='+data+'&lang=<?php echo(\$lang);?>\">'+plugin".$name."Title+'</a>';
+                $('.rightBarTitle').html('<a href=\"index.php?id='+data+'&lang=$lang\">'+plugin".$name."Title+'</a>');
+                plugin".$name."Title = '<a href=\"index.php?id='+data+'&lang=$lang\">'+plugin".$name."Title+'</a>';
             }
             for(i = 0;i < plugin".$name."Items.length;i++){
                 plugin".$name."SearchPageByName(plugin".$name."Items[i],i);
@@ -236,8 +236,8 @@ function plugin".$name."SearchPageByName(name,id){
         data: 'name='+replaceUml(name)+'&lang='+lang,
         success: function(data) {
             if(data != '0'){
-                $('#rightBarItem'+id).html('<a href=\"index.php?id='+data+'&lang=<?php echo(\$lang);?>\">'+name+'</a>');
-                plugin".$name."Items[id] = '<a href=\"index.php?id='+data+'&lang=<?php echo(\$lang);?>\">'+name+'</a>';
+                $('#rightBarItem'+id).html('<a href=\"index.php?id='+data+'&lang=$lang\">'+name+'</a>');
+                plugin".$name."Items[id] = '<a href=\"index.php?id='+data+'&lang=$lang\">'+name+'</a>';
             }
         }
     });

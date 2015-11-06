@@ -11,6 +11,10 @@ if($authLevel != '1111'){
     die('authentification failed');
 }
 $path = $_POST['path'];
+$lang = $_POST['lang'];
+if(strlen($lang)!=2){
+    $lang = 'de';
+}
 $path = substr($path,strpos($path,'/')+1);
 $path = substr($path,strpos($path,'/')+1);
 $file = fopen($path,'r');
@@ -26,14 +30,14 @@ $input = substr($input,strpos($input,'#options#')+9);
 if(strpos($input,'#file#') < strpos($input,'#required#') && strpos($input,'#file#') > -1){
     $input = substr($input,strpos($input,'#file#')+6);
     $file = substr($input,0,strpos($input,'#'));
-    if(file_exists($path.$file)){
+    if(file_exists($path.$file) || file_exists(str_replace('{lang}',$lang,$path.$file))){
         if($_POST['echoContent'] == 'true'){
-            $datei = fopen($path.$file,'r');
-            $output = fread($datei,filesize($path.$file));
+            $datei = fopen(str_replace('{lang}',$lang,$path.$file),'r');
+            $output = fread($datei,filesize(str_replace('{lang}',$lang,$path.$file)));
             fclose($datei);
             echo($output);
         }else{
-            echo($path.$file);
+            echo(str_replace('{lang}',$lang,$path.$file));
         }
     }else{
         echo(null);

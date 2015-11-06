@@ -23,6 +23,8 @@ if($authLevel == '1111'){
                     $text = substr($text,3);
                     $text = substr($text,0,strlen($text)-4);
                 }
+                $text = str_replace('&lt;','<',$text);
+                $text = str_replace('&gt;','>',$text);
                 $text = str_replace('<!--?php','<?php',$text);
                 $text = str_replace('?-->','?>',$text);
                 $action = 'saved&forcePath=true';

@@ -27,6 +27,9 @@ function updatePlugin($id){
     if(file_exists($path.'script.js')){
         unlink($path.'script.js');
     }
+    if(file_exists($path.'script.min.js')){
+        unlink($path.'script.min.js');
+    }
     $handle = opendir($path);
     while($file = readdir($handle)){
         if(!is_dir($path.$file)){
@@ -150,7 +153,7 @@ if($authLevel == '1111'){
                 }
                 echo("</div>");
             }
-            echo("</div>");
+            echo("</div><div style='cursor: pointer' onclick='updateAllPlugins(\"plugins/settings\");window.setTimeout(\"reloadLocation(\\\"showPlugins\\\");\",500)'>update all.</div>");
             break;
         case 'updateAllPlugins':
             $que = "SELECT * FROM plugins WHERE 1";

@@ -247,7 +247,7 @@ while($pos > -1){
                 </div>
                 <div class="rightBar">
                     <div class="rightBarInner">
-                        <?php include('rightBar.php');?>
+                        <?php include('rightBar_'.$lang.'.php');?>
                     </div>
                 </div>
             </div>

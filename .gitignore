@@ -24,6 +24,6 @@ styleMobile.min.css
 styleHTML5.min.css
 scriptHTML5.min.js
 scriptMobile.min.js
-rightBar.php
+rightBar*.php
 node_modules/*
 pictures/*
