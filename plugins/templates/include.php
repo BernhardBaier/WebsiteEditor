@@ -274,6 +274,5 @@ function plugin".$name."SetOptions(){
 <script src='$location/script.js'></script>
 <link rel='stylesheet' href='$location/stylePluginTemplate.css' />
 <link rel='stylesheet' href='$location/style.min.css' />
-<link rel='stylesheet' href='$location/templates/$currentTemplate/styleHTML5.min.css' />
 ");
 }

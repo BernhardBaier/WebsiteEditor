@@ -216,7 +216,7 @@ if(substr($authLevel,0,1) == "1"){
     <script src="datepicker/jquery.datetimepicker.js"></script>
 
     <script src="scriptFileBrowser.min.js"></script>
-    <script src="scriptAdmin.min.js"></script>
+    <script src="scriptAdmin.js"></script>
     <script>
         <?php
         if(strpos($_SESSION['extra'],'tour') < 0 || !$_SESSION['extra']){

@@ -1,1 +1,1 @@
-<p>{#rightBar#}</p>
+<div class="rightBarTitle"><a href="index.php?id=1&lang=<?php echo($lang);?>">Startseite</a></div><div class="rightBarItem"><a href="index.php?id=2&lang=<?php echo($lang);?>">Test</a></div>

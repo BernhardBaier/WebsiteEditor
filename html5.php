@@ -194,6 +194,7 @@ while($pos > -1){
             }
         ?>
     </script>
+    <link rel="stylesheet" href="commonStyle.min.css"/>
     <link rel="stylesheet" href="styleHTML5.min.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
 </head>
@@ -274,16 +275,15 @@ while($pos > -1){
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
     <script src="spin.min.js" async></script>
-    <link rel="stylesheet" href="commonStyle.min.css"/>
+    <script src="scriptHTML5.min.js"></script>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
     
-<link href='plugins/calendar/stylePluginCalendar.css' rel='stylesheet' />
-<link href='plugins/article/stylePluginArticle.css' rel='stylesheet' />
-<link href='plugins/ImgSlider/stylePluginImgSlider.css' rel='stylesheet' />
-<script src='plugins/ImgSlider/skriptPluginImgSlider.js'></script>
-<link href='plugins/einsatz/stylePluginEinsatz.css' rel='stylesheet' /><!--#end#-->
-    <script src="scriptHTML5.min.js"></script>
+<link href='plugins/calendar/stylePluginCalendar.min.css' rel='stylesheet' />
+<link href='plugins/article/stylePluginArticle.min.css' rel='stylesheet' />
+<link href='plugins/ImgSlider/stylePluginImgSlider.min.css' rel='stylesheet' />
+<script src='plugins/ImgSlider/skriptPluginImgSlider.min.js'></script>
+<link href='plugins/einsatz/stylePluginEinsatz.min.css' rel='stylesheet' /><!--#end#-->
 </div>
 </body>
 </html>

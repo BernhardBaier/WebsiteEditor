@@ -17,3 +17,5 @@
 #version#4.2.15#budfix for editor and template Gray1 changed#
 #version#4.2.16#small bug fixes and template Gray1 improved#
 #version#4.2.17#bug fix for updater#
+#version#4.2.18#templates have options now to edit right bar<br>using more .min files#
+#version#4.2.19#bugfix for templateEditor#
