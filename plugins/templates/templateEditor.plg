@@ -12,6 +12,7 @@
 #file#include.php#
 #file#choose.php#
 #file#getTemplates.php#
+#file#getOptions.php#
 #file#style.css#
 #file#skriptPluginTemplate.js#
 #includes#

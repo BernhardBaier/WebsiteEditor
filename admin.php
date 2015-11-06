@@ -71,6 +71,9 @@ if(substr($authLevel,0,1) == "1"){
         $id = 1;
     }
     $action = $_GET['action'];
+    if(isset($_GET['pluginId'])){
+        $pluginId = $_GET['pluginId'];
+    }
     $pageTitle = 'no title';
     $editorVersion = '4.2';
     $hostname = $_SERVER['HTTP_HOST'];
@@ -166,6 +169,7 @@ if(substr($authLevel,0,1) == "1"){
         pageId = <?php if($id>0){echo($id);}else{echo("'$id'");}?>;
         lang = '<?php echo($lang);?>';
         var showPlugIn = false;
+        var pluginId = 0;
         var showUsers = false;
         <?php
         switch($action){
@@ -175,6 +179,9 @@ if(substr($authLevel,0,1) == "1"){
             case 'showUsers':
                 echo('showUsers = true;');
                 break;
+        }
+        if(isset($pluginId)){
+            echo("pluginId = $pluginId;");
         }
         ?>
         var dropTopOff = <?php echo(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') != false?-3:-26);?>;

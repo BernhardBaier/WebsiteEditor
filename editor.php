@@ -16,15 +16,29 @@ if($authLevel == '1111'){
         }
         $id = $_POST['id'];
         if(strlen($text)>0){
-            $path = "web-content/$lang/$id.php";
+            $action = 'saved';
+            if($_POST['forcePath'] == 'true'){
+                $path = $id;
+                if(substr($path,0,3) == '<p>'){
+                    $text = substr($text,3);
+                    $text = substr($text,0,strlen($text)-4);
+                }
+                $action = 'saved&forcePath=true';
+            }else{
+                $path = "web-content/$lang/$id.php";
+            }
             $file = fopen($path,'w');
             fwrite($file,$text);
             fclose($file);
-            $path = "content/$lang/$id.php";
+            if($_POST['forcePath'] == 'true'){
+                $path = $id;
+            }else{
+                $path = "content/$lang/$id.php";
+            }
             $file = fopen($path,'w');
             fwrite($file,$text);
             fclose($file);
-            header("Location: editor.php?lang=$lang&id=$id&action=saved");
+            header("Location: editor.php?lang=$lang&id=$id&action=$action");
             exit;
         }
     }else{
@@ -34,7 +48,11 @@ if($authLevel == '1111'){
             $lang = 'de';
         }
         $id = $_GET['id'];
-        $path = "content/$lang/$id.php";
+        if($_GET['forcePath'] == 'true'){
+            $path = $id;
+        }else{
+            $path = "content/$lang/$id.php";
+        }
         if(file_exists($path)){
             $file = fopen($path,'r');
             $content = fread($file,filesize($path));
@@ -43,7 +61,7 @@ if($authLevel == '1111'){
         $pageTitle = $id;
         $note = '';
         if($_GET['action'] == 'saved'){
-            $note = '<div class="note">The changes have been saved</div>';
+            $note = '<div class="note">saved.</div>';
         }
 ?>
 <!DOCTYPE html>
@@ -79,17 +97,26 @@ if($authLevel == '1111'){
     </style>
 </head>
 <body>
-<div class="nav"><?php echo($note);?>Enter Text for page <?php echo($pageTitle);?> here.<div class="navNote">Text editor Version 1.0</div></div>
+<div class="nav"><?php echo($note);?>Enter Text for page <?php echo($pageTitle);?> here.<div class="navNote">Text editor Version 1.1</div></div>
 <form action="editor.php" method="post">
     <textarea name="editor1" id="editor1"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo($content);}?></textarea>
-    <input type="hidden" name="lang" value="<?php echo($lang);?>"><input type="hidden" name="id" value="<?php echo($id);?>">
+    <input type="hidden" name="lang" value="<?php echo($lang);?>"><input type="hidden" name="id" value="<?php echo($id);?>"><?php if($_GET['forcePath'] == 'true'){echo('<input type="hidden" name="forcePath" value="true">');}?>
     <input type="submit" value="Save" />
 </form>
 <script>
     CKEDITOR.replace( 'editor1' );
     CKEDITOR.config.language = 'de';
+    <?php
+    if($_GET['forcePath'] != 'true'){
+        echo("CKEDITOR.config.height = '650px';");
+    }
+    ?>
 </script>
-<a href="admin.php?lang=<?php echo($lang);?>">go to admin panel</a>
+<?php
+if($_GET['forcePath'] != 'true'){
+    echo("<a href='admin.php?lang=$lang'>go to admin panel</a>");
+}
+?>
 </body>
 <?php
     }

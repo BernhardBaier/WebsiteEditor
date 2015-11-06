@@ -1,6 +1,6 @@
 body,html{
-	width:100%;
-	height: 100%;
+    width:100%;
+    height: 100%;
     margin:0;
     padding:0;
     font-family:Arial, Helvetica, sans-serif;
@@ -21,8 +21,8 @@ a:hover{
     padding:7px 0;
     text-align:center;
     width:100%;
-	min-height:98%;
-	min-height:calc(100% - 14px);
+    min-height:98%;
+    min-height:calc(100% - 14px);
     box-shadow:inset 0 0 150px #cfd8dc;
     display:block;
 }
@@ -53,9 +53,9 @@ a:hover{
     display:block;
 }
 .youShallNotUpload{
-     color:#f00;
-     font-weight:bold;
- }
+    color:#f00;
+    font-weight:bold;
+}
 .youShallUpload{
     color:#5B9909;
 }
@@ -71,7 +71,7 @@ a:hover{
     display:inline-block;
     height:100%;
     border:0 solid #263238;
-	border-left-width:1px;
+    border-left-width:1px;
     box-shadow:inset 0 0 150px #37474f;
     background:#455a64;
 }
@@ -280,39 +280,39 @@ a:hover{
     font-size:13px;
 }
 .closingImg{
-	position: absolute;
-	z-index: 5;
-	right: -15px;
-	top: -15px;
-	height: 20px;
-	width: 20px;
-	cursor: pointer;
+    position: absolute;
+    z-index: 5;
+    right: -15px;
+    top: -15px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
 }
 .searchBox{
     position:absolute;
     right:130px;
-	top:5px
+    top:5px
 }
 .searchBox input[type=submit]{
-	position: absolute;
-	left: 137px;
-	background: #b0bec5;
-	border-radius:0 4px 4px 0;
-	height: 21px;
-	border: 2px solid #263238;
-	cursor: pointer;
-	color: #fff;
-	width: 30px;
-	margin: 0;
-	padding: 1px 1px 4px 1px;
+    position: absolute;
+    left: 137px;
+    background: #b0bec5;
+    border-radius:0 4px 4px 0;
+    height: 21px;
+    border: 2px solid #263238;
+    cursor: pointer;
+    color: #fff;
+    width: 30px;
+    margin: 0;
+    padding: 1px 1px 4px 1px;
 }
 .searchBox input[type=search]{
-	background: #fff;
-	border-radius: 4px 0 0 4px;
-	height: 20px;
-	border: 2px solid #263238;
-	margin: 0;
-	padding: 1px;
+    background: #fff;
+    border-radius: 4px 0 0 4px;
+    height: 20px;
+    border: 2px solid #263238;
+    margin: 0;
+    padding: 1px;
 }
 .searchOuter{
     position:absolute;
@@ -323,8 +323,8 @@ a:hover{
     top:125px;
 }
 .searchResults{
-	min-width: 250px;
-	position: relative;
+    min-width: 250px;
+    position: relative;
     text-align:left;
     display:inline-block;
     border:1px solid #555;

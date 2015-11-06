@@ -33,8 +33,9 @@ function initPlugin_$plugId(th){
         url: 'plugins/templates/getTemplates.php',
         data: 'path=templates&currentTemplate=$currentTemplate',
         success: function(data) {
-            var text = '<div class=\"pluginTemplateEditorContainer\">available templates:<div class=\"pluginTemplateEditorTop\">'+data+'</div><div class=\"pluginTemplateEditorBottom\">Preview:<div class=\"pluginTemplateEditorChooser hidden\">';
-            text += '<img src=\"\" id=\"pluginTemplateEditorPic\" /><div class=\"pluginTemplateEditorAdd\" title=\"this operation cannot be undone\" onclick=\"chooseTemplate()\">Choose this template</div></div></div></div>';
+            var text = '<div class=\"pluginTemplateEditorContainer\">available templates:<div class=\"pluginTemplateEditorTop\">'+data+'</div><div class=\"pluginTemplateEditorBottom\"><div class=\"pluginTemplateEditorLeft\">';
+            text += 'Preview:<div class=\"pluginTemplateEditorChooser hidden\"><img src=\"\" id=\"pluginTemplateEditorPic\" /><div class=\"pluginTemplateEditorAdd\" title=\"this operation cannot be undone\" onclick=\"chooseTemplate()\">Choose this template</div></div></div>';
+            text += '<div class=\"pluginTemplateEditorRight\"><div class=\"pluginTemplateEditorOptions hidden\">options:<div id=\"templateEditorFrameWrapper\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div></div></div></div></div>';
             $('.pluginInner').html(text);
             var i;
             try{
@@ -54,6 +55,29 @@ function selectTemplate(th,id){
     path = path.substr(0,path.lastIndexOf('/'))+'/pictures/preview.jpg';
     document.getElementById('pluginTemplateEditorPic').src = path;
     $('.pluginTemplateEditorChooser').removeClass('hidden');
+    $('.pluginTemplateEditorOptions').removeClass('hidden');
+    var templateId = null;
+    for(var i=0;i<=maxTemplateId;i++){
+        try{
+            if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
+                templateId = i;
+            }
+        }catch(ex){}
+    }
+    if(templateId == null){
+        alert('error');
+    }else{
+        $.ajax({
+            type: 'POST',
+            url: 'plugins/templates/getOptions.php',
+            data: 'path='+$('#pluginTemplateEditorPath'+templateId).html(),
+            success: function(data) {
+                if(data != null){
+                    document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=$location/' + data + '&forcePath=true';
+                }
+            }
+        });
+    }
 }
 function chooseTemplate(){
     var templateId = null;
@@ -74,7 +98,7 @@ function chooseTemplate(){
             success: function(data) {
                 if(data == ''){
                     window.setTimeout(\"updateAllPlugins('plugins/settings')\",10);
-                    window.setTimeout(\"reloadLocation('showPlugins')\",500);
+                    window.setTimeout(\"reloadLocation('showPlugins&pluginId=$plugId')\",500);
                 }else{
                     alert(data);
                 }
@@ -82,7 +106,7 @@ function chooseTemplate(){
         });
     }
 }";
-        $file = fopen("$location/script.js", 'w');
+        $file = fopen("$location/script.js",'w');
         fwrite($file, $output);
         fclose($file);
     }

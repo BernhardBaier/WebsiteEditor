@@ -110,7 +110,11 @@ function init(){
     $('.loadingMessage').html('Init');
     if(showPlugIn == true){
         showPlugins();
-    }else if(showUsers == true){
+        if(pluginId > 0){
+            window.setTimeout('initPlugin_' + pluginId + '(0)',100);
+        }
+    }
+    if(showUsers == true){
         $('.ownUserControlOuter').removeClass('hidden');
     }
     window.setTimeout('postInit()',250);
