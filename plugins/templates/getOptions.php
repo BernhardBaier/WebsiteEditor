@@ -5,6 +5,7 @@
  * Date: 06.11.2015
  * Time: 16:46
  */
+error_reporting(E_ERROR);
 include('auth.php');
 if($authLevel != '1111'){
     die('authentification failed');
@@ -26,7 +27,14 @@ if(strpos($input,'#file#') < strpos($input,'#required#') && strpos($input,'#file
     $input = substr($input,strpos($input,'#file#')+6);
     $file = substr($input,0,strpos($input,'#'));
     if(file_exists($path.$file)){
-        echo($path.$file);
+        if($_POST['echoContent'] == 'true'){
+            $datei = fopen($path.$file,'r');
+            $output = fread($datei,filesize($path.$file));
+            fclose($datei);
+            echo($output);
+        }else{
+            echo($path.$file);
+        }
     }else{
         echo(null);
     }

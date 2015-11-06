@@ -432,7 +432,6 @@ function insertPicNow(){
     insertHTMLatCursor(html);
     hideMessages();
 }
-
 function showGaleryMaker(){
     if(browserPath.substr(-7) != 'thumbs/'){
         enterPath('thumbs/');

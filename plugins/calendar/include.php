@@ -224,6 +224,6 @@ function parsed(){
 }
 echo("
 <script src='$location/script.js'></script>
-<link rel='stylesheet' href='$location/stylePluginCalendar.css' />
-<link rel='stylesheet' href='$location/style.css' />
+<link rel='stylesheet' href='$location/stylePluginCalendar.min.css' />
+<link rel='stylesheet' href='$location/style.min.css' />
 ");

@@ -193,8 +193,8 @@ fclose($file);
 }
 echo("
 <script src='$location/script.js'></script>
-<script src='$location/skriptAdmin.js'></script>
+<script src='$location/skriptAdmin.min.js'></script>
 <script src='$location/skriptPluginImgSliderSettings.js'></script>
-<link rel='stylesheet' href='$location/stylePluginImgSlider.css' />
-<link rel='stylesheet' href='$location/style.css' />
+<link rel='stylesheet' href='$location/stylePluginImgSlider.min.css' />
+<link rel='stylesheet' href='$location/style.min.css' />
 ");

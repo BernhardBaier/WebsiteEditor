@@ -9,11 +9,13 @@
 #file#auth.php#
 #file#images/logo.png#
 #file#images/active.png#
+#file#images/close.png#
 #file#include.php#
 #file#choose.php#
+#file#changeOptions.php#
 #file#getTemplates.php#
 #file#getOptions.php#
 #file#style.css#
-#file#skriptPluginTemplate.js#
+#file#style.min.css#
 #includes#
 #end#

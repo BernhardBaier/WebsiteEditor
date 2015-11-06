@@ -23,7 +23,7 @@ function searchDir($path){
                     if ($currentTemplate == $input) {
                         $addclass = ' active';
                     }
-                    $return .= '<div class="pluginTemplateEditorTemplate' . $addclass . '" id="pluginTemplateEditorTemplate' . $templateId . '" title="select template" onclick="selectTemplate(this,' . $templateId . ')">';
+                    $return .= '<div class="pluginTemplateEditorTemplate' . $addclass . '" id="pluginTemplateEditorTemplate' . $templateId . '" title="select template" onclick="pluginTemplateEditorSelectTemplate(this,' . $templateId . ')">';
                     $return .= '<div class="pluginTemplateEditorTemplateTitle">' . $input . '</div><img src="plugins/templates/' . $path . 'pictures/preview.jpg" /></div><div class="hidden" id="pluginTemplateEditorPath';
                     $return .= $templateId++ . '">plugins/templates/' . $path . $file . '</div>';
                 }

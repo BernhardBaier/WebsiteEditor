@@ -118,6 +118,6 @@ function addEinsatzToPage(id){
 }
 echo("
 <script src='$location/script.js'></script>
-<link rel='stylesheet' href='$location/stylePluginEinsatz.css' />
+<link rel='stylesheet' href='$location/stylePluginEinsatz.min.css' />
 ");
 }

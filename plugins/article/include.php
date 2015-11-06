@@ -118,6 +118,6 @@ function addArticleToPage(id){
 }
 echo("
 <script src='$location/script.js'></script>
-<link rel='stylesheet' href='$location/stylePluginArticle.css' />
+<link rel='stylesheet' href='$location/stylePluginArticle.min.css' />
 ");
 }

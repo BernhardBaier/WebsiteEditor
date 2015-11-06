@@ -79,6 +79,39 @@ a:hover{
     display:block;
     padding:5px;
 }
+.rightBarTitle{
+    width: 95%;
+    width: calc(100% - 8px);
+    text-align: center;
+    background: #90a4ae;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0 0 3px 0;
+    padding: 3px;
+}
+.rightBarItem{
+    width: 95%;
+    width: calc(100% - 8px);
+    text-align: center;
+    background: #b0bec5;
+    border: 1px solid #263238;
+    padding: 3px;
+    margin: 1px 0;
+    border-radius: 5px;
+    font-size: 24px;
+}
+.rightBarItem a{
+    color: #000;
+}
+.rightBarItem a:hover{
+    color: #333;
+}
+.rightBarTitle a{
+    color: #000;
+}
+.rightBarTitle a:hover{
+    color: #333;
+}
 
 .header{
     position:relative;

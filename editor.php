@@ -23,6 +23,8 @@ if($authLevel == '1111'){
                     $text = substr($text,3);
                     $text = substr($text,0,strlen($text)-4);
                 }
+                $text = str_replace('<!--?php','<?php',$text);
+                $text = str_replace('?-->','?>',$text);
                 $action = 'saved&forcePath=true';
             }else{
                 $path = "web-content/$lang/$id.php";

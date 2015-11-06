@@ -34,16 +34,17 @@ function addPluginPath(path){
         }
     });
 }
-function resetAllPlugins(){
-    try{
+function resetAllPlugins() {
+    try {
         $('.pluginInner').html('<div class="loadingMessage" style="color:#555;">Loading...</div>');
         var imgs = document.getElementsByClassName('pluginNavImg');
         var max = imgs.length;
-        for(i=0;i<max;i++){
+        for (i = 0; i < max; i++) {
             var loc = window.location.toString();
-            var src = imgs[i].src.replace(loc.substr(0,loc.lastIndexOf('/')+1),'');
-            imgs[i].src=src.substring(0,src.lastIndexOf('/'))+'/logo.png';
+            var src = imgs[i].src.replace(loc.substr(0, loc.lastIndexOf('/') + 1), '');
+            imgs[i].src = src.substring(0, src.lastIndexOf('/')) + '/logo.png';
             imgs[i].className = 'pluginNavImg';
         }
-    }catch (ex){}
+    } catch (ex) {
+    }
 }

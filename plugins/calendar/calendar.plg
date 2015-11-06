@@ -14,9 +14,11 @@
 #file#include.php#
 #file#calendar.php#
 #file#stylePluginCalendar.css#
+#file#stylePluginCalendar.min.css#
 #file#style.css#
+#file#style.min.css#
 #file#icalParser.php#
 #file#upload.php#
 #includes#
-#file#stylePluginCalendar.css#
+#file#stylePluginCalendar.min.css#
 #end#

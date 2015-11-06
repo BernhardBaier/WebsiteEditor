@@ -1,1 +1,1 @@
-<div style="text-align:center;width:100%;"><strong><span style="font-size:28px;"><span style="color: rgb(255, 255, 255);">Leistungen</span></span></strong></div>
+<p>{#rightBar#}</p>
