@@ -32,6 +32,7 @@ function init(){
             $('.rightBar').height($('.content').height());
         }
     }
+    initSpecialSlider();
     loadCalendarSide(3);
     initCalendarPage();
     initGallerySlider();
@@ -184,4 +185,57 @@ function gallerySliderNext(id){
         document.getElementById('galleryPrevSliderImg' + id + '_' + (gallerySliderImages[id] - 1)).className = 'galleryPrevSliderImg left';
         gallerySliderPos[id] = 1;
     }
+}
+var maxSpecialSlider = 0,currSpecialSlider = 0;
+var specialSliderNavBlocked = false;
+var specialSliderTimer = null;
+var specialSliderTimer2 = null;
+function initSpecialSlider(){
+    var h = $('.imgSliderHeaderLoading');
+    if(h.html() == ""){
+        h.addClass('opac0');
+        $('#imgSliderHeaderImg0').addClass('active');
+        $('#imgSliderHeaderNav0').addClass('active');
+        var id;
+        try{
+            for(id=0;id<100;id++){
+                if(document.getElementById('imgSliderHeaderImg'+id).className == "imgSliderHeaderImages"){}
+            }
+        }catch (ex){}
+        maxSpecialSlider = id - 1;
+        specialSliderTimer = window.setInterval('specialSliderShowNext()',5500);
+    }
+}
+
+function specialSliderShowNext(){
+    if(!specialSliderNavBlocked){
+        $('.imgSliderHeaderLoading').removeClass('opac0');
+        currSpecialSlider++;
+        window.setTimeout("specialSliderShowImg("+currSpecialSlider+")",550);
+        if(currSpecialSlider >= maxSpecialSlider){
+            currSpecialSlider = -1;
+        }
+        specialSliderNavBlocked = true;
+    }else{
+        try{
+            window.clearTimeout(specialSliderTimer2);
+        }catch(ex){}
+        specialSliderTimer2 = window.setTimeout("specialSliderShowNext()",250);
+    }
+}
+function specialSliderShowPic(id){
+    try{
+        window.clearInterval(specialSliderTimer);
+    }catch(ex){}
+    currSpecialSlider = id - 1;
+    specialSliderShowNext();
+    specialSliderTimer = window.setInterval('specialSliderShowNext()',5000);
+}
+function specialSliderShowImg(id){
+    $('.imgSliderHeaderImages').removeClass('active');
+    $('.imgSliderHeaderNavPoint').removeClass('active');
+    $('#imgSliderHeaderNav'+id).addClass('active');
+    $('#imgSliderHeaderImg'+id).addClass('active');
+    window.setTimeout("$('.imgSliderHeaderLoading').addClass('opac0')",25);
+    window.setTimeout("specialSliderNavBlocked = false",550);
 }

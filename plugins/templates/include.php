@@ -33,13 +33,19 @@ function initPlugin_$plugId(th){
         url: 'plugins/templates/getTemplates.php',
         data: 'path=templates&currentTemplate=$currentTemplate',
         success: function(data) {
-            var text = '<div class=\"pluginTemplateEditorContainer\">available templates:<div class=\"pluginTemplateEditorTop\">'+data+'</div><div class=\"pluginTemplateEditorBottom\"><div class=\"pluginTemplateEditorLeft\">';
-            text += 'Preview:<div class=\"pluginTemplateEditorChooser hidden\"><img src=\"\" id=\"pluginTemplateEditorPic\" />';
+            var text = '<div class=\"pluginTemplateEditorContainer\">available templates:';
+            text += '<div class=\"pluginTemplateEditorTop\">'+data+'</div><div class=\"pluginTemplateEditorBottom\">';
+            text += '<div class=\"pluginTemplateEditorLeft\">Preview:<div class=\"pluginTemplateEditorChooser hidden\"><img class=\"pluginTemplateEditorBottomImg\" src=\"\" id=\"pluginTemplateEditorPic\" />';
             text += '<div class=\"pluginTemplateEditorAdd\" title=\"this operation cannot be undone\" onclick=\"plugin".$name."ChooseTemplate()\">Choose this template</div></div></div>';
-            text += '<div class=\"pluginTemplateEditorRight\"><div class=\"pluginTemplateEditorOptions hidden\"><div class=\"pluginTemplateEditorTitle\">options:</div><';
-            text += 'img src=\"$location/images/close.png\" title=\"show options\" onclick=\"plugin".$name."ShowOptions()\" /><div class=\"pluginTemplateEditorOptionsChooser\"><div onclick=\"plugin".$name."EditSource()\">edit source</div>';
-            text += '<div onclick=\"plugin".$name."ChoosePrepared()\">choose prepared</div></div><div class=\"pluginTemplateEditorPrepared hidden\"></div>';
-            text += '<div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div></div></div></div></div>';
+            text += '<div class=\"pluginTemplateEditorRight\"><div class=\"pluginTemplateEditorOptions hidden\"><div class=\"pluginTemplateEditorTitle\">options:</div>';
+            text += '<img src=\"$location/images/close.png\" class=\"pluginTemplateEditorOptImg\" title=\"show options\" onclick=\"plugin".$name."ShowOptions()\" /><div class=\"pluginTemplateEditorOptionsChooser\">';
+            text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">RightBar</div>';
+            text += '<div onclick=\"plugin".$name."EditSource()\">edit source</div><div onclick=\"plugin".$name."ChoosePrepared()\">choose prepared</div></div>';
+            text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Special effects</div>';
+            text += '<div onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
+            text += '</div>';
+            text += '<div class=\"pluginTemplateEditorPrepared hidden\"></div><div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div>^';
+            text += '<div class=\"pluginTemplateEditorSpecial hidden\"></div></div></div></div></div>';
             $('.pluginInner').html(text);
             var i;
             try{
@@ -120,12 +126,14 @@ var plugin".$name."Items = [];
 function plugin".$name."EditSource(){
     $('.pluginTemplateEditorFrameWrapper').removeClass('hidden');
     $('.pluginTemplateEditorPrepared').addClass('hidden');
+    $('.pluginTemplateEditorSpecial').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
     plugin".$name."UpdateSource();
 }
 function plugin".$name."ChoosePrepared(){
     $('.pluginTemplateEditorFrameWrapper').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
+    $('.pluginTemplateEditorSpecial').addClass('hidden');
     $('.pluginTemplateEditorPrepared').removeClass('hidden');
     var templateId = null;
     for(var i=0;i<=maxTemplateId;i++){
@@ -184,6 +192,7 @@ function plugin".$name."ShowPrepared(){
 function plugin".$name."ShowOptions(){
     $('.pluginTemplateEditorFrameWrapper').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').removeClass('hidden');
+    $('.pluginTemplateEditorSpecial').addClass('hidden');
     $('.pluginTemplateEditorPrepared').addClass('hidden');
 }
 function plugin".$name."ChangeTitle(){
@@ -215,7 +224,7 @@ function plugin".$name."ChangeText(){
 function plugin".$name."SearchPages(){
     $.ajax({
         type: 'POST',
-        url: 'plugins/templates/changeOptions.php',
+        url: '$location/changeOptions.php',
         data: 'name='+replaceUml(plugin".$name."Title)+'&lang=$lang',
         success: function(data) {
             if(data != '0'){
@@ -232,7 +241,7 @@ function plugin".$name."SearchPages(){
 function plugin".$name."SearchPageByName(name,id){
     $.ajax({
         type: 'POST',
-        url: 'plugins/templates/changeOptions.php',
+        url: '$location/changeOptions.php',
         data: 'name='+replaceUml(name)+'&lang='+lang,
         success: function(data) {
             if(data != '0'){
@@ -261,6 +270,80 @@ function plugin".$name."SetOptions(){
                     alert(data);
                 }else{
                     showNotification('options saved',1500);
+                }
+            }
+        });
+    }
+}
+function plugin".$name."LoadSpecial(){
+    $.ajax({
+        type: 'POST',
+        url: 'getFiles.php',
+        data: 'text='+browserPath+'&gal=1',
+        success: function(data) {
+            var files = '';
+            var akFile;
+            var file = data.substr(6);
+            var imgCount = 0;
+            while(file.search(';') > -1){
+                akFile = file.substr(0,file.search(';'));
+                if(in_array(akFile,imgTypes)){
+                    files += '<div onclick=\"$(this).toggleClass(\'selected\')\" class=\"galMakerImg\" id=\"sliderImg'+ imgCount +'\">';
+                    files += '<img id=\"sliderPic'+ imgCount++ +'\" height=\"100\" src=\"' + browserPath + akFile + '\" /></div>';
+                }
+                file = file.substr(file.search(';')+1);
+            }
+            maxImgCount = imgCount;
+            files = files == ''?'empty dir. Upload files in main panel.':files;
+            var text = files + '<div onclick=\"plugin".$name."SelectPictures()\">select pictures</div>';
+            $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
+            $('.pluginTemplateEditorSpecial').html(text).removeClass('hidden');
+        }
+    });
+}
+function plugin".$name."SelectPictures(){
+    var images = $('.pluginTemplateEditorSpecial').find('img').map(function(){
+        return this;
+    }).get();
+    var text = \"<div class='imgSliderHeader'><div class='imgSliderHeaderInner'><div class='imgSliderHeaderLoading'></div>\";
+    var m = 0;
+    var i;
+    for(i=0;i<images.length;i++){
+        if($('#'+images[i].id).parent().attr('class').search('selected') > -1){
+            var source = images[i].src.replace(location.toString(),'');
+            var pos = source.lastIndexOf('web-images/');
+            pos=pos==-1?0:pos;
+            source = source.substr(pos);
+            text += \"<img class='imgSliderHeaderImages' id='imgSliderHeaderImg\" + m + \"' src='\" + source + \"' />\";
+            m++;
+        }
+    }
+    text += \"<div class='imgSliderHeaderNav'>\";
+    for(var j=0;j<m;j++){
+        text += \"<div class='imgSliderHeaderNavPoint' id='imgSliderHeaderNav\" + j + \"' onclick='specialSliderShowPic(\" + j + \")'></div>\";
+    }
+    text += \"</div></div></div>\";
+    images = null;
+    var templateId = null;
+    for(i=0;i<=maxTemplateId;i++){
+        try{
+            if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
+                templateId = i;
+            }
+        }catch(ex){}
+    }
+    if(templateId == null){
+        alert('error');
+    }else{
+        var path = $('#pluginTemplateEditorPath'+templateId).html();
+        path = path.substr(0,path.lastIndexOf('/'))+'/specialContent.php';
+        $.ajax({
+            type: 'POST',
+            url: '$location/generateSpecial.php',
+            data: 'text='+replaceUml(text)+'&lang='+lang+'&path='+path,
+            success: function(data) {
+                if(data == '0'){
+                    showNotification('done',1500);
                 }
             }
         });

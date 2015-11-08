@@ -6,7 +6,7 @@ var pageIsIniting = true;
 var showPageTour = false;
 var mayCancelLogOut = true;
 function reloadLocation(rel){
-    window.location.href = document.location.toString().substr(0,document.location.toString().lastIndexOf('/'))+'/admin.php?id='+pageId+'&action='+rel;
+    window.location.href = document.location.toString().substr(0,document.location.toString().lastIndexOf('/'))+'/admin.php?id='+pageId+'&lang='+lang+'&action='+rel;
 }
 function confirmExit(){
 	if(startHTML != replaceUml(getCurrentHTML()) && replaceUml(getCurrentHTML()) != '<p>page not existent jet.<br /><span style="color<dpp>#555;font-size<dpp>12px;">Tipp<dpp> press crtl+s to save changes.</span></p>' && mayCancelLogOut){
@@ -182,9 +182,8 @@ function checkIfUserIsLoggedIn(){
         data: 'text=getLoggedIn',
         success: function(data) {
             if(data != '1') {
-                alert(data);
                 mayCancelLogOut = false;
-                //location.href = 'logout.php';
+                location.href = 'logout.php';
             }
         }
     });

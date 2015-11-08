@@ -37,21 +37,10 @@ function initPlugin_$plugId(th){
             var akFile;
             var file = data.substr(6);
             var imgCount = 0;
-            var images = $('.imgSlider').find('img').map(function(){
-                return this;
-            }).get();
-            var sliderPics = [];
-            for(var i=0;i<images.length;i++){
-                var source = images[i].src.replace(location.toString(),'');
-                source = source.substr(source.lastIndexOf('web-images/'));
-                sliderPics.push(source);
-            }
-            images = null;
             while(file.search(';') > -1){
                 akFile = file.substr(0,file.search(';'));
-                var actClass = findInArray(sliderPics,browserPath + akFile) > -1 ?' selected':'';
                 if(in_array(akFile,imgTypes)){
-                    files += '<div class=\"galMakerImg'+actClass+'\" id=\"sliderImg'+ imgCount +'\"><div class=\"sliderImgOptions hidden\" id=\"sliderImgOption'+imgCount+'\" onclick=\"addSliderTitle('+imgCount+')\">add a title</div>';
+                    files += '<div class=\"galMakerImg\" id=\"sliderImg'+ imgCount +'\"><div class=\"sliderImgOptions hidden\" id=\"sliderImgOption'+imgCount+'\" onclick=\"addSliderTitle('+imgCount+')\">add a title</div>';
                     files += '<img id=\"sliderPic'+ imgCount +'\" onclick=\"toggleSliderPicSel('+ imgCount +')\" height=\"100\" src=\"' + browserPath + akFile + '\" /><div class=\"imgSliderTexts\" id=\"imgSliderTextBackup' + imgCount++ + '\"></div></div>';
                 }
                 file = file.substr(file.search(';')+1);

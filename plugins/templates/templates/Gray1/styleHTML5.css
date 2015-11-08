@@ -27,9 +27,10 @@ a:hover{
     display:block;
 }
 .contentOuter{
+    z-index: 9;
     position:relative;
     display:flex;
-    width:85%;
+    width:75%;
     border:1px solid #263238;
     margin:5px 0;
     text-align:left;
@@ -115,7 +116,7 @@ a:hover{
 
 .header{
     position:relative;
-    width:85%;
+    width:75%;
     border:0 solid #263238;
     box-shadow:inset 0 0 150px #37474f;
     background:#455a64;
@@ -123,8 +124,12 @@ a:hover{
     padding:1px;
     min-width:690px;
 }
+.headerBig{
+    height: 400px;
+}
 .pageTitle{
     position:absolute;
+    z-index: 9;
     font-size:32px;
     color:#e8eaf6;
     font-weight:bold;
@@ -139,6 +144,7 @@ a:hover{
     border:1px solid #555;
     padding:0;
     border-radius:3px;
+    z-index: 9;
 }
 .search input{
     height:20px;
@@ -154,6 +160,7 @@ a:hover{
 }
 .pageLogo{
     position:absolute;
+    z-index: 9;
     top:5px;
     right:5px;
     height:90px;
@@ -163,7 +170,7 @@ a:hover{
     background:#333;
     box-shadow:inset 0 0 65px #000;
     border:1px solid #000;
-    width:85%;
+    width:75%;
     height:100px;
     color:#EEE;
     font-size:18px;
@@ -178,7 +185,8 @@ a:hover{
 
 .menu{
     position:absolute;
-    top:63px;
+    z-index: 9;
+    bottom:4px;
     left:-1px;
     height:35px;
 }
@@ -258,7 +266,7 @@ a:hover{
         font-size:15px;
     }
     .menu{
-        top: 65px;
+        bottom: 2px;
     }
     .subMenu{
         top:36px;
@@ -284,7 +292,7 @@ a:hover{
         font-size:13px;
     }
     .menu{
-        top: 68px;
+        bottom: 0;
     }
     .subMenu{
         top:33px;
