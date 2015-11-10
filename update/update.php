@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.9";
+    $updateVersion = "2.10";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -170,13 +170,9 @@ if($authLevel == '1111'){
                 $('.file').html('Update Complete');
                 $('.data').html('');
             }else{
-                timer = window.setTimeout('moveOneFile(1)',15000);
+                timer = window.setTimeout('moveOneFile(-1)',15000);
                 $('.file').html('Copying files:<br>');
                 moveOneFile(0);
-                var maxThreads = 2;
-                for(var j=1;j<maxThreads;j++){
-                    window.setTimeout('moveOneFile(nextFileToMove)',500*j);
-                }
             }
         }
         function init(){
@@ -191,6 +187,7 @@ if($authLevel == '1111'){
             }
         }
         function leaveUpdate(){
+            $('.file').html('Updating plugins');
             $.ajax({
                 type: 'POST',
                 url: '../plugins/settings/functions.php',
@@ -211,9 +208,8 @@ if($authLevel == '1111'){
             if(i==-1){
                 i=nextFileToMove;
             }
-            threadsRunning++;
             nextFileToMove = i + 1;
-            $('.file').html($('.file').html()+files[i].substr(3)+'<br>');
+            $('.file').html('Copying files:<br><span id="fileCount'+i+'">'+files[i].substr(3)+'</span><br>'+$('.file').html().replace('Copying files:<br>',''));
             try{
                 window.clearTimeout(timer);
             }catch (ex){}
@@ -223,17 +219,19 @@ if($authLevel == '1111'){
                 url: 'copy.php',
                 data: 'path='+files[i]+'&remotePath='+remotePath,
                 success: function(data) {
-                    threadsRunning--;
                     window.clearTimeout(timer);
                     if(data!='1'){
                         $('.data').html(data);
+                        document.getElementById('fileCount'+i).className = "fileFailed";
+                    }else{
+                        document.getElementById('fileCount'+i).className = "fileSuccess";
                     }
                     filesMoved++;
                     if(nextFileToMove < max){
                         var prog = Math.round((filesMoved)*100/max)-1;
                         $('.progressBar').html(prog+'%').width(20+prog*10);
                         moveOneFile(-1);
-                    }else if(threadsRunning == 0){
+                    }else{
                         $.ajax({
                             type: 'POST',
                             url: 'copy.php',
@@ -322,7 +320,10 @@ if($authLevel == '1111'){
 <div class="container" align="center">
     <div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
     <div class="pageTitle">Welcome to the update Panel.<?php if($oldVersion!=$version){echo("<br>Your WebsiteEditor will be updated from Version $oldVersion to $version:");}?></div>
-    <div class="description"><?php  if($oldVersion!=$version){echo($description);}?></div>
+    <div style="position: relative">
+        <div class="description"><?php  if($oldVersion!=$version){echo($description);}?></div>
+        <div class="data"></div>
+    </div>
     <div class="button green" onclick="moveFilesNow();$(this).addClass('hidden')">Start Update</div>
     <div class="button"><a href="../admin.php">Skip Update</a></div>
     <div style="position:relative">
@@ -331,7 +332,6 @@ if($authLevel == '1111'){
     </div>
     <div class="spacer"></div>
     <div class="file"></div>
-    <div class="data"></div>
 </div>
 </body>
 </html>

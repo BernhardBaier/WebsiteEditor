@@ -1,8 +1,10 @@
 <?php
+error_reporting(E_ERROR);
 include "auth.php";
 if($authLevel == '1111'){
     $remotePath = $_POST['remotePath'];
     $path = $_POST['path'];
+    if(sizeof($files) )
     $dir = substr($path,0,strrpos($path,'/'));
     if(!is_dir($dir)){
         if(!mkdir($dir)){

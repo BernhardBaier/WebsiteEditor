@@ -1,6 +1,6 @@
-#description#all templates offer specials now<br>specials have more options#
+#description#updater rechecked#
 #version#4.2.23#
-#updateVersion#2.9#
+#updateVersion#3.0#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151105014326#
 #file#../update/copy.php#date#20151105014301#

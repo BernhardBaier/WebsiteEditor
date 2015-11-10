@@ -90,3 +90,13 @@ img{
 .updateUpdater.hidden{
     display: none;
 }
+.data{
+    position: absolute;
+    bottom: -83px;
+}
+.fileFailed{
+    color: #f44336;
+}
+.fileSuccess{
+    color: #4caf50;
+}
