@@ -70,10 +70,10 @@ function clickAbleMenu($callback,$parent=0){
             if($childCount > 0){
                 $output .= "<li class='clickAbleMenuItem'>
                 <img onclick='$(\"#clickAbleMenuList$pid\").toggleClass(\"hidden\");$(this).toggleClass(\"imgRotated\")' src='images/menuOptions.png' height='15' class='imgRotate' />
-                <span onclick='".str_replace('$pid',$pid,$callback)."'>".replaceUml($name).'</span>'.
+                <span id='thisPageHasTheId$pid' onclick='".str_replace('$pid',$pid,$callback)."'>".replaceUml($name).'</span>'.
                     "</li><ul id='clickAbleMenuList$pid' class='clickAbleMenuList hidden'>".clickAbleMenu($callback,$pid).'</ul>';
             }else{
-                $output .= "<li class='clickAbleMenuItem'><img src='images/listicon.png' height='15' /> <span onclick='".str_replace('$pid',$pid,$callback)."'>".replaceUml($name).'</span></li>';
+                $output .= "<li class='clickAbleMenuItem'><img src='images/listicon.png' height='15' /> <span id='thisPageHasTheId$pid' onclick='".str_replace('$pid',$pid,$callback)."'>".replaceUml($name).'</span></li>';
             }
         }
     }

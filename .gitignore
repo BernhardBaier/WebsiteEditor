@@ -24,8 +24,6 @@ styleMobile.min.css
 styleHTML5.min.css
 scriptHTML5.min.js
 scriptMobile.min.js
-rightBar*.php
-specialContent.php
-styleSpecialContent*css
 node_modules/*
 pictures/*
+*.min.min.js

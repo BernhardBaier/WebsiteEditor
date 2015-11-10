@@ -10,6 +10,7 @@ if(basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php'){
     header('Location: index.php');
 }
 $id = $_GET['id'];
+$specialContent = "";
 if($id == ""){
     $id = 1;
 }
@@ -194,8 +195,10 @@ while($pos > -1){
             }
         ?>
     </script>
+    <link rel="stylesheet" href="commonStyle.min.css"/>
     <link rel="stylesheet" href="styleHTML5.min.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
+    <?php include "specialContent.php";?>
 </head>
 <body onload="init()">
 <div class="pageOuter">
@@ -206,7 +209,7 @@ while($pos > -1){
         </div>
     </div>
     <div class="container" align="center">
-        <div class="header">
+        <div class="header<?php if($specialContent != ""){echo(' headerBig');}?>">
             <div class="searchBox">
                 <?php
                 if($langSupport){
@@ -227,6 +230,7 @@ while($pos > -1){
             </div>
             <a href="index.php"><img src="images/logo.png" class="pageLogo" /></a>
             <div class="pageTitle"><?php echo($pageTitle);?></div>
+            <?php echo($specialContent);?>
             <div class="menu">
                 <?php echo(printMenu($sql)); ?>
             </div>
@@ -240,13 +244,17 @@ while($pos > -1){
                     if(file_exists("$pagePath/$lang/".$preview."$id.php")){
                         include("$pagePath/$lang/".$preview."$id.php");
                     }else{
-                        echo("Upps this page is not available!");
+                        if($lang == 'de'){
+                            echo("Hoppla, diese Seite ist nicht verfügbar!");
+                        }else{
+                            echo("Upps this page is not available!");
+                        }
                     }
                     ?>
                 </div>
                 <div class="rightBar">
                     <div class="rightBarInner">
-                        Right Bar
+                        <?php include('rightBar_'.$lang.'.php');?>
                     </div>
                 </div>
             </div>
@@ -274,7 +282,6 @@ while($pos > -1){
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
     <script src="spin.min.js" async></script>
-    <link rel="stylesheet" href="commonStyle.min.css"/>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
     <!--#end#-->

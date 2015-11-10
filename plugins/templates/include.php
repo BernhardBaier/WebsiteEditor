@@ -22,7 +22,7 @@ if($authLevel == '1111') {
     echo("<img src='$location/images/logo.png' title='$name' class='pluginNavImg' onclick='initPlugin_$plugId(this);$(this).addClass(\"active\")'/>");
     mysqli_free_result($erg2);
     if (!file_exists("$location/script.js") || true) {
-        $output = "var maxTemplateId = 0;
+        $output = "var maxTemplateId = 0; var templateId = null;
 function initPlugin_$plugId(th){
     if(th != 0){
         resetAllPlugins();
@@ -44,7 +44,7 @@ function initPlugin_$plugId(th){
             text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Special effects</div>';
             text += '<div onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
             text += '</div>';
-            text += '<div class=\"pluginTemplateEditorPrepared hidden\"></div><div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div>^';
+            text += '<div class=\"pluginTemplateEditorPrepared hidden\"></div><div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div>';
             text += '<div class=\"pluginTemplateEditorSpecial hidden\"></div></div></div></div></div>';
             $('.pluginInner').html(text);
             var i;
@@ -55,10 +55,18 @@ function initPlugin_$plugId(th){
             }catch(ex){
                 maxTemplateId = i;
             }
+            for(i=0;i<=maxTemplateId;i++){
+                try{
+                    if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
+                        templateId = i;
+                    }
+                }catch(ex){}
+            }
         }
     });
 }
 function plugin".$name."SelectTemplate(th,id){
+    templateId = id;
     $('.pluginTemplateEditorTemplate').removeClass('active');
     th.className = 'pluginTemplateEditorTemplate active';
     var path = $('#pluginTemplateEditorPath'+id).html();
@@ -67,17 +75,18 @@ function plugin".$name."SelectTemplate(th,id){
     $('.pluginTemplateEditorChooser').removeClass('hidden');
     $('.pluginTemplateEditorOptions').removeClass('hidden');
     plugin".$name."UpdateSource();
+    plugin".$name."ShowOptions();
+    $.ajax({
+        type: 'POST',
+        url: '$location/generateSpecial.php',
+        data: 'getPages=true&lang='+lang,
+        success: function(data) {
+            plugin".$name."SelectedPages = data;
+        }
+    });
 }
 var plugin".$name."Path = '';
 function plugin".$name."UpdateSource(){
-    var templateId = null;
-    for(var i=0;i<=maxTemplateId;i++){
-        try{
-            if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
-                templateId = i;
-            }
-        }catch(ex){}
-    }
     if(templateId == null){
         alert('error');
     }else{
@@ -95,14 +104,6 @@ function plugin".$name."UpdateSource(){
     }
 }
 function plugin".$name."ChooseTemplate(){
-    var templateId = null;
-    for(var i=0;i<=maxTemplateId;i++){
-        try{
-            if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
-                templateId = i;
-            }
-        }catch(ex){}
-    }
     if(templateId == null){
         alert('error');
     }else{
@@ -135,14 +136,6 @@ function plugin".$name."ChoosePrepared(){
     $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
     $('.pluginTemplateEditorSpecial').addClass('hidden');
     $('.pluginTemplateEditorPrepared').removeClass('hidden');
-    var templateId = null;
-    for(var i=0;i<=maxTemplateId;i++){
-        try{
-            if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
-                templateId = i;
-            }
-        }catch(ex){}
-    }
     if(templateId == null){
         alert('error');
     }else{
@@ -275,6 +268,35 @@ function plugin".$name."SetOptions(){
         });
     }
 }
+function plugin".$name."RestoreSpecial(){
+    if(templateId == null){
+        alert('error');
+    }else{
+        var path = $('#pluginTemplateEditorPath'+templateId).html();
+        path = path.substr(0,path.lastIndexOf('/'))+'/specialContent.php';
+        $.ajax({
+            type: 'POST',
+            url: '$location/generateSpecial.php',
+            data: 'restore=true&lang='+lang+'&path='+path,
+            success: function(data) {
+                if(data != ''){
+                     var images = $('.pluginTemplateEditorSpecial').find('img').map(function(){
+                        return this;
+                    }).get();
+                    for(var i=0;i<images.length;i++){
+                        var source = images[i].src.replace(location.toString(),'');
+                        var pos = source.lastIndexOf('web-images/');
+                        pos=pos==-1?0:pos;
+                        source = source.substr(pos);
+                        if(data.search(source) > -1){
+                            $('#'+images[i].id).parent().addClass('selected');
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
 function plugin".$name."LoadSpecial(){
     $.ajax({
         type: 'POST',
@@ -295,28 +317,64 @@ function plugin".$name."LoadSpecial(){
             }
             maxImgCount = imgCount;
             files = files == ''?'empty dir. Upload files in main panel.':files;
-            var text = files + '<div onclick=\"plugin".$name."SelectPictures()\">select pictures</div>';
+            var text = files + '<div class=\"pluginTemplateEditorSelectPages\" onclick=\"plugin".$name."SelectPages()\">select pages</div>';
+            text += '<div class=\"pluginTemplateEditorMenu hidden\">select pictures</div>';
+            text += '<div class=\"pluginTemplateEditorSelectPictures\" onclick=\"plugin".$name."SelectPictures()\">change now.</div>';
             $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
             $('.pluginTemplateEditorSpecial').html(text).removeClass('hidden');
+            plugin".$name."RestoreSpecial();
         }
     });
+}
+var plugin".$name."SelectedPages = '';
+function plugin".$name."SelectPages(){
+    $('.pluginTemplateEditorMenu').removeClass('hidden');
+	$.ajax({
+        type: 'POST',
+        url: 'functions.php',
+        data: 'text=clickAbleMenu:plugin".$name."TogglePage(\$pid,this):'+lang,
+        success: function(data) {
+            $('.pluginTemplateEditorMenu').html(data+'<div class=\"pluginTemplateEditorMenuHider\" onclick=\"$(\'.pluginTemplateEditorMenu\').addClass(\'hidden\')\">close</div>');
+            var pages = plugin".$name."SelectedPages.substr(1);
+            while(pages.search(';') > -1){
+                try{
+                    document.getElementById('thisPageHasTheId'+pages.substr(0,pages.search(';'))).className = 'pluginTemplateEditorMenuActive';
+                }catch(ex){}
+                pages = pages.substr(pages.search(';')+1);
+            }
+        }
+    });
+}
+function plugin".$name."TogglePage(id,th){
+    if(plugin".$name."SelectedPages.search(';'+id+';') > -1){
+        plugin".$name."SelectedPages = plugin".$name."SelectedPages.replace(';'+id+';',';');
+    }else{
+        if(plugin".$name."SelectedPages == ''){
+            plugin".$name."SelectedPages = ';'+id+';';
+        }else{
+            plugin".$name."SelectedPages += id+';';
+        }
+    }
+    $(th).toggleClass('pluginTemplateEditorMenuActive');
 }
 function plugin".$name."SelectPictures(){
     var images = $('.pluginTemplateEditorSpecial').find('img').map(function(){
         return this;
     }).get();
-    var text = \"<div class='imgSliderHeader'><div class='imgSliderHeaderInner'><div class='imgSliderHeaderLoading'></div>\";
+    var text = \"<div class='imgSliderHeader'><div class='imgSliderHeaderInner'><div class='imgSliderHeaderDeco'></div><div class='imgSliderHeaderLoading'></div>\";
     var m = 0;
     var i;
     for(i=0;i<images.length;i++){
-        if($('#'+images[i].id).parent().attr('class').search('selected') > -1){
-            var source = images[i].src.replace(location.toString(),'');
-            var pos = source.lastIndexOf('web-images/');
-            pos=pos==-1?0:pos;
-            source = source.substr(pos);
-            text += \"<img class='imgSliderHeaderImages' id='imgSliderHeaderImg\" + m + \"' src='\" + source + \"' />\";
-            m++;
-        }
+        try{
+           if($('#'+images[i].id).parent().attr('class').search('selected') > -1){
+                var source = images[i].src.replace(location.toString(),'');
+                var pos = source.lastIndexOf('web-images/');
+                pos=pos==-1?0:pos;
+                source = source.substr(pos);
+                text += \"<img class='imgSliderHeaderImages' id='imgSliderHeaderImg\" + m + \"' src='\" + source + \"' />\";
+                m++;
+            }
+        }catch(ex){}
     }
     text += \"<div class='imgSliderHeaderNav'>\";
     for(var j=0;j<m;j++){
@@ -324,14 +382,6 @@ function plugin".$name."SelectPictures(){
     }
     text += \"</div></div></div>\";
     images = null;
-    var templateId = null;
-    for(i=0;i<=maxTemplateId;i++){
-        try{
-            if(document.getElementById('pluginTemplateEditorTemplate'+i).className == 'pluginTemplateEditorTemplate active'){
-                templateId = i;
-            }
-        }catch(ex){}
-    }
     if(templateId == null){
         alert('error');
     }else{
@@ -340,10 +390,12 @@ function plugin".$name."SelectPictures(){
         $.ajax({
             type: 'POST',
             url: '$location/generateSpecial.php',
-            data: 'text='+replaceUml(text)+'&lang='+lang+'&path='+path,
+            data: 'text='+replaceUml(text)+'&lang='+lang+'&path='+path+'&pages='+plugin".$name."SelectedPages,
             success: function(data) {
                 if(data == '0'){
                     showNotification('done',1500);
+                }else{
+                    alert(data);
                 }
             }
         });

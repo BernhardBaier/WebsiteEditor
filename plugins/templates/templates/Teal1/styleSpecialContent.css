@@ -58,16 +58,16 @@
     width: 16px;
     height: 16px;
     margin: 0 1px;
-    background: #eceff1;
-    border: 1px solid #263238;
+    background: #e0f2f1;
+    border: 1px solid #004d40;
     cursor: pointer;
     display: inline-flex;
     opacity: 0.5;
 }
 .imgSliderHeaderNavPoint:hover{
-    background: #b0bec5;
+    background: #80cbc4;
 }
 .imgSliderHeaderNavPoint.active{
-    background: #b0bec5;
+    background: #80cbc4;
     opacity: 1;
 }

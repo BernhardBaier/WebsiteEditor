@@ -26,14 +26,14 @@ if($_POST['saveText'] == 'true'){
     fclose($file);
 }else{
     include 'access.php';
+    if($authLevel != '1111'){
+        die('authentification failed');
+    }
     $hostname = $_SERVER['HTTP_HOST'];
     $host = $hostname == 'localhost'?$hostname:$sqlHost;
     $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
     if(!$sql){
         die('MySQL-Error');
-    }
-    if($authLevel != '1111'){
-        die('authentification failed');
     }
     $name = replaceUml($_POST['name']);
     $lang = $_POST['lang'];
