@@ -490,7 +490,9 @@ if(substr($authLevel,2,1) == '1'){
             <div class="pageOptionItem" onclick="showPlugins()" title="show or add plugins">plugins</div>
             <?php
             if($authLevel == '1111'){
-                echo('<div class="pageOptionItem" onclick="location.href=\'setup.php?id=settings&lang='.$lang.'\'" title="change the websites title or choose other languages and so on">setup</div>');
+                echo('<div class="pageOptionItem" onclick="location.href=\'setup.php?id=settings&lang='.$lang.'\'" onmouseover="$(\'#pageSubOptionsSettings\').removeClass(\'hidden\')"
+                 onmouseout="$(\'#pageSubOptionsSettings\').addClass(\'hidden\')" title="change the websites title or choose other languages and so on">setup<div id="pageSubOptionsSettings" class="pageSubOptions hidden">
+                 <div class="pageOptionItem"><a href="editor.php?id=impress&lang='.$lang.'">change impress</a></div></div></div>');
             }
             ?>
             <div class="pageOptionItem" onclick="$('.ownUserControlOuter').removeClass('hidden')" title="show own user">own user</div>
