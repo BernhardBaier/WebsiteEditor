@@ -202,7 +202,6 @@ if($authLevel == '1111'){
             });
         }
         var nextFileToMove = 0;
-        var threadsRunning = 0;
         var filesMoved = 0;
         function moveOneFile(i){
             if(i==-1){

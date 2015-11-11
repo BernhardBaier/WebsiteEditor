@@ -4,13 +4,19 @@ include "auth.php";
 if($authLevel == '1111'){
     $remotePath = $_POST['remotePath'];
     $path = $_POST['path'];
-    if(sizeof($files) )
+    $foldersExist = false;
     $dir = substr($path,0,strrpos($path,'/'));
-    if(!is_dir($dir)){
+    $dirsToAdd = [];
+    while(strrpos($dir,'/') > -1 && !$foldersExist){
         if(!mkdir($dir)){
-            $dir2 = substr($dir2,0,strrpos($dir2,'/'));
-            mkdir($dir2);
-            mkdir($dir);
+            array_push($dirsToAdd,$dir);
+            $dir = substr($dir,0,strrpos($dir,'/')-1);
+            $dir = substr($dir,0,strrpos($dir,'/'));
+        }else{
+            for($i=sizeof($dirsToAdd)-1;$i>=0;$i--){
+                mkdir($dirsToAdd[$i]);
+            }
+            $foldersExist = true;
         }
     }
     if(copy($remotePath.substr($path,3),$path)){
