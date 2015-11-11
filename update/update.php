@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'auth.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.10";
+    $updateVersion = "2.11";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -269,6 +269,9 @@ if($authLevel == '1111'){
         $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#'));
         $in = substr($in,strpos($in,'#file#'));
         $count = 0;
+        $file = fopen('failedFiles.list','r');
+        $input = fread($file,filesize('failedFiles.list'));
+        fclose($file);
         while(strpos($remoteIn,'#file#')>-1){
             $remoteIn = substr($remoteIn,strpos($remoteIn,'#file#')+6);
             $path = substr($remoteIn,0,strpos($remoteIn,'#'));
@@ -290,6 +293,9 @@ if($authLevel == '1111'){
                 }
             }
             if(!file_exists($path)){
+                $add = true;
+            }
+            if(strpos($input,$path) > -1){
                 $add = true;
             }
             if(strpos($in,$path) > -1){

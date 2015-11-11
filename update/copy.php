@@ -4,6 +4,9 @@ include "auth.php";
 if($authLevel == '1111'){
     $remotePath = $_POST['remotePath'];
     $path = $_POST['path'];
+    $file = fopen('failedFiles.list','r');
+    $input = fread($file,filesize('failedFiles.list'));
+    fclose($file);
     $foldersExist = false;
     $dir = substr($path,0,strrpos($path,'/'));
     $dirsToAdd = [];
@@ -20,8 +23,13 @@ if($authLevel == '1111'){
         }
     }
     if(copy($remotePath.substr($path,3),$path)){
+        $input = str_replace("#file#$remotePath".substr($path,3).'#','',$input);
         echo('1');
     }else{
+        $input .= "#file#$remotePath".substr($path,3).'#';
         echo("<br>error copying $remotePath".substr($path,3));
     }
+    $file = fopen('failedFiles.list','w');
+    fwrite($file,$input);
+    fclose($file);
 }
