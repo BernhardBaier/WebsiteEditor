@@ -5,6 +5,7 @@ var addedMenuClass = false;
 function init(){
     alert('i');
     window.setTimeout('postInit()',250);
+    document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+35)+'px';
     initCalendarPage();
     initGallerySlider();
     initPicViewerMobile();
