@@ -36,6 +36,7 @@ $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
 $sslPath = '';
 $que = "SELECT * FROM settings WHERE parameter='sslPath'";
 $erg = mysqli_query($sql,$que);
+$redirected = 'false';
 while($row = mysqli_fetch_array($erg)){
     $sslPath = $row['value'];
 }
@@ -160,6 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $cookie = encrypt(serialize($info),$ip);
                 $cookie = encrypt($cookie,session_id());
                 $sessId = session_id();
+                $redirected = $_SESSION['redirect'];
                 echo('Login succeed. redirecting you now.');
                 echo("<form name='form1' action='$path/redirect.php' method='post'>");
                 echo("<input type='hidden' name='redirect' value='true' />");
@@ -204,12 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <?php
-if(!isset($_GET['id'])){
-    echo('<span class="loginTitle">Website editor Version '.$editorVersion.'</br>Copyright &copy; 2014 Bernhard Baier</span>');
-}else{
-    echo("<div class='title'>Seifenkistenrennen 2014 - Feuerwehr Hardt</div>");
-}
-if(isset($_POST['passwort'])){
+echo('<span class="loginTitle">Website editor Version '.$editorVersion.'</br>Copyright &copy; 2014 - '.date('Y').' Bernhard Baier</span>');
+if(isset($_POST['passwort']) && $redirected != 'true'){
     echo('<div class="loginBox">Wrong login data!</div>');
 }
 ?>
@@ -221,7 +219,7 @@ if(isset($_POST['passwort'])){
             <tr><td colspan="2" align="center"><input type="submit" value="Login" /></td></tr>
         </form>
         <?php
-        if(isset($_GET['id'])){
+        if($_GET['register'] == 'true'){
             echo('<tr><td colspan="2" align="center"><a href="register.php">register</a></td></tr>');
         }
         ?>

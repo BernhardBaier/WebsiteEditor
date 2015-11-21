@@ -117,6 +117,7 @@ function toggleMenu(){
     var left = document.getElementById('menu').style.left;
     if(left=='0px'){
         document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+35)+'px';
+        window.setTimeout("document.getElementById('menu').style.left = -Math.round($('.menuOuter').width()+35)+'px';",200);
     }else{
         document.getElementById('menu').style.left = 0;
 	    expandMenu();

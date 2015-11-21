@@ -47,6 +47,7 @@ if($_POST['redirect'] == 'true'){
         $_SESSION['id'] = $info[2];
         $_SESSION['extra'] = $info[3];
         $_SESSION['ip'] = $ip;
+        $_SESSION['redirect'] = 'redirected';
         $path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
         $path = 'http://'.substr($path,0,strrpos($path,'/'));
         if($_POST['update'] == 'true'){
