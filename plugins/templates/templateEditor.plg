@@ -16,6 +16,8 @@
 #file#changeOptions.php#
 #file#getTemplates.php#
 #file#getOptions.php#
+#file#createNewTemplate.php#
+#file#makeStyles.php#
 #file#style.css#
 #file#style.min.css#
 #includes#

@@ -34,26 +34,32 @@ function initPlugin_$plugId(th){
         data: 'path=templates&currentTemplate=$currentTemplate',
         success: function(data) {
             var text = '<div class=\"pluginTemplateEditorContainer\">available templates:';
-            text += '<div class=\"pluginTemplateEditorTop\">'+data+'</div><div class=\"pluginTemplateEditorBottom\">';
+            text += '<div class=\"pluginTemplateEditorTop\">'+data+'<div class=\"pluginTemplateEditorAdd hidden\">add template<img onclick=\"plugin".$name."CloseOv()\" src=\"images/close.png\"/>';
+            text += '<form action=\"javascript:plugin".$name."AddNew()\" name=\"pluginTemplateEditorForm\"><input type=\"text\" name=\"pluginTemplateEditorName\" value=\"name\" /><input type=\"submit\" value=\"add\" /></form>';
+            text += '<div class=\"pluginTemplateEditorText\">this will add an template based on the current chosen one</div>';
+            text += '</div><div class=\"pluginTemplateEditorOverlay hidden\" onclick=\"plugin".$name."CloseOv()\"></div></div><div class=\"pluginTemplateEditorBottom\">';
             text += '<div class=\"pluginTemplateEditorLeft\">Preview:<div class=\"pluginTemplateEditorChooser hidden\"><img class=\"pluginTemplateEditorBottomImg\" src=\"\" id=\"pluginTemplateEditorPic\" />';
-            text += '<div class=\"pluginTemplateEditorAdd\" title=\"this operation cannot be undone\" onclick=\"plugin".$name."ChooseTemplate()\">Choose this template</div></div></div>';
+            text += '<div class=\"pluginTemplateEditorChoose\" title=\"this operation cannot be undone\" onclick=\"plugin".$name."ChooseTemplate()\">Choose this template</div></div></div>';
             text += '<div class=\"pluginTemplateEditorRight\"><div class=\"pluginTemplateEditorOptions hidden\"><div class=\"pluginTemplateEditorTitle\">options:</div>';
             text += '<img src=\"$location/images/close.png\" class=\"pluginTemplateEditorOptImg\" title=\"show options\" onclick=\"plugin".$name."ShowOptions()\" /><div class=\"pluginTemplateEditorOptionsChooser\">';
             text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">RightBar</div>';
-            text += '<div onclick=\"plugin".$name."EditSource()\">edit source</div><div onclick=\"plugin".$name."ChoosePrepared()\">choose prepared</div></div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditSource()\">edit source</div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."ChoosePrepared()\">choose prepared</div></div>';
             text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Special effects</div>';
-            text += '<div onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
+            text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Edit color</div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditColor()\">change colors</div></div>';
             text += '</div>';
             text += '<div class=\"pluginTemplateEditorPrepared hidden\"></div><div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div>';
-            text += '<div class=\"pluginTemplateEditorSpecial hidden\"></div></div></div></div></div>';
+            text += '<div class=\"pluginTemplateEditorSpecial hidden\"></div><div class=\"pluginTemplateEditorColor hidden\"></div></div></div></div></div>';
             $('.pluginInner').html(text);
-            var i;
+            var i = 1;
             try{
                 for(i=0;i<100;i++){
                     if(document.getElementById(\"pluginTemplateEditorPath\"+i).className == \"pluginTemplateEditorTemplate\"){}
                 }
             }catch(ex){
-                maxTemplateId = i;
+                maxTemplateId = i - 1;
             }
             for(i=0;i<=maxTemplateId;i++){
                 try{
@@ -65,25 +71,34 @@ function initPlugin_$plugId(th){
         }
     });
 }
+function plugin".$name."CloseOv(){
+    $('.pluginTemplateEditorOverlay').addClass('hidden');
+        $('.pluginTemplateEditorAdd').addClass('hidden');
+}
 function plugin".$name."SelectTemplate(th,id){
-    templateId = id;
-    $('.pluginTemplateEditorTemplate').removeClass('active');
-    th.className = 'pluginTemplateEditorTemplate active';
-    var path = $('#pluginTemplateEditorPath'+id).html();
-    path = path.substr(0,path.lastIndexOf('/'))+'/pictures/preview.jpg';
-    document.getElementById('pluginTemplateEditorPic').src = path;
-    $('.pluginTemplateEditorChooser').removeClass('hidden');
-    $('.pluginTemplateEditorOptions').removeClass('hidden');
-    plugin".$name."UpdateSource();
-    plugin".$name."ShowOptions();
-    $.ajax({
-        type: 'POST',
-        url: '$location/generateSpecial.php',
-        data: 'getPages=true&lang='+lang,
-        success: function(data) {
-            plugin".$name."SelectedPages = data;
-        }
-    });
+    if(id >= maxTemplateId){
+        $('.pluginTemplateEditorOverlay').removeClass('hidden');
+        $('.pluginTemplateEditorAdd').removeClass('hidden');
+    }else{
+        templateId = id;
+        $('.pluginTemplateEditorTemplate').removeClass('active');
+        th.className = 'pluginTemplateEditorTemplate active';
+        var path = $('#pluginTemplateEditorPath'+id).html();
+        path = path.substr(0,path.lastIndexOf('/'))+'/pictures/preview.jpg';
+        document.getElementById('pluginTemplateEditorPic').src = path;
+        $('.pluginTemplateEditorChooser').removeClass('hidden');
+        $('.pluginTemplateEditorOptions').removeClass('hidden');
+        plugin".$name."UpdateSource();
+        plugin".$name."ShowOptions();
+        $.ajax({
+            type: 'POST',
+            url: '$location/generateSpecial.php',
+            data: 'getPages=true&lang='+lang,
+            success: function(data) {
+                plugin".$name."SelectedPages = data;
+            }
+        });
+    }
 }
 var plugin".$name."Path = '';
 function plugin".$name."UpdateSource(){
@@ -128,6 +143,7 @@ function plugin".$name."EditSource(){
     $('.pluginTemplateEditorFrameWrapper').removeClass('hidden');
     $('.pluginTemplateEditorPrepared').addClass('hidden');
     $('.pluginTemplateEditorSpecial').addClass('hidden');
+    $('.pluginTemplateEditorColor').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
     plugin".$name."UpdateSource();
 }
@@ -135,6 +151,7 @@ function plugin".$name."ChoosePrepared(){
     $('.pluginTemplateEditorFrameWrapper').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
     $('.pluginTemplateEditorSpecial').addClass('hidden');
+    $('.pluginTemplateEditorColor').addClass('hidden');
     $('.pluginTemplateEditorPrepared').removeClass('hidden');
     if(templateId == null){
         alert('error');
@@ -186,6 +203,7 @@ function plugin".$name."ShowOptions(){
     $('.pluginTemplateEditorFrameWrapper').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').removeClass('hidden');
     $('.pluginTemplateEditorSpecial').addClass('hidden');
+    $('.pluginTemplateEditorColor').addClass('hidden');
     $('.pluginTemplateEditorPrepared').addClass('hidden');
 }
 function plugin".$name."ChangeTitle(){
@@ -400,6 +418,151 @@ function plugin".$name."SelectPictures(){
             }
         });
     }
+}
+function plugin".$name."AddNew(){
+    var n = document.pluginTemplateEditorForm.pluginTemplateEditorName.value;
+    var existant = false;
+    for(var i=0;i<maxTemplateId;i++){
+        if(n == document.getElementById('pluginTemplateEditorTemplateTitle'+i).innerHTML){
+            existant = true;
+            i = maxTemplateId;
+        }
+    }
+    if(existant){
+        alert('this template is already existant!');
+    }else{
+        $.ajax({
+            type: 'POST',
+            url: '$location/createNewTemplate.php',
+            data: 'name='+replaceUml(document.getElementById('pluginTemplateEditorTemplateTitle'+templateId).innerHTML)+'&lang='+lang+'&copy='+replaceUml(n),
+            success: function(data) {
+                if(data == '1'){
+                    initPlugin_$plugId(0);
+                }else{
+                    alert(data);
+                }
+            }
+        });
+    }
+}
+function plugin".$name."EditColor(){
+    $('.pluginTemplateEditorFrameWrapper').addClass('hidden');
+    $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
+    $('.pluginTemplateEditorSpecial').addClass('hidden');
+    $('.pluginTemplateEditorColor').removeClass('hidden');
+    $('.pluginTemplateEditorPrepared').addClass('hidden');
+    var path = $('#pluginTemplateEditorPath'+templateId).html();
+    path = path.substr(0,path.lastIndexOf('/'));
+    $.ajax({
+        type: 'POST',
+        url: '$location/makeStyles.php',
+        data: 'path='+path+'&lang='+lang+'&action=getWrapper',
+        success: function(data) {
+            $('.pluginTemplateEditorColor').html(data);
+            $('#pluginTemplateEditorColorGroup1').removeClass('invisible');
+            $.ajax({
+                type: 'POST',
+                url: '$location/makeStyles.php',
+                data: 'path='+path+'&lang='+lang+'&action=getStyles',
+                success: function(data) {
+                    var searches = ['','#header#','#rightBar#','#footer#','#header#','#footer#'];
+                    for(var i=1;i<6;i++){
+                        var style = data.substr(data.search(searches[i])+searches[i].length).toLowerCase();
+                        style = style.substr(0,style.search(';#')+1);
+                        var background = style.substr(style.search('background:'));
+                        background = background.substr(0,background.search(';'));
+                        background = background.substr(background.search(':')+1);
+                        document.getElementById('pluginTemplateEditorColor'+i).value = background;
+                        var border = style.substr(style.search('border:'));
+                        border = border.substr(0,border.search(';'));
+                        border = border.substr(border.search(':')+1);
+                        document.getElementById('pluginTemplateEditorBorder'+i).value = border;
+                        var box = style.substr(style.search('box-shadow:'));
+                        box = box.substr(0,box.search(';'));
+                        box = box.substr(box.search(':')+1);
+                        document.getElementById('pluginTemplateEditorBox'+i).value = box;
+                        data = data.substr(data.search(searches[i])+8);
+                    }
+                    pluginTemplateEditorUpdateColors();
+                }
+            });
+        }
+    });
+}
+function pluginTemplateEditorUpdateColors(){
+    for(var i=1;i<6;i++){
+        $('#pluginTemplateEditorSample'+i).css({'background':document.getElementById('pluginTemplateEditorColor'+i).value,'border':document.getElementById('pluginTemplateEditorBorder'+i).value,'box-shadow':document.getElementById('pluginTemplateEditorBox'+i).value});
+    }
+}
+function plugin".$name."SaveColors(){
+    var o = '#html5#';
+    var titles = ['','#header#','#rightBar#','#footer#','#header#','#footer#'];
+    for(var i = 1;i<6;i++){
+        o += titles[i]+'background:'+document.getElementById('pluginTemplateEditorColor'+i).value+';';
+        o += 'border:'+document.getElementById('pluginTemplateEditorBorder'+i).value+';';
+        o += 'box-shadow:'+document.getElementById('pluginTemplateEditorBox'+i).value+';';
+        if(i==3){
+            o += '#mobile#';
+        }
+    }
+    var path = $('#pluginTemplateEditorPath'+templateId).html();
+    path = path.substr(0,path.lastIndexOf('/'));
+    $.ajax({
+        type: 'POST',
+        url: '$location/makeStyles.php',
+        data: 'path='+path+'&lang='+lang+'&action=save&text='+o,
+        success: function(data) {
+            if(data != '1'){
+                showNotification(data,2500,true);
+            }else{
+                showNotification('template changed. You have the choose this template again to change your page.',2500);
+            }
+        }
+    });
+}
+function pluginTemplateEditorShowSheet(id){
+    $('.pluginTemplateEditorColorChooserColorSheet').addClass('hidden');
+    $('#pluginTemplateEditorColorChooserColorSheet'+id).removeClass('hidden');
+    var colorTable = ['','Grey','Blue Grey','Indigo','Blue','Light Blue','Cyan','Teal','Green','Light Green'];
+    $('.pluginTemplateEditorColorChooserDialogTitle').html('<img src=\"images/close.png\" onclick=\"$(\'.pluginTemplateEditorColorChooserDialogOuter\').addClass(\'hidden\')\" />'+colorTable[id]);
+}
+function pluginTemplateEditorColorChooser(i,id){
+    $('.pluginTemplateEditorColorChooserDialogOuter').removeClass('hidden');
+    document.getElementById('pluginTemplateEditorColorChooserDialogId').value = id;
+    document.getElementById('pluginTemplateEditorColorChooserDialogNum').value = i;
+}
+var pluginTemplateEditorhexDigits = new Array('0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f');
+
+function pluginTemplateEditorrgb2hex(rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    return '#' + pluginTemplateEditorhex(rgb[1]) + pluginTemplateEditorhex(rgb[2]) + pluginTemplateEditorhex(rgb[3]);
+}
+
+function pluginTemplateEditorhex(x) {
+    return isNaN(x) ? '00' : pluginTemplateEditorhexDigits[(x - x % 16) / 16] + pluginTemplateEditorhexDigits[x % 16];
+}
+function pluginTemplateEditorChooseColor(th){
+    var color = pluginTemplateEditorrgb2hex($(th).css('background-color'));
+    var id = document.getElementById('pluginTemplateEditorColorChooserDialogId').value;
+    var num = document.getElementById('pluginTemplateEditorColorChooserDialogNum').value;
+    if(num == 0){
+        document.getElementById('pluginTemplateEditorColor'+id).value = color;
+    }else if(num == 1){
+        var n = document.getElementById('pluginTemplateEditorBorder'+id).value;
+        n = n.substr(0,n.search('#'));
+        document.getElementById('pluginTemplateEditorBorder'+id).value = n + color;
+    }else if(num == 2){
+        var n = document.getElementById('pluginTemplateEditorBox'+id).value;
+        n = n.substr(0,n.search('#'));
+        document.getElementById('pluginTemplateEditorBox'+id).value = n + color;
+    }
+    $('.pluginTemplateEditorColorChooserDialogOuter').addClass('hidden');
+    pluginTemplateEditorUpdateColors();
+}
+function pluginTemplateEditorColorShowGroup(id){
+    $('.pluginTemplateEditorColorGroup').addClass('invisible');
+    $('#pluginTemplateEditorColorGroup'+id).removeClass('invisible');
+    $('.pluginTemplateEditorColorChooserDialogOuter').addClass('hidden');
 }";
         $file = fopen("$location/script.js",'w');
         fwrite($file, $output);

@@ -1,5 +1,5 @@
 #description#bugfix for mobile pages#
-#version#4.2.25#
+#version#4.2.26#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151111130954#
@@ -83,13 +83,15 @@
 #file#../plugins/ImgSlider/images/updateSlider.png#date#20151010145226#
 #file#../plugins/templates/changeOptions.php#date#20151110011109#
 #file#../plugins/templates/choose.php#date#20151013232404#
+#file#../plugins/templates/createNewTemplate.php#date#20151203223121#
 #file#../plugins/templates/generateSpecial.php#date#20151110013114#
 #file#../plugins/templates/getOptions.php#date#20151106224912#
-#file#../plugins/templates/getTemplates.php#date#20151106185654#
-#file#../plugins/templates/include.php#date#20151110014614#
-#file#../plugins/templates/style.css#date#20151110013527#
-#file#../plugins/templates/style.min.css#date#20151110013527#
-#file#../plugins/templates/templateEditor.plg#date#20151109002724#
+#file#../plugins/templates/getTemplates.php#date#20151203222106#
+#file#../plugins/templates/include.php#date#20151205175149#
+#file#../plugins/templates/makeStyles.php#date#20151205175041#
+#file#../plugins/templates/style.css#date#20151205175149#
+#file#../plugins/templates/style.min.css#date#20151205175150#
+#file#../plugins/templates/templateEditor.plg#date#20151203222106#
 #file#../plugins/templates/images/active.png#date#20151015121310#
 #file#../plugins/templates/images/close.png#date#20151013231715#
 #file#../plugins/templates/images/logo.png#date#20151015121303#
@@ -108,8 +110,8 @@
 #file#../plugins/templates/templates/Blue1/rightBar_en.php#date#20151106224452#
 #file#../plugins/templates/templates/Blue1/scriptHTML5.js#date#20151110023610#
 #file#../plugins/templates/templates/Blue1/scriptHTML5.min.js#date#20151110023612#
-#file#../plugins/templates/templates/Blue1/scriptMobile.js#date#20151121125213#
-#file#../plugins/templates/templates/Blue1/scriptMobile.min.js#date#20151121125214#
+#file#../plugins/templates/templates/Blue1/scriptMobile.js#date#20151121133549#
+#file#../plugins/templates/templates/Blue1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Blue1/specialContent.php#date#20151110024006#
 #file#../plugins/templates/templates/Blue1/styleHTML5.css#date#20151110022236#
 #file#../plugins/templates/templates/Blue1/styleHTML5.min.css#date#20151110022238#
@@ -132,8 +134,8 @@
 #file#../plugins/templates/templates/Gray1/rightBar_en.php#date#20151106224452#
 #file#../plugins/templates/templates/Gray1/scriptHTML5.js#date#20151108232559#
 #file#../plugins/templates/templates/Gray1/scriptHTML5.min.js#date#20151108232601#
-#file#../plugins/templates/templates/Gray1/scriptMobile.js#date#20151121125213#
-#file#../plugins/templates/templates/Gray1/scriptMobile.min.js#date#20151121125214#
+#file#../plugins/templates/templates/Gray1/scriptMobile.js#date#20151121133549#
+#file#../plugins/templates/templates/Gray1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Gray1/specialContent.php#date#20151110023933#
 #file#../plugins/templates/templates/Gray1/styleHTML5.css#date#20151110021507#
 #file#../plugins/templates/templates/Gray1/styleHTML5.min.css#date#20151110021509#
@@ -156,8 +158,8 @@
 #file#../plugins/templates/templates/Indigo1/rightBar_en.php#date#20151106224452#
 #file#../plugins/templates/templates/Indigo1/scriptHTML5.js#date#20151110023610#
 #file#../plugins/templates/templates/Indigo1/scriptHTML5.min.js#date#20151110023612#
-#file#../plugins/templates/templates/Indigo1/scriptMobile.js#date#20151121125140#
-#file#../plugins/templates/templates/Indigo1/scriptMobile.min.js#date#20151121125141#
+#file#../plugins/templates/templates/Indigo1/scriptMobile.js#date#20151121133549#
+#file#../plugins/templates/templates/Indigo1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Indigo1/specialContent.php#date#20151110024006#
 #file#../plugins/templates/templates/Indigo1/styleHTML5.css#date#20151110022903#
 #file#../plugins/templates/templates/Indigo1/styleHTML5.min.css#date#20151110022905#
@@ -177,8 +179,8 @@
 #file#../plugins/templates/templates/Red1/red1.tmpl#date#20151013224833#
 #file#../plugins/templates/templates/Red1/scriptHTML5.js#date#20151017164406#
 #file#../plugins/templates/templates/Red1/scriptHTML5.min.js#date#20151017164031#
-#file#../plugins/templates/templates/Red1/scriptMobile.js#date#20151121125119#
-#file#../plugins/templates/templates/Red1/scriptMobile.min.js#date#20151121125120#
+#file#../plugins/templates/templates/Red1/scriptMobile.js#date#20151121133429#
+#file#../plugins/templates/templates/Red1/scriptMobile.min.js#date#20151121133431#
 #file#../plugins/templates/templates/Red1/styleHTML5.css#date#20150823181436#
 #file#../plugins/templates/templates/Red1/styleHTML5.min.css#date#20150912171943#
 #file#../plugins/templates/templates/Red1/styleMobile.css#date#20151018152924#
@@ -197,8 +199,8 @@
 #file#../plugins/templates/templates/Teal1/rightBar_en.php#date#20151106224452#
 #file#../plugins/templates/templates/Teal1/scriptHTML5.js#date#20151110023610#
 #file#../plugins/templates/templates/Teal1/scriptHTML5.min.js#date#20151110023612#
-#file#../plugins/templates/templates/Teal1/scriptMobile.js#date#20151121125228#
-#file#../plugins/templates/templates/Teal1/scriptMobile.min.js#date#20151121125229#
+#file#../plugins/templates/templates/Teal1/scriptMobile.js#date#20151121133549#
+#file#../plugins/templates/templates/Teal1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Teal1/specialContent.php#date#20151110024006#
 #file#../plugins/templates/templates/Teal1/styleHTML5.css#date#20151110022903#
 #file#../plugins/templates/templates/Teal1/styleHTML5.min.css#date#20151110022906#
@@ -258,6 +260,7 @@
 #file#../setup/sql.php#date#20150823181512#
 #file#../setup/user.php#date#20150823181512#
 #file#../setup/welcome.php#date#20150823181512#
+#file#../admin/index.htm#date#20151203161928#
 #file#../access.php#date#20151110213224#
 #file#../admin.php#date#20151110215514#
 #file#../auth.php#date#20151110213227#
@@ -295,6 +298,6 @@
 #file#../styleLogin.css#date#20151110213320#
 #file#../styleLogin.min.css#date#20151110213341#
 #file#../tour.php#date#20151110213323#
-#file#../usercount.txt#date#20151121124927#
+#file#../usercount.txt#date#20151205153110#
 #file#../users.php#date#20151110213326#
 #file#../content/user.php#date#20151110213327#
