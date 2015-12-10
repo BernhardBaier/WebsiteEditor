@@ -1,5 +1,5 @@
-#description#bugfix for mobile pages#
-#version#4.2.26#
+#description#TemplateEditor can edit css now and has more colors preset#
+#version#4.2.27#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151111130954#
@@ -87,10 +87,10 @@
 #file#../plugins/templates/generateSpecial.php#date#20151110013114#
 #file#../plugins/templates/getOptions.php#date#20151106224912#
 #file#../plugins/templates/getTemplates.php#date#20151203222106#
-#file#../plugins/templates/include.php#date#20151205175149#
-#file#../plugins/templates/makeStyles.php#date#20151205175041#
-#file#../plugins/templates/style.css#date#20151205175149#
-#file#../plugins/templates/style.min.css#date#20151205175150#
+#file#../plugins/templates/include.php#date#20151210184942#
+#file#../plugins/templates/makeStyles.php#date#20151210184915#
+#file#../plugins/templates/style.css#date#20151210185523#
+#file#../plugins/templates/style.min.css#date#20151210185524#
 #file#../plugins/templates/templateEditor.plg#date#20151203222106#
 #file#../plugins/templates/images/active.png#date#20151015121310#
 #file#../plugins/templates/images/close.png#date#20151013231715#
@@ -138,9 +138,9 @@
 #file#../plugins/templates/templates/Gray1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Gray1/specialContent.php#date#20151110023933#
 #file#../plugins/templates/templates/Gray1/styleHTML5.css#date#20151110021507#
-#file#../plugins/templates/templates/Gray1/styleHTML5.min.css#date#20151110021509#
+#file#../plugins/templates/templates/Gray1/styleHTML5.min.css#date#20151210182025#
 #file#../plugins/templates/templates/Gray1/styleMobile.css#date#20151106183020#
-#file#../plugins/templates/templates/Gray1/styleMobile.min.css#date#20151106183021#
+#file#../plugins/templates/templates/Gray1/styleMobile.min.css#date#20151210181553#
 #file#../plugins/templates/templates/Gray1/styleSpecialContent.css#date#20151110020810#
 #file#../plugins/templates/templates/Gray1/styleSpecialContent.min.css#date#20151110020814#
 #file#../plugins/templates/templates/Indigo1/html5.php#date#20151110000017#
@@ -268,7 +268,7 @@
 #file#../commonStyle.min.css#date#20151110213340#
 #file#../compress.php#date#20151110213231#
 #file#../deletePic.php#date#20151110213233#
-#file#../editor.php#date#20151110213235#
+#file#../editor.php#date#20151210185642#
 #file#../functions.php#date#20151110213236#
 #file#../functionsPlugins.php#date#20151110213238#
 #file#../getFiles.php#date#20151110213240#
@@ -298,6 +298,5 @@
 #file#../styleLogin.css#date#20151110213320#
 #file#../styleLogin.min.css#date#20151110213341#
 #file#../tour.php#date#20151110213323#
-#file#../usercount.txt#date#20151205153110#
 #file#../users.php#date#20151110213326#
 #file#../content/user.php#date#20151110213327#

@@ -48,7 +48,9 @@ function initPlugin_$plugId(th){
             text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Special effects</div>';
             text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
             text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Edit color</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditColor()\">change colors</div></div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditColor()\">change some colors</div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditCss(\'styleHTML5.min.css\')\">change HTML5 css</div>';
+            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditCss(\'styleMobile.min.css\')\">change Mobile css</div></div>';
             text += '</div>';
             text += '<div class=\"pluginTemplateEditorPrepared hidden\"></div><div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div>';
             text += '<div class=\"pluginTemplateEditorSpecial hidden\"></div><div class=\"pluginTemplateEditorColor hidden\"></div></div></div></div></div>';
@@ -88,7 +90,7 @@ function plugin".$name."SelectTemplate(th,id){
         document.getElementById('pluginTemplateEditorPic').src = path;
         $('.pluginTemplateEditorChooser').removeClass('hidden');
         $('.pluginTemplateEditorOptions').removeClass('hidden');
-        plugin".$name."UpdateSource();
+        plugin".$name."UpdateSource('');
         plugin".$name."ShowOptions();
         $.ajax({
             type: 'POST',
@@ -102,20 +104,29 @@ function plugin".$name."SelectTemplate(th,id){
 }
 var plugin".$name."Path = '';
 function plugin".$name."UpdateSource(){
+    plugin".$name."UpdateSource('');
+}
+function plugin".$name."UpdateSource(src){
     if(templateId == null){
         alert('error');
     }else{
-        $.ajax({
-            type: 'POST',
-            url: 'plugins/templates/getOptions.php',
-            data: 'path='+$('#pluginTemplateEditorPath'+templateId).html()+'&lang=$lang',
-            success: function(data) {
-                if(data != null){
-                    document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=$location/' + data + '&forcePath=true';
-                    plugin".$name."Path = '$location/' + data;
+        if(src == ''){
+            $.ajax({
+                type: 'POST',
+                url: 'plugins/templates/getOptions.php',
+                data: 'path='+$('#pluginTemplateEditorPath'+templateId).html()+'&lang=$lang',
+                success: function(data) {
+                    if(data != null){
+                        document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=$location/' + data + '&forcePath=true';
+                        plugin".$name."Path = '$location/' + data;
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            var path = $('#pluginTemplateEditorPath'+templateId).html();
+            path = path.substr(0,path.lastIndexOf('/') + 1);
+            document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=' + path + src + '&forcePath=true&css=true';
+        }
     }
 }
 function plugin".$name."ChooseTemplate(){
@@ -145,7 +156,7 @@ function plugin".$name."EditSource(){
     $('.pluginTemplateEditorSpecial').addClass('hidden');
     $('.pluginTemplateEditorColor').addClass('hidden');
     $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
-    plugin".$name."UpdateSource();
+    plugin".$name."UpdateSource('');
 }
 function plugin".$name."ChoosePrepared(){
     $('.pluginTemplateEditorFrameWrapper').addClass('hidden');
@@ -465,8 +476,8 @@ function plugin".$name."EditColor(){
                 url: '$location/makeStyles.php',
                 data: 'path='+path+'&lang='+lang+'&action=getStyles',
                 success: function(data) {
-                    var searches = ['','#header#','#rightBar#','#footer#','#header#','#footer#'];
-                    for(var i=1;i<6;i++){
+                    var searches = ['','#header#','#topItem#','#subItem#','#active#','#rightBar#','#footer#','#header#','#footer#'];
+                    for(var i=1;i<9;i++){
                         var style = data.substr(data.search(searches[i])+searches[i].length).toLowerCase();
                         style = style.substr(0,style.search(';#')+1);
                         var background = style.substr(style.search('background:'));
@@ -490,18 +501,18 @@ function plugin".$name."EditColor(){
     });
 }
 function pluginTemplateEditorUpdateColors(){
-    for(var i=1;i<6;i++){
+    for(var i=1;i<9;i++){
         $('#pluginTemplateEditorSample'+i).css({'background':document.getElementById('pluginTemplateEditorColor'+i).value,'border':document.getElementById('pluginTemplateEditorBorder'+i).value,'box-shadow':document.getElementById('pluginTemplateEditorBox'+i).value});
     }
 }
 function plugin".$name."SaveColors(){
     var o = '#html5#';
-    var titles = ['','#header#','#rightBar#','#footer#','#header#','#footer#'];
-    for(var i = 1;i<6;i++){
+    var titles = ['','#header#','#topItem#','#subItem#','#active#','#rightBar#','#footer#','#header#','#footer#'];
+    for(var i = 1;i<9;i++){
         o += titles[i]+'background:'+document.getElementById('pluginTemplateEditorColor'+i).value+';';
         o += 'border:'+document.getElementById('pluginTemplateEditorBorder'+i).value+';';
         o += 'box-shadow:'+document.getElementById('pluginTemplateEditorBox'+i).value+';';
-        if(i==3){
+        if(i==6){
             o += '#mobile#';
         }
     }
@@ -523,7 +534,7 @@ function plugin".$name."SaveColors(){
 function pluginTemplateEditorShowSheet(id){
     $('.pluginTemplateEditorColorChooserColorSheet').addClass('hidden');
     $('#pluginTemplateEditorColorChooserColorSheet'+id).removeClass('hidden');
-    var colorTable = ['','Grey','Blue Grey','Indigo','Blue','Light Blue','Cyan','Teal','Green','Light Green'];
+    var colorTable = ['','Red','Pink','Purple','Deep Purple','Grey','Blue Grey','Indigo','Blue','Light Blue','Cyan','Green','Teal','Light Green','Lime','Yellow','Amber','Orange','Deep Orange','Brown','B/W'];
     $('.pluginTemplateEditorColorChooserDialogTitle').html('<img src=\"images/close.png\" onclick=\"$(\'.pluginTemplateEditorColorChooserDialogOuter\').addClass(\'hidden\')\" />'+colorTable[id]);
 }
 function pluginTemplateEditorColorChooser(i,id){
@@ -563,6 +574,14 @@ function pluginTemplateEditorColorShowGroup(id){
     $('.pluginTemplateEditorColorGroup').addClass('invisible');
     $('#pluginTemplateEditorColorGroup'+id).removeClass('invisible');
     $('.pluginTemplateEditorColorChooserDialogOuter').addClass('hidden');
+}
+function plugin".$name."EditCss(src){
+    $('.pluginTemplateEditorFrameWrapper').removeClass('hidden');
+    $('.pluginTemplateEditorPrepared').addClass('hidden');
+    $('.pluginTemplateEditorSpecial').addClass('hidden');
+    $('.pluginTemplateEditorColor').addClass('hidden');
+    $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
+     plugin".$name."UpdateSource(src);
 }";
         $file = fopen("$location/script.js",'w');
         fwrite($file, $output);

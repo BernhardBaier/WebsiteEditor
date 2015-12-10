@@ -28,6 +28,13 @@ if($authLevel == '1111'){
                 $text = str_replace('<!--?php','<?php',$text);
                 $text = str_replace('?-->','?>',$text);
                 $action = 'saved&forcePath=true';
+                if($_POST['css'] == 'true'){
+                    $text = str_replace('&nbsp;',' ',$text);
+                    $text = str_replace('    ','',$text);
+                    $text = strip_tags($text);
+                    $text = str_replace(';}','}',$text);
+                    $action .= '&css=true';
+                }
             }else{
                 $path = "web-content/$lang/$id.php";
             }
@@ -61,8 +68,19 @@ if($authLevel == '1111'){
             $file = fopen($path,'r');
             $content = fread($file,filesize($path));
             fclose($file);
+            if($_GET['css'] == 'true'){
+                $content = str_replace(';','<sk>',$content);
+                $content = str_replace('{','{<br>&nbsp;&nbsp;&nbsp;&nbsp;',$content);
+                $content = str_replace('<sk>',';<br>&nbsp;&nbsp;&nbsp;&nbsp;',$content);
+                $content = str_replace('}',';<br>}<br>',$content);
+                $content = str_replace('}<br>;<br>}','}<br>}',$content);
+            }
         }
-        $pageTitle = $id;
+        if($_GET['forcePath'] == 'true'){
+            $pageTitle = str_replace('plugins/templates/templates/','',$id);
+        }else{
+            $pageTitle = $id;
+        }
         $note = '';
         if($_GET['action'] == 'saved'){
             $note = '<div class="note">saved.</div>';
@@ -101,10 +119,11 @@ if($authLevel == '1111'){
     </style>
 </head>
 <body>
-<div class="nav"><?php echo($note);?>Enter Text for page <?php echo($pageTitle);?> here.<div class="navNote">Text editor Version 1.1</div></div>
+<div class="nav"><?php echo($note);?>Enter Text for page <?php echo($pageTitle);?> here.<div class="navNote">Text editor Version 1.2</div></div>
 <form action="editor.php" method="post">
     <textarea name="editor1" id="editor1"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo($content);}?></textarea>
-    <input type="hidden" name="lang" value="<?php echo($lang);?>"><input type="hidden" name="id" value="<?php echo($id);?>"><?php if($_GET['forcePath'] == 'true'){echo('<input type="hidden" name="forcePath" value="true">');}?>
+    <input type="hidden" name="lang" value="<?php echo($lang);?>"><input type="hidden" name="id" value="<?php echo($id);?>"><?php if($_GET['forcePath'] == 'true'){echo('<input type="hidden" name="forcePath" value="true">');};
+    if($_GET['css'] == 'true'){echo('<input type="hidden" name="css" value="true">');}?>
     <input type="submit" value="Save" />
 </form>
 <script>

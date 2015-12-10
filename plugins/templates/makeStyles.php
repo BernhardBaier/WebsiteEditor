@@ -36,25 +36,80 @@ if($action == 'getStyles') {
     $headerHTML5 = substr($html5, strpos($html5, '.header{'));
     $headerHTML5 = substr($headerHTML5, strpos($headerHTML5, '{') + 1);
     $headerHTML5 = substr($headerHTML5, 0, strpos($headerHTML5, '}')) . ';';
+    $topItem = substr($html5, strpos($html5, '.topItem{'));
+    $topItem = substr($topItem, strpos($topItem, '{') + 1);
+    $topItem = substr($topItem, 0, strpos($topItem, '}')) . ';';
+    $subItem = substr($html5, strpos($html5, '.subItem{'));
+    $subItem = substr($subItem, strpos($subItem, '{') + 1);
+    $subItem = substr($subItem, 0, strpos($subItem, '}')) . ';';
+    $active = substr($html5, strpos($html5, '.menuItem.active{'));
+    $active = substr($active, strpos($active, '{') + 1);
+    $active = substr($active, 0, strpos($active, '}')) . ';';
     $botHTML5 = substr($html5, strpos($html5, '.footer{'));
     $botHTML5 = substr($botHTML5, strpos($botHTML5, '{') + 1);
     $botHTML5 = substr($botHTML5, 0, strpos($botHTML5, '}')) . ';';
     $rightHTML5 = substr($html5, strpos($html5, '.rightBar{'));
     $rightHTML5 = substr($rightHTML5, strpos($rightHTML5, '{') + 1);
     $rightHTML5 = substr($rightHTML5, 0, strpos($rightHTML5, '}')) . ';';
-    $return = "#html5##header#$headerHTML5#rightBar#$rightHTML5#footer#$botHTML5#mobile##header#$headerMobile#footer#$botMobile#";
+    $return = "#html5##header#$headerHTML5#topItem#$topItem#subItem#$subItem#active#$active#rightBar#$rightHTML5#footer#$botHTML5#mobile##header#$headerMobile#footer#$botMobile#";
 }else if($action == 'getWrapper'){
     $j=1;
     $return = '<div class="pluginTemplateEditorColorChooserDialogOuter hidden"><div class="pluginTemplateEditorColorChooserDialogInner"><div class="pluginTemplateEditorColorChooserDialogTitle">';
-    $return .= '<img src="images/close.png" onclick="$(\'.pluginTemplateEditorColorChooserDialogOuter\').addClass(\'hidden\')" />Grey</div><div class="pluginTemplateEditorColorChooserDialogLeft">';
+    $return .= '<img src="images/close.png" onclick="$(\'.pluginTemplateEditorColorChooserDialogOuter\').addClass(\'hidden\')" />Red</div><div class="pluginTemplateEditorColorChooserDialogLeft">';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#f44336"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#e91e63"></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#9c27b0"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#673ab7"></div>';
     $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#9e9e9e"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#607d8b"></div>';
     $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#3f51b5"></div>';
     $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#2196f3"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#03a9f4"></div>';
-    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#00bcd4"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#009688"></div>';;
-    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#4caf50"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#8bc34a"></div></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#00bcd4"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#4caf50"></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#009688"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#8bc34a"></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#cddc39"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#ffeb3b"></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#ffc107"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#ff9800"></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#ff5722"></div><div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#795548"></div>';
+    $return .= '<div onclick="pluginTemplateEditorShowSheet('.$j++.')" style="background:#000"></div></div>';
     $j=1;
     $return .= '<div class="pluginTemplateEditorColorChooserDialogRight"><input type="hidden" id="pluginTemplateEditorColorChooserDialogId" /><input type="hidden" id="pluginTemplateEditorColorChooserDialogNum" />';
-    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fafafa">50</div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffebee">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffcdd2">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ef9a9a">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e57373">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ef5350">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f44336">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e53935">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#d32f2f">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#c62828">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#b71c1c">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fce4ec">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f8bbd0">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f48fb1">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f06292">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ec407a">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e91e63">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#d81b60">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#c2185b">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ad1457">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#880e4f">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f3e5f5">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e1bee7">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ce93d8">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ba68c8">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ab47bc">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#9c27b0">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#8e24aa">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#7b1fa2">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#6a1b9a">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#4a148c">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ede7f6">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#d1c4e9">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#b39ddb">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#9575cd">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#7e57c2">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#673ab7">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#5e35b1">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#512da8">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#4527a0">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#311b92">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fafafa">50</div>';
     $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f5f5f5">100</div>';
     $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#eeeeee">200</div>';
     $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e0e0e0">300</div>';
@@ -144,10 +199,72 @@ if($action == 'getStyles') {
     $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#689f38">700</div>';
     $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#558b2f">800</div>';
     $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#33691e">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f9fbe7">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f0f4c3">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e6ee9c">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#dce775">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#d4e157">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#cddc39">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#c0ca33">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#afb42b">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#9e9d24">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#827717">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fffde7">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fff9c4">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fff59d">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fff176">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffee58">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffeb3b">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fdd835">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fbc02d">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f9a825">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f57f17">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fff8e1">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffecb3">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffe082">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffd54f">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffca28">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffc107">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffb300">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffa000">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ff8f00">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ff6f00">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fff3e0">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffe0b2">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffcc80">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffb74d">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffa726">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ff9800">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fb8c00">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f57c00">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ef6c00">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e65100">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#fbe9e7">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffccbc">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ffab91">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ff8a65">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ff7043">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#ff5722">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#f4511e">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#e64a19">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#d84315">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#bf360c">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#efebe9">50</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#d7ccc8">100</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#bcaaa4">200</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#a1887f">300</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#8d6e63">400</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#795548">500</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#6d4c41">600</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#5d4037">700</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#4e342e">800</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#3e2723">900</div></div>';
+    $return .= '<div class="pluginTemplateEditorColorChooserColorSheet hidden" id="pluginTemplateEditorColorChooserColorSheet'.$j++.'"><div onclick="pluginTemplateEditorChooseColor(this)" style="background:#FFF">White</div>';
+    $return .= '<div onclick="pluginTemplateEditorChooseColor(this)" style="background:#000;color:#fff">Black</div></div>';
     $return .= '</div></div></div>';
     $return .= '<form action="javascript:pluginTemplateEditorUpdateColors()"><div class="pluginTemplateEditorOptionsClass"><div id="pluginTemplateEditorOptionsClassTitle">HTML5</div>';
-    $titles = ['','header','rightBar','footer','header','footer'];
-    for($i=1;$i<4;$i++){
+    $titles = ['','header','topItem','subItem','menu.active','rightBar','footer','header','footer'];
+    for($i=1;$i<7;$i++){
         $return .= '<div class="pluginTemplateEditorColorGroup invisible" id="pluginTemplateEditorColorGroup'.$i.'">';
         $return .= '<div class="pluginTemplateEditorColorGroupTitle" onclick="pluginTemplateEditorColorShowGroup('.$i.')">';
         $return .= $titles[$i].'</div><div class="pluginTemplateEditorColorGroupLeft"><div id="pluginTemplateEditorSample'.$i.'" class="pluginTemplateEditorSample" onclick="$(this).toggleClass(\'active\')"></div>';
@@ -161,7 +278,7 @@ if($action == 'getStyles') {
     }
     $return .= '</div>';
     $return .= '<div class="pluginTemplateEditorOptionsClass"><div id="pluginTemplateEditorOptionsClassTitle">Mobile</div>';
-    for($i=4;$i<6;$i++){
+    for($i=7;$i<9;$i++){
         $return .= '<div class="pluginTemplateEditorColorGroup invisible" id="pluginTemplateEditorColorGroup'.$i.'">';
         $return .= '<div class="pluginTemplateEditorColorGroupTitle" onclick="pluginTemplateEditorColorShowGroup('.$i.')">';
         $return .= $titles[$i].'</div><div class="pluginTemplateEditorColorGroupLeft"><div id="pluginTemplateEditorSample'.$i.'" class="pluginTemplateEditorSample" onclick="$(this).toggleClass(\'active\')"></div>';
@@ -186,24 +303,41 @@ if($action == 'getStyles') {
     $html5 = str_replace('}',';}',fread($file, filesize($path . 'styleHTML5.min.css')));
     $html5 = str_replace(';;',';',$html5);
     fclose($file);
-    $titles = ['','#header#','#rightBar#','#footer#','#header#','#footer#'];
+    $titles = ['','#header#','#topItem#','#subItem#','#active#','#rightBar#','#footer#','#header#','#footer#'];
     $style = [];
-    $style[1] = substr($html5, strpos($html5, '.header{'));
-    $style[1] = substr($style[1], strpos($style[1], '{') + 1);
-    $style[1] = str_replace(';;',';',substr($style[1], 0, strpos($style[1], '}')));
-    $style[2] = substr($html5, strpos($html5, '.rightBar{'));
-    $style[2] = substr($style[2], strpos($style[2], '{') + 1);
-    $style[2] = str_replace(';;',';',substr($style[2], 0, strpos($style[2], '}')));
-    $style[3] = substr($html5, strpos($html5, '.footer{'));
-    $style[3] = substr($style[3], strpos($style[3], '{') + 1);
-    $style[3] = str_replace(';;',';',substr($style[3], 0, strpos($style[3], '}')));
-    $style[4] = substr($mobile, strpos($mobile, '.header{'));
-    $style[4] = substr($style[4], strpos($style[4], '{') + 1);
-    $style[4] = str_replace(';;',';',substr($style[4], 0, strpos($style[4], '}')));
-    $style[5] = substr($mobile, strpos($mobile, '.footer{'));
-    $style[5] = substr($style[5], strpos($style[5], '{') + 1);
-    $style[5] = str_replace(';;',';',substr($style[5], 0, strpos($style[5], '}')));
-    for($i=1;$i<6;$i++){
+    $i=1;
+    $style[$i] = substr($html5, strpos($html5, '.header{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($html5, strpos($html5, '.topItem{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($html5, strpos($html5, '.subItem{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($html5, strpos($html5, '.menuItem.active{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($html5, strpos($html5, '.rightBar{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($html5, strpos($html5, '.footer{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($mobile, strpos($mobile, '.header{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    $i++;
+    $style[$i] = substr($mobile, strpos($mobile, '.footer{'));
+    $style[$i] = substr($style[$i], strpos($style[$i], '{') + 1);
+    $style[$i] = str_replace(';;',';',substr($style[$i], 0, strpos($style[$i], '}')));
+    for($i=1;$i<9;$i++){
         $styles[0] = substr($styles[0],strpos($styles[0],$titles[$i])+strlen($titles[$i]));
         $bc = substr($styles[0],0,strpos($styles[0],';')+1);
         $styles[0] = substr($styles[0],strpos($styles[0],';')+1);
@@ -231,7 +365,7 @@ if($action == 'getStyles') {
         if($obc !== false) {
             $styles[$i] = str_replace($obc,$bc,$style[$i]);
         }else{
-            $styles[$i] .= $bc;
+            $styles[$i] = $style[$i].$bc;
         }
         if($obd !== false){
             $styles[$i] = str_replace($obd,$bd,$styles[$i]);
@@ -239,11 +373,11 @@ if($action == 'getStyles') {
             $styles[$i] .= $bd;
         }
         if($obx !== false) {
-            $styles[$i] = str_replace($obx, $bx, $styles[$i]);
+            $styles[$i] = str_replace($obx,$bx,$styles[$i]);
         }else{
             $styles[$i] .= $bx;
         }
-        if($i<4){
+        if($i<7){
             $html5 = str_replace($style[$i],$styles[$i],$html5);
         }else{
             $mobile = str_replace($style[$i],$styles[$i],$mobile);
