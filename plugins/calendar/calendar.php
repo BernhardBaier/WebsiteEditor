@@ -265,7 +265,7 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
         </div>');
         echo('<div class="calendar">');
         for($month=1;$month<13;$month++){
-            echo("<div class='calendarTitle'>$months[$month]");
+            echo("<div class='calendarTitle'>$months[$month]<div class='pluginCalendarAddEventMonth' onclick='pluginCalendarAddEvent($month)'><img title='add event' src='images/plus.png' /></div>");
             for($day=1;$day<32;$day++){
                 if(sizeof($event[$year][$month][$day]) > 0){
                     for($i = 0;$i<sizeof($event[$year][$month][$day]);$i++){

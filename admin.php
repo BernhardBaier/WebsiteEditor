@@ -65,6 +65,11 @@ function jsMenu($parent=0){
     return $output;
 }
 if(substr($authLevel,0,1) == "1"){
+    $browser = $_SERVER['HTTP_USER_AGENT'];
+    $chrome = false;
+    if(strpos($browser,'Chrome') > -1) {
+        $chrome = true;
+    }
     $id = $_GET['id'];
     $lang = $_GET['lang'];
     if($id == ""){
@@ -157,8 +162,11 @@ if(substr($authLevel,0,1) == "1"){
     <link rel="stylesheet" href="commonStyle.min.css"/>
     <link rel="stylesheet" href="styleFileBrowser.min.css"/>
     <link rel="stylesheet" type="text/css" href="datepicker/jquery.datetimepicker.css" >
-
-    <!-- todo: remove this in final!--<script src="jquery-1.9.1.min.js"></script><!---->
+    <?php
+    if($chrome == true){
+        echo("<style>.menu li{margin:-18px 0 0 0;}</style>");
+    }
+    ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script src="spin.min.js"></script>

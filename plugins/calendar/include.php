@@ -25,6 +25,7 @@ function initPlugin_$plugId(th){
     var jetzt = new Date();
     showYear(jetzt.getFullYear());
 }
+var pluginCalendarCurrentYear = 0;
 function showYear(year){
     year = year == 0?getCookie('year'):year;
     if(parseInt(year)<200){
@@ -32,6 +33,7 @@ function showYear(year){
     }
     var jetzt = new Date();
     year = year == 'NULL'?jetzt.getFullYear():year;
+    pluginCalendarCurrentYear = year;
     setCookie('year',year.toString(),1);
     var href = document.getElementById('calendarViewMode');
     if(href){
@@ -84,6 +86,10 @@ function showCalendarAddEvent(){
     $('.calendarAddEventOuter').removeClass('hidden');
     positionCalendarBox();
 }
+function pluginCalendarAddEvent(month){
+    document.calendarAddEvent.date.value = '1.'+month+'.'+pluginCalendarCurrentYear;
+    showCalendarAddEvent();
+}
 function positionCalendarBox(){
     $('.overlayCalendar').removeClass('hidden').css('top',document.getElementsByClassName('pluginInner')[0].scrollTop);
     $('.calendarEditEventOuter').css('top',document.getElementsByClassName('pluginInner')[0].scrollTop + 35);
@@ -102,6 +108,15 @@ function addEventNow(){
     var name = replaceUml(elem.name.value);
     var place = replaceUml(elem.place.value);
     var href = elem.href.options[elem.href.selectedIndex].value;
+    var day = date.substr(0,date.indexOf('.'));
+    date = date.substr(date.indexOf('.')+1);
+    var month = date.substr(0,date.indexOf('.'));
+    date = date.substr(date.indexOf('.')+1);
+    var year = date;
+    day = day.length == 1?'0'+day:day;
+    month = month.length == 1?'0'+month:month;
+    year = year.length == 2?'20'+year:year;
+    date = day+'.'+month+'.'+year;
     $.ajax({
         type: 'POST',
         url: '$location/calendar.php',

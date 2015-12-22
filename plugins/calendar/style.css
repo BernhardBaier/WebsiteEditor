@@ -151,3 +151,26 @@
     cursor: pointer;
     height: 20px;
 }
+.pluginCalendarAddEventMonth{
+	position: absolute;
+	z-index: 3;
+	right: 1px;
+	top: 1px;
+	background: #FFCDD2;
+	border-radius: 3px;
+	cursor: pointer;
+	border: 1px solid #EF5350;
+	padding: 1px;
+	height: 21px;
+	overflow: hidden;
+}
+.pluginCalendarAddEventMonth:hover{
+	background: #EF9A9A;
+}
+.pluginCalendarAddEventMonth img{
+	height: 20px;
+	opacity: 0.4;
+}
+.pluginCalendarAddEventMonth:hover img{
+	opacity: 0.7;
+}
