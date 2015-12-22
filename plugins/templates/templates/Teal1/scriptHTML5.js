@@ -65,6 +65,11 @@ function showYear(year){
                 }
             }
             $('.calendarLoading').addClass('hidden');
+            if(correctRightBar){
+                if($('.rightBar').height() < $('.content').height()){
+                    $('.rightBar').height($('.content').height());
+                }
+            }
         }
     });
     $('.calendarYearChooserTitle').html("<div class='arrow-left' onclick='showYear("+(year-1)+")'></div>"+year+"<div class='arrow-right' onclick='showYear("+(year+1)+")'></div>");

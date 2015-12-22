@@ -1,5 +1,5 @@
-#description#Rollback style change chrome#
-#version#4.2.29#
+#description#chrome adaptions for html5 page in all templates#
+#version#4.2.30#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151111130954#
@@ -108,8 +108,8 @@
 #file#../plugins/templates/templates/Blue1/pictures/preview.jpg#date#20151015150759#
 #file#../plugins/templates/templates/Blue1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Blue1/rightBar_en.php#date#20151106224452#
-#file#../plugins/templates/templates/Blue1/scriptHTML5.js#date#20151110023610#
-#file#../plugins/templates/templates/Blue1/scriptHTML5.min.js#date#20151110023612#
+#file#../plugins/templates/templates/Blue1/scriptHTML5.js#date#20151223000056#
+#file#../plugins/templates/templates/Blue1/scriptHTML5.min.js#date#20151223000057#
 #file#../plugins/templates/templates/Blue1/scriptMobile.js#date#20151121133549#
 #file#../plugins/templates/templates/Blue1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Blue1/specialContent.php#date#20151110024006#
@@ -132,8 +132,8 @@
 #file#../plugins/templates/templates/Gray1/pictures/preview.jpg#date#20151015131634#
 #file#../plugins/templates/templates/Gray1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Gray1/rightBar_en.php#date#20151106224452#
-#file#../plugins/templates/templates/Gray1/scriptHTML5.js#date#20151108232559#
-#file#../plugins/templates/templates/Gray1/scriptHTML5.min.js#date#20151108232601#
+#file#../plugins/templates/templates/Gray1/scriptHTML5.js#date#20151223000049#
+#file#../plugins/templates/templates/Gray1/scriptHTML5.min.js#date#20151223000050#
 #file#../plugins/templates/templates/Gray1/scriptMobile.js#date#20151121133549#
 #file#../plugins/templates/templates/Gray1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Gray1/specialContent.php#date#20151110023933#
@@ -156,8 +156,8 @@
 #file#../plugins/templates/templates/Indigo1/pictures/preview.jpg#date#20151015131626#
 #file#../plugins/templates/templates/Indigo1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Indigo1/rightBar_en.php#date#20151106224452#
-#file#../plugins/templates/templates/Indigo1/scriptHTML5.js#date#20151110023610#
-#file#../plugins/templates/templates/Indigo1/scriptHTML5.min.js#date#20151110023612#
+#file#../plugins/templates/templates/Indigo1/scriptHTML5.js#date#20151223000040#
+#file#../plugins/templates/templates/Indigo1/scriptHTML5.min.js#date#20151223000041#
 #file#../plugins/templates/templates/Indigo1/scriptMobile.js#date#20151121133549#
 #file#../plugins/templates/templates/Indigo1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Indigo1/specialContent.php#date#20151110024006#
@@ -177,8 +177,8 @@
 #file#../plugins/templates/templates/Red1/mobile.php#date#20151017152944#
 #file#../plugins/templates/templates/Red1/pictures/preview.jpg#date#20151014000327#
 #file#../plugins/templates/templates/Red1/red1.tmpl#date#20151013224833#
-#file#../plugins/templates/templates/Red1/scriptHTML5.js#date#20151017164406#
-#file#../plugins/templates/templates/Red1/scriptHTML5.min.js#date#20151017164031#
+#file#../plugins/templates/templates/Red1/scriptHTML5.js#date#20151223000008#
+#file#../plugins/templates/templates/Red1/scriptHTML5.min.js#date#20151223000009#
 #file#../plugins/templates/templates/Red1/scriptMobile.js#date#20151121133429#
 #file#../plugins/templates/templates/Red1/scriptMobile.min.js#date#20151121133431#
 #file#../plugins/templates/templates/Red1/styleHTML5.css#date#20150823181436#
@@ -197,8 +197,8 @@
 #file#../plugins/templates/templates/Teal1/pictures/preview.jpg#date#20151017150417#
 #file#../plugins/templates/templates/Teal1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Teal1/rightBar_en.php#date#20151106224452#
-#file#../plugins/templates/templates/Teal1/scriptHTML5.js#date#20151110023610#
-#file#../plugins/templates/templates/Teal1/scriptHTML5.min.js#date#20151110023612#
+#file#../plugins/templates/templates/Teal1/scriptHTML5.js#date#20151223000030#
+#file#../plugins/templates/templates/Teal1/scriptHTML5.min.js#date#20151223000031#
 #file#../plugins/templates/templates/Teal1/scriptMobile.js#date#20151121133549#
 #file#../plugins/templates/templates/Teal1/scriptMobile.min.js#date#20151121133550#
 #file#../plugins/templates/templates/Teal1/specialContent.php#date#20151110024006#
@@ -285,7 +285,6 @@
 #file#../scriptAdmin.js#date#20151110213300#
 #file#../scriptAdmin.min.js#date#20151110213341#
 #file#../scriptFileBrowser.js#date#20151110213302#
-#file#../scriptFileBrowser.min.js#date#20151110213341#
 #file#../scriptPlugin.js#date#20151110213307#
 #file#../scriptPlugin.min.js#date#20151110213342#
 #file#../search.php#date#20151110213310#
