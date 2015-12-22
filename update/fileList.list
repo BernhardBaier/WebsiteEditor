@@ -1,5 +1,5 @@
-#description#Plugin Calendar improved<br>improvements for chrome browser#
-#version#4.2.28#
+#description#Rollback style change chrome#
+#version#4.2.29#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20151111130954#
@@ -262,7 +262,7 @@
 #file#../setup/welcome.php#date#20150823181512#
 #file#../admin/index.php#date#20151203161928#
 #file#../access.php#date#20151110213224#
-#file#../admin.php#date#20151222222206#
+#file#../admin.php#date#20151222235513#
 #file#../auth.php#date#20151110213227#
 #file#../commonStyle.css#date#20151110213228#
 #file#../commonStyle.min.css#date#20151110213340#
@@ -278,7 +278,7 @@
 #file#../moveFiles.php#date#20151110213247#
 #file#../moveOldPage.php#date#20150823181436#
 #file#../MySQLHandler.php#date#20151110213251#
-#file#../MySQLHandlerFunctions.php#date#20151110213253#
+#file#../MySQLHandlerFunctions.php#date#20151222234615#
 #file#../README.md#date#20151110213255#
 #file#../redirect.php#date#20151121130043#
 #file#../register.php#date#20151110213257#

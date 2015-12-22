@@ -164,7 +164,7 @@ if(substr($authLevel,0,1) == "1"){
     <link rel="stylesheet" type="text/css" href="datepicker/jquery.datetimepicker.css" >
     <?php
     if($chrome == true){
-        echo("<style>.menu li{margin:-18px 0 0 0;}</style>");
+        echo("<style>.menu li{margin:-8px 0 0 0;}</style>");
     }
     ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

@@ -291,14 +291,14 @@ if(!function_exists("printMenu")){
             $childCount = $row['childCount'];
             $childsChildCount = getValueById($pid,"childCount",$sql);
             $option = $extra == 1?"<img src='images/eye.png' title='visible' onclick='setVisibility($pid,0)' />":"<span id='visibImg$pid'><img src='images/eyeHid.png' title='invisible' onclick='setVisibility($pid,1)' /></span>";
-            $option2 = $childsChildCount == 0?"<img src='images/listicon.png' id='menuItemImg' />":"<img src='images/minus.png' title='hide group' onclick='hideGroupe($pid)' />";
+            $option2 = $childsChildCount == 0?"<div class='menuItemLeft'><img src='images/listicon.png' id='menuItemImg' /></div>":"<div class='menuItemLeft' onclick='hideGroupe($pid)' title='hide group'><img src='images/minus.png' /></div>";
             if($childsChildCount != 0){
                 echo("<ul id='menGrpIn$pid' class='hidden'><li><div class='menuItemHidden'><img src='images/plus.png' class='menuItemImg' onclick='showGroupe($pid)' title='show group' />&nbsp;&nbsp;<a href='admin.php?id=$pid&lang=$lang'>$name</a></div></li></ul>");
             }
             echo("<ul id='menGrpCt$pid'><li>");
             echo("<div class='menuItem' id='menuItem".$counter++."' draggable='true' ondragenter='handleDragEnter(event)' ondragover='handleDragOver(event)' ondrop='handleDrop(event)'>before</div>
                         <div class='menuItem'>
-                            <div class='menuItemLeft'>$option2</div>
+                            $option2
                             <div class='menuItemInner' id='menuItem".$counter."' draggable='true' ondragstart='handleDragStart(event)' ondragenter='handleDragEnter(event)' ondragover='handleDragOver(event)'
                                  ondragend='handleDragEnd(event)'><a id='menuItem".$counter."' href='admin.php?id=$pid&lang=$lang'>$name</a><div id='menuItemInfo".$counter++."' class='hidden'>$pid;$parent;$rank;$name;</div><div class='menuOptions hidden'
                                  id='menuOptions$pid'></div></div>
