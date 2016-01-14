@@ -161,6 +161,20 @@ function postInit(){
     $('.pageMenu').css("transition","height 1s").css("-webkit-transition","height 1s");
     $('.pageContainer').css("transition","width 1s,left 1s").css("-webkit-transition","width 1s,left 1s");
     $('.pageTour').removeClass('opac0');
+    if(updateAvailable == true){
+        $.ajax({
+            type: 'POST',
+            url: 'update/checkUpdate.php',
+            data: '',
+            success: function(data) {
+                if(data.search('update') > -1) {
+                    data = data.substr(data.search(';')+1);
+                    document.getElementById('newEditorVersion').innerHTML = data;
+                    $('.updateOuter').removeClass('hidden');
+                }
+            }
+        });
+    }
     window.setInterval('checkIfUserIsLoggedIn()',60000);
 }
 function closeEverything(){
@@ -281,6 +295,7 @@ function hideMessages(){
     $('.overlay').addClass('hidden');
     $('.insertLinkOuter').addClass('hidden');
     hideGaleryEditor();
+    $('.metaEditorOuter').addClass('hidden');
 }
 
 function hideGroupe(id){
@@ -1194,6 +1209,68 @@ function getSize() {
     }
 }
 
+
+function editMetaData(){
+    $('.pageOptions').addClass('height0 hidden');
+    $('.pageMenuItem').removeClass('active');
+    $.ajax({
+        type: 'POST',
+        url: 'editMetaData.php',
+        data: 'action=get',
+        success: function(data) {
+            if(data == 'false'){
+                data = 'there is no meta data';
+            }
+            $('.overlay').removeClass('hidden');
+            var des = data.search('name="description"');
+            if(des > -1){
+                des = data.substr(des);
+                des = des.substr(des.search('content') + 9);
+                des = des.substr(0,des.search('"'));
+            }
+            var key = data.search('name="keywords"');
+            if(key > -1){
+                key = data.substr(key);
+                key = key.substr(key.search('content') + 9);
+                key = key.substr(0,key.search('"'));
+            }
+            var aut = data.search('name="author"');
+            if(aut > -1){
+                aut = data.substr(aut);
+                aut = aut.substr(aut.search('content') + 9);
+                aut = aut.substr(0,aut.search('"'));
+            }
+            if(des != -1){
+                document.getElementById('metaDescription').value = des;
+            }
+            if(key != -1){
+                document.getElementById('metaKeywords').value = key;
+            }
+            if(aut != -1){
+                document.getElementById('metaAuthor').value = aut;
+            }
+            $('.metaEditorOuter').removeClass('hidden');
+        }
+    });
+}
+function changeMetaData(){
+    var des = replaceUml(document.getElementById('metaDescription').value);
+    var key = replaceUml(document.getElementById('metaKeywords').value);
+    var aut = replaceUml(document.getElementById('metaAuthor').value);
+    $.ajax({
+        type: 'POST',
+        url: 'editMetaData.php',
+        data: 'action=set&des='+des+'&key='+key+'&aut='+aut,
+        success: function(data) {
+            hideMessages();
+            if(data != ''){
+                alert(data);
+            }else{
+                showNotification('meta data changed',1500);
+            }
+        }
+    });
+}
 
 function hidePageTour(){
     $('.pageTour').addClass('opac0');

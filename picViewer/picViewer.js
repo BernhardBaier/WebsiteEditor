@@ -6,7 +6,7 @@ var picViewerClassName = '.picsClickAble'; //class or Id of the element in which
 var picViewerThumbnails = 'thumbs/';       //Standard Thumbnail path
 var activatePreloadBar = true;             //set it to show or not to show the progress bar of the preload.
 var autoResizePics = false;                //Set this to true to automatically change the height of all found picViewerPics to the value below
-var autoResizeHeight = 100;                //height after resize
+var autoResizeHeight = 125;                //height after resize
 var autoResizeHeightMobile = 50;
 var picViewerExcludePics = ['loading.gif','close.png'];      //a list of picViewerPics that should not be clickable
 var showPicNameAsTitle = false;            //automatically show the name of the pic as title
@@ -115,7 +115,7 @@ function initPicViewer(){
         var picViewerInfo = picViewerIsMobile==true?'':'<img class="picViewerAutoImg" title="info" src="picViewer/picViewerImages/info.png" onclick="picViewerInfo()" height="'+picViewerPicHeight+'"/>';
         document.body.innerHTML = '<div class="pagePicViewer picViewerOpac0 picViewerHidden" align="center"><div class="picViewerOverlay" onclick="hidePicViewer()"></div><div class="picViewerOuter"><div class="picViewerHidden" id="picViewerPreload"></div><div class="picViewer"><div class="picViewerCloser"><img src="picViewer/picViewerImages/close.png" onclick="hidePicViewer()" title="close" height="'+picViewerPicHeight+'" /></div><div class="picViewerHider"><img width="80" class="picHiderImg" src="picViewer/picViewerImages/loading.gif" /></div><div class="picViewerTitle picViewerHidden"></div><div class="picViewerInner"><div class="picViewerOvLeft picViewerOpac0 picViewerHidden" onclick="picViewerShowPrevPic()" onmouseover="picViewerPicOver(this)" onmouseout="picViewerPicOut(this)"><img height="100" class="picViewerLeftImg" src="picViewer/picViewerImages/left.png" title="voheriges Bild" /></div><img class="picViewerImg" width="200" id="picViewerImg1" src="picViewer/picViewerImages/loading.gif" onload="picViewerPicLoaded()" /><div class="picViewerOvRight picViewerOpac0 picViewerHidden" onclick="picViewerShowNextPic()" onmouseover="picViewerPicOver(this)" onmouseout="picViewerPicOut(this)"><img height="100" class="picViewerRightImg" src="picViewer/picViewerImages/right.png" title="weiteres Bild" /></div></div></div>' +
         '<div class="picViewerAutoBar picViewerHidden"></div><div class="picViewerAuto"><img class="picViewerAutoImg picViewerHidden" title="play" src="picViewer/picViewerImages/play.png" onclick="picViewerPlay()" height="'+picViewerPicHeight+'"/>'+picViewerInfo+'</div>' +
-        '<div class="picViewerInfoOuter picViewerHidden"><img  onclick="picViewerInfo()" src="picViewer/picViewerImages/close.png" width="20" style="position: absolute;top: -15px;right: -15px;cursor: pointer;" />Info</br><span style="color:#555;font-size:12px;">PicViewer Version 2.0</span><div class="picViewerInfo">- Use arrow keys to navigate</br>- press x to close</br>- press p to start auto mode</br>- use +&- keys to set speed in auto mode</br>- press i to toggle information</div></div></div></div>'+document.body.innerHTML;
+        '<div class="picViewerInfoOuter picViewerHidden"><img  onclick="picViewerInfo()" src="picViewer/picViewerImages/close.png" width="20" style="position: absolute;top: -15px;right: -15px;cursor: pointer;" />Info</br><div class="picViewerInfo">- Use arrow keys to navigate</br>- press esc to close</br>- press p to start auto mode</br>- use +&- keys to set speed in auto mode</br>- press i to toggle information</div></div></div></div>'+document.body.innerHTML;
     }
     picViewerGetSize();
     picViewerImages = $(picViewerClassName).find('img').map(function(){
@@ -192,7 +192,7 @@ function showPicViewer(src){
                 if(picVieweIsAuto){
                     picViewerSlower();
                 }
-            }else if(ev.keyCode == 88){
+            }else if(ev.keyCode == 88 || event.keyCode == 27){
                 hidePicViewer();
             }else if(ev.keyCode == 73){
                 picViewerInfo();

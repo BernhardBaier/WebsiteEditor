@@ -85,15 +85,54 @@ function updatePlugin($id){
         $path = str_replace('../plugins/', '', $path);
         $path = str_replace('../', '', $path);
         $filesWithIncludes = ['../../html5.php', '../../mobile.php'];
+        $que2 = "SELECT * FROM `settings` WHERE parameter='metaDes'";
+        $erg = mysqli_query($sql, $que2);
+        $des = "";
+        while ($row = mysqli_fetch_array($erg)) {
+            $des = $row['value'];
+        }
+        $que2 = "SELECT * FROM `settings` WHERE parameter='metaKey'";
+        $erg = mysqli_query($sql, $que2);
+        $key = "";
+        while ($row = mysqli_fetch_array($erg)) {
+            $key = $row['value'];
+        }
+        $que2 = "SELECT * FROM `settings` WHERE parameter='metaAut'";
+        $erg = mysqli_query($sql, $que2);
+        $aut = "";
+        while ($row = mysqli_fetch_array($erg)) {
+            $aut = $row['value'];
+        }
+        $meta = "";
+        if(strlen($des) > 2){
+            $meta .= '
+<meta name="description" content="'.$des.'">';
+        }
+        if(strlen($key) > 2){
+            $meta .= '
+<meta name="keywords" content="'.$key.'">';
+        }
+        if(strlen($aut) > 2){
+            $meta .= '
+<meta name="author" content="'.$aut.'">';
+        }
         for ($j = 0; $j < sizeof($filesWithIncludes); $j++) {
             $file = fopen($filesWithIncludes[$j], 'r');
             $infile = fread($file, filesize($filesWithIncludes[$j]));
             fclose($file);
+            $start = "";
+            $end = "";
+            if(strpos($infile,'<!--#meta data#-->') > -1){
+                $start = substr($infile,0,strpos($infile,'<!--#meta data#-->') + 18);
+                $infile = substr($infile,strpos($infile,'<!--#meta data#-->') + 18);
+                $end = substr($infile,strpos($infile,'<!--#end#-->'));
+            }
+            $infile = $start.$meta.$end;
             if (strpos($infile, '<!--#style for plugins#-->') > -1) {
                 $start = substr($infile, 0, strpos($infile, '<!--#style for plugins#-->') + 26);
-                $end = substr($infile, strpos($infile, '<!--#end#-->'));
-                $styles = substr($infile, 0, strpos($infile, '<!--#end#-->'));
-                $styles = substr($styles, strpos($infile, '<!--#style for plugins#-->') + 26);
+                $ktxt = substr($infile,strpos($infile,'<!--#style for plugins#-->')+26);
+                $end = substr($ktxt,strpos($ktxt,'<!--#end#-->'));
+                $styles = substr($ktxt,0,strpos($ktxt,'<!--#end#-->'));
                 for ($i = 0; $i < sizeof($includes); $i++) {
                     if (substr($includes[$i], -4) == '.css') {
                         if (!(strpos($styles, "href='" . $includes[$i] . "'") > -1)) {

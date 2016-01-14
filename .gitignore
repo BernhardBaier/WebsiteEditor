@@ -24,6 +24,10 @@ imagesOld/*
 /styleHTML5.min.css
 /scriptHTML5.min.js
 /scriptMobile.min.js
+/rightBar_*.php
+/footer_*.php
+/getSubpages.php
+/*.ttf
 node_modules/*
 pictures/*
 *.min.min.js

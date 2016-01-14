@@ -179,7 +179,12 @@ if(substr($authLevel,0,1) == "1"){
         var showPlugIn = false;
         var pluginId = 0;
         var showUsers = false;
+        updateAvailable = false;
         <?php
+        if($_SESSION['checkUpdates'] == 'true'){
+            echo("updateAvailable = true;");
+            $_SESSION['checkUpdates'] = false;
+        }
         switch($action){
             case 'showPlugins':
                 echo('showPlugIn = true;');
@@ -224,7 +229,7 @@ if(substr($authLevel,0,1) == "1"){
     <script src="datepicker/jquery.datetimepicker.js"></script>
 
     <script src="scriptFileBrowser.min.js"></script>
-    <script src="scriptAdmin.js"></script>
+    <script src="scriptAdmin.min.js"></script>
     <script>
         <?php
         if(strpos($_SESSION['extra'],'tour') < 0 || !$_SESSION['extra']){
@@ -233,6 +238,8 @@ if(substr($authLevel,0,1) == "1"){
         }
         ?>
     </script>
+    <!-- TODO: remove below in final!-->
+    <script src="jquery-1.9.1.min.js"></script>
     <script src="scriptPlugin.min.js"></script>
 </head>
 <body onload="init()">
@@ -259,6 +266,10 @@ if(substr($authLevel,0,1) == "1"){
     var target = document.getElementById('loadingImg1');
     var spinner = new Spinner(opts).spin(target);
 </script>
+<div class="updateOuter hidden">
+    <img src="images/close.png" class="updateImg" onclick="$('.updateOuter').addClass('hidden')" />
+    <div class="updateInner">update available<br><div class="updateButton" onclick="location.href='update/update.php'">update to <span id="newEditorVersion"></span> now</div></div>
+</div>
 <div class="pageTour opac0 hidden"><div class="tourBox hidden"></div><div class="tourText"></div></div>
 <?php
 include('content/user.php');
@@ -413,6 +424,27 @@ if(substr($authLevel,2,1) == '1'){
 </div>');
 }
 ?>
+<div class="metaEditorOuter hidden">
+    <div class="metaEditorInner">
+        <img class="msgBoxImg metaEditorImg" src="images/close.png" onclick="hideMessages()" />
+        <div class="metaEditorContent">
+            change the meta data of your website:
+            <form action="javascript:changeMetaData()">
+                <div class="metaDataLeft">
+                    <div class="metaDataLabel">Description</div>
+                    <div class="metaDataLabel">Keywords</div>
+                    <div class="metaDataLabel">Author</div>
+                    <input type="submit" value="change" />
+                </div>
+                <div class="metaDataRight">
+                    <div class="metaDataLabel"><input type="text" id="metaDescription" placeholder="description of the website" /></div>
+                    <div class="metaDataLabel"><input type="text" id="metaKeywords" placeholder="keywords for the website" /></div>
+                    <div class="metaDataLabel"><input type="text" id="metaAuthor" placeholder="author of the website" /></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="pluginOuter out">
     <div class="pluginOuterTitle">Plugins<img src="images/close.png" onclick="showPlugins()" height="25" style="float:right;" /></div>
     <div class="pluginOuterInner">
@@ -496,6 +528,7 @@ if(substr($authLevel,2,1) == '1'){
             <div class="pageOptionItem" onclick="showInsertLink()" title="insert a link to another page">insert link</div>
             <div class="pageOptionItem" onclick="togglePicsClickable(this)" id="pageOptionItemPics" title="Select if pictures shall be viewable on this page">pics clickable</div>
             <div class="pageOptionItem" onclick="showPlugins()" title="show or add plugins">plugins</div>
+            <div class="pageOptionItem" onclick="editMetaData()" title="show or edit meta Data">Meta data</div>
             <?php
             if($authLevel == '1111'){
                 echo('<div class="pageOptionItem" onclick="location.href=\'setup.php?id=settings&lang='.$lang.'\'" onmouseover="$(\'#pageSubOptionsSettings\').removeClass(\'hidden\')"

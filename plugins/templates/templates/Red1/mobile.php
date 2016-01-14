@@ -150,20 +150,15 @@ while($row = mysqli_fetch_array($erg)){
 	<meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
     <link rel="stylesheet" href="styleMobile.min.css" />
+    <!-- DO NOT CHANGE THE LINES BELOW-->
+    <!--#meta data#-->
+    <!--#end#-->
     <script>
         var lang = '<?php echo($lang);?>';
         var mobile = true;
     </script>
 </head>
 <body onload="init()">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
 <div class="container">
     <div class="menuOuter" id="menu">
         <?php
@@ -249,7 +244,7 @@ while($row = mysqli_fetch_array($erg)){
     <div class="footer">
         <div class="fbBox">
             <div>
-                <div class="fb-like" data-href="https://www.facebook.com/FreiwilligeFeuerwehrHardt" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                <?php include('footer_'.$lang.'.php');?>
             </div>
         </div>
         <a href="index.php?id=impress&lang=<?php echo($lang);?>" style="float: right">Impressum&nbsp;</a>

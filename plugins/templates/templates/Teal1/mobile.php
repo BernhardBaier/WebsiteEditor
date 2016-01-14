@@ -150,6 +150,9 @@ while($row = mysqli_fetch_array($erg)){
 	<meta name=viewport content="width=device-width, initial-scale=1">
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
     <link rel="stylesheet" href="styleMobile.min.css" />
+    <!-- DO NOT CHANGE THE LINES BELOW-->
+    <!--#meta data#-->
+    <!--#end#-->
     <script>
         var lang = '<?php echo($lang);?>';
         var mobile = true;

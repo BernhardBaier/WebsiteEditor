@@ -106,9 +106,9 @@ if($output!=""){
         fclose($file);
         if(strpos($infile,'<!--#style for plugins#-->') > -1){
             $start = substr($infile,0,strpos($infile,'<!--#style for plugins#-->')+26);
-            $end = substr($infile,strpos($infile,'<!--#end#-->'));
-            $styles = substr($infile,0,strpos($infile,'<!--#end#-->'));
-            $styles = substr($styles,strpos($infile,'<!--#style for plugins#-->')+26);
+            $ktxt = substr($infile,strpos($infile,'<!--#style for plugins#-->')+26);
+            $end = substr($ktxt,strpos($ktxt,'<!--#end#-->'));
+            $styles = substr($ktxt,0,strpos($ktxt,'<!--#end#-->'));
             for($i=0;$i<sizeof($includes);$i++){
                 if(substr($includes[$i],-4) == '.css'){
                     if(!(strpos($styles,"href='".$includes[$i]."'") > -1)){

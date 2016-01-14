@@ -40,17 +40,7 @@ function initPlugin_$plugId(th){
             text += '</div><div class=\"pluginTemplateEditorOverlay hidden\" onclick=\"plugin".$name."CloseOv()\"></div></div><div class=\"pluginTemplateEditorBottom\">';
             text += '<div class=\"pluginTemplateEditorLeft\">Preview:<div class=\"pluginTemplateEditorChooser hidden\"><img class=\"pluginTemplateEditorBottomImg\" src=\"\" id=\"pluginTemplateEditorPic\" />';
             text += '<div class=\"pluginTemplateEditorChoose\" title=\"this operation cannot be undone\" onclick=\"plugin".$name."ChooseTemplate()\">Choose this template</div></div></div>';
-            text += '<div class=\"pluginTemplateEditorRight\"><div class=\"pluginTemplateEditorOptions hidden\"><div class=\"pluginTemplateEditorTitle\">options:</div>';
-            text += '<img src=\"$location/images/close.png\" class=\"pluginTemplateEditorOptImg\" title=\"show options\" onclick=\"plugin".$name."ShowOptions()\" /><div class=\"pluginTemplateEditorOptionsChooser\">';
-            text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">RightBar</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditSource()\">edit source</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."ChoosePrepared()\">choose prepared</div></div>';
-            text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Special effects</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
-            text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Edit color</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditColor()\">change some colors</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditCss(\'styleHTML5.min.css\')\">change HTML5 css</div>';
-            text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditCss(\'styleMobile.min.css\')\">change Mobile css</div></div>';
+            text += '<div class=\"pluginTemplateEditorRight\"><div class=\"pluginTemplateEditorOptions hidden\">';
             text += '</div>';
             text += '<div class=\"pluginTemplateEditorPrepared hidden\"></div><div class=\"pluginTemplateEditorFrameWrapper hidden\"><iframe id=\"templateEditorFrame\" src=\"editor.php\"></iframe></div>';
             text += '<div class=\"pluginTemplateEditorSpecial hidden\"></div><div class=\"pluginTemplateEditorColor hidden\"></div></div></div></div></div>';
@@ -73,6 +63,40 @@ function initPlugin_$plugId(th){
         }
     });
 }
+function plugin".$name."getOptionAvailable(name){
+    $.ajax({
+        type: 'POST',
+        url: 'plugins/templates/getTemplates.php',
+        data: 'path=templates&action=getOptions&templateName='+name,
+        success: function(data) {
+            var text = '<div class=\"pluginTemplateEditorTitle\">options:</div>';
+            text += '<img src=\"$location/images/close.png\" class=\"pluginTemplateEditorOptImg\" title=\"show options\" onclick=\"plugin".$name."ShowOptions()\" /><div class=\"pluginTemplateEditorOptionsChooser\">';
+            if(data.search('#rightBar#') > -1){
+                text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">RightBar</div>';
+                text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditSource()\">edit source</div>';
+                text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."ChoosePrepared()\">choose prepared</div></div>';
+            }
+            if(data.search('#specialPages#') > -1){
+                text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Special effects</div>';
+                text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."LoadSpecial()\">add special pages</div></div>';
+            }
+            if(data.search('#basicStyles#') > -1 || data.search('#advancedStyles#') > -1){
+                text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Edit color</div>';
+                if(data.search('#advancedStyles#') > -1){
+                    text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditColor()\">change some colors</div>';
+                }
+                text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditCss(\'styleHTML5.min.css\')\">change HTML5 css</div>';
+                text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."EditCss(\'styleMobile.min.css\')\">change Mobile css</div></div>';
+            }
+            if(data.search('#footer#') > -1){
+                text += '<div class=\"pluginTemplateEditorOptionsClass\"><div id=\"pluginTemplateEditorOptionsClassTitle\">Footer</div>';
+                text += '<div class=\"pluginTemplateEditorOptionsElement\" onclick=\"plugin".$name."LoadFooter()\">change footer</div></div>';
+            }
+            text += '</div>';
+            $('.pluginTemplateEditorOptions').html(text);
+        }
+    });
+}
 function plugin".$name."CloseOv(){
     $('.pluginTemplateEditorOverlay').addClass('hidden');
         $('.pluginTemplateEditorAdd').addClass('hidden');
@@ -92,6 +116,7 @@ function plugin".$name."SelectTemplate(th,id){
         $('.pluginTemplateEditorOptions').removeClass('hidden');
         plugin".$name."UpdateSource('');
         plugin".$name."ShowOptions();
+        plugin".$name."getOptionAvailable($('#plugin".$name."TemplateTitle'+id).html());
         $.ajax({
             type: 'POST',
             url: '$location/generateSpecial.php',
@@ -122,10 +147,14 @@ function plugin".$name."UpdateSource(src){
                     }
                 }
             });
-        }else{
+        }else if(src.substr(-3) == 'css'){
             var path = $('#pluginTemplateEditorPath'+templateId).html();
             path = path.substr(0,path.lastIndexOf('/') + 1);
             document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=' + path + src + '&forcePath=true&css=true';
+        }else{
+            var path = $('#pluginTemplateEditorPath'+templateId).html();
+            path = path.substr(0,path.lastIndexOf('/') + 1);
+            document.getElementById('templateEditorFrame').src= 'editor.php?lang=$lang&id=' + path + src + '&forcePath=true&nop=true';
         }
     }
 }
@@ -150,6 +179,14 @@ function plugin".$name."ChooseTemplate(){
 }
 var plugin".$name."Title = 'Title';
 var plugin".$name."Items = [];
+function plugin".$name."LoadFooter(){
+    $('.pluginTemplateEditorFrameWrapper').removeClass('hidden');
+    $('.pluginTemplateEditorPrepared').addClass('hidden');
+    $('.pluginTemplateEditorSpecial').addClass('hidden');
+    $('.pluginTemplateEditorColor').addClass('hidden');
+    $('.pluginTemplateEditorOptionsChooser').addClass('hidden');
+    plugin".$name."UpdateSource('footer_'+lang+'.php');
+}
 function plugin".$name."EditSource(){
     $('.pluginTemplateEditorFrameWrapper').removeClass('hidden');
     $('.pluginTemplateEditorPrepared').addClass('hidden');

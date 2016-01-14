@@ -198,5 +198,5 @@ function gallerySliderNext(id){
 
 function initFBPlugin(){
     setCookie('FBPlugin','true',1)
-    $('.fbLikeBoxOuter').html('<iframe src="fb.php" width="100%" height="100%" style="border: 0" scrolling="no"></iframe>').css('background','#fff');
+    $('.fbLikeBoxOuter').html('<iframe src="footer_'+lang+'.php" width="100%" height="100%" style="border: 0" scrolling="no"></iframe>').css('background','#fff');
 }

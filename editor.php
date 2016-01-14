@@ -35,6 +35,12 @@ if($authLevel == '1111'){
                     $text = str_replace(';}','}',$text);
                     $action .= '&css=true';
                 }
+                if($_POST['nop'] == 'true') {
+                    $text = str_replace('</p><p>','<br>',$text);
+                    $text = str_replace('<p>','',$text);
+                    $text = str_replace('</p>','',$text);
+                    $action .= '&nop=true';
+                }
             }else{
                 $path = "web-content/$lang/$id.php";
             }
@@ -74,6 +80,11 @@ if($authLevel == '1111'){
                 $content = str_replace('<sk>',';<br>&nbsp;&nbsp;&nbsp;&nbsp;',$content);
                 $content = str_replace('}',';<br>}<br>',$content);
                 $content = str_replace('}<br>;<br>}','}<br>}',$content);
+            }
+            if($_GET['nop'] == 'true') {
+                $content = str_replace('</p><p>','<br>',$content);
+                $content = str_replace('<p>','',$content);
+                $content = str_replace('</p>','',$content);
             }
         }
         if($_GET['forcePath'] == 'true'){
@@ -123,7 +134,7 @@ if($authLevel == '1111'){
 <form action="editor.php" method="post">
     <textarea name="editor1" id="editor1"><?php if(isset($_POST['editor1'])){echo($_POST['editor1']);}else{echo($content);}?></textarea>
     <input type="hidden" name="lang" value="<?php echo($lang);?>"><input type="hidden" name="id" value="<?php echo($id);?>"><?php if($_GET['forcePath'] == 'true'){echo('<input type="hidden" name="forcePath" value="true">');};
-    if($_GET['css'] == 'true'){echo('<input type="hidden" name="css" value="true">');}?>
+    if($_GET['css'] == 'true'){echo('<input type="hidden" name="css" value="true">');}if($_GET['nop'] == 'true'){echo('<input type="hidden" name="nop" value="true">');}?>
     <input type="submit" value="Save" />
 </form>
 <script>

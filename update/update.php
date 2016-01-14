@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ERROR);
-include 'auth.php';
+include 'access.php';
 if($authLevel == '1111'){
     $updateVersion = "2.11";
     $updateUpdater = false;
@@ -105,6 +105,14 @@ if($authLevel == '1111'){
     }
     $force = $_GET['forceUpdate'];
     if($version == $oldVersion && $force != 'true'){
+        $hostname = $_SERVER['HTTP_HOST'];
+        $host = $hostname == 'localhost'?$hostname:$sqlHost;
+        $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+        if(!$sql){
+            die('authentication failed!');
+        }
+        $que = "UPDATE `".$sqlBase."`.`settings` SET value='$version' WHERE parameter='editorVersion'";
+        echo(mysqli_query($sql,$que) or die(mysqli_error($sql)));
         header('Location: ../admin.php');
         exit;
     }

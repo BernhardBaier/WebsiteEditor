@@ -198,6 +198,9 @@ while($pos > -1){
     <link rel="stylesheet" href="commonStyle.min.css"/>
     <link rel="stylesheet" href="styleHTML5.min.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
+    <!-- DO NOT CHANGE THE LINES BELOW-->
+    <!--#meta data#-->
+    <!--#end#-->
     <?php include "specialContent.php";?>
 </head>
 <body onload="init()">
@@ -260,9 +263,7 @@ while($pos > -1){
             </div>
         </div>
         <div class="footer">
-            <div class="footerLeftText"><?php echo($pageTitle);?>, Hauffstraße 39, 72622 Nürtingen<br>
-                Telefon: 07022/992659 | 07022/560713<br>
-                E-Mail: e.baier@baier-consulting.de</div>
+            <div class="footerLeftText"><?php echo($pageTitle);include('footer_'.$lang.'.php');?></div>
             <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
             <div class="userCountOuter">
                 <div class="userCountNumbers">

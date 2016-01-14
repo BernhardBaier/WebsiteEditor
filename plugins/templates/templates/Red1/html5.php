@@ -173,6 +173,9 @@ while($pos > -1){
     </script>
     <link rel="stylesheet" href="styleHTML5.min.css" />
     <link rel="SHORTCUT ICON" href="images/logo.png"/>
+    <!-- DO NOT CHANGE THE LINES BELOW-->
+    <!--#meta data#-->
+    <!--#end#-->
 </head>
 <body onload="init()">
 <div class="pageOuter">
