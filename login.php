@@ -42,7 +42,7 @@ while($row = mysqli_fetch_array($erg)){
 }
 if($_SERVER['SERVER_PORT'] != '443'){
     if($sslPath != 'none'){
-        header('Location: '.$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+        //header('Location: '.$sslPath.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
     }
 }else{
     if($sslPath == 'none'){
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($out == 'access' && $user == $username){
                 $path = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
                 if($sslPath == 'none' || $sslPath == ""){}else{
-	                $path = str_replace($sslPath,'','https://'.$path);
+	                //$path = str_replace($sslPath,'','https://'.$path);
                 }
                 $path = 'http://'.substr($path,0,strrpos($path,'/'));
                 $aUser = $row['user'];

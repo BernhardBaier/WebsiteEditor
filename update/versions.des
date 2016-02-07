@@ -32,3 +32,4 @@
 #version#4.2.30#chrome adaptions for html5 page in all templates#
 #version#4.2.31#Meta data editable now<br>New template Hair<br>Improved template editor#
 #version#4.2.32#Google analytics code supported#
+#version#4.2.33#bugfix for update and ssl quick fix#

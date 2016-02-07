@@ -1,5 +1,5 @@
-#description#Google analytics code supported#
-#version#4.2.32#
+#description#bugfix for update and ssl quick fix#
+#version#4.2.33#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20160104132112#
@@ -8,6 +8,7 @@
 #file#../update/auth.php#date#20150823181513#
 #file#../update/finish.php#date#20150823181512#
 #file#../update/style.css#date#20151110213103#
+#file#../update/checkUpdate.php#date#20160104132221#
 #file#../datepicker/jquery.datetimepicker.css#date#20150912172159#
 #file#../datepicker/jquery.datetimepicker.js#date#20150912172306#
 #file#../datepicker/jquery.datetimepicker.min.js#date#20160114140550#
@@ -302,7 +303,7 @@
 #file#../setup/welcome.php#date#20150823181512#
 #file#../admin/index.php#date#20151203161928#
 #file#../access.php#date#20151230210732#
-#file#../admin.php#date#20160207224223#
+#file#../admin.php#date#20160207230022#
 #file#../auth.php#date#20151110213227#
 #file#../commonStyle.css#date#20151110213228#
 #file#../commonStyle.min.css#date#20151110213340#
@@ -314,7 +315,7 @@
 #file#../functionsPlugins.php#date#20151110213238#
 #file#../getFiles.php#date#20151110213240#
 #file#../jquery-1.9.1.min.js#date#20151110213242#
-#file#../login.php#date#20151121130549#
+#file#../login.php#date#20160207231035#
 #file#../logout.php#date#20151110213245#
 #file#../moveFiles.php#date#20151110213247#
 #file#../MySQLHandler.php#date#20151110213251#
@@ -323,7 +324,7 @@
 #file#../redirect.php#date#20160104125634#
 #file#../register.php#date#20151110213257#
 #file#../scriptAdmin.js#date#20160207224711#
-#file#../scriptAdmin.min.js#date#20160207223929#
+#file#../scriptAdmin.min.js#date#20160207230003#
 #file#../scriptFileBrowser.js#date#20151229221507#
 #file#../scriptFileBrowser.min.js#date#20160114140551#
 #file#../scriptPlugin.js#date#20151110213307#
