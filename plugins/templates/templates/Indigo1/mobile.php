@@ -159,6 +159,9 @@ while($row = mysqli_fetch_array($erg)){
     </script>
 </head>
 <body onload="init()">
+<!-- DO NOT CHANGE THE LINES BELOW-->
+<!--#analytics data#-->
+<!--#end#-->
 <div class="container">
     <div class="menuOuter" id="menu">
         <?php

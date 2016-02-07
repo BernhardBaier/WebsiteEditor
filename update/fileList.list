@@ -1,5 +1,5 @@
-#description#Meta data editable now<br>New template Hair<br>Improved template editor#
-#version#4.2.31#
+#description#Google analytics code supported#
+#version#4.2.32#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20160104132112#
@@ -101,7 +101,7 @@
 #file#../plugins/templates/templates/Blue1/blue1.tmpl#date#20160114130311#
 #file#../plugins/templates/templates/Blue1/footer_de.php#date#20160114133513#
 #file#../plugins/templates/templates/Blue1/footer_en.php#date#20160114130439#
-#file#../plugins/templates/templates/Blue1/html5.php#date#20160114130238#
+#file#../plugins/templates/templates/Blue1/html5.php#date#20160207222116#
 #file#../plugins/templates/templates/Blue1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Blue1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Blue1/images/flag_de.png#date#20151015114636#
@@ -109,7 +109,7 @@
 #file#../plugins/templates/templates/Blue1/images/menu.png#date#20150823181501#
 #file#../plugins/templates/templates/Blue1/images/search.png#date#20150821025158#
 #file#../plugins/templates/templates/Blue1/index.php#date#20151013163801#
-#file#../plugins/templates/templates/Blue1/mobile.php#date#20160112150623#
+#file#../plugins/templates/templates/Blue1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Blue1/pictures/preview.jpg#date#20151015150759#
 #file#../plugins/templates/templates/Blue1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Blue1/rightBar_en.php#date#20151106224452#
@@ -127,7 +127,7 @@
 #file#../plugins/templates/templates/Gray1/footer_de.php#date#20160114130443#
 #file#../plugins/templates/templates/Gray1/footer_en.php#date#20160114130439#
 #file#../plugins/templates/templates/Gray1/gray1.tmpl#date#20160114131248#
-#file#../plugins/templates/templates/Gray1/html5.php#date#20160114131408#
+#file#../plugins/templates/templates/Gray1/html5.php#date#20160207222116#
 #file#../plugins/templates/templates/Gray1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Gray1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Gray1/images/flag_de.png#date#20151015114636#
@@ -135,7 +135,7 @@
 #file#../plugins/templates/templates/Gray1/images/menu.png#date#20150823181501#
 #file#../plugins/templates/templates/Gray1/images/search.png#date#20150821025158#
 #file#../plugins/templates/templates/Gray1/index.php#date#20151013163801#
-#file#../plugins/templates/templates/Gray1/mobile.php#date#20160112150724#
+#file#../plugins/templates/templates/Gray1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Gray1/pictures/preview.jpg#date#20151015131634#
 #file#../plugins/templates/templates/Gray1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Gray1/rightBar_en.php#date#20151106224452#
@@ -152,7 +152,7 @@
 #file#../plugins/templates/templates/Gray1/styleSpecialContent.min.css#date#20151110020814#
 #file#../plugins/templates/templates/Hair1/getSubpages.php#date#20160103185602#
 #file#../plugins/templates/templates/Hair1/hair1.tmpl#date#20160104140838#
-#file#../plugins/templates/templates/Hair1/html5.php#date#20160104132938#
+#file#../plugins/templates/templates/Hair1/html5.php#date#20160207222116#
 #file#../plugins/templates/templates/Hair1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Hair1/images/Fingers.png#date#20151229230732#
 #file#../plugins/templates/templates/Hair1/images/Fingers_mobile.png#date#20151231172218#
@@ -165,7 +165,7 @@
 #file#../plugins/templates/templates/Hair1/images/Woman.png#date#20151229230545#
 #file#../plugins/templates/templates/Hair1/images/Woman_mobile.png#date#20151231172907#
 #file#../plugins/templates/templates/Hair1/index.php#date#20151013163801#
-#file#../plugins/templates/templates/Hair1/mobile.php#date#20160104132938#
+#file#../plugins/templates/templates/Hair1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Hair1/OilBats.ttf#date#20030222145946#
 #file#../plugins/templates/templates/Hair1/peacechild-beta.ttf#date#20030331105844#
 #file#../plugins/templates/templates/Hair1/pictures/preview.jpg#date#20160103215314#
@@ -174,13 +174,13 @@
 #file#../plugins/templates/templates/Hair1/scriptMobile.js#date#20160103200609#
 #file#../plugins/templates/templates/Hair1/scriptMobile.min.js#date#20160114140551#
 #file#../plugins/templates/templates/Hair1/segoe-script.ttf#date#20151230200245#
-#file#../plugins/templates/templates/Hair1/styleHTML5.css#date#20160104192455#
-#file#../plugins/templates/templates/Hair1/styleHTML5.min.css#date#20160104192456#
+#file#../plugins/templates/templates/Hair1/styleHTML5.css#date#20160114141205#
+#file#../plugins/templates/templates/Hair1/styleHTML5.min.css#date#20160114141206#
 #file#../plugins/templates/templates/Hair1/styleMobile.css#date#20160103200222#
 #file#../plugins/templates/templates/Hair1/styleMobile.min.css#date#20160103200223#
 #file#../plugins/templates/templates/Indigo1/footer_de.php#date#20160114130443#
 #file#../plugins/templates/templates/Indigo1/footer_en.php#date#20160114130439#
-#file#../plugins/templates/templates/Indigo1/html5.php#date#20160114131515#
+#file#../plugins/templates/templates/Indigo1/html5.php#date#20160207222116#
 #file#../plugins/templates/templates/Indigo1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Indigo1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Indigo1/images/flag_de.png#date#20151015114636#
@@ -189,7 +189,7 @@
 #file#../plugins/templates/templates/Indigo1/images/search.png#date#20150821025158#
 #file#../plugins/templates/templates/Indigo1/index.php#date#20151013163801#
 #file#../plugins/templates/templates/Indigo1/indigo1.tmpl#date#20160114131248#
-#file#../plugins/templates/templates/Indigo1/mobile.php#date#20160112150724#
+#file#../plugins/templates/templates/Indigo1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Indigo1/pictures/preview.jpg#date#20151015131626#
 #file#../plugins/templates/templates/Indigo1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Indigo1/rightBar_en.php#date#20151106224452#
@@ -206,13 +206,13 @@
 #file#../plugins/templates/templates/Indigo1/styleSpecialContent.min.css#date#20151110021335#
 #file#../plugins/templates/templates/Red1/footer_de.php#date#20160114140900#
 #file#../plugins/templates/templates/Red1/footer_en.php#date#20160114130439#
-#file#../plugins/templates/templates/Red1/html5.php#date#20160112150724#
+#file#../plugins/templates/templates/Red1/html5.php#date#20160207222116#
 #file#../plugins/templates/templates/Red1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Red1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Red1/images/menu.png#date#20150823181501#
 #file#../plugins/templates/templates/Red1/images/search.png#date#20150823181501#
 #file#../plugins/templates/templates/Red1/index.php#date#20151013163801#
-#file#../plugins/templates/templates/Red1/mobile.php#date#20160114131248#
+#file#../plugins/templates/templates/Red1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Red1/pictures/preview.jpg#date#20151014000327#
 #file#../plugins/templates/templates/Red1/red1.tmpl#date#20160114131248#
 #file#../plugins/templates/templates/Red1/scriptHTML5.js#date#20160114130821#
@@ -225,7 +225,7 @@
 #file#../plugins/templates/templates/Red1/styleMobile.min.css#date#20151018152932#
 #file#../plugins/templates/templates/Teal1/footer_de.php#date#20160114130443#
 #file#../plugins/templates/templates/Teal1/footer_en.php#date#20160114130439#
-#file#../plugins/templates/templates/Teal1/html5.php#date#20160114131515#
+#file#../plugins/templates/templates/Teal1/html5.php#date#20160207222116#
 #file#../plugins/templates/templates/Teal1/images/arrowTop.png#date#20150823181502#
 #file#../plugins/templates/templates/Teal1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Teal1/images/flag_de.png#date#20151015114636#
@@ -233,7 +233,7 @@
 #file#../plugins/templates/templates/Teal1/images/menu.png#date#20150823181501#
 #file#../plugins/templates/templates/Teal1/images/search.png#date#20150821025158#
 #file#../plugins/templates/templates/Teal1/index.php#date#20151013163801#
-#file#../plugins/templates/templates/Teal1/mobile.php#date#20160112150724#
+#file#../plugins/templates/templates/Teal1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Teal1/pictures/preview.jpg#date#20151017150417#
 #file#../plugins/templates/templates/Teal1/rightBar_de.php#date#20151108212546#
 #file#../plugins/templates/templates/Teal1/rightBar_en.php#date#20151106224452#
@@ -302,13 +302,13 @@
 #file#../setup/welcome.php#date#20150823181512#
 #file#../admin/index.php#date#20151203161928#
 #file#../access.php#date#20151230210732#
-#file#../admin.php#date#20160114140844#
+#file#../admin.php#date#20160207224223#
 #file#../auth.php#date#20151110213227#
 #file#../commonStyle.css#date#20151110213228#
 #file#../commonStyle.min.css#date#20151110213340#
 #file#../compress.php#date#20151110213231#
 #file#../deletePic.php#date#20151110213233#
-#file#../editMetaData.php#date#20160112145515#
+#file#../editMetaData.php#date#20160207225316#
 #file#../editor.php#date#20160114133330#
 #file#../functions.php#date#20151110213236#
 #file#../functionsPlugins.php#date#20151110213238#
@@ -317,14 +317,13 @@
 #file#../login.php#date#20151121130549#
 #file#../logout.php#date#20151110213245#
 #file#../moveFiles.php#date#20151110213247#
-#file#../moveOldPage.php#date#20150823181436#
 #file#../MySQLHandler.php#date#20151110213251#
 #file#../MySQLHandlerFunctions.php#date#20151222234615#
 #file#../README.md#date#20151110213255#
 #file#../redirect.php#date#20160104125634#
 #file#../register.php#date#20151110213257#
-#file#../scriptAdmin.js#date#20160112150344#
-#file#../scriptAdmin.min.js#date#20160114140551#
+#file#../scriptAdmin.js#date#20160207224711#
+#file#../scriptAdmin.min.js#date#20160207223929#
 #file#../scriptFileBrowser.js#date#20151229221507#
 #file#../scriptFileBrowser.min.js#date#20160114140551#
 #file#../scriptPlugin.js#date#20151110213307#
@@ -332,8 +331,8 @@
 #file#../search.php#date#20151110213310#
 #file#../setup.php#date#20151110213311#
 #file#../spin.min.js#date#20151110213313#
-#file#../styleAdmin.css#date#20160112141702#
-#file#../styleAdmin.min.css#date#20160112141702#
+#file#../styleAdmin.css#date#20160207221643#
+#file#../styleAdmin.min.css#date#20160207221644#
 #file#../styleFileBrowser.css#date#20151110213316#
 #file#../styleFileBrowser.min.css#date#20151110213344#
 #file#../styleLogin.css#date#20151110213320#

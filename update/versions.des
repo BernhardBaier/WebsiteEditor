@@ -31,3 +31,4 @@
 #version#4.2.29#Rollback style change chrome#
 #version#4.2.30#chrome adaptions for html5 page in all templates#
 #version#4.2.31#Meta data editable now<br>New template Hair<br>Improved template editor#
+#version#4.2.32#Google analytics code supported#

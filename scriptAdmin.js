@@ -1221,7 +1221,6 @@ function editMetaData(){
             if(data == 'false'){
                 data = 'there is no meta data';
             }
-            $('.overlay').removeClass('hidden');
             var des = data.search('name="description"');
             if(des > -1){
                 des = data.substr(des);
@@ -1248,8 +1247,19 @@ function editMetaData(){
             }
             if(aut != -1){
                 document.getElementById('metaAuthor').value = aut;
-            }
-            $('.metaEditorOuter').removeClass('hidden');
+            }$.ajax({
+                type: 'POST',
+                url: 'editMetaData.php',
+                data: 'action=getCode',
+                success: function(data) {
+                    if(data == 'false'){
+                        data = '';
+                    }
+                    $('.overlay').removeClass('hidden');
+                    document.getElementById('analyticsCode').value = data;
+                    $('.metaEditorOuter').removeClass('hidden');
+                }
+            });
         }
     });
 }
@@ -1267,6 +1277,23 @@ function changeMetaData(){
                 alert(data);
             }else{
                 showNotification('meta data changed',1500);
+            }
+        }
+    });
+}
+function changeAnalyticsId(){
+    var code = replaceUml(document.getElementById('analyticsCode').value);
+    $.ajax({
+        type: 'POST',
+        url: 'editMetaData.php',
+        data: 'action=setCode&code='+code,
+        success: function(data) {
+            hideMessages();
+            if(data != ''){
+                data = data=='false'?'code error':data;
+                alert(data);
+            }else{
+                showNotification('analytics data changed',1500);
             }
         }
     });

@@ -139,7 +139,7 @@ function findInArray($array,$needle){
     return -1;
 }
 function replaceUml($text){
-    $umlaute = [['ä','ö','ü','Ä','Ö','Ü','ß'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
+    $umlaute = [['ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½','ï¿½'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
     for($i=0;$i<sizeof($umlaute[0]);$i++){
         $text = str_replace($umlaute[0][$i],$umlaute[1][$i],$text);
     }
@@ -178,10 +178,13 @@ while($pos > -1){
     <!--#end#-->
 </head>
 <body onload="init()">
+<!-- DO NOT CHANGE THE LINES BELOW-->
+<!--#analytics data#-->
+<!--#end#-->
 <div class="pageOuter">
     <div class="searchOuter hidden">
         <div class="searchResults">
-	        <img class="closingImg" src="pictures/close.png" title="schließen" onclick="$('.searchOuter').addClass('hidden')" />
+	        <img class="closingImg" src="pictures/close.png" title="schlieï¿½en" onclick="$('.searchOuter').addClass('hidden')" />
 	        <div class="searchResultsInner"></div>
         </div>
     </div>
@@ -217,11 +220,11 @@ while($pos > -1){
                         <div class="calendarSide"></div>
                         <div class="weatherOuter">
                             <div class="weatherCard">
-                                <a target="_blank" title="Ausführliche Wetterdaten" href="http://www.wettergefahren.de"><img src="http://www.wettergefahren.de/dyn/app/ws/maps/SU_x_x_0.gif" width="100%"></a>
+                                <a target="_blank" title="Ausfï¿½hrliche Wetterdaten" href="http://www.wettergefahren.de"><img src="http://www.wettergefahren.de/dyn/app/ws/maps/SU_x_x_0.gif" width="100%"></a>
                             </div>
                             <div class="weatherCopy">&copy; <i>Deutscher Wetterdienst</i></div>
                             <div class="weatherLegend" onclick="toggleWeatherLegend()">
-                                <div class="weatherLegendBox hidden" title="Sichtbarkeit ändern">
+                                <div class="weatherLegendBox hidden" title="Sichtbarkeit ï¿½ndern">
                                     <img src="pictures/close.png" class="closingImg" />
                                     <div class="weatherBoxOuter"><div class="weatherBox box1"></div><div class="weatherBoxText">Warnungen vor extremem Unwetter</div></div>
                                     <div class="weatherBoxOuter"><div class="weatherBox box2"></div><div class="weatherBoxText">Unwetterwarnungen</div></div>

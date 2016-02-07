@@ -204,6 +204,9 @@ while($pos > -1){
     <?php include "specialContent.php";?>
 </head>
 <body onload="init()">
+<!-- DO NOT CHANGE THE LINES BELOW-->
+<!--#analytics data#-->
+<!--#end#-->
 <div class="pageOuter">
     <div class="searchOuter hidden">
         <div class="searchResults">

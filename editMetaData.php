@@ -39,7 +39,21 @@ if(substr($authLevel,0,1) == '1'){
         }
         echo($meta);
         exit;
-    }elseif($_POST['action'] == 'set'){
+    } elseif($_POST['action'] == 'getCode'){
+        $file = fopen('html5.php','r');
+        $input = fread($file,filesize('html5.php'));
+        fclose($file);
+        $code = "";
+        if(strpos($input,'<!--#analytics data#-->') > -1){
+            $input = substr($input,strpos($input,'<!--#analytics data#-->') + 23);
+            $code = substr($input,0,strpos($input,'<!--#end#-->'));
+        }
+        if(strlen($code) < 10){
+            $code = 'false';
+        }
+        echo($code);
+        exit;
+    } elseif($_POST['action'] == 'set'){
         $hostname = $_SERVER['HTTP_HOST'];
         $host = $hostname == 'localhost'?$hostname:$sqlHost;
         $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
@@ -90,7 +104,7 @@ if(substr($authLevel,0,1) == '1'){
         fwrite($file,$html);
         fclose($file);
         $file = fopen('mobile.php','r');
-        $input = fread($file,filesize('html5.php'));
+        $input = fread($file,filesize('mobile.php'));
         fclose($file);
         $start = "";
         $end = "";
@@ -102,6 +116,51 @@ if(substr($authLevel,0,1) == '1'){
             exit;
         }
         $html = $start.$meta.$end;
+        $file = fopen('mobile.php','w');
+        fwrite($file,$html);
+        fclose($file);
+        exit;
+    } elseif($_POST['action'] == 'setCode'){
+        $hostname = $_SERVER['HTTP_HOST'];
+        $host = $hostname == 'localhost'?$hostname:$sqlHost;
+        $sql = mysqli_connect($host,$sqlUser,$sqlPass,$sqlBase);
+        if(!$sql){
+            echo('auth failed');
+            exit;
+        }
+        $file = fopen('html5.php','r');
+        $input = fread($file,filesize('html5.php'));
+        fclose($file);
+        $start = "";
+        $end = "";
+        if(strpos($input,'<!--#analytics data#-->') > -1){
+            $start = substr($input,0,strpos($input,'<!--#analytics data#-->') + 23);
+            $input = substr($input,strpos($input,'<!--#analytics data#-->') + 23);
+            $end = substr($input,strpos($input,'<!--#end#-->'));
+        }else{
+            echo('no analytics code supported!');
+            exit;
+        }
+        $code = replaceUml($_POST['code']);
+        $code = str_replace("'",'"',$code);
+        updateValue('analyticsCode',$code);
+        $html = $start.$code.$end;
+        $file = fopen('html5.php','w');
+        fwrite($file,$html);
+        fclose($file);
+        $file = fopen('mobile.php','r');
+        $input = fread($file,filesize('mobile.php'));
+        fclose($file);
+        $start = "";
+        $end = "";
+        if(strpos($input,'<!--#analytics data#-->') > -1){
+            $start = substr($input,0,strpos($input,'<!--#analytics data#-->') + 23);
+            $input = substr($input,strpos($input,'<!--#analytics data#-->') + 23);
+            $end = substr($input,strpos($input,'<!--#end#-->'));
+        }else{
+            exit;
+        }
+        $html = $start.$code.$end;
         $file = fopen('mobile.php','w');
         fwrite($file,$html);
         fclose($file);

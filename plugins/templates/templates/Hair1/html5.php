@@ -92,6 +92,9 @@ mysqli_free_result($erg);
     <!--#end#-->
 </head>
 <body onload="init()">
+<!-- DO NOT CHANGE THE LINES BELOW-->
+<!--#analytics data#-->
+<!--#end#-->
 <div class="pageOuter">
     <div class="footer">
         <div class="footerLeft">Copyright &copy; 2012 - <?php echo(date('Y ') . strip_tags($pageTitle));?></div>

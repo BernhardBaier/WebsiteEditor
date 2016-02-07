@@ -229,7 +229,7 @@ if(substr($authLevel,0,1) == "1"){
     <script src="datepicker/jquery.datetimepicker.js"></script>
 
     <script src="scriptFileBrowser.min.js"></script>
-    <script src="scriptAdmin.min.js"></script>
+    <script src="scriptAdmin.js"></script>
     <script>
         <?php
         if(strpos($_SESSION['extra'],'tour') < 0 || !$_SESSION['extra']){
@@ -441,6 +441,15 @@ if(substr($authLevel,2,1) == '1'){
                     <div class="metaDataLabel"><input type="text" id="metaKeywords" placeholder="keywords for the website" /></div>
                     <div class="metaDataLabel"><input type="text" id="metaAuthor" placeholder="author of the website" /></div>
                 </div>
+            </form>
+        </div>
+    </div>
+    <div class="analyticsInner">
+        <div class="analyticsContent">
+            set your google tracking ID here.
+            <form action="javascript:changeAnalyticsId()">
+                <textarea id="analyticsCode"></textarea><br>
+                <input type="submit" value="change" />
             </form>
         </div>
     </div>
