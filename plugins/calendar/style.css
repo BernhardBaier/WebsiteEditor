@@ -30,13 +30,12 @@
 	padding:2px;
 	text-align:center;
 	color:#FFF;
-	background:#55830C;
-	border:1px solid #050;
+	background:#8BC34A;
+	border:1px solid #33691E;
 	cursor:pointer;
 }
 .calendarAddEvent:hover{
-	font-weight:bold;
-	background:#050;
+	background:#689F38;
 }
 .calendarAddEventOuter{
 	position:absolute;
@@ -79,20 +78,19 @@
 	background:#CCC;
 }
 .calendarOnPage.selected{
-	background:#55830C;
+	background:#8BC34A;
 }
 .calendarUpdate{
 	position:absolute;
 	top:2px;left:2px;
 	padding:2px;
 	border-radius:4px;
-	border:1px solid #05f;
-	background:#189DE1;
+	border:1px solid #01579B;
+	background:#03A9F4;
 	cursor:pointer;
 }
 .calendarUpdate:hover{
-	border:1px solid #03a;
-	background:#07F;
+	background:#0288d1;
 }
 .calendarViewMode{
 	position:absolute;
@@ -102,7 +100,7 @@
 	color:#000;
 	font-weight:bold;
 	background:#ffa726;
-    border: 1px solid #ef6c00;
+    border: 1px solid #E65100;
 }
 .calendarImport{
     transition:width 500ms,height 500ms;
@@ -111,7 +109,7 @@
     color:#fff;
     padding: 2px;
     border-radius: 3px;
-    border: 1px solid #01579b;
+    border: 1px solid #01579B;
     left: 310px;
     cursor: pointer;
     z-index: 99;
@@ -151,26 +149,54 @@
     cursor: pointer;
     height: 20px;
 }
-.pluginCalendarAddEventMonth{
-	position: absolute;
-	z-index: 3;
-	right: 1px;
-	top: 1px;
-	background: #FFCDD2;
-	border-radius: 3px;
-	cursor: pointer;
-	border: 1px solid #EF5350;
-	padding: 1px;
-	height: 21px;
-	overflow: hidden;
-}
-.pluginCalendarAddEventMonth:hover{
-	background: #EF9A9A;
-}
 .pluginCalendarAddEventMonth img{
 	height: 20px;
 	opacity: 0.4;
 }
 .pluginCalendarAddEventMonth:hover img{
 	opacity: 0.7;
+}
+.pluginCalendarColorChooserToggler{
+    position: absolute;
+    background: none;
+    padding: 2px;
+    cursor: pointer;
+    left: 400px;
+    z-index: 96;
+    width: 80px;
+    height: 20px;
+}
+.pluginCalendarColorChooser{
+    transition:width 500ms,height 500ms;
+	position: absolute;
+    background: #607D8B;
+    color:#fff;
+    padding: 2px;
+    border-radius: 3px;
+    border: 1px solid #263238;
+    left: 400px;
+    z-index: 95;
+    width: 80px;
+    height: 20px;
+    overflow: hidden;
+}
+.pluginCalendarColorChooser:hover{
+    background: #455A64;
+}
+.pluginCalendarColorChooser.active{
+    width: 90px;
+    height: 110px;
+}
+.calendarSpacer{
+    height: 22px;
+}
+.pluginCalendarColorChooserItem{
+    background: #90A4AE;
+    color: #000;
+    border: 1px solid #263238;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.pluginCalendarColorChooserItem:active{
+    background: #CFD8DC;
 }

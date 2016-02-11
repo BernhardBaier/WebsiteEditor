@@ -10,7 +10,6 @@ if(basename($_SERVER["SCRIPT_FILENAME"]) != 'index.php'){
     header('Location: index.php');
 }
 $id = $_GET['id'];
-$specialContent = "";
 if($id == ""){
     $id = 1;
 }
@@ -68,16 +67,103 @@ $erg = mysqli_query($sql,$que);
 while($row = mysqli_fetch_array($erg)){
     $pageTitle = $row['value'];
 }
-mysqli_free_result($erg);
+function printMenu($sql,$n_parent=0,$level=0){
+    global $table,$parents,$lang,$prev,$preview;
+    $que = "SELECT * FROM ".$table." WHERE parent=$n_parent";
+    $erg = mysqli_query($sql,$que);
+    $rows = array();
+    while($help = mysqli_fetch_array($erg)){
+        $rows[$help['rank']] = $help;
+    }
+    $output = "";
+    for($i=1;$i<=sizeof($rows);$i++){
+        $row = $rows[$i];
+        $pid = $row['id'];
+        $parent = $row['parent'];
+        $extra = $row['extra'];
+        $name = $row['name'];
+        $childCount = $row['childCount'];
+        if($extra == "1" || $preview == true){
+            if($parent == 0){
+                $classToAdd = findInArray($parents,$pid)>-1?' active':'';
+                $level++;
+                if($childCount > 0){
+                    $output .= '<div class="menuItem topItem'.$classToAdd.'" onmouseover="this.childNodes[1].className=\'subMenu\'" onmouseout="this.childNodes[1].className=\'subMenu menuOut\'"><a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a><div class="subMenu menuOut">';
+                }else{
+                    $output .= '<div class="menuItem topItem'.$classToAdd.'"><a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a>';
+                }
+            }else{
+                $classToAdd = $i==sizeof($rows)?' lastItem':'';
+                $levelText = $level>3?' subItemLeft':'';
+                if(findInArray($parents,$pid)>-1){
+                    $classToAdd .= " active";
+                }
+                if($childCount > 0){
+                    $output .= '<div class="menuItem subItem'.$classToAdd.'" onmouseover="this.childNodes[2].className=\'subMenu2'.$levelText.'\'" onmouseout="this.childNodes[2].className=\'subMenu2'.$levelText.' menuOut\'">
+                    <a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a><div class="subMenu2'.$levelText.' menuOut">';
+                }else{
+                    $output .= '<div class="menuItem subItem'.$classToAdd.'"><a href="index.php?id='.$pid.'&lang='.$lang.$prev.'">'.replaceUml($name).'</a>';
+                }
+            }
+            if($childCount > 0){
+                $output .= printMenu($sql,$pid,$level) . '</div>';
+            }
+            $output .= '</div>';
+        }
+    }
+    mysqli_free_result($erg);
+    if($output == '' && $level == 0){
+        $output = 'Your website is up and running. It seams as if no page is visible at the moment. Please use the admin panel to add content.';
+    }
+    return $output;
+}
+function getAllParentsById($id,$sql){
+    global $lang;
+    $que = "SELECT * FROM pages_$lang WHERE id=$id";
+    $erg = mysqli_query($sql,$que);
+    while($row = mysqli_fetch_array($erg)){
+        $parent = $row['parent'];
+        if($parent != 0){
+            $parent .= ';'.getAllParentsById($parent,$sql);
+        }
+    }
+    mysqli_free_result($erg);
+    return $parent;
+}
+function findInArray($array,$needle){
+    for($i=0;$i<sizeof($array);$i++){
+        if($array[$i] == $needle){
+            return $i;
+        }
+    }
+    return -1;
+}
+function replaceUml($text){
+    $umlaute = [['�','�','�','�','�','�','�'],['&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;']];
+    for($i=0;$i<sizeof($umlaute[0]);$i++){
+        $text = str_replace($umlaute[0][$i],$umlaute[1][$i],$text);
+    }
+    return $text;
+}
+$ktxt = getAllParentsById($id,$sql);
+$parents = [$id];
+$pos = strpos($ktxt,';');
+while($pos > -1){
+    array_push($parents,substr($ktxt,0,$pos));
+    $ktxt = substr($ktxt,$pos+1);
+    $pos = strpos($ktxt,';');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title><?php echo(strip_tags($pageTitle));?></title>
     <script>
-        pageId = <?php echo($id);?>;
+        var pageId = <?php echo($id);?>;
         var lang = '<?php echo($lang);?>';
-        preview = '<?php echo($preview);?>';
+        var preview = '<?php echo($preview);?>';
+        preview = preview=='true'?'content':'web-content';
         var correctRightBar = false;
         <?php
             if($browser == 'Chrome' || $browser == 'Opera'){
@@ -97,129 +183,72 @@ mysqli_free_result($erg);
 <!-- DO NOT CHANGE THE LINES BELOW-->
 <!--#analytics data#--><!--#end#-->
 <div class="pageOuter">
-    <div class="footer">
-        <div class="footerLeft">Copyright &copy; 2012 - <?php echo(date('Y ') . strip_tags($pageTitle));?></div>
-        <div class="footerRight" onclick="showPageInOverlay('impress')">Impressum</div>
+    <div class="searchOuter hidden">
+        <div class="searchResults">
+	        <img class="closingImg" src="pictures/close.png" title="schlie�en" onclick="$('.searchOuter').addClass('hidden')" />
+	        <div class="searchResultsInner"></div>
+        </div>
     </div>
     <div class="container" align="center">
-        <div class="pageOverlayOuter hidden">
-            <div class="pageOverlayHider hidden" onclick="closePageInOverlay()"></div>
-            <div class="pageOverlay">
-                <img src="pictures/close.png" class="pageOverlayCloser" onclick="closePageInOverlay()" />
-                <div class="pageOverlayContentOuter">
-                    <div class="pageOverlayContent" id="pageOverlayContent1"></div>
-                </div>
+        <div class="header">
+            <div class="searchBox">
+                <form name="search" action="javascript:searchNow()">
+                    <input type="search" name="searchInput" placeholder="Suche" />
+                    <input type="submit" value=" go " />
+                </form>
+            </div>
+            <a href="index.php"><img src="images/logo.png" class="pageLogo" /></a>
+            <div class="pageTitle"><?php echo($pageTitle);?></div>
+            <div class="menu">
+                <?php echo(printMenu($sql)); ?>
             </div>
         </div>
-        <div class="pageSeparatorOuter">
-            <div class="pageSeparator">
-                <div class="styleElementOuter width0">
-                    <div class="styleElement">
-                        <div class="styleElementText text0" onclick="showPageInOverlay(4)">Die Musikschule N<span class="specialLetter">&uuml;</span>rtingen Pr<span class="specialLetter">&auml;</span>sentiert</div>
-                    </div>
+        <div class="contentOuter">
+            <div class="content">
+                <div class="contentInner">
+                    <?php
+                    $pagePath = $preview==true?'content':'web-content';
+                    $preview = $preview==true?'preview/':'';
+                    if(file_exists("$pagePath/$lang/".$preview."$id.php")){
+                        include("$pagePath/$lang/".$preview."$id.php");
+                    }else{
+                        echo("Upps this page is not available!");
+                    }
+                    ?>
                 </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color0">
-                        <div class="styleElementLink" onclick="showPageInOverlay(3)"><div class="styleElementLinkText">Projekte</div></div>
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color1">
-                        <img class="styleElementImg" src="pictures/Pigeon.png" />
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color2">
-                        <div class="styleElementLink" onclick="showPageInOverlay(5)"><div class="styleElementLinkText row2">Karten online kaufen</div></div>
-                        <!--<div class="flipContainer" id="flipper2">
-                            <div class="flipper">
-                                <div class="flipper front"></div>
-                                <div class="flipper back">Place for something here</div>
-                            </div>
-                        </div>-->
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement" onclick="showPageInOverlay(5)">
-                        Termine
-                        <div class="styleElementText">
-                            Fr. 04.03.2016 10 Uhr<br>
-                            Fr. 04.03.2016 20 Uhr<br>
-                            Sa. 05.03.2016 20 Uhr<br>
-                            So. 06.03.2016 17 Uhr<br>
+                <div class="rightBar">
+                    <div class="rightBarInner">
+                        <div class="calendarSide"></div>
+                        <div class="weatherOuter">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="pageSeparatorOuter hidden">
-            <div class="pageSeparator"></div>
-        </div>
-        <div class="pageSeparatorOuter">
-            <div class="pageSeparator">
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color3">
-                        <img class="styleElementImg" src="pictures/Flower.png" />
-                    </div>
-                </div>
-                <div class="styleElementOuter width1">
-                    <div class="styleElement" onclick="showPageInOverlay(2)">
-                        <div class="styleElementText text1">Hippie</div>
-                        <div class="styleElementText text2">Life</div>
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color4">
-                        <img class="styleElementImg" src="pictures/Peace.png" />
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color5">
-                        <div class="styleElementLink" onclick="showPageInOverlay(4)"><div class="styleElementLinkText"><span class="specialLetter">&Uuml;</span>ber uns</div></div>
-                    </div>
-                </div>
+        <div class="footer">
+            <div class="fbLikeBoxOuter" onclick="initFBPlugin()"><br>
+                Facebook Plug-in durch anklicken aktivieren.
             </div>
-        </div>
-        <div class="pageSeparatorOuter hidden">
-            <div class="pageSeparator"></div>
-        </div>
-        <div class="pageSeparatorOuter">
-            <div class="pageSeparator">
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color6">
-                        <img class="styleElementImg" src="pictures/Woman.png" />
-                    </div>
+            <a href="index.php?id=impress&lang=<?php echo($lang);?>">Impressum</a>
+            <div class="userCountOuter">
+                <div class="userCountNumbers">
+                <?php
+                while(strlen($users) > 1){
+                    echo('<span>'.substr($users,0,1).'</span>');
+                    $users = substr($users,1);
+                }
+                echo("<span>$users</span>");
+                ?>
                 </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color7">
-                        <div class="styleElementLink" onclick="showPageInOverlay(2)"><div class="styleElementLinkText">Das St<span class="specialLetter">&uuml;</span>ck</div></div>
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement" onclick="showPageInOverlay(2)">
-                        <div class="styleElementText text3">Make love</div>
-                        <div class="styleElementText text4">not war</div>
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color8">
-                        <img class="styleElementImg" src="pictures/Fingers.png" />
-                    </div>
-                </div>
-                <div class="styleElementOuter width0">
-                    <div class="styleElement color9">
-                        <div class="styleElementLink" onclick="showPageInOverlay(6)"><div class="styleElementLinkText">Bilder</div></div>
-                    </div>
-                </div>
+                Besucher waren bereits auf unserer Website.
             </div>
+            <span class="copyRight">Copyright &copy; 2012 - <?php echo(date('Y').' '.$pageTitle);?></span>
         </div>
-    </div>
-    <!-- TODO: remove below in final!-->
-    <script src="jquery-1.9.1.min.js"></script>
+     </div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="picViewer/picViewer.min.js"></script>
     <script src="spin.min.js" async></script>
-    <link href="commonStyle.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="commonStyle.min.css"/>
 	<!-- DO NOT CHANGE THE LINES BELOW-->
 	<!--#style for plugins#-->
     

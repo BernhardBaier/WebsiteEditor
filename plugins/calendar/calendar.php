@@ -201,10 +201,18 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
     mysqli_free_result($erg);
 
     $months = array('0','Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember');
+    $colors = "";
+    $folder = opendir('styles');
+    while($file = readdir($folder)){
+        if(substr($file,-8) == '.min.css'){
+            $colors .= "<div class='pluginCalendarColorChooserItem' onclick='plugincalendarSetColor(\"".substr($file,0,strlen($file)-8)."\")'>".substr($file,0,strlen($file)-8)."</div>";
+        }
+    }
+    closedir($folder);
     if($func == 'admin' && substr($authLevel,0,1) == '1'){
         echo('<div class="calendarAdmin"><div class="calendarEditEventOuter hidden"></div><div class="calendarAddEventOuter hidden">
             <div class="calendarAddEventInner">
-                <img src="pictures/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />Add event:
+                <img src="pictures/close.png" style="float:right;" onclick="calendarHideAll()" height="20" />add event:
                 <form name="calendarAddEvent" action="javascript:addEventNow()">
                     <table>
                         <tr>
@@ -259,9 +267,10 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             echo('<option>Atemschutz</option>');
         }
         echo('</select>
-        </div><div class="calendarImport" onclick="$(\'.calendarImport\').toggleClass(\'active\').removeClass(\'big\');document.getElementById(\'uploadFrame1000\').src=\'plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'\'"><div>Import</div><div class="calendarImportUpload">
+        </div><div class="calendarImport" onclick="$(this).toggleClass(\'active\').removeClass(\'big\');document.getElementById(\'uploadFrame1000\').src=\'plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'\'"><div>import</div><div class="calendarImportUpload">
         <iframe id="uploadFrame1000" src="plugins/calendar/upload.php?lang='.$lang.'&plugId='.$plugId.'" width="500" height="2500" frameborder="no" border="0" scrolling="no"></iframe>
-        </div></div><div class="calendarYearChooser"><img src="plugins/calendar/images/left.png" style="float:left" onclick="showYear('.(intval($year)-1).')" />'.$year.'<img src="plugins/calendar/images/right.png" style="float:right" onclick="showYear('.(intval($year)+1).')" /></div>
+        </div></div><div class="pluginCalendarColorChooserToggler" onclick="$(\'.pluginCalendarColorChooser\').toggleClass(\'active\')"></div><div class="pluginCalendarColorChooser"><div class="calendarSpacer">color</div>'.$colors.'</div>
+        <div class="calendarYearChooser"><img src="plugins/calendar/images/left.png" style="float:left" onclick="showYear('.(intval($year)-1).')" />'.$year.'<img src="plugins/calendar/images/right.png" style="float:right" onclick="showYear('.(intval($year)+1).')" /></div>
         </div>');
         echo('<div class="calendar">');
         for($month=1;$month<13;$month++){
@@ -370,6 +379,11 @@ if(substr($func,0,6) == 'insert' && substr($authLevel,0,1) == '1'){
             $maxCount+=3;
             echo("<div class='calendarSiteFooter' onclick='loadCalendarSide($maxCount)'>mehr</div>");
         }
+    }else if($func == 'changeColor' && substr($authLevel,0,1) == '1'){
+        $path = 'styles/'.$_POST['color'].'.min.css';
+        unlink("stylePluginCalendar.min.css");
+        copy($path,"stylePluginCalendar.min.css");
+        echo('1');
     }else{
         echo("unknown function: $func in calendar.php");
     }

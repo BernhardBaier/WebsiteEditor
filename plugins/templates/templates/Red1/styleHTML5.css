@@ -290,11 +290,10 @@ a:hover{
 .searchBox{
     position:absolute;
     right:17%;
-	top:5px
+	top:5px;
+    width:225px;
 }
 .searchBox input[type=submit]{
-	position: absolute;
-	left: 137px;
 	background: #f66;
 	border-radius:0 4px 4px 0;
 	height: 25px;
@@ -303,15 +302,15 @@ a:hover{
 	color: #fff;
 	font-weight: bold;
 	width: 30px;
-	margin: 0;
-	padding: 1px 1px 4px 1px;
+	margin: 0 -1px;
+	padding: 1px 2px;
 }
 .searchBox input[type=search]{
 	background: #fff;
 	border-radius: 4px 0 0 4px;
-	height: 20px;
+	height: 25px;
 	border: 2px solid #900;
-	margin: 0;
+	margin: -4px;
 	padding: 1px;
 }
 .searchOuter{
@@ -334,7 +333,7 @@ a:hover{
 }
 .searchResultsInner{
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 .searchTitle{

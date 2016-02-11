@@ -116,6 +116,12 @@ function updatePlugin($id){
             $meta .= '
 <meta name="author" content="'.$aut.'">';
         }
+        $analytics = "";
+        $que2 = "SELECT * FROM `settings` WHERE parameter='analyticsCode'";
+        $erg = mysqli_query($sql, $que2);
+        while ($row = mysqli_fetch_array($erg)) {
+            $analytics = $row['value'];
+        }
         for ($j = 0; $j < sizeof($filesWithIncludes); $j++) {
             $file = fopen($filesWithIncludes[$j], 'r');
             $infile = fread($file, filesize($filesWithIncludes[$j]));
@@ -128,6 +134,12 @@ function updatePlugin($id){
                 $end = substr($infile,strpos($infile,'<!--#end#-->'));
             }
             $infile = $start.$meta.$end;
+            if(strpos($infile,'<!--#analytics data#-->') > -1){
+                $start = substr($infile,0,strpos($infile,'<!--#analytics data#-->') + 23);
+                $infile = substr($infile,strpos($infile,'<!--#analytics data#-->') + 23);
+                $end = substr($infile,strpos($infile,'<!--#end#-->'));
+            }
+            $infile = $start.$analytics.$end;
             if (strpos($infile, '<!--#style for plugins#-->') > -1) {
                 $start = substr($infile, 0, strpos($infile, '<!--#style for plugins#-->') + 26);
                 $ktxt = substr($infile,strpos($infile,'<!--#style for plugins#-->')+26);

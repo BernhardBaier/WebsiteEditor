@@ -13,7 +13,6 @@
 #file#auth.php#
 #file#include.php#
 #file#calendar.php#
-#file#stylePluginCalendar.css#
 #file#stylePluginCalendar.min.css#
 #file#style.css#
 #file#style.min.css#
@@ -21,4 +20,8 @@
 #file#upload.php#
 #includes#
 #file#stylePluginCalendar.min.css#
+#file#styles/Red1.css#
+#file#styles/Red1.min.css#
+#file#styles/Gray1.css#
+#file#styles/Gray1.min.css#
 #end#

@@ -57,7 +57,7 @@ function showYear(year){
                 i18n:{
                     de:{
                         months:[
-                            'Januar','Februar','März','April',
+                            'Januar','Februar','Mï¿½rz','April',
                             'Mai','Juni','Juli','August',
                             'September','Oktober','November','Dezember',
                         ],
@@ -187,7 +187,7 @@ function editTermin(id){
                 i18n:{
                     de:{
                         months:[
-                            'Januar','Februar','März','April',
+                            'Januar','Februar','Mï¿½rz','April',
                             'Mai','Juni','Juli','August',
                             'September','Oktober','November','Dezember',
                         ],
@@ -232,6 +232,18 @@ function togglePlugin(name){
 }
 function parsed(){
     $('.calendarImport').addClass('big');
+}
+function plugin".$name."SetColor(color){
+    $.ajax({
+        type: 'POST',
+        url: '$location/calendar.php',
+        data: 'function=changeColor&color='+color+'&lang='+lang,
+        success: function(data) {
+            if(data == '1'){
+                document.getElementById('styleCalendarFile').href = 'plugins/calendar/stylePluginCalendar.min.css?v=' + new Date().getMilliseconds()
+            }
+        }
+    });
 }";
     $file = fopen("$location/script.js",'w');
     fwrite($file,$output);
@@ -239,6 +251,6 @@ function parsed(){
 }
 echo("
 <script src='$location/script.js'></script>
-<link rel='stylesheet' href='$location/stylePluginCalendar.min.css' />
+<link id='styleCalendarFile' rel='stylesheet' href='$location/stylePluginCalendar.min.css' />
 <link rel='stylesheet' href='$location/style.min.css' />
 ");
