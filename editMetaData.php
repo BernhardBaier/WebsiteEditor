@@ -17,6 +17,8 @@ function updateValue($key,$value){
             $found = $row['value'];
         }
     }
+    $value = str_replace("'","\'",$value);
+    $value = str_replace('"','\"',$value);
     if ($found === false) {
         $que2 = "INSERT INTO $sqlBase.settings (`parameter`,`value`) VALUES ('$key','$value')";
     } else {

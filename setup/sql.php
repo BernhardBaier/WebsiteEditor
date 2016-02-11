@@ -41,7 +41,7 @@ if(isset($_POST['base'])){
 		fclose($datei);
 		chmod('../access.crypt',0600);
 		if(!$file){
-			$que = "CREATE TABLE `".$sqlBase."`.`settings`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`parameter` VARCHAR( 150 ) NULL ,`value` VARCHAR( 150 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
+			$que = "CREATE TABLE `".$sqlBase."`.`settings`(`id` INT( 100 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,`parameter` VARCHAR( 150 ) NULL ,`value` VARCHAR( 1500 ) NULL ,`extra` VARCHAR( 150 ) NULL);";
 			mysqli_query($sql, $que);
 			$sslPath = $_POST['ssl'];
 			$que = "INSERT INTO $sqlBase.settings (parameter,value) VALUES ('sslPath','$sslPath')";

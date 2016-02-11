@@ -155,7 +155,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #fff;
+    background: #FFFFFF;
     text-align: center;
     background: rgba(255,255,255,0.8);
     border-radius: 4px;
@@ -163,7 +163,7 @@
 .calendarLoading.hidden{
     display: none;
 }
-.pluginCalendarAddEventMonth{
+.pluginCalendarAddEventMonth {
     position: absolute;
     z-index: 3;
     right: 1px;
