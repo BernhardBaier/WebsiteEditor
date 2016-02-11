@@ -127,7 +127,7 @@ function showPageInOverlay(id){
                             }
                             var subMenu = "<div class='subMenu'>";
                             for(var i=0;i<subSubPageIdsKnown.length;i++){
-                                subMenu += "<div class='menuItem' id='menuItem"+subSubPageIdsKnown[i]+"' onclick='showPageInOverlay("+subSubPageIdsKnown[i]+")'>"+subSubPageNamesKnown[i]+'</div>';
+                                subMenu += "<div class='menuItem color"+i+"' id='menuItem"+subSubPageIdsKnown[i]+"' onclick='showPageInOverlay("+subSubPageIdsKnown[i]+")'>"+subSubPageNamesKnown[i]+'</div>';
                             }
                             subMenu += "</div>";
                             if(subMenu == "<div class='subMenu'></div>"){
@@ -136,9 +136,9 @@ function showPageInOverlay(id){
                             var menu = "<div class='menuItem topItem' onclick='showPageInOverlay(3)'>Projekte</div>";
                             for(var i=0;i<subPageIdsKnown.length;i++){
                                 if(id == subPageIdsKnown[i]){
-                                    menu += "<div class='menuItem' id='menuItem"+subPageIdsKnown[i]+"' onclick='showPageInOverlay("+subPageIdsKnown[i]+")'>"+subPageNamesKnown[i]+'</div>'+subMenu;
+                                    menu += "<div class='menuItem color"+i+"' id='menuItem"+subPageIdsKnown[i]+"' onclick='showPageInOverlay("+subPageIdsKnown[i]+")'>"+subPageNamesKnown[i]+'</div>'+subMenu;
                                 }else{
-                                    menu += "<div class='menuItem' id='menuItem"+subPageIdsKnown[i]+"' onclick='showPageInOverlay("+subPageIdsKnown[i]+")'>"+subPageNamesKnown[i]+'</div>';
+                                    menu += "<div class='menuItem color"+i+"' id='menuItem"+subPageIdsKnown[i]+"' onclick='showPageInOverlay("+subPageIdsKnown[i]+")'>"+subPageNamesKnown[i]+'</div>';
                                 }
                             }
                             if(in_array(id,subSubPageIdsKnown)){
@@ -171,7 +171,7 @@ function showPageInOverlay(id){
                             }
                             var menu = "";
                             for(var i=0;i<subPageIdsKnown.length;i++){
-                                menu += "<div class='menuItem' id='menuItem"+subPageIdsKnown[i]+"' onclick='showPageInOverlay("+subPageIdsKnown[i]+")'>"+subPageNamesKnown[i]+'</div>';
+                                menu += "<div class='menuItem color"+i+"' id='menuItem"+subPageIdsKnown[i]+"' onclick='showPageInOverlay("+subPageIdsKnown[i]+")'>"+subPageNamesKnown[i]+'</div>';
                             }
                             content = "<div class='menu'><div class='menuInner'>"+menu+"</div></div><div class='pageLeft'>"+content+"</div>";
                             $('.pageOverlayContent').html(content);

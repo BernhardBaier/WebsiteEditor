@@ -130,12 +130,6 @@ mysqli_free_result($erg);
                 <div class="styleElementOuter width0">
                     <div class="styleElement color2">
                         <div class="styleElementLink" onclick="showPageInOverlay(5)"><div class="styleElementLinkText row2">Karten online kaufen</div></div>
-                        <!--<div class="flipContainer" id="flipper2">
-                            <div class="flipper">
-                                <div class="flipper front"></div>
-                                <div class="flipper back">Place for something here</div>
-                            </div>
-                        </div>-->
                     </div>
                 </div>
                 <div class="styleElementOuter width0">

@@ -1,5 +1,5 @@
-#description#DWD Warnmodul for template Red1#
-#version#4.2.35#
+#description#Template Hair1 style update#
+#version#4.2.36#
 #updateVersion#2.11#
 #path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
 #file#../update/update.php#date#20160104132112#
@@ -153,7 +153,7 @@
 #file#../plugins/templates/templates/Gray1/styleSpecialContent.min.css#date#20151110020814#
 #file#../plugins/templates/templates/Hair1/getSubpages.php#date#20160103185602#
 #file#../plugins/templates/templates/Hair1/hair1.tmpl#date#20160104140838#
-#file#../plugins/templates/templates/Hair1/html5.php#date#20160207222116#
+#file#../plugins/templates/templates/Hair1/html5.php#date#20160201222310#
 #file#../plugins/templates/templates/Hair1/images/close.png#date#20150823181502#
 #file#../plugins/templates/templates/Hair1/images/Fingers.png#date#20151229230732#
 #file#../plugins/templates/templates/Hair1/images/Fingers_mobile.png#date#20151231172218#
@@ -170,13 +170,13 @@
 #file#../plugins/templates/templates/Hair1/OilBats.ttf#date#20030222145946#
 #file#../plugins/templates/templates/Hair1/peacechild-beta.ttf#date#20030331105844#
 #file#../plugins/templates/templates/Hair1/pictures/preview.jpg#date#20160103215314#
-#file#../plugins/templates/templates/Hair1/scriptHTML5.js#date#20160103200609#
-#file#../plugins/templates/templates/Hair1/scriptHTML5.min.js#date#20160114140551#
+#file#../plugins/templates/templates/Hair1/scriptHTML5.js#date#20160201223829#
+#file#../plugins/templates/templates/Hair1/scriptHTML5.min.js#date#20160211225956#
 #file#../plugins/templates/templates/Hair1/scriptMobile.js#date#20160103200609#
 #file#../plugins/templates/templates/Hair1/scriptMobile.min.js#date#20160114140551#
 #file#../plugins/templates/templates/Hair1/segoe-script.ttf#date#20151230200245#
-#file#../plugins/templates/templates/Hair1/styleHTML5.css#date#20160114141205#
-#file#../plugins/templates/templates/Hair1/styleHTML5.min.css#date#20160114141206#
+#file#../plugins/templates/templates/Hair1/styleHTML5.css#date#20160211225807#
+#file#../plugins/templates/templates/Hair1/styleHTML5.min.css#date#20160211225808#
 #file#../plugins/templates/templates/Hair1/styleMobile.css#date#20160103200222#
 #file#../plugins/templates/templates/Hair1/styleMobile.min.css#date#20160103200223#
 #file#../plugins/templates/templates/Indigo1/footer_de.php#date#20160114130443#
@@ -278,12 +278,12 @@
 #file#../plugins/templates/templates/Red1/mobile.php#date#20160207222116#
 #file#../plugins/templates/templates/Red1/pictures/preview.jpg#date#20151014000327#
 #file#../plugins/templates/templates/Red1/red1.tmpl#date#20160114131248#
-#file#../plugins/templates/templates/Red1/scriptHTML5.js#date#20160114130821#
-#file#../plugins/templates/templates/Red1/scriptHTML5.min.js#date#20160114140551#
+#file#../plugins/templates/templates/Red1/scriptHTML5.js#date#20160212185411#
+#file#../plugins/templates/templates/Red1/scriptHTML5.min.js#date#20160212185500#
 #file#../plugins/templates/templates/Red1/scriptMobile.js#date#20151121133429#
 #file#../plugins/templates/templates/Red1/scriptMobile.min.js#date#20160114140551#
-#file#../plugins/templates/templates/Red1/styleHTML5.css#date#20160212163223#
-#file#../plugins/templates/templates/Red1/styleHTML5.min.css#date#20160212163224#
+#file#../plugins/templates/templates/Red1/styleHTML5.css#date#20160212164311#
+#file#../plugins/templates/templates/Red1/styleHTML5.min.css#date#20160212164311#
 #file#../plugins/templates/templates/Red1/styleMobile.css#date#20151018152924#
 #file#../plugins/templates/templates/Red1/styleMobile.min.css#date#20151018152932#
 #file#../plugins/templates/templates/Teal1/footer_de.php#date#20160114130443#
