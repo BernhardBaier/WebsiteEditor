@@ -29,10 +29,10 @@ function getCookie(c_name){
 function correctRightBarNow(){
     if(correctRightBar){
         if($('.rightBar').height() < $('.content').height()){
-            $('.rightBar').height($('.content').height());
+            $('.rightBar').css('min-height',$('.content').height());
         }else {
-            $('.content').height($('.rightBarInner').height() + 5);
-            $('.rightBar').height($('.content').height());
+            $('.content').css('min-height',$('.rightBarInner').height() + 5);
+            $('.rightBar').css('min-height',$('.content').height());
         }
     }
 }
