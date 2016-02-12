@@ -26,12 +26,18 @@ function getCookie(c_name){
     }
     return c_value;
 }
-function init(){
+function correctRightBarNow(){
     if(correctRightBar){
         if($('.rightBar').height() < $('.content').height()){
             $('.rightBar').height($('.content').height());
+        }else {
+            $('.content').height($('.rightBarInner').height() + 5);
+            $('.rightBar').height($('.content').height());
         }
     }
+}
+function init(){
+    correctRightBarNow();
     loadCalendarSide(3);
     initCalendarPage();
     initGallerySlider();
@@ -112,6 +118,7 @@ function loadCalendarSide(count){
         data: 'maxCount='+count+'&function=side',
         success: function(data) {
             $('.calendarSide').html(data);
+            correctRightBarNow();
         }
     });
 }

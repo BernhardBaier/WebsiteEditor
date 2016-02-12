@@ -362,6 +362,7 @@ a:hover{
     padding: 0;
     margin: 5px 0 2px 0;
     border: 1px solid #ffebee;
+    min-height: 270px;
 }
 .weatherTitle{
     background: #fff;
