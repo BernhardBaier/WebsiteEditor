@@ -69,10 +69,18 @@
     font-size:13px;
     padding:3px 1px 1px 1px;
 }
+.calendarSide{
+    border: 1px solid #ffebee;
+    border-radius: 4px;
+    background: #fff;
+}
 .calendarSiteHeader{
     text-align:center;
     font-size:18px;
     font-weight:bold;
+    background: #fff;
+    border-radius: 3px 3px 0 0;
+    margin: 0 0 2px 0;
 }
 .calendarSiteTitle{
     text-align:center;

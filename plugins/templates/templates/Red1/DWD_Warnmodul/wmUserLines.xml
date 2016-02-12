@@ -1,0 +1,35 @@
+<wmDWD_UserLines>
+	Sie koennen mehrere "Linien" definieren.
+	name (z.B. "Linie 1") ist der Grundname der im PopUp angezeigt wird; thickness die Liniendicke (ganzzahlig>=1), color die Farbe in der Form 0x55ffaa
+	<Line name="Linie 1" thickness="1" color="0x55ffaa"  alpha="1">  
+		Jede Linie kann aus mehreren Segmenten bestehen, die nicht zusammenhaengen muessen. Sie haben alle die gleiche Farbe und Dicke
+		Der Segmentname (z.B. "Abschnitt 1" wird im PopUp mit angezeigt ("Linie 1 - Abschnitt 1")
+		Die Angabe der Koordinaten erfolgt in Grad mit Dezimalpunkt. Kommas werden durch Punkte ersetzt.
+		Moegliche Trennzeichen zwischen den beiden Koordinaten eines Punktes sind Leerzeichen, Semikolon, Tabulator.
+		Fuehrende Leerzeichen oder Tabulatoren werden ignoriert
+		<Segment name="Abschnitt 1">	
+			9.7259627478988	54.2879039210516
+			9.6745797773930	54.3474273148515
+			9.4734001175958	54.3979431791520
+			9.4245399532843	54.4601302933461
+			9.4289338147453	54.5333869571853
+			9.4229854520162	54.6219210876458
+			9.3678514743831	54.7049987115474
+			9.3321880953384	54.7210280681338
+		</Segment>
+	</Line>
+	<Line name="Linie 2" thickness="3" color="0xff0000" alpha="1">  
+		Jede Linie kann aus mehreren Segmenten bestehen, die nicht zusammenhaengen muessen. Sie haben alle die gleiche Farbe und Dicke
+		Der Segmentname (z.B. "Abschnitt 1" wird im PopUp mit angezeigt ("Linie 1 - Abschnitt 2")
+		Die Angabe der Koordinaten erfolgt in Grad mit Dezimalpunkt. Kommas werden durch Punkte ersetzt.
+		Trennzeichen zwischen den beiden Koordinaten eines Punktes sind Leerzeichen. Fuehrende Leerzeichen oder Tabulatoren werden ignoriert
+		<Segment name="Abschnitt 2">	
+			9.3321880953384	54.7210280681338
+			9.2634699351717	54.7542821539138
+			9.2247061747638	54.8225247718155
+			9.2147638295378	54.8327040916725
+			9.2018341807171	54.8459353195250
+			9.1929704996201	54.8596516784907
+		</Segment>
+	</Line>	
+</wmDWD_UserLines>

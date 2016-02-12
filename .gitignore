@@ -2,7 +2,7 @@
 *.pptx
 *.ppt
 *.rar
-*.txt
+/*.txt
 upload/*
 content/de/*
 content/en/*

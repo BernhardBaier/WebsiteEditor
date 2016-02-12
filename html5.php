@@ -220,6 +220,17 @@ while($pos > -1){
                     <div class="rightBarInner">
                         <div class="calendarSide"></div>
                         <div class="weatherOuter">
+                            <div class="weatherTitle">Wetterwarnungen</div>
+                            <object data="plugins/templates/templates/Red1/DWD_Warnmodul/WarnModulDWD.swf?HOME=./plugins/templates/templates/Red1/DWD_Warnmodul/" type="application/x-shockwave-flash" width="100%" height="250">
+                                <param name="movie" value="WarnModulDWD.swf?HOME=./plugins/templates/templates/Red1/DWD_Warnmodul/">
+                                <param name="quality" value="high">
+                                <param name="scale" value="exactfit">
+                                <param name="menu" value="true">
+                                <!-- Alternate content -->
+                                <h4>Für den Inhalt dieser Seite ist der Adobe Flash Player erforderlich.</h4>
+                                <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Adobe Flash Player herunterladen" width="112" height="33" /></a></p>
+                                <!-- End alternate content -->
+                            </object>
                         </div>
                     </div>
                 </div>
