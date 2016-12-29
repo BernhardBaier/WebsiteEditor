@@ -2,7 +2,7 @@
 error_reporting(E_ERROR);
 include 'access.php';
 if($authLevel == '1111'){
-    $updateVersion = "2.11";
+    $updateVersion = "2.12";
     $updateUpdater = false;
     if($_GET['action'] == 'updateFileList'){
         $file = fopen('fileList.list','r');
@@ -34,11 +34,16 @@ if($authLevel == '1111'){
             $in = substr($in,strpos($in,'#file#'));
         }
         $in = $description.$version.'
-#updateVersion#'.$updateVersion.'#'.$path.$in;
+#updateVersion#'.$updateVersion.'#
+'.$path.$in;
         $file = fopen('fileList.list','w');
         fwrite($file,$in);
         fclose($file);
     }
+    $remotePath = false;
+    $file = fopen('http://baier-consulting.de/githubpath.txt','r');
+    $remotePath = fread($file,filesize('fileList.list'));
+    fclose($file);
     $file = fopen('fileList.list','r');
     $in = fread($file,filesize('fileList.list'));
     fclose($file);
@@ -48,10 +53,9 @@ if($authLevel == '1111'){
         $oldVersion = substr($in,0,strpos($in,'#'));
         $in = substr($in,strpos($in,'#')+1);
     }
-    $remotePath = false;
     if(strpos($in,'#path#')>-1){
         $in = substr($in,strpos($in,'#path#')+6);
-        $remotePath = substr($in,0,strpos($in,'#'));
+        $remotePathFile = substr($in,0,strpos($in,'#'));
         $in = substr($in,strpos($in,'#')+1);
     }
     if($remotePath == false){
@@ -332,7 +336,7 @@ if($authLevel == '1111'){
 <body onload="init()">
 <div class="container" align="center">
     <div class="updateUpdater hidden">Updater is being updated. Please wait.</div>
-    <div class="pageTitle">Welcome to the update Panel.<?php if($oldVersion!=$version){echo("<br>Your WebsiteEditor will be updated from Version $oldVersion to $version:");}?></div>
+    <div class="pageTitle">Welcome to the update Panel.<?php if($oldVersion!=$version){echo("<div class='info'>Your WebsiteEditor will be updated from Version $oldVersion to $version:</div>");}if($remotePathFile != $remotePath){echo("<div class='info'>updated path of the remote directory</div>");}?></div>
     <div style="position: relative">
         <div class="description"><?php  if($oldVersion!=$version){echo($description);}?></div>
         <div class="data"></div>
