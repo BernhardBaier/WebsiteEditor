@@ -179,7 +179,7 @@ if(isset($_GET['action'])){
         </label>
     </div>
     <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-    <img src="../../images/gear.png" style="position: absolute;cursor: pointer;left:250px" onclick="$('.importOptions').toggleClass('hidden')" style="width: 20px; />ICal File:<br>
+    <img src="../../images/gear.png" style="position: absolute;cursor: pointer;left:250px;width:20px" onclick="$('.importOptions').toggleClass('hidden')" />ICal File:<br>
     <input name="upfile" type="file" /><br>
     <input type="submit" value="parse file" />
 </form>
