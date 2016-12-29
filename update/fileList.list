@@ -1,13 +1,12 @@
-#description#Template Hair1 style update#
-#version#4.2.36#
-#updateVersion#2.11#
-#path#http://github.com/BernhardBaier/WebsiteEditor/raw/master/#
-#file#../update/update.php#date#20160104132112#
+#description#Bugfix in calendar plugin##version#4.2.37#
+#updateVersion#2.12#
+#path#https://raw.githubusercontent.com/BernhardBaier/WebsiteEditor/master/#
+#file#../update/update.php#date#20161204132112#
 #file#../update/copy.php#date#20151111130257#
 #file#../update/access.php#date#20150823181513#
 #file#../update/auth.php#date#20150823181513#
 #file#../update/finish.php#date#20150823181512#
-#file#../update/style.css#date#20151110213103#
+#file#../update/style.css#date#20161110213103#
 #file#../update/checkUpdate.php#date#20160104132221#
 #file#../datepicker/jquery.datetimepicker.css#date#20150912172159#
 #file#../datepicker/jquery.datetimepicker.js#date#20150912172306#
@@ -330,7 +329,7 @@
 #file#../plugins/calendar/styles/Gray1.min.css#date#20160211210033#
 #file#../plugins/calendar/styles/red1.css#date#20160212163007#
 #file#../plugins/calendar/styles/red1.min.css#date#20160212163007#
-#file#../plugins/calendar/upload.php#date#20151222223707#
+#file#../plugins/calendar/upload.php#date#20161222223707#
 #file#../plugins/settings/functions.php#date#20160211204926#
 #file#../plugins/settings/images/active.png#date#20151015122955#
 #file#../plugins/settings/images/logo.png#date#20151015123000#
