@@ -1,4 +1,4 @@
-#description#Bugfix in calendar plugin##version#4.2.37#
+#description#first version of csv import in plugin calendar#version#4.2.38#
 #updateVersion#2.12#
 #path#https://raw.githubusercontent.com/BernhardBaier/WebsiteEditor/master/#
 #file#../update/update.php#date#20161204132112#
@@ -313,7 +313,7 @@
 #file#../plugins/templates/templates/Teal1/teal1.tmpl#date#20160114131248#
 #file#../plugins/calendar/calendar.php#date#20160211205258#
 #file#../plugins/calendar/calendar.plg#date#20160211215329#
-#file#../plugins/calendar/icalParser.php#date#20150823181505#
+#file#../plugins/calendar/icalParser.php#date#20170101000000#
 #file#../plugins/calendar/images/active.png#date#20150823181505#
 #file#../plugins/calendar/images/down.png#date#20150910184354#
 #file#../plugins/calendar/images/helm_aktive.jpg#date#20150823181505#
@@ -329,7 +329,7 @@
 #file#../plugins/calendar/styles/Gray1.min.css#date#20160211210033#
 #file#../plugins/calendar/styles/red1.css#date#20160212163007#
 #file#../plugins/calendar/styles/red1.min.css#date#20160212163007#
-#file#../plugins/calendar/upload.php#date#20161222223707#
+#file#../plugins/calendar/upload.php#date#20170101000000#
 #file#../plugins/settings/functions.php#date#20160211204926#
 #file#../plugins/settings/images/active.png#date#20151015122955#
 #file#../plugins/settings/images/logo.png#date#20151015123000#

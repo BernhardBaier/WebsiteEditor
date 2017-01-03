@@ -37,3 +37,4 @@
 #version#4.2.35#DWD Warnmodul for template Red1#
 #version#4.2.36#Template Hair1 style update#
 #version#4.2.37#Bugfix in calendar plugin#
+#version#4.2.38#first version of csv import in plugin calendar#
