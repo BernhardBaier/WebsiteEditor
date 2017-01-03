@@ -46,6 +46,37 @@ function findInArray($arr,$needle){
         }
     }
 }
+function getPos($event){
+	$foundUml = true;
+	$ktxt = $event;
+	$posFound = -1;
+	while($foundUml){
+		$pos = strpos($ktxt,"uml;");
+		settype($pos,'int');
+		$pos = $pos==0?-1:$pos;
+		$p2 = strpos($ktxt,"&szlig;");
+		settype($p2,'int');
+		$p2 = $p2>0?$p2+3:-1;
+		if($p2 > -1){
+			if($pos > $p2){
+				$pos = $p2;
+			}
+		}
+		if($pos > -1 && strpos($ktxt,";") -3 == $pos){
+			$ktxt = substr($ktxt,$pos + 4);
+			$pos += 4;
+		}else{
+			$pos = strpos($ktxt,";");
+			$foundUml = false;
+		}
+		settype($posFound,'int');
+		settype($pos,'int');
+		$posFound = $posFound == -1?0:$posFound;
+		$posFound = $posFound + $pos;
+	}
+	$posFound = $posFound == 0?-1:$posFound;
+	return $posFound;
+}
 if(substr($authLevel,0,1) == '1'){
     if(!file_exists($path)){
         echo('this file does not exist!');
@@ -54,52 +85,84 @@ if(substr($authLevel,0,1) == '1'){
     $file = fopen($path,'r');
     $content = fread($file,filesize($path));
     fclose($file);
-    $content =  iconv("UTF-8", "ISO-8859-1//IGNORE", $content);
     $olds = ['<und>','<dpp>','ä','ö','ü','Ä','Ö','Ü','ß'];
     $news = ['&',':','&auml;','&ouml;','&uuml;','&Auml;','&Ouml;','&Uuml;','&szlig;'];
     $content = str_replace($olds,$news,$content);
-    if(!(strpos($content,'BEGIN:VCALENDAR') > -1)){
-        invalid();
-    }
-    $pos = strpos($content,'BEGIN:VEVENT');
-    if(!($pos > -1)){
-        invalid();
-    }
-    $days = ['MO','TU','WE','TH','FR','SA','SU'];
-    $count = 0;
-    while($pos > -1){
-        $content = substr($content,$pos+9);
-        $event = substr($content,0,strpos($content,"END:VEVENT"));
-        $start[$count] = substr($event,strpos($event,"DTSTART")+7);
-        $start[$count] = substr($start[$count],strpos($start[$count],":")+1);
-        $start[$count] = substr($start[$count],0,strpos($start[$count],"T")+7);
-        $date[$count] = substr($start[$count],0,strpos($start[$count],"T"));
-        $date[$count] = substr($date[$count],6,2).'.'.substr($date[$count],4,2).'.'.substr($date[$count],0,4);
-        $start[$count] = substr($start[$count],strpos($start[$count],"T")+1,4);
-        $start[$count] = substr($start[$count],0,2).':'.substr($start[$count],2);
-        $end[$count] = substr($event,strpos($event,"DTEND")+5);
-        $end[$count] = substr($end[$count],strpos($end[$count],":")+1);
-        $end[$count] = substr($end[$count],0,strpos($end[$count],"T")+7);
-        $end[$count] = substr($end[$count],strpos($end[$count],"T")+1,4);
-        $end[$count] = substr($end[$count],0,2).':'.substr($end[$count],2);
-        $summary[$count] = substr($event,strpos($event,"SUMMARY")+8);
-        $summary[$count] = substr($summary[$count],0,strpos($summary[$count],PHP_EOL));
-        $loc[$count] = substr($event,strpos($event,"LOCATION")+9);
-        $loc[$count] = substr($loc[$count],0,strpos($loc[$count],PHP_EOL));
-        if(str_replace(array("\r\n", "\r", "\n", " "),'',$loc[$count]) == ''){
-            $loc[$count] = $defaultLocation;
-        }
-        if(strpos($event,'RRULE') > -1){
-            $rule[$count] = substr($event,strpos($event,"RULE")+5);
-            $rule[$count] = substr($rule[$count],0,strpos($rule[$count],PHP_EOL));
-            $rule[$count] = str_replace(array("\r\n", "\r", "\n", " "),'',$rule[$count]);
-        }else{
-            $rule[$count] = '';
-        }
+	if(strpos($content,'BEGIN:VCALENDAR') > -1){
+		$pos = strpos($content,'BEGIN:VEVENT');
+		if(!($pos > -1)){
+			invalid();
+		}
+		$days = ['MO','TU','WE','TH','FR','SA','SU'];
+		$count = 0;
+		while($pos > -1){
+			$content = substr($content,$pos+9);
+			$event = substr($content,0,strpos($content,"END:VEVENT"));
+			$start[$count] = substr($event,strpos($event,"DTSTART")+7);
+			$start[$count] = substr($start[$count],strpos($start[$count],":")+1);
+			$start[$count] = substr($start[$count],0,strpos($start[$count],"T")+7);
+			$date[$count] = substr($start[$count],0,strpos($start[$count],"T"));
+			$date[$count] = substr($date[$count],6,2).'.'.substr($date[$count],4,2).'.'.substr($date[$count],0,4);
+			$start[$count] = substr($start[$count],strpos($start[$count],"T")+1,4);
+			$start[$count] = substr($start[$count],0,2).':'.substr($start[$count],2);
+			$end[$count] = substr($event,strpos($event,"DTEND")+5);
+			$end[$count] = substr($end[$count],strpos($end[$count],":")+1);
+			$end[$count] = substr($end[$count],0,strpos($end[$count],"T")+7);
+			$end[$count] = substr($end[$count],strpos($end[$count],"T")+1,4);
+			$end[$count] = substr($end[$count],0,2).':'.substr($end[$count],2);
+			$summary[$count] = substr($event,strpos($event,"SUMMARY")+8);
+			$summary[$count] = substr($summary[$count],0,strpos($summary[$count],PHP_EOL));
+			$loc[$count] = substr($event,strpos($event,"LOCATION")+9);
+			$loc[$count] = substr($loc[$count],0,strpos($loc[$count],PHP_EOL));
+			if(str_replace(array(PHP_EOL,"\r\n", "\r", "\n", " "),'',$loc[$count]) == ''){
+				$loc[$count] = $defaultLocation;
+			}
+			if(strpos($event,'RRULE') > -1){
+				$rule[$count] = substr($event,strpos($event,"RULE")+5);
+				$rule[$count] = substr($rule[$count],0,strpos($rule[$count],PHP_EOL));
+				$rule[$count] = str_replace(array("\r\n", "\r", "\n", " "),'',$rule[$count]);
+			}else{
+				$rule[$count] = '';
+			}
 
-        $count++;
-        $pos=strpos($content,'BEGIN:VEVENT');
-    }
+			$count++;
+			$pos=strpos($content,'BEGIN:VEVENT');
+		}
+	}else{
+		$pos = strpos($content,PHP_EOL);
+		if(!($pos > -1)){
+			invalid();
+		}
+		$count = 0;
+		while($pos > -1){
+			$event = substr($content,0,strpos($content,PHP_EOL));
+			$pos = getPos($event);
+			$date[$count] = substr($event,0,$pos);
+			$event = substr($event,$pos + 1);
+			$pos = getPos($event);
+			$summary[$count] = substr($event,0,$pos);
+			$event = substr($event,$pos + 1);
+			$pos = getPos($event);
+			$start[$count] = substr($event,0,$pos);
+			$event = substr($event,$pos + 1);
+			$pos = getPos($event);
+			if($pos == -1){
+				$end[$count] = $event;
+				$loc[$count] = $defaultLocation;
+			}else{
+				$end[$count] = substr($event,0,$pos);
+				$event = substr($event,$pos + 1);
+				$loc[$count] = $event;
+			}
+			if(strpos($date[$count],'-') > -1){
+				$count = $count - 1;
+				// TODO: code for longterm events
+			}
+			$count++;
+			$content = substr($content,strpos($content,PHP_EOL)+1);
+			$pos=strpos($content,PHP_EOL);
+		}
+	}
     $terminCount = 0;
     for($i=0;$i<$count;$i++){
         $termine[$terminCount] = str_replace(array("\r\n", "\r", "\n"), '','<div class="event">'.$date[$i].' '.$start[$i].' - '.$end[$i].' '.$summary[$i].' at '.$loc[$i].'<div class="addEvent" id="addEvent'.$terminCount.'" onclick="insertEvent(\''.$date[$i].'\',\''.$start[$i].'\',\''.$end[$i].'\',\''.$summary[$i].'\',\''.$loc[$i].'\',\''.$belongsTo.'\');">Add</div></div>');
